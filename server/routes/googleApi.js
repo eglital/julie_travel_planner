@@ -1,30 +1,38 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
+const models = require("./../models");
+const Itinerary = mongoose.model("Itinerary");
 
 const googleMapsClient = require("@google/maps").createClient({
   key: process.env.GOOGLE_API_KEY,
   Promise: require("q").Promise
 });
 
-router.get("/itinerary/select", (req, res, next) => {
-  // const { location, itineraryId } = req.body;
+router.get("/itinerary/select", (req, res) => {
+  const { location, itineraryId } = req.body;
   console.log("checking distance");
-
-  googleMapsClient
-    .distanceMatrix({
-      origins: [[44.096866, -70.168594]],
-      destinations: [[44.107652, -70.202036]],
-      language: "en",
-      units: "metric",
-      region: "au"
-    })
-    .asPromise()
-    .then(response => {
-      res.send(response.json);
-    })
-    .catch(err => {
-      res.send(err.json);
-    });
+  let destinations = [location.lat, location.long];
+  let origins, departure_time;
+  Itinerary.findById(itineraryId).then(itinerary => {
+    departure_time = itinerary.data[0].departureTime;
+    origins = [itinerary.data[0].lat, itinerary.data[0].long];
+    googleMapsClient
+      .distanceMatrix({
+        origins: [origins],
+        destinations: [destinations],
+        mode: "driving",
+        departure_time,
+        units: "imperial"
+      })
+      .asPromise()
+      .then(response => {
+        res.send(response.json.rows[0].elements[0].duration);
+      })
+      .catch(err => {
+        res.send(err.json.error_message);
+      });
+  });
 });
 
 module.exports = router;
