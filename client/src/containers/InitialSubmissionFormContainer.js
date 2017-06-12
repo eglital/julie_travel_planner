@@ -4,6 +4,7 @@ import React, {
 from 'react';
 import InitialSubmissionForm from '../components/InitialSubmissionForm';
 import { fetchLocationsData } from '../actions/locations';
+import { connect } from 'react-redux';
 
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -91,7 +92,13 @@ class InitialSubmissionFormContainer extends Component {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchLocationsData: () => {
+            dispatch(fetchLocationsData());
+        }
+    };
+}
 
 
-
-export default InitialSubmissionFormContainer;
+export default connect(null, mapDispatchToProps)(InitialSubmissionFormContainer);
