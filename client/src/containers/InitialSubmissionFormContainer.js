@@ -7,8 +7,8 @@ import moment from 'moment';
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
     let start = moment();
-    start = moment(Math.ceil((+start) / ROUNDING) * ROUNDING);
-    return start.milliseconds();
+    console.log('start before', start);
+    return Math.ceil((+start) / ROUNDING) * ROUNDING;
 }
 
 
@@ -24,8 +24,7 @@ class InitialSubmissionFormContainer extends Component{
         //create new rounded time to pass to submission form each time
         //consider moving to lifecycle hook to check for changes to avoid rerenders
         let nextHour = getNextHour();
-        
-        
+
         
         return (
             <InitialSubmissionForm nextHour={nextHour}/>    

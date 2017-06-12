@@ -15,14 +15,16 @@ function createStartTimeOptions(nextHour) {
 function getHoursInMilliseconds(nextHour) {
     //warp in moment for functionality
     nextHour = moment(nextHour);
+    console.log("nexthour wrapped", nextHour);
     //create an array of times in milliseconds starting with the hour until 22:00 of the same day
     let hours = [];
     while (nextHour.hour() < 23) {
         //push the time in milliseconds
-        hours.push(nextHour.millisecond());
+        hours.push(+nextHour);
         //mutate the moment
         nextHour.add(1, 'h');
     }
+    console.log("hours", hours);
     return hours;
 }
 
