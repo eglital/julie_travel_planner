@@ -2,11 +2,11 @@ import React from 'react';
 import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
 
 const LocationSelection = props => {
-  const { location } = props;
+  const { location, onClick } = props;
   let photo = location.photo || './180.png';
-  //if (!location.photo) location.photo = './180.png';
+
   return (
-    <Card style={{ marginBottom: '10px' }}>
+    <Card style={{ marginBottom: '10px' }} onClick={onClick}>
       <CardBlock style={{ padding: '10px' }}>
         <CardImg
           style={{ float: 'left', paddingRight: '10px' }}

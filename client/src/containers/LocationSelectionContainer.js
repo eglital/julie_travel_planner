@@ -3,19 +3,27 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'reactstrap';
 import LocationSelection from '../components/LocationSelection';
 import ProgressBar from '../components/Progress';
-//import locationsExample = require('.../helpers/locationsExample');
 import locationsExample from './locationsExample';
+import { addLocationToItinerary } from '../actions/builderActions';
 
 class LocationSelectionContainer extends Component {
   constructor() {
     super();
 
     this.state = {
-      locations: locationsExample
+      locations: locationsExample,
+      itineraryId: 1,
+      duration: 20,
+      startTime: 0,
+      endTime: 100
     };
   }
 
   componentDidMount() {}
+
+  onClickLocation(e) {
+    console.log(e.target.value);
+  }
 
   displayThreeLocations() {
     let loc1 = this.state.locations.food[
@@ -29,9 +37,9 @@ class LocationSelectionContainer extends Component {
     ];
     return (
       <div>
-        <LocationSelection location={loc1} />
-        <LocationSelection location={loc2} />
-        <LocationSelection location={loc3} />
+        <LocationSelection location={loc1} onClick={this.onClickLocation} />
+        <LocationSelection location={loc2} onClick={this.onClickLocation} />
+        <LocationSelection location={loc3} onClick={this.onClickLocation} />
       </div>
     );
   }
@@ -41,7 +49,11 @@ class LocationSelectionContainer extends Component {
       <Container>
         <Row>
           <Col>
-            <ProgressBar />
+            <ProgressBar
+              startTime={this.state.startTime}
+              endTime={this.state.endTime}
+              duration={this.state.duration}
+            />
           </Col>
         </Row>
         <Row>
@@ -80,4 +92,14 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(LocationSelectionContainer);
+const mapDispatchToProps = dispatch => {
+  return {
+    addLocation: (location, itineraryId) => {
+      dispatch(addLocationToItinerary(location, itineraryId));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  LocationSelectionContainer
+);
