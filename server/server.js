@@ -31,7 +31,7 @@ app.use(cors());
 
 app.get("/", function(req, res) {
   res.json({
-    status: "My API is working!"
+    status: "My API is alive!"
   });
 });
 // ----------------------------------------
