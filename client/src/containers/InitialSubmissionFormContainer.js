@@ -3,7 +3,7 @@ import React, {
 }
 from 'react';
 import InitialSubmissionForm from '../components/InitialSubmissionForm';
-
+import { fetchLocationsData } from '../actions/locations';
 
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -68,10 +68,7 @@ class InitialSubmissionFormContainer extends Component {
                 .then((form) => {
                     console.log("updated data", data);
                     //send form to action dispatcher
-                    
-                    
-                    
-                    window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
+                    fetchLocationsData({formSubmission: data});
                 });
 
         }

@@ -14,17 +14,23 @@ export function fetchLocationsDataFailure(error) {
     return {
         type: FETCH_LOCATIONS_DATA_FAILURE,
         error
-    }
+    };
 }
 
 
 export function fetchLocationsData(form) {
     return (dispatch) => {
         
+        
+        //need to use qs to form the form data for the get request
+        
+        
         return fetch('api/locations')
         .then(responseChecker)
         .then(parseToJSON)
         .then((data) => {
+            //on success redirect the user
+            window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
             //update the reducer
             dispatch(fetchLocationsDataSuccess(data.locations));
         })
@@ -38,7 +44,10 @@ export function fetchLocationsData(form) {
 
 
 function responseChecker(response){
-    return response.ok === true;
+    if (!response.ok) {
+        return new Error(response.status);
+    }
+    return response;
 }
 
 function parseToJSON(response) {

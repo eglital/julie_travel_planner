@@ -44,3 +44,39 @@ it("updates the error in the state on failure", function(){
     
     expect(locationsReducer(initialState, action)).toEqual(finalState);
 })
+
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
+import fetchMock from 'fetch-mock'
+import { fetchLocationsData } from '../actions/locations';
+
+describe('async actions', () => {
+    afterEach(() => {
+        fetchMock.reset();
+    })
+    it('creates FETCH LCATIONS DATA SUCCESS upon successful status 200', () => {
+        fetchMock.get(`api/locations`, {
+            status: 200,
+            body: {
+                locations:{food: [], sights: []}
+            }
+        })
+        const expectedActions = [{
+            type: FETCH_LOCATIONS_DATA_SUCCESS,
+            data: {food: [], sights: []}
+        }]
+        const store = mockStore({
+            locations: {}
+        })
+        // return fetch(`/api/users/vaccines?token=${token}`)
+        // .then(response => {
+        //     expect(response.status).toEqual(200);
+        // })
+        return store.dispatch(fetchLocationsData()).then(() => {
+            // return of async actions
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+})
