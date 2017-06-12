@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+//server
 require("es6-promise").polyfill;
 require("isomorphic-fetch");
 const express = require("express");
@@ -30,7 +31,7 @@ app.use(cors());
 
 app.get("/", function(req, res) {
   res.json({
-    status: "My API is alive!"
+    status: "My API is working!"
   });
 });
 // ----------------------------------------
