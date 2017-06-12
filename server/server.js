@@ -119,6 +119,8 @@ app.use((req, res, next) => {
 // Routes
 // ----------------------------------------
 
+const googleApi = require("./routes/googleApi");
+app.use("/api", googleApi);
 // Error handler
 // Defines next action for errors
 function errorHandler(err, req, res, next) {
