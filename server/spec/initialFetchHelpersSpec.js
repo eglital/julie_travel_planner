@@ -18,5 +18,13 @@ describe("This is a section of testes for the initial four square request", () =
       const results = createItinary(dummy);
       expect(results.data[0].lat).toEqual(45.7833);
     });
+    it("returns an Itinearary Object", function() {
+      const results = buildListOfChoices([]);
+      expect(results.length).toEqual(0);
+    });
+    it("returns an Itinearary Object", function() {
+      const results = buildListOfChoices([1, 2, 3, 4]);
+      expect(results.length).toThrow();
+    });
   });
 });

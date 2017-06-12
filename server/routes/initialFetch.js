@@ -5,13 +5,20 @@ const {
 } = require("../helpers/fourSquareRequestHelpers");
 
 router.get("/", (req, res, next) => {
-  //req.query.initial
+  // {
+  // startTime: Number(milliseconds),
+  // endTime: Number(milliseconds),
+  // startingLocation: Array[lat, lon]
+  // }
+
+  req.query;
   let dummy = {};
   dummy.startTime = Date.now();
   dummy.endTime = Date.now() + 14400000;
   dummy.lat = 45.7833;
   dummy.lng = -108.5007;
-  initialFourSquareRequest(dummy)
+  req.query = dummy;
+  initialFourSquareRequest(req.query)
     .then(responseObject => {
       res.send(responseObject);
     })

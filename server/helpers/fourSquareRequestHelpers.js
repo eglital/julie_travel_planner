@@ -1,7 +1,12 @@
 const Itinerary = require("../models").Itinerary;
 
 function initialFourSquareRequest(InitialRequestObject) {
-  InitialRequestObject.startTime = new Date(InitialRequestObject.startTime);
+  InitialRequestObject.startTime = new Date(
+    Number(InitialRequestObject.startTime)
+  );
+  InitialRequestObject.endTime = new Date(Number(InitialRequestObject.endTime));
+  InitialRequestObject.lat = Number(InitialRequestObject.lat);
+  InitialRequestObject.lng = Number(InitialRequestObject.lng);
   const categories = ["food", "outdoors", "arts"];
   const apiStrings = categories.map(category => {
     return fourSquareStringBuilder(category, InitialRequestObject);
@@ -88,6 +93,7 @@ function buildListOfChoices(data) {
 function createItinary(InitialRequestObject) {
   return new Itinerary({
     startTime: InitialRequestObject.startTime,
+    endTime: InitialRequestObject.endTime,
     data: [
       {
         arrivalTime: null,
