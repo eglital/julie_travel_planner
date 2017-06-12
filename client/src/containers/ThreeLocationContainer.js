@@ -23,7 +23,7 @@ class ThreeLocationContainer extends Component {
         <Row>
           <Col>
             <p className="text-center">
-              Click one of the following to add it to your itinerary, and we'll figure out how to get you there.
+              Select one of the following to add it to your itinerary, and we'll figure out how to get you there.
             </p>
             <LocationResult />
             <LocationResult />
@@ -33,7 +33,7 @@ class ThreeLocationContainer extends Component {
         <Row>
           <Col>
             <p className="text-center">
-              Don't want to add anything else to your itinerary? Click here to build your itinerary based on what you've already selected.
+              Don't want to add anything else?
             </p>
           </Col>
         </Row>
@@ -43,7 +43,7 @@ class ThreeLocationContainer extends Component {
             xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
           >
             <Button>
-              Build Itinerary
+              Build Itinerary Now
             </Button>
           </Col>
         </Row>

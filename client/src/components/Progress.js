@@ -4,11 +4,15 @@ import { Progress } from 'reactstrap';
 const ProgressBar = props => {
   return (
     <div style={{ marginTop: '5px', marginBottom: '15px' }}>
-      <div className="text-center">
-        2 of 5 locations selected
-      </div>
-      <div style={{ marginTop: '10px' }}>
-        <Progress value="2" max="5" />
+      <div style={{ marginTop: '5px' }}>
+        <Progress multi>
+          <Progress bar color="success" value="40">
+            <span style={{ float: 'left', marginLeft: '5px' }}>10AM</span>
+          </Progress>
+          <Progress bar color="info" value="60">
+            <span style={{ float: 'right', marginRight: '5px' }}>4PM</span>
+          </Progress>
+        </Progress>
       </div>
     </div>
   );
