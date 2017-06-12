@@ -4,11 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seeds": "node seeds"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/maps": "^0.4.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
@@ -17,7 +19,9 @@
     "express": "^4.15.3",
     "isomorphic-fetch": "^2.2.1",
     "jasmine-node": "^1.14.5",
+    "moment": "^2.18.1",
     "mongoose": "^4.10.5",
-    "morgan": "^1.8.2"
+    "morgan": "^1.8.2",
+    "q": "^1.5.0"
   }
 }
