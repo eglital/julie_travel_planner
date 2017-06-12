@@ -3,19 +3,20 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Col, Row } from 'reactstrap';
 import moment from 'moment';
 
-function createStartTimeOptions(nextHour) {
-    let hours = getHoursInMilliseconds(nextHour);
+function createTimeOptions(time, offset = 0) {
+    //change to milli
+    let hours = getHoursInMilliseconds(offsetTime(time, offset));
     return hours.map((hour) => {
         return (
-            <option key={hour} value={hour}>{moment(hour).format("HH:MM")}</option>    
+            <option key={hour} value={hour}>{moment(hour).format('H')}</option>    
         );
     });
 }
 
+
 function getHoursInMilliseconds(nextHour) {
     //warp in moment for functionality
     nextHour = moment(nextHour);
-    console.log("nexthour wrapped", nextHour);
     //create an array of times in milliseconds starting with the hour until 22:00 of the same day
     let hours = [];
     while (nextHour.hour() < 23) {
@@ -24,17 +25,21 @@ function getHoursInMilliseconds(nextHour) {
         //mutate the moment
         nextHour.add(1, 'h');
     }
-    console.log("hours", hours);
     return hours;
 }
 
+function offsetTime(time, hours) {
+    let hoursInMilliseconds = hours * 60 * 60 * 1000;
+    return time + +hoursInMilliseconds;
+}
 
 class InitialSubmissionForm extends Component {
     
+    
   render() {
       
-      const nextHour = this.props.nextHour;
-      
+      const { startTime, nextHour, onStartTimeChange, onEndTimeChange } = this.props;
+
     return (
         <Row>
             <Col xs="12" sm={{offset: 3, size: 6}}>
@@ -45,18 +50,14 @@ class InitialSubmissionForm extends Component {
                 </FormGroup>
                 <FormGroup>
                   <Label for="startingTime">Select Starting Time</Label>
-                  <Input type="select" name="startingTime" id="startingTime">
-                    {createStartTimeOptions(nextHour)}
+                  <Input type="select" name="startingTime" id="startingTime" onChange={onStartTimeChange}>
+                    {createTimeOptions(nextHour)}
                   </Input>
                 </FormGroup>
                 <FormGroup>
                   <Label for="endingTime">Select Ending Time</Label>
-                  <Input type="select" name="endingTime" id="endingTime">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <Input type="select" name="endingTime" id="endingTime" onChange={onEndTimeChange}>
+                    {createTimeOptions(startTime, 2)}
                   </Input>
                 </FormGroup>
                 <Button>Get planning!</Button>
