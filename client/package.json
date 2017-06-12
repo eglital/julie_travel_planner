@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
+    "moment": "^2.18.1",
+    "moment-round": "^1.0.1",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
