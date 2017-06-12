@@ -4,16 +4,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ItinerarySchema = mongoose.Schema({
-  start_time: {
+  startTime: {
     type: Date,
     required: true
   },
-  end_time: {
+  endTime: {
     type: Date
   },
   duration: {
     type: Number,
-    default: 7200000,
+    default: 0,
     required: true
   },
   data: [{}]
