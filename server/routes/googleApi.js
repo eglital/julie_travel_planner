@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const moment = require("moment");
 const mongoose = require("mongoose");
 const models = require("./../models");
 const Itinerary = mongoose.model("Itinerary");
@@ -9,8 +10,16 @@ const googleMapsClient = require("@google/maps").createClient({
   Promise: require("q").Promise
 });
 
-router.get("/itinerary/select", (req, res) => {
-  const { location, itineraryId } = req.body;
+//in seconds
+const timeInSections = {
+  food: 3600,
+  places: (Math.floor(Math.random() * 2) + 2) * 3600,
+  sights: (Math.floor(Math.random() * 2) + 2) * 3600
+};
+
+router.put("/itinerary/select", (req, res) => {
+  // need to get this from FE
+  const { location, itineraryId, section } = req.body;
   console.log("checking distance");
   let destinations = [location.lat, location.long];
   let origins, departure_time;
@@ -27,7 +36,25 @@ router.get("/itinerary/select", (req, res) => {
       })
       .asPromise()
       .then(response => {
-        res.send(response.json.rows[0].elements[0].duration);
+        //duration value in seconds
+        let responseDuration = response.json.rows[0].elements[0].duration.value;
+        let newArrivalTime = moment(
+          itinerary.data[itinerary.data.length - 1].departureTime
+        ).add(responseDuration, "s");
+        let randomDuration = timeInSections[section];
+        let newDepartureTime = moment(newArrivalTime).add(randomDuration, "s");
+        let newLocation = location;
+
+        location.arrivalTime = newArrivalTime;
+        location.departureTime = newDepartureTime;
+        //in miliseconds
+        let newDuration =
+          itinerary.duration + responseDuration * 1000 + randomDuration * 1000;
+        Itinerary.findByIdAndUpdate(itineraryId, {
+          data: [...data, newLocation],
+          duration: newDuration
+        });
+        res.send({ combinedDuration: newDuration });
       })
       .catch(err => {
         res.send(err.json.error_message);
