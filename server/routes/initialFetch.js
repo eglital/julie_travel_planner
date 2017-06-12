@@ -4,14 +4,14 @@ const {
   initialFourSquareRequest
 } = require("../helpers/fourSquareRequestHelpers");
 
-router.get("/", (req, res, next) => {
+router.post("/", (req, res, next) => {
   // {
   // startTime: Number(milliseconds),
   // endTime: Number(milliseconds),
   // startingLocation: Array[lat, lon]
   // }
 
-  req.query;
+  req.body;
   let dummy = {};
   dummy.startTime = Date.now();
   dummy.endTime = Date.now() + 14400000;
