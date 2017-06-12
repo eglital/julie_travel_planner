@@ -11,7 +11,7 @@ const cors = require("cors");
 // Body Parser
 // ----------------------------------------
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //---------------------------------------
@@ -29,11 +29,6 @@ app.use(function(req, res, next) {
 });
 app.use(cors());
 
-app.get("/", function(req, res) {
-  res.json({
-    status: "My API is alive!"
-  });
-});
 // ----------------------------------------
 // Cookies
 // ----------------------------------------
@@ -106,20 +101,27 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Mongoose
 // ----------------------------------------
-var mongoose = require("mongoose");
-app.use((req, res, next) => {
-  if (mongoose.connection.readyState) {
-    next();
-  } else {
-    require("./mongo")(req).then(() => next());
-  }
-});
+// var mongoose = require("mongoose");
+// app.use((req, res, next) => {
+//   if (mongoose.connection.readyState) {
+//     next();
+//   } else {
+//     require("./mongo")(req).then(() => next());
+//   }
+// });
 
 // ----------------------------------------
 // Routes
 // ----------------------------------------
+const initialFetch = require("./routes/initialFetch");
+app.use("/initialFetch", initialFetch);
 
+const googleApi = require("./routes/googleApi");
+app.use("/api", googleApi);
+
+// ----------------------------------------
 // Error handler
+// ----------------------------------------
 // Defines next action for errors
 function errorHandler(err, req, res, next) {
   console.error(`Error: ${err.stack}`);
