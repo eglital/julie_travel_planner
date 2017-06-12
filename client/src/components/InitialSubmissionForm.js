@@ -38,12 +38,12 @@ class InitialSubmissionForm extends Component {
     
   render() {
       
-      const { startTime, nextHour, onStartTimeChange, onEndTimeChange } = this.props;
+      const { startTime, nextHour, onStartTimeChange, onEndTimeChange, onSubmit } = this.props;
 
     return (
         <Row>
             <Col xs="12" sm={{offset: 3, size: 6}}>
-              <Form>
+              <Form onSubmit={onSubmit}>
                 <FormGroup>
                   <Label for="startingLocation">Starting Location</Label>
                   <Input type="text" name="startingLocation" id="startingLocation" placeholder="Use current location" />

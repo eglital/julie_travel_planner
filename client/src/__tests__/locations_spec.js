@@ -1,0 +1,46 @@
+import deepFreeze from 'deep-freeze';
+
+import locationsReducer from '../reducers/locationsReducer';
+import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE } from '../actions/types';
+
+it("updates the location data", function(){
+    const initialState = {
+        data: {}
+    };
+    const action = {
+        type: FETCH_LOCATIONS_DATA_SUCCESS,
+        data: {
+            food: ["yum yum"]
+        }
+    };
+    const finalState = {
+        data: {
+            food: ["yum yum"]
+        }
+    };
+    deepFreeze(initialState);
+    deepFreeze(action);
+    
+    
+    expect(locationsReducer(initialState, action)).toEqual(finalState);
+})
+
+it("updates the error in the state on failure", function(){
+    const initialState = {
+        data: {},
+        error: null
+    };
+    const action = {
+        type: FETCH_LOCATIONS_DATA_FAILURE,
+        error: "There was an error while fetching"
+    };
+    const finalState = {
+        data: {},
+        error: "There was an error while fetching"
+    };
+    deepFreeze(initialState);
+    deepFreeze(action);
+    
+    
+    expect(locationsReducer(initialState, action)).toEqual(finalState);
+})

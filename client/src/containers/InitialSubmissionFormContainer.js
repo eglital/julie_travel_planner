@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+}
+from 'react';
 import InitialSubmissionForm from '../components/InitialSubmissionForm';
 
 
@@ -11,12 +14,12 @@ function getNextHour() {
 
 
 
-class InitialSubmissionFormContainer extends Component{
-    
-    
-    constructor(){
+class InitialSubmissionFormContainer extends Component {
+
+
+    constructor() {
         super();
-        
+
         this.state = {
             nextHour: getNextHour(),
             startTime: getNextHour(),
@@ -24,31 +27,69 @@ class InitialSubmissionFormContainer extends Component{
             startingLocation: null
         };
     }
-    
+
     onStartTimeChange = (e) => {
-        console.log("e.target.value", e.target.value);
         this.setState({
             startTime: +e.target.value
         });
     }
-    
+
     onEndTimeChange = (e) => {
         this.setState({
             endTime: +e.target.value
         });
     }
-    
-    
-    
-    
+
+    onFormSubmit = (e) => {
+        e.preventDefault();
+        //construct simple json for form submission
+        let data = {
+            startTime: this.state.startTime,
+            endTime: this.state.endTime
+        };
+        //attempt to get location with geolocation API
+        if ("geolocation" in navigator) {
+            /* geolocation is available */
+
+            let p = new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    resolve([position.coords.latitude, position.coords.longitude]);
+                }, reject);
+
+            });
+            p.then((coordinates) => {
+                    data.startingLocation = coordinates;
+
+                }, (navError) => {
+                    //prompt with box for starting location and update the state?
+                    console.log("Please enter a starting location");
+                    data.startingLocation = this.state.startingLocation; //or default values?
+                })
+                .then((form) => {
+                    console.log("updated data", data);
+                    //send form to action dispatcher
+                    
+                    
+                    
+                    window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
+                });
+
+        }
+        else {
+            /* geolocation IS NOT available */
+        }
+
+
+    }
+
+
     render() {
-        console.log("rendering");
-        
+
         //create new rounded time to pass to submission form each time
         //consider moving to lifecycle hook to check for changes to avoid rerenders
 
         return (
-            <InitialSubmissionForm onStartTimeChange={this.onStartTimeChange} onEndTimeChange={this.onEndTimeChange} startTime={this.state.startTime} nextHour={this.state.nextHour}/>    
+            <InitialSubmissionForm onSubmit={this.onFormSubmit} onStartTimeChange={this.onStartTimeChange} onEndTimeChange={this.onEndTimeChange} startTime={this.state.startTime} nextHour={this.state.nextHour}/>
         );
     }
 }
