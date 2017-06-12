@@ -50,7 +50,7 @@ function initialFourSquareRequest(InitialRequestObject) {
       });
       const tempStartTime = Date.now();
       const itinerary = new Itinerary({
-        start_time: tempStartTime
+        startTime: tempStartTime
       });
 
       const initialResponseObject = {};
