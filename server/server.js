@@ -11,7 +11,7 @@ const cors = require("cors");
 // Body Parser
 // ----------------------------------------
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //---------------------------------------
@@ -115,6 +115,9 @@ app.use((req, res, next) => {
 // ----------------------------------------
 const initialFetch = require("./routes/initialFetch");
 app.use("/initialFetch", initialFetch);
+
+const googleApi = require("./routes/googleApi");
+app.use("/api", googleApi);
 
 // ----------------------------------------
 // Error handler
