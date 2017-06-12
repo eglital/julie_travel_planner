@@ -7,8 +7,8 @@ const {
 router.get("/", (req, res, next) => {
   //req.query.initial
   let dummy = {};
-  dummy.start_time = Date.now();
-  dummy.end_time = Date.now() + 14400000;
+  dummy.startTime = Date.now();
+  dummy.endTime = Date.now() + 14400000;
   dummy.lat = 45.7833;
   dummy.lng = -108.5007;
   initialFourSquareRequest(dummy)
