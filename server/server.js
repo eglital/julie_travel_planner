@@ -101,14 +101,14 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Mongoose
 // ----------------------------------------
-// var mongoose = require("mongoose");
-// app.use((req, res, next) => {
-//   if (mongoose.connection.readyState) {
-//     next();
-//   } else {
-//     require("./mongo")(req).then(() => next());
-//   }
-// });
+var mongoose = require("mongoose");
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState) {
+    next();
+  } else {
+    require("./mongo")(req).then(() => next());
+  }
+});
 
 // ----------------------------------------
 // Routes
@@ -139,10 +139,10 @@ app.use(errorHandler);
 
 var port;
 
-if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'test') {
-    port = 8081;
+if (process.env.NODE_ENV !== "production" || process.env.NODE_ENV !== "test") {
+  port = 8081;
 } else {
-    port = process.env.PORT || process.argv[2] || 8080;
+  port = process.env.PORT || process.argv[2] || 8080;
 }
 // var host = "localhost";
 
@@ -156,7 +156,7 @@ args.push(() => {
 // If we're running this file directly
 // start up the server
 if (require.main === module) {
-    app.listen.apply(app, args);
+  app.listen.apply(app, args);
 }
 
 module.exports = app;
