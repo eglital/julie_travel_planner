@@ -9,9 +9,9 @@ const {
 describe("This is a section of testes for the initial four square request", () => {
   describe("createItinary", () => {
     let dummy = {};
+    console.log(Date.now());
     dummy.startTime = Date.now();
     dummy.endTime = Date.now() + 14400000;
-    dummy.startTime = new Date(dummy.startTime);
     dummy.lat = 45.7833;
     dummy.lng = -108.5007;
     it("returns an Itinearary Object", function() {
