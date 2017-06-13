@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
-const models = require("./../models");
-const Itinerary = mongoose.model("Itinerary");
+const mongoose = require('mongoose');
+const models = require('./../models');
+const Itinerary = mongoose.model('Itinerary');
 
 module.exports = () => {
   // ----------------------------------------
   // Create Itinerary
   // ----------------------------------------
-  console.log("Creating Itinerary");
+  console.log('Creating Itinerary');
   var itineraries = [];
   itineraries.push(
     new Itinerary({
@@ -15,7 +15,7 @@ module.exports = () => {
       data: [
         {
           lat: 41.878112,
-          long: -87.636393,
+          lng: -87.636393,
           arrivalTime: null,
           departureTime: new Date(2017, 6, 12, 10, 0, 0)
         }
@@ -23,12 +23,13 @@ module.exports = () => {
     })
   );
 
+  console.log('Empty itinerary id:', itineraries[0].id);
   //Seed other models...
 
   // ----------------------------------------
   // Finish
   // ----------------------------------------
-  console.log("Saving...");
+  console.log('Saving...');
   var promises = [];
   [
     itineraries

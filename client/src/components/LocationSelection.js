@@ -2,17 +2,21 @@ import React from 'react';
 import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
 
 const LocationSelection = props => {
-  const { location, onClick } = props;
-  let photo = location.photo || './180.png';
-
+  const { location, section, itineraryId, onClick } = props;
   return (
-    <Card style={{ marginBottom: '10px' }} onClick={onClick}>
+    <Card
+      style={{ marginBottom: '10px' }}
+      onClick={onClick}
+      data-location={location}
+      data-section={section}
+      data-itinerary-id={itineraryId}
+    >
       <CardBlock style={{ padding: '10px' }}>
         <CardImg
           style={{ float: 'left', paddingRight: '10px' }}
           top
           width="33%"
-          src={photo}
+          src={location.photo}
           alt="Card image"
         />
         <CardTitle
