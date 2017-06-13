@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import qs from 'qs';
 
 import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE } from './types';
 
@@ -22,13 +21,11 @@ export function fetchLocationsData(form) {
     return (dispatch) => {
         
         
-        //need to use qs to form the form data for the get request
-        
-        
         return fetch('initialFetch')
         .then(responseChecker)
         .then(parseToJSON)
         .then((data) => {
+            console.log("got data from server", data);
             //on success redirect the user
             window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
             //update the reducer

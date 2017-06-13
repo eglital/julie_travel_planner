@@ -69,7 +69,7 @@ class InitialSubmissionFormContainer extends Component {
                 .then((form) => {
                     console.log("updated data", data);
                     //send form to action dispatcher
-                    fetchLocationsData({formSubmission: data});
+                    this.props.fetchLocationsData({formSubmission: data});
                 });
 
         }
