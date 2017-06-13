@@ -57,7 +57,7 @@ describe('async actions', () => {
         fetchMock.reset();
     })
     it('creates FETCH LCATIONS DATA SUCCESS upon successful status 200', () => {
-        fetchMock.get(`api/locations`, {
+        fetchMock.post(`initialFetch`, {
             status: 200,
             body: {
                 locations:{food: [], sights: []}
@@ -70,10 +70,7 @@ describe('async actions', () => {
         const store = mockStore({
             locations: {}
         })
-        // return fetch(`/api/users/vaccines?token=${token}`)
-        // .then(response => {
-        //     expect(response.status).toEqual(200);
-        // })
+
         return store.dispatch(fetchLocationsData()).then(() => {
             // return of async actions
             expect(store.getActions()).toEqual(expectedActions)

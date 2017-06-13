@@ -136,16 +136,27 @@ app.use(errorHandler);
 // ----------------------------------------
 // Server
 // ----------------------------------------
-var port = process.env.PORT || process.argv[2] || 3000;
-var host = "localhost";
 
-var args;
-process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
+var port;
+
+if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'test') {
+    port = 8081;
+} else {
+    port = process.env.PORT || process.argv[2] || 8080;
+}
+// var host = "localhost";
+
+var args = [port];
+// process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
 
 args.push(() => {
-  console.log(`Listening: http://${host}:${port}`);
+  console.log(`Listening on port:${port}`);
 });
 
-app.listen.apply(app, args);
+// If we're running this file directly
+// start up the server
+if (require.main === module) {
+    app.listen.apply(app, args);
+}
 
 module.exports = app;
