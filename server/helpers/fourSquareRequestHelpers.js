@@ -14,6 +14,10 @@ function initialFourSquareRequest(InitialRequestObject) {
       return Promise.all(jsonData);
     })
     .then(data => {
+      if (!data[0].response.groups[0]) {
+        throw new typeError("The data format is incorrect");
+      }
+
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
@@ -25,6 +29,7 @@ function initialFourSquareRequest(InitialRequestObject) {
       return initialResponseObject;
     })
     .catch(err => {
+      console.log("This is an error", err);
       throw new Error(err);
     });
 }
