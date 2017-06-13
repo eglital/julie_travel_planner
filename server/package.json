@@ -4,8 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "seeds": "node seeds"
+    "seeds": "node seeds",
+    "test": "npm run whichnodemon && nodemon --exec npm run jasmine || npm run jasmine",
+    "start": "npm run whichnodemon && nodemon app.js || node app.js",
+    "whichnodemon": "which nodemon > /dev/null",
+    "jasmine": "./node_modules/jasmine/bin/jasmine.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,9 +21,17 @@
     "es6-promise": "^4.1.0",
     "express": "^4.15.3",
     "isomorphic-fetch": "^2.2.1",
+    "jasmine": "^2.6.0",
+    "jasmine-node": "^1.14.5",
     "moment": "^2.18.1",
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2",
+<<<<<<< HEAD
     "q": "^1.5.0"
+=======
+    "q": "^1.5.0",
+    "qs": "^6.4.0",
+    "request": "^2.81.0"
+>>>>>>> master
   }
 }

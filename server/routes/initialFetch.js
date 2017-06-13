@@ -4,14 +4,15 @@ const {
   initialFourSquareRequest
 } = require("../helpers/fourSquareRequestHelpers");
 
-router.get("/", (req, res, next) => {
-  //req.query.initial
-  let dummy = {};
-  dummy.start_time = Date.now();
-  dummy.end_time = Date.now() + 14400000;
-  dummy.lat = 45.7833;
-  dummy.lng = -108.5007;
-  initialFourSquareRequest(dummy)
+router.post("/", (req, res, next) => {
+  req.body = JSON.stringify(req.body);
+  req.body = JSON.parse(req.body);
+
+  if (typeof req.body.startingLocation === "string") {
+    let temp = req.body.startingLocation.split(" ");
+    req.body.startingLocation = [temp[0], temp[1]];
+  }
+  initialFourSquareRequest(req.body)
     .then(responseObject => {
       res.send(responseObject);
     })
