@@ -65,6 +65,7 @@ function buildListOfChoices(data) {
       if (!completeDict[item.venue.name]) {
         const locationObject = {};
         locationObject.name = item.venue.name;
+        locationObject.link = `http://foursquare.com/v/${item.venue.id}`;
         locationObject.address = item.venue.location.address;
         locationObject.lat = item.venue.location.lat;
         locationObject.lng = item.venue.location.lng;
