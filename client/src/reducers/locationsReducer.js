@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 };
 
 
-export default function locationsReducer(state = INITIAL_STATE, action) {
+export function locationsReducer(state = INITIAL_STATE, action) {
     switch(action.type) {
         case FETCH_LOCATIONS_DATA_SUCCESS:
             return {

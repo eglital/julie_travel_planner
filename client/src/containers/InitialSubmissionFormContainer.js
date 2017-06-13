@@ -3,8 +3,14 @@ import React, {
 }
 from 'react';
 import InitialSubmissionForm from '../components/InitialSubmissionForm';
-import { fetchLocationsData } from '../actions/locations';
-import { connect } from 'react-redux';
+import {
+    fetchLocationsData
+}
+from '../actions/locations';
+import {
+    connect
+}
+from 'react-redux';
 
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -20,19 +26,29 @@ class InitialSubmissionFormContainer extends Component {
 
     constructor() {
         super();
-
         this.state = {
             nextHour: getNextHour(),
             startTime: getNextHour(),
-            endTime: null,
+            endTime: getNextHour() + 2,
             startingLocation: null
         };
     }
 
     onStartTimeChange = (e) => {
-        this.setState({
-            startTime: +e.target.value
-        });
+        //if the endTime would be less than two hours after the new startTime
+        //advance it to at least two hours
+        if (this.state.endTime - +e.target.value < 2) {
+            this.setState({
+                startTime: +e.target.value,
+                endTime: +e.target.value + 2
+            });
+        } else {
+            this.setState({
+                startTime: +e.target.value
+            });
+        }
+
+
     }
 
     onEndTimeChange = (e) => {
@@ -69,7 +85,9 @@ class InitialSubmissionFormContainer extends Component {
                 .then((form) => {
                     console.log("updated data", data);
                     //send form to action dispatcher
-                    this.props.fetchLocationsData({formSubmission: data});
+                    this.props.fetchLocationsData({
+                        formSubmission: data
+                    });
                 });
 
         }
