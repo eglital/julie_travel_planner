@@ -30,6 +30,7 @@ router.put("/itinerary/select", (req, res, next) => {
         itinerary.data[itinerary.data.length - 1].lat,
         itinerary.data[itinerary.data.length - 1].long
       ];
+
       googleMapsClient
         .distanceMatrix({
           origins: [origins],

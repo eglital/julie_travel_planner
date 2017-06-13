@@ -84,7 +84,7 @@ describe("Google API", () => {
     );
   });
 
-  xit("returns the final itinerary", done => {
+  it("returns the final itinerary", done => {
     request.get(`${apiUrl}/final/${itinerary._id}`, (err, res, body) => {
       let result = JSON.parse(body);
       expect(result.itinerary.length).toBe(3);
