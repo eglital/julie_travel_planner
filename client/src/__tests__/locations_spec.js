@@ -57,7 +57,7 @@ describe('async actions', () => {
         fetchMock.reset();
     })
     it('creates FETCH LCATIONS DATA SUCCESS upon successful status 200', () => {
-        fetchMock.get(`initialFetch`, {
+        fetchMock.post(`initialFetch`, {
             status: 200,
             body: {
                 locations:{food: [], sights: []}

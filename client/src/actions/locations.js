@@ -1,6 +1,10 @@
 import 'isomorphic-fetch';
 
-import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE } from './types';
+import {
+    FETCH_LOCATIONS_DATA_SUCCESS,
+    FETCH_LOCATIONS_DATA_FAILURE
+}
+from './types';
 
 export function fetchLocationsDataSuccess(data) {
     return {
@@ -20,27 +24,33 @@ export function fetchLocationsDataFailure(error) {
 export function fetchLocationsData(form) {
     return (dispatch) => {
         
-        
-        return fetch('initialFetch')
-        .then(responseChecker)
-        .then(parseToJSON)
-        .then((data) => {
-            console.log("got data from server", data);
-            //on success redirect the user
-            window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
-            //update the reducer
-            dispatch(fetchLocationsDataSuccess(data.locations));
-        })
-        .catch(err => {
-            dispatch(fetchLocationsDataFailure(err));
-        });
-        
+        const myHeaders = new Headers();
+        const options = {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(form)
+        };
+
+        return fetch('initialFetch', options)
+            .then(responseChecker)
+            .then(parseToJSON)
+            .then((data) => {
+                console.log("got data from server", data);
+                //on success redirect the user
+                window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
+                //update the reducer
+                dispatch(fetchLocationsDataSuccess(data.locations));
+            })
+            .catch(err => {
+                dispatch(fetchLocationsDataFailure(err));
+            });
+
     };
 }
 
 
 
-function responseChecker(response){
+function responseChecker(response) {
     if (!response.ok) {
         return new Error(response.status);
     }
