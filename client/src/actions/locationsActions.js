@@ -5,7 +5,8 @@ import {
     FETCH_LOCATIONS_DATA_FAILURE
 }
 from './types';
-import apiResponseHelper from '../helpers/apiResponseHelper';
+import ApiResponseHelper from '../helpers/apiResponseHelper';
+import ItineraryHelper from '../helpers/itineraryHelper';
 
 
 export function fetchLocationsDataSuccess(data) {
@@ -35,10 +36,14 @@ export function fetchLocationsData(form) {
         };
 
         return fetch('/api/itinerary/start', options)
-            .then(apiResponseHelper.responseChecker)
-            .then(apiResponseHelper.parseToJSON)
+            .then(ApiResponseHelper.responseChecker)
+            .then(ApiResponseHelper.parseToJSON)
             .then((data) => {
                 console.log("got data from server", data);
+                //create object with expiration date and store in localStorage
+                ItineraryHelper.setItineraryObj(data.itineraryId);
+                //remove the itineraryId so it is not stored in state
+                delete data.itineraryId;
                 //update the reducer
                 dispatch(fetchLocationsDataSuccess(data));
             })
