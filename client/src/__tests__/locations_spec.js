@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
 
-import locationsReducer from '../reducers/locationsReducer';
+import { locationsReducer } from '../reducers/locationsReducer';
 import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE } from '../actions/types';
 
 it("updates the location data", function(){

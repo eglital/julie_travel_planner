@@ -115,7 +115,9 @@ class LocationSelectionContainer extends Component {
 }
 
 const mapStateToProps = state => {
+
   return {};
+
 };
 
 const mapDispatchToProps = dispatch => {
