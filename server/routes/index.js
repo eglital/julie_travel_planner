@@ -1,5 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const moment = require("moment");
+const mongoose = require("mongoose");
+const models = require("./../models");
+const Itinerary = mongoose.model("Itinerary");
+const { googleMapsClient } = require("../helpers/googleApiHelpers");
 const {
   initialFourSquareRequest
 } = require("../helpers/fourSquareRequestHelpers");
@@ -25,12 +30,6 @@ router.post("/itinerary/start", (req, res, next) => {
     })
     .catch(next);
 });
-
-const moment = require("moment");
-const mongoose = require("mongoose");
-const models = require("./../models");
-const Itinerary = mongoose.model("Itinerary");
-const { googleMapsClient } = require("../helpers/googleApiHelpers");
 
 //in seconds
 const timeInSections = {
@@ -101,7 +100,9 @@ router.put("/itinerary/select", (req, res, next) => {
               duration: newDuration
             },
             { new: true }
-          ).then(itinerary => res.send({ duration: itinerary.duration }));
+          ).then(itinerary => {
+            res.send({ duration: itinerary.duration });
+          });
         })
         .catch(err => {
           res.send(err.json.error_message);
