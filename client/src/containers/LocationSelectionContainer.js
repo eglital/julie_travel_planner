@@ -13,11 +13,10 @@ class LocationSelectionContainer extends Component {
 
     this.state = {
       locations: locationsExample,
-      itineraryId: '5940150e3cfe06aca81948cf',
+      itineraryId: '59406b583eab90c9ee1c7298',
       duration: 0,
       startTime: 0,
       endTime: 100
-      // displayedLocations: this.displayThreeLocations()
     };
   }
 
@@ -25,12 +24,18 @@ class LocationSelectionContainer extends Component {
 
   onClickLocation = e => {
     this.props.addLocationToItinerary(
-      e.currentTarget.dataset.location,
+      JSON.parse(e.currentTarget.dataset.loc),
       e.currentTarget.dataset.section,
       e.currentTarget.dataset.itineraryId
     );
 
-    if (this.state.endTime - this.state.duration < 99999999) {
+    this.setState((prevState, props) => {
+      return {
+        duration: prevState.duration + 30
+      };
+    });
+
+    if (this.state.endTime - this.state.duration < 10) {
       //this.props.history.push(e.currentTarget.dataset.itineraryId);
     } else {
       this.render();
@@ -76,7 +81,7 @@ class LocationSelectionContainer extends Component {
     return (
       <Container>
         <Row>
-          <Col>
+          <Col lg={{ size: 8, offset: 2 }}>
             <ProgressBar
               startTime={this.state.startTime}
               endTime={this.state.endTime}
@@ -85,7 +90,7 @@ class LocationSelectionContainer extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col lg={{ size: 6, offset: 3 }}>
             <p className="text-center">
               Select one of the following to add it to your itinerary, and we'll figure out how to get you there.
             </p>
@@ -115,9 +120,7 @@ class LocationSelectionContainer extends Component {
 }
 
 const mapStateToProps = state => {
-
   return {};
-
 };
 
 const mapDispatchToProps = dispatch => {
