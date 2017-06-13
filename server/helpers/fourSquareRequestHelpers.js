@@ -30,6 +30,13 @@ function initialFourSquareRequest(InitialRequestObject) {
     });
 }
 
+function spontaneousFourSquareRequest() {
+  //
+}
+/////////////////////////////////////////////
+//private functions
+/////////////////////////////////////////////
+
 function sanitizeRequestObject(requestObject) {
   requestObject.startTime = new Date(Number(requestObject.startTime));
   requestObject.endTime = new Date(Number(requestObject.endTime));
@@ -37,9 +44,6 @@ function sanitizeRequestObject(requestObject) {
   requestObject.lng = Number(requestObject.startingLocation[1]);
   return requestObject;
 }
-/////////////////////////////////////////////
-//private functions
-/////////////////////////////////////////////
 
 function fourSquareStringBuilder(category, iro) {
   const clientId = process.env.CLIENT_ID;
@@ -62,9 +66,13 @@ function buildListOfChoices(data) {
 
     let array = [];
     data.forEach(item => {
-      if (!completeDict[item.venue.name]) {
+      if (
+        !completeDict[item.venue.name] &&
+        notGym(item.venue.categories[0].name)
+      ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
+        locationObject.link = `http://foursquare.com/v/${item.venue.id}?ref= ${process.env.CLIENT_ID}`;
         locationObject.address = item.venue.location.address;
         locationObject.lat = item.venue.location.lat;
         locationObject.lng = item.venue.location.lng;
@@ -106,6 +114,11 @@ function createItinary(InitialRequestObject) {
       }
     ]
   });
+}
+
+function notGym(category) {
+  let regex = /dojo|fitness/gi;
+  return !regex.test(category);
 }
 
 module.exports = {
