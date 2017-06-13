@@ -9,7 +9,7 @@ export function addLocationToItinerary(location, section, itineraryId) {
     console.log('ItineraryId:', itineraryId);
 
     axios
-      .put('http://localhost:8081/api/itinerary/select', {
+      .put('/api/itinerary/select', {
         location: location,
         itineraryId: itineraryId,
         selection: section

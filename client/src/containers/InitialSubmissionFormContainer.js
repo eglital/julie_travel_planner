@@ -6,7 +6,7 @@ import InitialSubmissionForm from '../components/InitialSubmissionForm';
 import {
     fetchLocationsData
 }
-from '../actions/locations';
+from '../actions/locationsActions';
 import {
     connect
 }

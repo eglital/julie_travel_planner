@@ -50,7 +50,7 @@ import thunk from 'redux-thunk'
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 import fetchMock from 'fetch-mock'
-import { fetchLocationsData } from '../actions/locations';
+import { fetchLocationsData } from '../actions/locationsActions';
 
 describe('async actions', () => {
     afterEach(() => {

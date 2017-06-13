@@ -5,6 +5,8 @@ import {
     FETCH_LOCATIONS_DATA_FAILURE
 }
 from './types';
+import apiResponseHelper from '../helpers/apiResponseHelper';
+
 
 export function fetchLocationsDataSuccess(data) {
     return {
@@ -33,8 +35,8 @@ export function fetchLocationsData(form) {
         };
 
         return fetch('/api/itinerary/start', options)
-            .then(responseChecker)
-            .then(parseToJSON)
+            .then(apiResponseHelper.responseChecker)
+            .then(apiResponseHelper.parseToJSON)
             .then((data) => {
                 console.log("got data from server", data);
                 //update the reducer
@@ -49,13 +51,4 @@ export function fetchLocationsData(form) {
 
 
 
-function responseChecker(response) {
-    if (!response.ok) {
-        return new Error(response.status);
-    }
-    return response;
-}
 
-function parseToJSON(response) {
-    return response.json();
-}
