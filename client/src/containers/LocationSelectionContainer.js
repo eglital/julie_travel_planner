@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+//import { withRouter } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import LocationSelection from '../components/LocationSelection';
 import ProgressBar from '../components/Progress';
@@ -12,18 +13,29 @@ class LocationSelectionContainer extends Component {
 
     this.state = {
       locations: locationsExample,
-      itineraryId: 1,
-      duration: 20,
+      itineraryId: '5940150e3cfe06aca81948cf',
+      duration: 0,
       startTime: 0,
-      endTime: 100
+      endTime: 100,
+      dispalyedLocations: this.displayThreeLocations()
     };
   }
 
   componentDidMount() {}
 
-  onClickLocation(e) {
-    console.log(e.target.value);
-  }
+  onClickLocation = e => {
+    this.props.addLocationToItinerary(
+      e.currentTarget.dataset.location,
+      e.currentTarget.dataset.section,
+      e.currentTarget.dataset.itineraryId
+    );
+
+    if (this.state.endTime - this.state.duration < 99999999) {
+      //this.props.history.push(e.currentTarget.dataset.itineraryId);
+    } else {
+      this.render();
+    }
+  };
 
   displayThreeLocations() {
     let loc1 = this.state.locations.food[
@@ -35,11 +47,27 @@ class LocationSelectionContainer extends Component {
     let loc3 = this.state.locations.sights[
       Math.floor(Math.random() * locationsExample.sights.length + 1)
     ];
+
     return (
       <div>
-        <LocationSelection location={loc1} onClick={this.onClickLocation} />
-        <LocationSelection location={loc2} onClick={this.onClickLocation} />
-        <LocationSelection location={loc3} onClick={this.onClickLocation} />
+        <LocationSelection
+          location={loc1}
+          section="food"
+          itineraryId={this.state.itineraryId}
+          onClick={this.onClickLocation}
+        />
+        <LocationSelection
+          location={loc2}
+          section="places"
+          itineraryId={this.state.itineraryId}
+          onClick={this.onClickLocation}
+        />
+        <LocationSelection
+          location={loc3}
+          section="sights"
+          itineraryId={this.state.itineraryId}
+          onClick={this.onClickLocation}
+        />
       </div>
     );
   }
@@ -94,8 +122,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addLocation: (location, itineraryId) => {
-      dispatch(addLocationToItinerary(location, itineraryId));
+    addLocationToItinerary: (location, section, itineraryId) => {
+      dispatch(addLocationToItinerary(location, section, itineraryId));
     }
   };
 };

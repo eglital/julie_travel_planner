@@ -1,7 +1,7 @@
 import * as Actions from '../actions/builderActions';
 
 const initialState = {
-  currentItinerary: null
+  itineraryId: 1
 };
 
 export function builder(state = initialState, action) {

@@ -1,25 +1,31 @@
 import axios from 'axios';
 export const ADD_LOCATION_TO_ITINERARY = 'ADD_LOCATION_TO_ITINERARY ';
 
-export function addLocationToItinerary(location, itineraryId) {
+export function addLocationToItinerary(location, section, itineraryId) {
   return dispatch => {
-    console.log('Posting to server:');
+    console.log('Adding to itinerary:');
     console.log('Location:', location);
+    console.log('Section:', section);
     console.log('ItineraryId:', itineraryId);
-    // axios
-    //   .post(`http://localhost:3000/addLocation`, {
-    //     location: location,
-    //     itineraryId: itineraryId
-    //   })
-    //   .then(response => {
-    //     if (response.status !== 200) {
-    //       throw new Error('Response not ok');
-    //     }
-    //     return response;
-    //   })
-    //   .then(response => {})
-    //   .catch(function(error) {
-    //     console.log('Error:', error);
-    //   });
+
+    axios
+      .put('http://localhost:8081/api/itinerary/select', {
+        location: location,
+        selection: section,
+        itineraryId: itineraryId
+      })
+      .then(response => {
+        if (response.status !== 200) {
+          console.log("Response wasn't ok");
+          throw new Error('Response not ok');
+        }
+        console.log('Response from server to adding location:');
+        console.log(response);
+        return response;
+      })
+      .then(response => {})
+      .catch(function(error) {
+        console.log('Error:', error);
+      });
   };
 }
