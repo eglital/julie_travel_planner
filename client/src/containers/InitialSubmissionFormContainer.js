@@ -118,7 +118,7 @@ class InitialSubmissionFormContainer extends Component {
 function mapStateToProps(state) {
     return {
         locations: state.locations
-    }
+    };
 }
 
 
