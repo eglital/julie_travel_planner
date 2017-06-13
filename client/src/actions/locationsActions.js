@@ -6,7 +6,8 @@ import {
 }
 from './types';
 import ApiResponseHelper from '../helpers/apiResponseHelper';
-import ItineraryHelper from '../helpers/itineraryHelper';
+import { setItineraryId } from './itineraryActions.js';
+
 
 
 export function fetchLocationsDataSuccess(data) {
@@ -39,13 +40,16 @@ export function fetchLocationsData(form) {
             .then(ApiResponseHelper.responseChecker)
             .then(ApiResponseHelper.parseToJSON)
             .then((data) => {
-                console.log("got data from server", data);
-                //create object with expiration date and store in localStorage
-                ItineraryHelper.setItineraryObj(data.itineraryId);
-                //remove the itineraryId so it is not stored in state
+                let itineraryId = data.itineraryId;
+                //remove from data object
                 delete data.itineraryId;
-                //update the reducer
+                //update the locations reducer
                 dispatch(fetchLocationsDataSuccess(data));
+                //update the itinerary reducer
+                dispatch(setItineraryId(itineraryId));
+                
+                
+                
             })
             .catch(err => {
                 dispatch(fetchLocationsDataFailure(err));
