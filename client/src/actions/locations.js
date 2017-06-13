@@ -32,13 +32,11 @@ export function fetchLocationsData(form) {
             body: JSON.stringify(form)
         };
 
-        return fetch('initialFetch', options)
+        return fetch('/api/itinerary/start', options)
             .then(responseChecker)
             .then(parseToJSON)
             .then((data) => {
                 console.log("got data from server", data);
-                //on success redirect the user
-                window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
                 //update the reducer
                 dispatch(fetchLocationsDataSuccess(data));
             })

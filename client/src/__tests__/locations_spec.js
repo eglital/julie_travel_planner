@@ -57,7 +57,7 @@ describe('async actions', () => {
         fetchMock.reset();
     })
     it('creates FETCH LCATIONS DATA SUCCESS upon successful status 200', () => {
-        fetchMock.post(`initialFetch`, {
+        fetchMock.post(`/api/itinerary/start`, {
             status: 200,
             body: {
                 food: [], sights: []
