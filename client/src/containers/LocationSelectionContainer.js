@@ -88,7 +88,7 @@ class LocationSelectionContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    locations: state.location
+    locations: state.locations
   };
 };
 

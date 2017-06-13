@@ -3,8 +3,14 @@ import React, {
 }
 from 'react';
 import InitialSubmissionForm from '../components/InitialSubmissionForm';
-import { fetchLocationsData } from '../actions/locations';
-import { connect } from 'react-redux';
+import {
+    fetchLocationsData
+}
+from '../actions/locations';
+import {
+    connect
+}
+from 'react-redux';
 
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -20,19 +26,39 @@ class InitialSubmissionFormContainer extends Component {
 
     constructor() {
         super();
-
         this.state = {
             nextHour: getNextHour(),
             startTime: getNextHour(),
-            endTime: null,
-            startingLocation: null
+            endTime: getNextHour() + (2 * 60 * 60 * 1000),
+            startingLocation: null,
+            error: null
         };
     }
+    
+    componentWillReceiveProps(newProps) {
+        if (newProps.locations.error) {
+            this.setState({
+                error: newProps.locations.error
+            });
+        }
+    }
+    
 
     onStartTimeChange = (e) => {
-        this.setState({
-            startTime: +e.target.value
-        });
+        //if the endTime would be less than two hours after the new startTime
+        //advance it to at least two hours
+        if (this.state.endTime - +e.target.value < 2) {
+            this.setState({
+                startTime: +e.target.value,
+                endTime: +e.target.value + 2
+            });
+        } else {
+            this.setState({
+                startTime: +e.target.value
+            });
+        }
+
+
     }
 
     onEndTimeChange = (e) => {
@@ -69,28 +95,33 @@ class InitialSubmissionFormContainer extends Component {
                 .then((form) => {
                     console.log("updated data", data);
                     //send form to action dispatcher
-                    this.props.fetchLocationsData({formSubmission: data});
+                    this.props.fetchLocationsData({
+                        formSubmission: data
+                    });
                 });
 
         }
         else {
             /* geolocation IS NOT available */
         }
-
-
     }
-
-
     render() {
 
         //create new rounded time to pass to submission form each time
         //consider moving to lifecycle hook to check for changes to avoid rerenders
-
         return (
-            <InitialSubmissionForm onSubmit={this.onFormSubmit} onStartTimeChange={this.onStartTimeChange} onEndTimeChange={this.onEndTimeChange} startTime={this.state.startTime} nextHour={this.state.nextHour}/>
+            <InitialSubmissionForm onSubmit={this.onFormSubmit} onStartTimeChange={this.onStartTimeChange} onEndTimeChange={this.onEndTimeChange} {...this.state}/>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        locations: state.locations
+    };
+}
+
+
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -101,4 +132,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(null, mapDispatchToProps)(InitialSubmissionFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(InitialSubmissionFormContainer);
