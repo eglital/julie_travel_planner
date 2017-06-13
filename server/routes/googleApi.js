@@ -17,7 +17,7 @@ router.put("/itinerary/select", (req, res, next) => {
   // need to get this from FE
   const { location, itineraryId, section } = req.body;
   console.log("checking distance");
-  let destinations = [location.lat, location.long];
+  let destinations = [location.lat, location.lng];
   let origins, departure_time, itinerary;
 
   Itinerary.findById(itineraryId)
@@ -28,7 +28,7 @@ router.put("/itinerary/select", (req, res, next) => {
       );
       origins = [
         itinerary.data[itinerary.data.length - 1].lat,
-        itinerary.data[itinerary.data.length - 1].long
+        itinerary.data[itinerary.data.length - 1].lng
       ];
 
       googleMapsClient
@@ -97,10 +97,10 @@ router.get("/itinerary/final/:itineraryId", (req, res, next) => {
 
       origins = [
         itinerary.data[itinerary.data.length - 1].lat,
-        itinerary.data[itinerary.data.length - 1].long
+        itinerary.data[itinerary.data.length - 1].lng
       ];
 
-      destinations = [itinerary.data[0].lat, itinerary.data[0].long];
+      destinations = [itinerary.data[0].lat, itinerary.data[0].lng];
 
       googleMapsClient
         .distanceMatrix({
