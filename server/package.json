@@ -6,7 +6,7 @@
   "scripts": {
     "seeds": "node seeds",
     "test": "npm run whichnodemon && nodemon --exec npm run jasmine || npm run jasmine",
-    "start": "npm run whichnodemon && nodemon app.js || node app.js",
+    "start": "npm run whichnodemon && nodemon server.js || node server.js",
     "whichnodemon": "which nodemon > /dev/null",
     "jasmine": "./node_modules/jasmine/bin/jasmine.js"
   },
@@ -29,5 +29,8 @@
     "q": "^1.5.0",
     "qs": "^6.4.0",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
