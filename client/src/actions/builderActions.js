@@ -4,7 +4,9 @@ export const ADD_LOCATION_TO_ITINERARY = "ADD_LOCATION_TO_ITINERARY ";
 export function addLocationToItinerary(location, section, itineraryId) {
   return dispatch => {
     axios
-      .put("http://localhost:8081/api/itinerary/select", {
+
+      .put('/api/itinerary/select', {
+
         location: location,
         itineraryId: itineraryId,
         section: section
