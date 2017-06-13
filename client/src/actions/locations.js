@@ -40,7 +40,7 @@ export function fetchLocationsData(form) {
                 //on success redirect the user
                 window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
                 //update the reducer
-                dispatch(fetchLocationsDataSuccess(data.locations));
+                dispatch(fetchLocationsDataSuccess(data));
             })
             .catch(err => {
                 dispatch(fetchLocationsDataFailure(err));

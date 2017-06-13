@@ -13,6 +13,12 @@ import './index.css';
 
 let store = createStore(combineReducers({builder, locations}), applyMiddleware(thunk));
 
+let unsubscribe = store.subscribe(() => {
+  console.log("state updated", store.getState());
+});
+
+
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

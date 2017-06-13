@@ -60,7 +60,7 @@ describe('async actions', () => {
         fetchMock.post(`initialFetch`, {
             status: 200,
             body: {
-                locations:{food: [], sights: []}
+                food: [], sights: []
             }
         })
         const expectedActions = [{
