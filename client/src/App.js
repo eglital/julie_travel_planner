@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 import LocationSelectionContainer
-  from './containers/LocationSelectionContainer';
+  from "./containers/LocationSelectionContainer";
 
-import InitialSubmissionFormContainer from './containers/InitialSubmissionFormContainer';
+import InitialSubmissionFormContainer
+  from "./containers/InitialSubmissionFormContainer";
 
-
+import GoogleMapsContainer from "./containers/GoogleMapsContainer";
 
 class App extends Component {
   render() {
@@ -15,7 +16,7 @@ class App extends Component {
         <LocationSelectionContainer />
 
         <InitialSubmissionFormContainer />
-
+        <GoogleMapsContainer />
       </div>
     );
   }
