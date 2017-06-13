@@ -31,14 +31,14 @@ describe("Google API", () => {
         {
           departureTime: "2017-07-12T14:00:00Z",
           arrivalTime: null,
-          long: -87.636393,
+          lng: -87.636393,
           lat: 41.878112
         },
         {
           name: "Revival Food Hall",
           address: "125 S Clark St",
           lat: 41.8797704672721,
-          long: -87.63060092926025,
+          lng: -87.63060092926025,
           category: "Food Court",
           tip: "The chef-driven food hall has a kiosk where Mindy Segal's staff serve her famous hot chocolate that includes the all-important homemade marshmallows. Get it to go.",
           isOpen: true,
@@ -67,7 +67,7 @@ describe("Google API", () => {
             name: "Cafecito",
             address: "26 E Congress Pkwy",
             lat: 41.87574423890672,
-            long: -87.6264445685823,
+            lng: -87.6264445685823,
             category: "Cuban Restaurant",
             tip: "Wifi pass is cubano01",
             isOpen: true,
