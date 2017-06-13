@@ -5,8 +5,8 @@ function initialFourSquareRequest(InitialRequestObject) {
     Number(InitialRequestObject.startTime)
   );
   InitialRequestObject.endTime = new Date(Number(InitialRequestObject.endTime));
-  InitialRequestObject.lat = Number(InitialRequestObject.lat);
-  InitialRequestObject.lng = Number(InitialRequestObject.lng);
+  InitialRequestObject.lat = Number(InitialRequestObject.startingLocation[0]);
+  InitialRequestObject.lng = Number(InitialRequestObject.startingLocation[1]);
   const categories = ["food", "outdoors", "arts"];
   const apiStrings = categories.map(category => {
     return fourSquareStringBuilder(category, InitialRequestObject);
@@ -45,7 +45,6 @@ function fourSquareStringBuilder(category, iro) {
 }
 
 function buildListOfChoices(data) {
-  let counter = 1;
   const tempPhoto = [
     "https://s-media-cache-ak0.pinimg.com/736x/9c/b7/33/9cb733a13a4e4260346c80b7de3c6223.jpg",
     "https://s-media-cache-ak0.pinimg.com/736x/dd/38/eb/dd38eb8641ca673862dfff2bb8849bfc.jpg",
@@ -58,8 +57,6 @@ function buildListOfChoices(data) {
     let array = [];
     data.forEach(item => {
       if (!completeDict[item.venue.name]) {
-        console.log(counter);
-        counter++;
         const locationObject = {};
         locationObject.name = item.venue.name;
         locationObject.address = item.venue.location.address;
