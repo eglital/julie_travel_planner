@@ -13,21 +13,31 @@ class LocationSelectionContainer extends Component {
 
     this.state = {
       locations: locationsExample,
-      itineraryId: '59404339c6eef4b96d7cb451',
-      duration: 40,
+      itineraryId: '594048647f7f02bdf7bc677c',
+      duration: 0,
       startTime: 0,
       endTime: 100
+      //displayedLocations: null
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    //this.state.displayedLocations = this.displayThreeLocations();
+  }
 
   onClickLocation = e => {
+    // console.log(JSON.parse(e.currentTarget.dataset.loc));
     this.props.addLocationToItinerary(
-      e.currentTarget.dataset.location,
+      JSON.parse(e.currentTarget.dataset.loc),
       e.currentTarget.dataset.section,
       e.currentTarget.dataset.itineraryId
     );
+
+    // this.setState((prevState, props) => {
+    //   return {
+    //     duration: prevState.duration + 10
+    //   };
+    // });
 
     if (this.state.endTime - this.state.duration < 10) {
       //this.props.history.push(e.currentTarget.dataset.itineraryId);
@@ -46,7 +56,6 @@ class LocationSelectionContainer extends Component {
     let loc3 = this.state.locations.sights[
       Math.floor(Math.random() * locationsExample.sights.length + 1)
     ];
-
     return (
       <div>
         <LocationSelection
@@ -115,9 +124,7 @@ class LocationSelectionContainer extends Component {
 }
 
 const mapStateToProps = state => {
-
   return {};
-
 };
 
 const mapDispatchToProps = dispatch => {

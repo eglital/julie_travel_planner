@@ -4,7 +4,7 @@ export const ADD_LOCATION_TO_ITINERARY = 'ADD_LOCATION_TO_ITINERARY ';
 export function addLocationToItinerary(location, section, itineraryId) {
   return dispatch => {
     console.log('Adding to itinerary:');
-    console.log('Location:', location);
+    console.dir('Location:', location);
     console.log('Section:', section);
     console.log('ItineraryId:', itineraryId);
 
@@ -12,7 +12,7 @@ export function addLocationToItinerary(location, section, itineraryId) {
       .put('http://localhost:8081/api/itinerary/select', {
         location: location,
         itineraryId: itineraryId,
-        selection: section
+        section: section
       })
       .then(response => {
         console.log(response);

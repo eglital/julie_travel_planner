@@ -3,11 +3,12 @@ import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
 
 const LocationSelection = props => {
   const { location, section, itineraryId, onClick } = props;
+  console.log(location);
   return (
     <Card
       style={{ marginBottom: '10px' }}
       onClick={onClick}
-      data-location={location}
+      data-loc={JSON.stringify(location)}
       data-section={section}
       data-itinerary-id={itineraryId}
     >
