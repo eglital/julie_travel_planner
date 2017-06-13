@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button, Form, FormGroup, Label, Input, Col, Row, Alert } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col, Row, Alert, UncontrolledTooltip } from 'reactstrap';
 import moment from 'moment';
 
 function createTimeOptions(time, startOffset = 0) {
@@ -62,6 +62,9 @@ class InitialSubmissionForm extends Component {
                   <Input type="select" name="endingTime" id="endingTime" onChange={onEndTimeChange}>
                     {createTimeOptions(startTime, 2)}
                   </Input>
+                  <UncontrolledTooltip placement="top" target="endingTime">
+                    Ending time must be at least 2 hours after starting time!
+                  </UncontrolledTooltip>
                 </FormGroup>
                 <Button>Get planning!</Button>
               </Form>
