@@ -29,10 +29,20 @@ class InitialSubmissionFormContainer extends Component {
         this.state = {
             nextHour: getNextHour(),
             startTime: getNextHour(),
-            endTime: getNextHour() + 2,
-            startingLocation: null
+            endTime: getNextHour() + (2 * 60 * 60 * 1000),
+            startingLocation: null,
+            error: null
         };
     }
+    
+    componentWillReceiveProps(newProps) {
+        if (newProps.locations.error) {
+            this.setState({
+                error: newProps.locations.error
+            });
+        }
+    }
+    
 
     onStartTimeChange = (e) => {
         //if the endTime would be less than two hours after the new startTime
@@ -94,21 +104,24 @@ class InitialSubmissionFormContainer extends Component {
         else {
             /* geolocation IS NOT available */
         }
-
-
     }
-
-
     render() {
 
         //create new rounded time to pass to submission form each time
         //consider moving to lifecycle hook to check for changes to avoid rerenders
-
         return (
-            <InitialSubmissionForm onSubmit={this.onFormSubmit} onStartTimeChange={this.onStartTimeChange} onEndTimeChange={this.onEndTimeChange} startTime={this.state.startTime} nextHour={this.state.nextHour}/>
+            <InitialSubmissionForm onSubmit={this.onFormSubmit} onStartTimeChange={this.onStartTimeChange} onEndTimeChange={this.onEndTimeChange} {...this.state}/>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        locations: state.locations
+    }
+}
+
+
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -119,4 +132,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(null, mapDispatchToProps)(InitialSubmissionFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(InitialSubmissionFormContainer);
