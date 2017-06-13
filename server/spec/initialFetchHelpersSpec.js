@@ -19,12 +19,16 @@ describe("This is a section of testes for the initial four square request", () =
       expect(results.data[0].lat).toEqual(45.7833);
     });
     it("returns an Itinearary Object", function() {
-      const results = buildListOfChoices([]);
-      expect(results.length).toEqual(0);
+      // const results = buildListOfChoices([]);
+      expect(function() {
+        buildListOfChoices([]);
+      }).toThrow(new Error("the data must be an array of arrays"));
     });
     it("returns an Itinearary Object", function() {
-      const results = buildListOfChoices([1, 2, 3, 4]);
-      expect(results).toThrowError();
+      // const results = buildListOfChoices([]);
+      expect(function() {
+        buildListOfChoices([1, 2, 3, 4]);
+      }).toThrow(new Error("the data must be an array of arrays"));
     });
   });
 });

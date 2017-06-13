@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import { Button, Form, FormGroup, Label, Input, Col, Row } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col, Row, Alert, UncontrolledTooltip } from 'reactstrap';
 import moment from 'moment';
 
-function createTimeOptions(time, offset = 0) {
+function createTimeOptions(time, startOffset = 0) {
     //change to milli
-    let hours = getHoursInMilliseconds(offsetTime(time, offset));
+    let hours = getHoursInMilliseconds(offsetTime(time, startOffset));
     return hours.map((hour) => {
         return (
-            <option key={hour} value={hour}>{moment(hour).format('H')}</option>    
+            <option key={hour} value={hour}>{moment(hour).format('MMMM Do YYYY, h:mm:ss a')}</option>    
         );
     });
 }
@@ -19,17 +19,19 @@ function getHoursInMilliseconds(nextHour) {
     nextHour = moment(nextHour);
     //create an array of times in milliseconds starting with the hour until 22:00 of the same day
     let hours = [];
-    while (nextHour.hour() < 23) {
+    let i = 0;
+    while (i < 12) {
         //push the time in milliseconds
         hours.push(+nextHour);
         //mutate the moment
         nextHour.add(1, 'h');
+        ++i;
     }
     return hours;
 }
 
-function offsetTime(time, hours) {
-    let hoursInMilliseconds = hours * 60 * 60 * 1000;
+function offsetTime(time, startOffset) {
+    let hoursInMilliseconds = startOffset * 60 * 60 * 1000;
     return time + +hoursInMilliseconds;
 }
 
@@ -38,11 +40,12 @@ class InitialSubmissionForm extends Component {
     
   render() {
       
-      const { startTime, nextHour, onStartTimeChange, onEndTimeChange, onSubmit } = this.props;
+      const { startTime, nextHour, onStartTimeChange, onEndTimeChange, onSubmit, error } = this.props;
 
     return (
         <Row>
             <Col xs="12" sm={{offset: 3, size: 6}}>
+            {error && <Alert color="warning"><strong>Whoops!</strong> Something happened on the server. Try again later</Alert> }
               <Form onSubmit={onSubmit}>
                 <FormGroup>
                   <Label for="startingLocation">Starting Location</Label>
@@ -51,7 +54,7 @@ class InitialSubmissionForm extends Component {
                 <FormGroup>
                   <Label for="startingTime">Select Starting Time</Label>
                   <Input type="select" name="startingTime" id="startingTime" onChange={onStartTimeChange}>
-                    {createTimeOptions(nextHour)}
+                    {createTimeOptions(nextHour, 0)}
                   </Input>
                 </FormGroup>
                 <FormGroup>
@@ -59,6 +62,9 @@ class InitialSubmissionForm extends Component {
                   <Input type="select" name="endingTime" id="endingTime" onChange={onEndTimeChange}>
                     {createTimeOptions(startTime, 2)}
                   </Input>
+                  <UncontrolledTooltip placement="top" target="endingTime">
+                    Ending time must be at least 2 hours after starting time!
+                  </UncontrolledTooltip>
                 </FormGroup>
                 <Button>Get planning!</Button>
               </Form>
