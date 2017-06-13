@@ -14,10 +14,6 @@ function initialFourSquareRequest(InitialRequestObject) {
       return Promise.all(jsonData);
     })
     .then(data => {
-      if (!data[0].response.groups[0]) {
-        throw new typeError("The data format is incorrect");
-      }
-
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
@@ -52,6 +48,9 @@ function fourSquareStringBuilder(category, iro) {
 }
 
 function buildListOfChoices(data) {
+  if (typeof data[0] !== "object") {
+    throw new Error("the data must be an array of arrays");
+  }
   const tempPhoto = [
     "https://s-media-cache-ak0.pinimg.com/736x/9c/b7/33/9cb733a13a4e4260346c80b7de3c6223.jpg",
     "https://s-media-cache-ak0.pinimg.com/736x/dd/38/eb/dd38eb8641ca673862dfff2bb8849bfc.jpg",
