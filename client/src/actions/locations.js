@@ -25,7 +25,7 @@ export function fetchLocationsData(form) {
         //need to use qs to form the form data for the get request
         
         
-        return fetch('api/locations')
+        return fetch('initialFetch')
         .then(responseChecker)
         .then(parseToJSON)
         .then((data) => {
