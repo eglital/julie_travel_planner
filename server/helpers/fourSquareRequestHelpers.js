@@ -67,7 +67,7 @@ function buildListOfChoices(data) {
         locationObject.name = item.venue.name;
         locationObject.address = item.venue.location.address;
         locationObject.lat = item.venue.location.lat;
-        locationObject.long = item.venue.location.lng;
+        locationObject.lng = item.venue.location.lng;
         locationObject.category = item.venue.categories[0].name;
         if (item.tips !== undefined) {
           locationObject.tip = item.tips[0].text;
