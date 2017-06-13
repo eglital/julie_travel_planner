@@ -13,11 +13,10 @@ class LocationSelectionContainer extends Component {
 
     this.state = {
       locations: locationsExample,
-      itineraryId: '5940150e3cfe06aca81948cf',
-      duration: 0,
+      itineraryId: '59404339c6eef4b96d7cb451',
+      duration: 40,
       startTime: 0,
       endTime: 100
-      // displayedLocations: this.displayThreeLocations()
     };
   }
 
@@ -30,7 +29,7 @@ class LocationSelectionContainer extends Component {
       e.currentTarget.dataset.itineraryId
     );
 
-    if (this.state.endTime - this.state.duration < 99999999) {
+    if (this.state.endTime - this.state.duration < 10) {
       //this.props.history.push(e.currentTarget.dataset.itineraryId);
     } else {
       this.render();
@@ -73,6 +72,7 @@ class LocationSelectionContainer extends Component {
   }
 
   render() {
+    console.log('rendered');
     return (
       <Container>
         <Row>

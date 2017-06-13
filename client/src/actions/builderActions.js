@@ -15,10 +15,11 @@ export function addLocationToItinerary(location, section, itineraryId) {
         selection: section
       })
       .then(response => {
-        if (response.status !== 200) {
-          console.log("Response wasn't ok");
-          throw new Error('Response not ok');
-        }
+        console.log(response);
+        // if (response.status !== 200) {
+        //   console.log("Response wasn't ok");
+        //   throw new Error('Response not ok');
+        // }
         console.log('Response is ok');
         return response;
       })
