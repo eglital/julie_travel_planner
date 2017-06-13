@@ -23,8 +23,9 @@ export function fetchLocationsDataFailure(error) {
 
 export function fetchLocationsData(form) {
     return (dispatch) => {
-        
-        const myHeaders = new Headers();
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json'
+        });
         const options = {
             method: 'POST',
             headers: myHeaders,

@@ -1,16 +1,11 @@
 const Itinerary = require("../models").Itinerary;
 
 function initialFourSquareRequest(InitialRequestObject) {
-  InitialRequestObject.startTime = new Date(
-    Number(InitialRequestObject.startTime)
-  );
-  InitialRequestObject.endTime = new Date(Number(InitialRequestObject.endTime));
-  InitialRequestObject.lat = Number(InitialRequestObject.startingLocation[0]);
-  InitialRequestObject.lng = Number(InitialRequestObject.startingLocation[1]);
+  const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
   const categories = ["food", "outdoors", "arts"];
-  const apiStrings = categories.map(category => {
-    return fourSquareStringBuilder(category, InitialRequestObject);
-  });
+  const apiStrings = categories.map(category =>
+    fourSquareStringBuilder(category, sanitizedRequest)
+  );
   const requestArray = apiStrings.map(requestString => fetch(requestString));
 
   return Promise.all(requestArray)
@@ -19,6 +14,10 @@ function initialFourSquareRequest(InitialRequestObject) {
       return Promise.all(jsonData);
     })
     .then(data => {
+      if (!data[0].response.groups[0]) {
+        throw new typeError("The data format is incorrect");
+      }
+
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
@@ -30,10 +29,18 @@ function initialFourSquareRequest(InitialRequestObject) {
       return initialResponseObject;
     })
     .catch(err => {
+      console.log("This is an error", err);
       throw new Error(err);
     });
 }
 
+function sanitizeRequestObject(requestObject) {
+  requestObject.startTime = new Date(Number(requestObject.startTime));
+  requestObject.endTime = new Date(Number(requestObject.endTime));
+  requestObject.lat = Number(requestObject.startingLocation[0]);
+  requestObject.lng = Number(requestObject.startingLocation[1]);
+  return requestObject;
+}
 /////////////////////////////////////////////
 //private functions
 /////////////////////////////////////////////

@@ -94,8 +94,8 @@ class InitialSubmissionFormContainer extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchLocationsData: () => {
-            dispatch(fetchLocationsData());
+        fetchLocationsData: (form) => {
+            dispatch(fetchLocationsData(form));
         }
     };
 }
