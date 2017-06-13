@@ -6,7 +6,8 @@ const models = require("./../models");
 const Itinerary = mongoose.model("Itinerary");
 const { googleMapsClient } = require("../helpers/googleApiHelpers");
 const {
-  initialFourSquareRequest
+  initialFourSquareRequest,
+  spontaneousFourSquareRequest
 } = require("../helpers/fourSquareRequestHelpers");
 
 router.post("/itinerary/start", (req, res, next) => {
@@ -163,6 +164,14 @@ router.get("/itinerary/saved/:itineraryId", (req, res, next) => {
   Itinerary.findById(req.params.itineraryId)
     .then(itinerary => {
       res.send(itinerary);
+    })
+    .catch(next);
+});
+
+router.get("/spontaneous", (req, res, next) => {
+  spontaneousFourSquareRequest()
+    .then(responseObject => {
+      res.send(responseObject);
     })
     .catch(next);
 });
