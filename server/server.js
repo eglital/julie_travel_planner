@@ -113,11 +113,9 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-const initialFetch = require("./routes/initialFetch");
-app.use("/initialFetch", initialFetch);
 
-const googleApi = require("./routes/googleApi");
-app.use("/api", googleApi);
+const itineraryRoutes = require("./routes/index");
+app.use("/api", itineraryRoutes);
 
 // ----------------------------------------
 // Error handler

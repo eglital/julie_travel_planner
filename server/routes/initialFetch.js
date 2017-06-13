@@ -4,7 +4,7 @@ const {
   initialFourSquareRequest
 } = require("../helpers/fourSquareRequestHelpers");
 
-router.post("/", (req, res, next) => {
+router.post("/itinerary/start", (req, res, next) => {
   // req.body = JSON.stringify(req.body);
   // req.body = JSON.parse(req.body);
   //
