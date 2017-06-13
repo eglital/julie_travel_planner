@@ -24,7 +24,7 @@ describe("This is a section of testes for the initial four square request", () =
     });
     it("returns an Itinearary Object", function() {
       const results = buildListOfChoices([1, 2, 3, 4]);
-      expect(results.length).toThrow();
+      expect(results).toThrowError();
     });
   });
 });
