@@ -11,19 +11,17 @@ export function addLocationToItinerary(location, section, itineraryId) {
     axios
       .put('http://localhost:8081/api/itinerary/select', {
         location: location,
-        selection: section,
-        itineraryId: itineraryId
+        itineraryId: itineraryId,
+        selection: section
       })
       .then(response => {
         if (response.status !== 200) {
           console.log("Response wasn't ok");
           throw new Error('Response not ok');
         }
-        console.log('Response from server to adding location:');
-        console.log(response);
+        console.log('Response is ok');
         return response;
       })
-      .then(response => {})
       .catch(function(error) {
         console.log('Error:', error);
       });

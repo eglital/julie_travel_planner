@@ -16,8 +16,8 @@ class LocationSelectionContainer extends Component {
       itineraryId: '5940150e3cfe06aca81948cf',
       duration: 0,
       startTime: 0,
-      endTime: 100,
-      dispalyedLocations: this.displayThreeLocations()
+      endTime: 100
+      // displayedLocations: this.displayThreeLocations()
     };
   }
 
@@ -115,9 +115,7 @@ class LocationSelectionContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    locations: state.location
-  };
+  return {};
 };
 
 const mapDispatchToProps = dispatch => {
