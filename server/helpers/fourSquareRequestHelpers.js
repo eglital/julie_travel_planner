@@ -68,7 +68,8 @@ function buildListOfChoices(data) {
     data.forEach(item => {
       if (
         !completeDict[item.venue.name] &&
-        notGym(item.venue.categories[0].name)
+        notGym(item.venue.categories[0].name) &&
+        notGym(item.venue.name)
       ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
@@ -113,11 +114,11 @@ function createItinary(InitialRequestObject) {
         lng: InitialRequestObject.lng
       }
     ]
-  });
+  }).save();
 }
 
 function notGym(category) {
-  let regex = /dojo|fitness/gi;
+  let regex = /dojo|fitness|fittness/gi;
   return !regex.test(category);
 }
 
