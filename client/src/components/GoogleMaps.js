@@ -13,6 +13,7 @@ import sightsIcon from "../assets/sightsIcon.png";
 import placesIcon from "../assets/placesIcon.png";
 import blankIcon from "../assets/blankIcon.png";
 import ShareTwitterButton from "./ShareTwitterButton";
+import ShareFacebookButton from "./ShareFacebookButton";
 //markers = locations(itinerary) from props
 export default class GoogleMaps extends Component {
   constructor(props) {
@@ -122,6 +123,7 @@ export default class GoogleMaps extends Component {
     return (
       <div>
         <ShareTwitterButton />
+        <ShareFacebookButton />
         <div
           className="googleMap"
           style={{ width: "500px", height: "500px", margin: "0 auto" }}
