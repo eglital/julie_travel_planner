@@ -18,6 +18,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
+    "react-dotdotdot": "^1.1.0",
     "react-fontawesome": "^1.6.1",
     "react-google-maps": "^6.3.0",
     "react-redux": "^5.0.5",

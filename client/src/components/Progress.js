@@ -7,12 +7,14 @@ const ProgressBar = props => {
   let totalTime = endTime - startTime;
   let timeUsed = duration / totalTime * 100;
   let timeLeft = 100 - timeUsed;
-  let readableStartTime = dateFormat(new Date(startTime), 'HH TT');
-  let readableEndTime = dateFormat(new Date(endTime), 'HH TT');
-  // let readableStartTime = 'string';
-  // let readableEndTime = 'string';
-
-  //Wed Jun 14 2017 11:00:00 GMT-0700 (PDT)
+  let readableStartTime = dateFormat(new Date(startTime), 'hh TT');
+  if (readableStartTime.charAt(0) === '0') {
+    readableStartTime = readableStartTime.substring(1);
+  }
+  let readableEndTime = dateFormat(new Date(endTime), 'hh TT');
+  if (readableEndTime.charAt(0) === '0') {
+    readableEndTime = readableEndTime.substring(1);
+  }
 
   if (timeUsed === 0) {
     return (
