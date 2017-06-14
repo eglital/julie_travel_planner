@@ -1,6 +1,5 @@
 /* global google */
 import { default as React, Component } from "react";
-
 import {
   withGoogleMap,
   GoogleMap,
@@ -14,11 +13,16 @@ import placesIcon from "../assets/placesIcon.png";
 import blankIcon from "../assets/blankIcon.png";
 import ShareTwitterButton from "./ShareTwitterButton";
 import ShareFacebookButton from "./ShareFacebookButton";
-//markers = locations(itinerary) from props
+
+//props needs to have itinerary array
 export default class GoogleMaps extends Component {
   constructor(props) {
-    super();
+    super(props);
+    // let markers = props.itinerary.forEach(marker => {
+    //   return {...marker, showInfo: false}
+    // })
     this.state = {
+      // markers,
       markers: [
         {
           departureTime: new Date(2017, 6, 12, 14, 0, 0).valueOf(),
@@ -158,6 +162,7 @@ const GoogleMapMarkers = withGoogleMap(props => {
     </GoogleMap>
   );
 });
+
 const icon = marker => {
   switch (marker.section) {
     case "food":
@@ -170,6 +175,7 @@ const icon = marker => {
       return blankIcon;
   }
 };
+
 const markersList = ({ markers, onMarkerClick, onMarkerClose }) => {
   return markers.map(marker => {
     return (
