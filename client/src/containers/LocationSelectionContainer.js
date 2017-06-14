@@ -16,6 +16,10 @@ class LocationSelectionContainer extends Component {
 
   componentDidMount() {}
 
+  componentWillReceiveProps(newProps) {
+    console.log('New props in componentWillReceiveProps:', newProps);
+  }
+
   onClickLocation = e => {
     this.props.addLocationToItinerary(
       JSON.parse(e.currentTarget.dataset.loc),
@@ -23,6 +27,7 @@ class LocationSelectionContainer extends Component {
       e.currentTarget.dataset.itineraryId
     );
 
+    //If there's less than two hours left in itinerary
     if (
       this.props.itinerary.endTime -
         this.props.itinerary.startTime -
@@ -32,10 +37,10 @@ class LocationSelectionContainer extends Component {
       this.props.getFinalItinerary(e.currentTarget.dataset.itineraryId);
 
       this.props.history.push(
-        `/itineraries/${e.currentTarget.dataset.itineraryId}`
+        `/itinerary-overview/${e.currentTarget.dataset.itineraryId}`
       );
     } else {
-      this.render();
+      //this.render();
     }
   };
 
@@ -75,6 +80,7 @@ class LocationSelectionContainer extends Component {
   }
 
   render() {
+    console.log('Current state:', this.props);
     return (
       <Container>
         <Row>
