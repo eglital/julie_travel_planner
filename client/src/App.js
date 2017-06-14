@@ -7,7 +7,12 @@ import LocationSelectionContainer
 import InitialSubmissionFormContainer
   from './containers/InitialSubmissionFormContainer';
 
-import GoogleMaps from './components/GoogleMaps';
+// import GoogleMaps from './components/GoogleMaps';
+//Testing only
+import LocationSegment from './components/LocationSegment';
+
+
+
 
 import Footer from './components/Footer';
 
@@ -22,7 +27,7 @@ class App extends Component {
               component={LocationSelectionContainer}
             />
             <Route exact path="/" component={InitialSubmissionFormContainer} />
-            <Route path="/itinerary-overview" component={GoogleMaps} />
+            <Route path="/itinerary-overview" component={LocationSegment} />
             <Route path="*" render={() => <div>Page Not Found</div>} />
           </Switch>
         </Router>
