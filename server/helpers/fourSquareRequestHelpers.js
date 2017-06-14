@@ -1,6 +1,6 @@
 const Itinerary = require("../models").Itinerary;
 
-function initialFourSquareRequest(InitialRequestObject) {
+function initialFourSquareRequest(InitialRequestObject, next) {
   const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
   const categories = ["food", "outdoors", "arts"];
   const apiStrings = categories.map(category =>
@@ -17,17 +17,23 @@ function initialFourSquareRequest(InitialRequestObject) {
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
-      const initialResponseObject = {};
-      initialResponseObject.food = fullListOfChoices[0];
-      initialResponseObject.places = fullListOfChoices[1];
-      initialResponseObject.sights = fullListOfChoices[2];
-      initialResponseObject.itineraryId = itinerary.id;
+      const initialResponseObject = {
+        locations: {
+          food: fullListOfChoices[0],
+          places: fullListOfChoices[1],
+          sights: fullListOfChoices[2]
+        },
+        itinerary: {
+          itineraryId: itinerary.id,
+          startTime: itinerary.startTime,
+          endTime: itinerary.endTime,
+          duration: 0
+        }
+      };
+      itinerary.save();
       return initialResponseObject;
     })
-    .catch(err => {
-      console.log("This is an error", err);
-      throw new Error(err);
-    });
+    .catch(next);
 }
 
 function spontaneousFourSquareRequest() {
@@ -38,8 +44,8 @@ function spontaneousFourSquareRequest() {
 /////////////////////////////////////////////
 
 function sanitizeRequestObject(requestObject) {
-  requestObject.startTime = new Date(Number(requestObject.startTime));
-  requestObject.endTime = new Date(Number(requestObject.endTime));
+  requestObject.startTime = new Number(requestObject.startTime);
+  requestObject.endTime = new Number(requestObject.endTime);
   requestObject.lat = Number(requestObject.startingLocation[0]);
   requestObject.lng = Number(requestObject.startingLocation[1]);
   return requestObject;
@@ -114,7 +120,7 @@ function createItinary(InitialRequestObject) {
         lng: InitialRequestObject.lng
       }
     ]
-  }).save();
+  });
 }
 
 function notGym(category) {
