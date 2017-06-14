@@ -2,6 +2,7 @@ import axios from 'axios';
 export const ADD_LOCATION_TO_ITINERARY = 'ADD_LOCATION_TO_ITINERARY ';
 export const GET_FINAL_ITINERARY = 'GET_FINAL_ITINERARY';
 export const SET_DURATION = 'SET_DURATION';
+export const SET_FINAL_ITINERARY = 'SET_FINAL_ITINERARY';
 
 export function addLocationToItinerary(location, section, itineraryId) {
   return dispatch => {
@@ -38,11 +39,17 @@ export function getFinalItinerary(itineraryId) {
         if (response.status !== 200) {
           throw new Error('Response not ok');
         }
-        console.log('Response to getting final itinerary:', response);
-        return response;
+        dispatch(setFinalItinerary(response.data));
       })
       .catch(function(error) {
         console.log('Error:', error);
       });
+  };
+}
+
+export function setFinalItinerary(data) {
+  return {
+    type: SET_FINAL_ITINERARY,
+    data
   };
 }
