@@ -46,7 +46,7 @@ class InitialSubmissionForm extends Component {
         <Row>
             <Col xs="12" sm={{offset: 3, size: 6}}>
             {error && <Alert color="warning"><strong>Whoops!</strong> Something happened on the server. Try again later</Alert> }
-            {validItinerary && <Alert color="info"><strong>You already have an itinerary saved!</strong><Link to={`/${validItinerary.id}`}>Click here to view</Link></Alert> }  
+            {validItinerary && <Alert color="info"><strong>You already have an itinerary saved!</strong><Link to={`/itinerary-overview/${validItinerary.id}`}>Click here to view</Link></Alert> }  
               <Form onSubmit={onSubmit}>
                 <FormGroup>
                   <Label for="startingLocation">Starting Location</Label>
