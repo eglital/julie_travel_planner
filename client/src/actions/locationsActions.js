@@ -43,18 +43,15 @@ export function fetchLocationsData(form) {
             .then(ApiResponseHelper.responseChecker)
             .then(ApiResponseHelper.parseToJSON)
             .then((data) => {
-                let itineraryId = data.itineraryId;
+                let itinerary = data.itinerary;
                 //remove from data object
-                delete data.itineraryId;
+                delete data.itinerary;
                 //update the locations reducer
-                console.log("before fetch dispatch");
-                console.log("itineraryId", itineraryId);
-                dispatch(setItineraryId(itineraryId));
-                
-                dispatch(fetchLocationsDataSuccess(data))
 
+                dispatch(setItineraryId(itinerary));
                 
-                console.log("after fetch dispatch");
+                dispatch(fetchLocationsDataSuccess(data.locations))
+
             })
             .catch(err => {
                 dispatch(fetchLocationsDataFailure(err));
