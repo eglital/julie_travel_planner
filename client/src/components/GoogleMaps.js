@@ -12,6 +12,7 @@ import restaurantIcon from "../assets/restaurantIcon.png";
 import sightsIcon from "../assets/sightsIcon.png";
 import placesIcon from "../assets/placesIcon.png";
 import blankIcon from "../assets/blankIcon.png";
+import ShareTwitterButton from "./ShareTwitterButton";
 //markers = locations(itinerary) from props
 export default class GoogleMaps extends Component {
   constructor(props) {
@@ -119,18 +120,21 @@ export default class GoogleMaps extends Component {
   };
   render() {
     return (
-      <div
-        className="googleMap"
-        style={{ width: "500px", height: "500px", margin: "0 auto" }}
-      >
-        <GoogleMapMarkers
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-          markers={this.state.markers}
-          onMarkerClick={this.handleMarkerClick}
-          onMarkerClose={this.handleMarkerClose}
-          directions={this.state.directions}
-        />
+      <div>
+        <ShareTwitterButton />
+        <div
+          className="googleMap"
+          style={{ width: "500px", height: "500px", margin: "0 auto" }}
+        >
+          <GoogleMapMarkers
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            markers={this.state.markers}
+            onMarkerClick={this.handleMarkerClick}
+            onMarkerClose={this.handleMarkerClose}
+            directions={this.state.directions}
+          />
+        </div>
       </div>
     );
   }
