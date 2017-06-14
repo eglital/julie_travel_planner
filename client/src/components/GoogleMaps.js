@@ -1,6 +1,5 @@
 /* global google */
 import { default as React, Component } from "react";
-
 import {
   withGoogleMap,
   GoogleMap,
@@ -12,11 +11,18 @@ import restaurantIcon from "../assets/restaurantIcon.png";
 import sightsIcon from "../assets/sightsIcon.png";
 import placesIcon from "../assets/placesIcon.png";
 import blankIcon from "../assets/blankIcon.png";
-//markers = locations(itinerary) from props
+import ShareTwitterButton from "./ShareTwitterButton";
+import ShareFacebookButton from "./ShareFacebookButton";
+
+//props needs to have itinerary array
 export default class GoogleMaps extends Component {
   constructor(props) {
-    super();
+    super(props);
+    // let markers = props.itinerary.forEach(marker => {
+    //   return {...marker, showInfo: false}
+    // })
     this.state = {
+      // markers,
       markers: [
         {
           departureTime: new Date(2017, 6, 12, 14, 0, 0).valueOf(),
@@ -119,18 +125,22 @@ export default class GoogleMaps extends Component {
   };
   render() {
     return (
-      <div
-        className="googleMap"
-        style={{ width: "500px", height: "500px", margin: "0 auto" }}
-      >
-        <GoogleMapMarkers
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-          markers={this.state.markers}
-          onMarkerClick={this.handleMarkerClick}
-          onMarkerClose={this.handleMarkerClose}
-          directions={this.state.directions}
-        />
+      <div>
+        <ShareTwitterButton />
+        <ShareFacebookButton />
+        <div
+          className="googleMap"
+          style={{ width: "500px", height: "500px", margin: "0 auto" }}
+        >
+          <GoogleMapMarkers
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            markers={this.state.markers}
+            onMarkerClick={this.handleMarkerClick}
+            onMarkerClose={this.handleMarkerClose}
+            directions={this.state.directions}
+          />
+        </div>
       </div>
     );
   }
@@ -152,6 +162,7 @@ const GoogleMapMarkers = withGoogleMap(props => {
     </GoogleMap>
   );
 });
+
 const icon = marker => {
   switch (marker.section) {
     case "food":
@@ -164,6 +175,7 @@ const icon = marker => {
       return blankIcon;
   }
 };
+
 const markersList = ({ markers, onMarkerClick, onMarkerClose }) => {
   return markers.map(marker => {
     return (
