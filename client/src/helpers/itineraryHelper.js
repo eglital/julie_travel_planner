@@ -24,8 +24,20 @@ ItineraryHelper.getItineraryObj = function getItineraryObj(){
 };
 
 ItineraryHelper.isExpired = function isExpired() {
+
     let itineraryObj = ItineraryHelper.getItineraryObj();
     return (moment() >= moment(itineraryObj.expirationDate));
+};
+
+ItineraryHelper.validItinerary = function validItinerary() {
+    
+    if (localStorage.getItem('itinerary')) {
+        console.log("found item in localStorage");
+        if (!ItineraryHelper.isExpired()) {
+            return true;
+        }
+    }
+    return false;
 };
 
 
