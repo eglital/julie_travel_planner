@@ -1,17 +1,25 @@
 import deepFreeze from 'deep-freeze';
-import { SET_ITINERARY_ID } from '../actions/types';
+import { SET_ITINERARY_DATA } from '../actions/types';
 import { itineraryReducer } from '../reducers/itineraryReducer';
 
 it("updates the itinerary id", function() {
     const initialState = {
-        id: null
+        id: null,
+        startTime: null,
+        endTime: null
     }
     const action = {
-        type: SET_ITINERARY_ID,
-        data: 3
+        type: SET_ITINERARY_DATA,
+        data: {
+            id: 3,
+            startTime: 0,
+            endTime: 0
+        }
     }
     const finalState = {
-        id: 3
+        id: 3,
+        startTime: 0,
+        endTime: 0
     }
     deepFreeze(initialState);
     deepFreeze(action);
@@ -19,16 +27,16 @@ it("updates the itinerary id", function() {
     expect(itineraryReducer(initialState, action)).toEqual(finalState);
 })
 
-import {setItineraryId} from '../actions/itineraryActions.js';
+import {setItineraryData} from '../actions/itineraryActions.js';
 
 
 it("create action object", function() {
     const actionObj = {
-        type: SET_ITINERARY_ID,
+        type: SET_ITINERARY_DATA,
         data: 3
     }
     
-    expect(setItineraryId(3)).toEqual(actionObj);
+    expect(setItineraryData(3)).toEqual(actionObj);
     
     
 })

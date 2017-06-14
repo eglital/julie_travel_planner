@@ -1,8 +1,8 @@
-import { SET_ITINERARY_ID } from './types';
+import { SET_ITINERARY_DATA } from './types';
 
-export function setItineraryId(data) {
+export function setItineraryData(data) {
     return {
-        type: SET_ITINERARY_ID,
+        type: SET_ITINERARY_DATA,
         data
     };
 }
