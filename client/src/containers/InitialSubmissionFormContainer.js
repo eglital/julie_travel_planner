@@ -45,16 +45,20 @@ class InitialSubmissionFormContainer extends Component {
     
     componentDidMount(){
         //check localStorage for itinerary: id
-        if (!ItineraryHelper.isExpired()){
+        console.log("component did mount");
+        if (ItineraryHelper.validItinerary()){
             this.setState({
                 validItinerary: ItineraryHelper.getItineraryObj()
-            })
+            });
+        } else {
+            this.setState({
+                validItinerary: false
+            });
         }
     }
     
     
     componentWillReceiveProps(newProps) {
-        console.log("should receive new props");
         //if locations.data is now populated, redirect them to itinerary-creation
         if (Object.keys(newProps.locations.data).length > 0) {
             this.props.history.push('/itinerary-creation');

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Col, Row, Alert, UncontrolledTooltip } from 'reactstrap';
 import moment from 'moment';
 
@@ -40,12 +40,13 @@ class InitialSubmissionForm extends Component {
     
   render() {
       
-      const { startTime, nextHour, onStartTimeChange, onEndTimeChange, onSubmit, error } = this.props;
-
+      const { startTime, nextHour, onStartTimeChange, onEndTimeChange, onSubmit, error, validItinerary } = this.props;
+    console.log("validItinerary", validItinerary);
     return (
         <Row>
             <Col xs="12" sm={{offset: 3, size: 6}}>
             {error && <Alert color="warning"><strong>Whoops!</strong> Something happened on the server. Try again later</Alert> }
+            {validItinerary && <Alert color="info"><strong>You already have an itinerary saved!</strong><Link to={`/${validItinerary.id}`}>Click here to view</Link></Alert> }  
               <Form onSubmit={onSubmit}>
                 <FormGroup>
                   <Label for="startingLocation">Starting Location</Label>
