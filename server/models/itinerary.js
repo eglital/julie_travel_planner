@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 
 const ItinerarySchema = mongoose.Schema({
   startTime: {
-    type: Date,
+    type: Number,
     required: true
   },
   endTime: {
-    type: Date
+    type: Number
   },
   duration: {
     type: Number,

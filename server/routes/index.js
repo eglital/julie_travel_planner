@@ -15,8 +15,7 @@ const {
 } = require("../helpers/fourSquareRequestHelpers");
 
 router.post("/itinerary/start", (req, res, next) => {
-
-  initialFourSquareRequest(req.body.formSubmission)
+  initialFourSquareRequest(req.body.formSubmission, next)
     .then(responseObject => {
       res.send(responseObject);
     })
