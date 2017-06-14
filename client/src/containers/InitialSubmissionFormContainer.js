@@ -6,11 +6,15 @@ import InitialSubmissionForm from '../components/InitialSubmissionForm';
 import {
     fetchLocationsData
 }
-from '../actions/locations';
+from '../actions/locationsActions';
 import {
     connect
 }
 from 'react-redux';
+import {
+    withRouter
+}
+from 'react-router-dom';
 
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -36,6 +40,11 @@ class InitialSubmissionFormContainer extends Component {
     }
     
     componentWillReceiveProps(newProps) {
+        //if locations.data is now populated, redirect them to itinerary-creation
+        if (Object.keys(newProps.locations.data).length > 0) {
+            this.props.history.push('/itinerary-creation');
+        }
+        //if error in form
         if (newProps.locations.error) {
             this.setState({
                 error: newProps.locations.error
@@ -132,4 +141,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(InitialSubmissionFormContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InitialSubmissionFormContainer));

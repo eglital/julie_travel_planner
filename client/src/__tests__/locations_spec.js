@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 
 import { locationsReducer } from '../reducers/locationsReducer';
-import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE } from '../actions/types';
+import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE, SET_ITINERARY_ID } from '../actions/types';
 
 it("updates the location data", function(){
     const initialState = {
@@ -50,20 +50,24 @@ import thunk from 'redux-thunk'
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 import fetchMock from 'fetch-mock'
-import { fetchLocationsData } from '../actions/locations';
+import { fetchLocationsData } from '../actions/locationsActions';
 
 describe('async actions', () => {
     afterEach(() => {
         fetchMock.reset();
     })
     it('creates FETCH LCATIONS DATA SUCCESS upon successful status 200', () => {
-        fetchMock.post(`initialFetch`, {
+        fetchMock.post(`/api/itinerary/start`, {
             status: 200,
             body: {
-                locations:{food: [], sights: []}
+                food: [], sights: [], itineraryId: "bunny"
             }
         })
         const expectedActions = [{
+            type: SET_ITINERARY_ID,
+            data: "bunny"
+        },
+        {
             type: FETCH_LOCATIONS_DATA_SUCCESS,
             data: {food: [], sights: []}
         }]

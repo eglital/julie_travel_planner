@@ -5,18 +5,19 @@ const Schema = mongoose.Schema;
 
 const ItinerarySchema = mongoose.Schema({
   startTime: {
-    type: Date,
+    type: Number,
     required: true
   },
   endTime: {
-    type: Date
+    type: Number
   },
   duration: {
     type: Number,
     default: 0,
     required: true
   },
-  data: [{}]
+  data: [{}],
+  createdAt: { type: Date, expires: "24h", default: Date.now }
 });
 
 const Itinerary = mongoose.model("Itinerary", ItinerarySchema);

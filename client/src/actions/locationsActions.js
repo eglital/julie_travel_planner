@@ -5,6 +5,13 @@ import {
     FETCH_LOCATIONS_DATA_FAILURE
 }
 from './types';
+import ApiResponseHelper from '../helpers/apiResponseHelper';
+import {
+    setItineraryId
+}
+from './itineraryActions.js';
+
+
 
 export function fetchLocationsDataSuccess(data) {
     return {
@@ -32,32 +39,26 @@ export function fetchLocationsData(form) {
             body: JSON.stringify(form)
         };
 
-        return fetch('initialFetch', options)
-            .then(responseChecker)
-            .then(parseToJSON)
+        return fetch('/api/itinerary/start', options)
+            .then(ApiResponseHelper.responseChecker)
+            .then(ApiResponseHelper.parseToJSON)
             .then((data) => {
-                console.log("got data from server", data);
-                //on success redirect the user
-                window.history.pushState({}, "ItineraryCreationPage", 'itinerary-creation');
-                //update the reducer
-                dispatch(fetchLocationsDataSuccess(data.locations));
+                let itineraryId = data.itineraryId;
+                //remove from data object
+                delete data.itineraryId;
+                //update the locations reducer
+                console.log("before fetch dispatch");
+                console.log("itineraryId", itineraryId);
+                dispatch(setItineraryId(itineraryId));
+                
+                dispatch(fetchLocationsDataSuccess(data))
+
+                
+                console.log("after fetch dispatch");
             })
             .catch(err => {
                 dispatch(fetchLocationsDataFailure(err));
             });
 
     };
-}
-
-
-
-function responseChecker(response) {
-    if (!response.ok) {
-        return new Error(response.status);
-    }
-    return response;
-}
-
-function parseToJSON(response) {
-    return response.json();
 }

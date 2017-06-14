@@ -1,6 +1,6 @@
 const Itinerary = require("../models").Itinerary;
 
-function initialFourSquareRequest(InitialRequestObject) {
+function initialFourSquareRequest(InitialRequestObject, next) {
   const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
   const categories = ["food", "outdoors", "arts"];
   const apiStrings = categories.map(category =>
@@ -17,29 +17,39 @@ function initialFourSquareRequest(InitialRequestObject) {
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
-      const initialResponseObject = {};
-      initialResponseObject.food = fullListOfChoices[0];
-      initialResponseObject.places = fullListOfChoices[1];
-      initialResponseObject.sights = fullListOfChoices[2];
-      initialResponseObject.itineraryId = itinerary.id;
+      const initialResponseObject = {
+        locations: {
+          food: fullListOfChoices[0],
+          places: fullListOfChoices[1],
+          sights: fullListOfChoices[2]
+        },
+        itinerary: {
+          itineraryId: itinerary.id,
+          startTime: itinerary.startTime,
+          endTime: itinerary.endTime,
+          duration: 0
+        }
+      };
+      itinerary.save();
       return initialResponseObject;
     })
-    .catch(err => {
-      console.log("This is an error", err);
-      throw new Error(err);
-    });
+    .catch(next);
 }
 
-function sanitizeRequestObject(requestObject) {
-  requestObject.startTime = new Date(Number(requestObject.startTime));
-  requestObject.endTime = new Date(Number(requestObject.endTime));
-  requestObject.lat = Number(requestObject.startingLocation[0]);
-  requestObject.lng = Number(requestObject.startingLocation[1]);
-  return requestObject;
+function spontaneousFourSquareRequest() {
+  //
 }
 /////////////////////////////////////////////
 //private functions
 /////////////////////////////////////////////
+
+function sanitizeRequestObject(requestObject) {
+  requestObject.startTime = new Number(requestObject.startTime);
+  requestObject.endTime = new Number(requestObject.endTime);
+  requestObject.lat = Number(requestObject.startingLocation[0]);
+  requestObject.lng = Number(requestObject.startingLocation[1]);
+  return requestObject;
+}
 
 function fourSquareStringBuilder(category, iro) {
   const clientId = process.env.CLIENT_ID;
@@ -62,9 +72,14 @@ function buildListOfChoices(data) {
 
     let array = [];
     data.forEach(item => {
-      if (!completeDict[item.venue.name]) {
+      if (
+        !completeDict[item.venue.name] &&
+        notGym(item.venue.categories[0].name) &&
+        notGym(item.venue.name)
+      ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
+        locationObject.link = `http://foursquare.com/v/${item.venue.id}?ref= ${process.env.CLIENT_ID}`;
         locationObject.address = item.venue.location.address;
         locationObject.lat = item.venue.location.lat;
         locationObject.lng = item.venue.location.lng;
@@ -106,6 +121,11 @@ function createItinary(InitialRequestObject) {
       }
     ]
   });
+}
+
+function notGym(category) {
+  let regex = /dojo|fitness|fittness/gi;
+  return !regex.test(category);
 }
 
 module.exports = {
