@@ -24,7 +24,7 @@ function initialFourSquareRequest(InitialRequestObject, next) {
           sights: fullListOfChoices[2]
         },
         itinerary: {
-          itineraryId: itinerary.id,
+          id: itinerary.id,
           startTime: itinerary.startTime,
           endTime: itinerary.endTime,
           duration: 0
