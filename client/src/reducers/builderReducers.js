@@ -14,7 +14,12 @@ export function builder(state = initialState, action) {
     case Actions.GET_FINAL_ITINERARY:
       return {
         ...state,
-        finalItinerary: action.data
+        finalItinerary: action.data.itinerary
+      };
+    case Actions.SET_DURATION:
+      return {
+        ...state,
+        duration: action.data.duration
       };
     default:
       return state;
