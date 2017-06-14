@@ -5,10 +5,13 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
-  InfoWindow
+  InfoWindow,
+  DirectionsRenderer
 } from "react-google-maps";
 import restaurantIcon from "../assets/restaurantIcon.png";
 import sightsIcon from "../assets/sightsIcon.png";
+import placesIcon from "../assets/placesIcon.png";
+import blankIcon from "../assets/blankIcon.png";
 //markers = locations(itinerary) from props
 export default class GoogleMaps extends Component {
   constructor(props) {
@@ -16,7 +19,7 @@ export default class GoogleMaps extends Component {
     this.state = {
       markers: [
         {
-          departureTime: "2017-07-12T14:00:00Z",
+          departureTime: new Date(2017, 6, 12, 14, 0, 0).valueOf(),
           arrivalTime: null,
           lng: -87.636393,
           lat: 41.878112,
@@ -31,7 +34,7 @@ export default class GoogleMaps extends Component {
           tip: "The chef-driven food hall has a kiosk where Mindy Segal's staff serve her famous hot chocolate that includes the all-important homemade marshmallows. Get it to go.",
           isOpen: true,
           hours: "Open until 7:00 PM",
-          departureTime: "2017-07-12T15:00:00Z",
+          departureTime: new Date(2017, 6, 12, 15, 0, 0).valueOf(),
           showInfo: false,
           section: "food"
         },
@@ -44,7 +47,7 @@ export default class GoogleMaps extends Component {
           tip: "Something strange happens when you mix the CaramelCrisp® and CheeseCorn™ together evenly - Garrett's dubs this the Chicago Mix, and it's a huge seller because it's salty and sweet.",
           isOpen: true,
           hours: "Open until 8:00 PM",
-          departureTime: "2017-07-12T16:00:00Z",
+          departureTime: new Date(2017, 6, 12, 16, 0, 0).valueOf(),
           showInfo: false,
           section: "sights"
         },
@@ -57,19 +60,31 @@ export default class GoogleMaps extends Component {
           tip: "Wifi pass is cubano01",
           isOpen: true,
           hours: "Open until 9:00 PM",
-          departureTime: "2017-07-12T17:00:00Z",
+          departureTime: new Date(2017, 6, 12, 17, 0, 0).valueOf(),
           showInfo: false,
-          section: "food"
+          section: "places"
         },
         {
-          departureTime: "2017-07-12T18:00:00Z",
+          departureTime: new Date(2017, 6, 12, 18, 0, 0).valueOf(),
           arrivalTime: null,
           lng: -87.636393,
           lat: 41.878112,
           showInfo: false
         }
-      ]
+      ],
+      directions: null
     };
+  }
+  componentDidMount() {
+    const DirectionsService = new google.maps.DirectionsService();
+    const request = directionsRequest({ markers: this.state.markers });
+    DirectionsService.route(request, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        this.setState({ directions: result });
+      } else {
+        console.error(`error fetching directions ${result}`);
+      }
+    });
   }
   handleMarkerClick = targetMarker => {
     this.setState({
@@ -114,28 +129,39 @@ export default class GoogleMaps extends Component {
           markers={this.state.markers}
           onMarkerClick={this.handleMarkerClick}
           onMarkerClose={this.handleMarkerClose}
+          directions={this.state.directions}
         />
       </div>
     );
   }
 }
 const GoogleMapMarkers = withGoogleMap(props => {
-  const { markers, onMarkerClose, onMarkerClick } = props;
+  const { markers, onMarkerClose, onMarkerClick, directions } = props;
 
   return (
-    <GoogleMap zoom={13} center={{ lat: markers[0].lat, lng: markers[0].lng }}>
+    <GoogleMap
+      defaultZoom={13}
+      defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
+    >
       {markersList({ markers, onMarkerClick, onMarkerClose })}
-
+      {directions &&
+        <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />}
     </GoogleMap>
   );
 });
 const icon = marker => {
-  if (marker.section === "food") {
-    return restaurantIcon;
-  } else if (marker.section === "sights") {
-    return sightsIcon;
-  } else {
-    return null;
+  switch (marker.section) {
+    case "food":
+      return restaurantIcon;
+    case "sights":
+      return sightsIcon;
+    case "places":
+      return placesIcon;
+    default:
+      return blankIcon;
   }
 };
 const markersList = ({ markers, onMarkerClick, onMarkerClose }) => {
@@ -168,6 +194,28 @@ const infoContent = marker => {
 
     </div>
   );
+};
+const directionsRequest = ({ markers }) => {
+  let request = { travelMode: "DRIVING" };
+  request.origin = {
+    lat: markers[0].lat,
+    lng: markers[0].lng
+  };
+  request.destination = {
+    lat: markers[markers.length - 1].lat,
+    lng: markers[markers.length - 1].lng
+  };
+  request.waypoints = [];
+  for (let i = 1; i < markers.length - 1; i++) {
+    request.waypoints.push({
+      location: {
+        lat: markers[i].lat,
+        lng: markers[i].lng
+      },
+      stopover: true
+    });
+  }
+  return request;
 };
 
 /*

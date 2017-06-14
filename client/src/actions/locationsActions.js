@@ -1,17 +1,11 @@
-import 'isomorphic-fetch';
+import "isomorphic-fetch";
 
 import {
     FETCH_LOCATIONS_DATA_SUCCESS,
     FETCH_LOCATIONS_DATA_FAILURE
-}
-from './types';
-import ApiResponseHelper from '../helpers/apiResponseHelper';
-import {
-    setItineraryData
-}
-from './itineraryActions.js';
-
-
+} from "./types";
+import ApiResponseHelper from "../helpers/apiResponseHelper";
+import { setItineraryData } from "./itineraryActions.js";
 
 export function fetchLocationsDataSuccess(data) {
     return {
@@ -27,22 +21,21 @@ export function fetchLocationsDataFailure(error) {
     };
 }
 
-
 export function fetchLocationsData(form) {
-    return (dispatch) => {
+    return dispatch => {
         const myHeaders = new Headers({
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         });
         const options = {
-            method: 'POST',
+            method: "POST",
             headers: myHeaders,
             body: JSON.stringify(form)
         };
 
-        return fetch('/api/itinerary/start', options)
+        return fetch("/api/itinerary/start", options)
             .then(ApiResponseHelper.responseChecker)
             .then(ApiResponseHelper.parseToJSON)
-            .then((data) => {
+            .then(data => {
                 let itinerary = data.itinerary;
                 //remove from data object
                 delete data.itinerary;
@@ -50,14 +43,12 @@ export function fetchLocationsData(form) {
                 console.log("dispatching location success", data);
 
                 dispatch(setItineraryData(itinerary));
-                
-                dispatch(fetchLocationsDataSuccess(data.locations))
 
+                dispatch(fetchLocationsDataSuccess(data.locations));
             })
             .catch(err => {
                 console.log("dispatching location failure", err);
                 dispatch(fetchLocationsDataFailure(err));
             });
-
     };
 }
