@@ -32,11 +32,15 @@ class LocationSelectionContainer extends Component {
       this.props.getFinalItinerary(e.currentTarget.dataset.itineraryId);
 
       this.props.history.push(
-        `/itineraries/${e.currentTarget.dataset.itineraryId}`
+        `/itinerary-overview/${e.currentTarget.dataset.itineraryId}`
       );
-    } else {
-      this.render();
     }
+  };
+
+  onClickBuildItinerary = () => {
+    this.props.getFinalItinerary(this.props.itinerary.id);
+
+    this.props.history.push(`/itinerary-overview/${this.props.itinerary.id}`);
   };
 
   displayThreeLocations() {
@@ -75,6 +79,7 @@ class LocationSelectionContainer extends Component {
   }
 
   render() {
+    console.log('Current state:', this.props);
     return (
       <Container>
         <Row>
@@ -106,7 +111,7 @@ class LocationSelectionContainer extends Component {
             className="text-center"
             xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
           >
-            <Button>
+            <Button onClick={this.onClickBuildItinerary}>
               Build Itinerary Now
             </Button>
           </Col>

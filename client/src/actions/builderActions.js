@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const ADD_LOCATION_TO_ITINERARY = 'ADD_LOCATION_TO_ITINERARY ';
 export const GET_FINAL_ITINERARY = 'GET_FINAL_ITINERARY';
+export const SET_DURATION = 'SET_DURATION';
 
 export function addLocationToItinerary(location, section, itineraryId) {
   return dispatch => {
@@ -14,12 +15,18 @@ export function addLocationToItinerary(location, section, itineraryId) {
         if (response.status !== 200) {
           throw new Error('Response not ok');
         }
-        console.log('Response to adding location:', response);
-        return response;
+        dispatch(setDuration(response.data));
       })
       .catch(function(error) {
         console.log('Error:', error);
       });
+  };
+}
+
+export function setDuration(data) {
+  return {
+    type: SET_DURATION,
+    data
   };
 }
 
