@@ -24,12 +24,12 @@ describe("Google API", () => {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     Itinerary.create({
-      startTime: "2017-07-12T14:00:00Z",
-      endTime: "2017-07-13T02:00:00Z",
+      startTime: new Date(2017, 6, 12, 10, 0, 0).valueOf(),
+      endTime: new Date(2017, 6, 12, 22, 0, 0).valueOf(),
       duration: 100000,
       data: [
         {
-          departureTime: "2017-07-12T14:00:00Z",
+          departureTime: new Date(2017, 6, 12, 10, 0, 0).valueOf(),
           arrivalTime: null,
           lng: -87.636393,
           lat: 41.878112
@@ -43,8 +43,8 @@ describe("Google API", () => {
           tip: "The chef-driven food hall has a kiosk where Mindy Segal's staff serve her famous hot chocolate that includes the all-important homemade marshmallows. Get it to go.",
           isOpen: true,
           hours: "Open until 7:00 PM",
-          arrivalTime: "2017-07-12T15:00:00Z",
-          departureTime: "2017-07-12T16:00:00Z"
+          arrivalTime: new Date(2017, 6, 12, 11, 0, 0).valueOf(),
+          departureTime: new Date(2017, 6, 12, 12, 0, 0).valueOf()
         }
       ]
     }).then(result => {

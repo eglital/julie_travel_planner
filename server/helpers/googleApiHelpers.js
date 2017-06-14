@@ -8,11 +8,11 @@ const googleMapsClient = require("@google/maps").createClient({
   Promise: require("q").Promise
 });
 
-//in seconds
+//in miliseconds
 const timeInSections = {
-  food: 3600,
-  places: (Math.floor(Math.random() * 2) + 2) * 3600,
-  sights: (Math.floor(Math.random() * 2) + 2) * 3600
+  food: 3600000,
+  places: (Math.floor(Math.random() * 2) + 2) * 3600000,
+  sights: (Math.floor(Math.random() * 2) + 2) * 3600000
 };
 
 const selectingItinerary = ({ location, itineraryId, section, res }) => {
@@ -40,8 +40,9 @@ const selectingItinerary = ({ location, itineraryId, section, res }) => {
         });
       })
       .then(response => {
-        //duration value in seconds
-        responseDuration = response.json.rows[0].elements[0].duration.value;
+        //response value in seconds, make it miliseconds
+        responseDuration =
+          response.json.rows[0].elements[0].duration.value * 1000;
 
         const { newLocation, newDuration } = formatItineraryUpdate({
           responseDuration,
@@ -94,8 +95,9 @@ const finishingItinerary = ({ itineraryId, res }) => {
         });
       })
       .then(response => {
-        //duration value in seconds
-        responseDuration = response.json.rows[0].elements[0].duration.value;
+        //response value in seconds, make it miliseconds
+        responseDuration =
+          response.json.rows[0].elements[0].duration.value * 1000;
         const { newLocation, newDuration } = formatItineraryUpdate({
           responseDuration,
           location: itinerary.data[0],
@@ -140,8 +142,8 @@ const googleRequest = ({ origins, destinations, departure_time }) => {
   });
 };
 
-const addSeconds = ({ initialTime, duration }) => {
-  return moment(initialTime).add(duration, "s").format();
+const addMilliseconds = ({ initialTime, duration }) => {
+  return moment(initialTime).add(duration, "ms").valueOf();
 };
 const formatOriginsDestinations = ({ origin, destination }) => {
   return {
@@ -163,12 +165,12 @@ const formatItineraryUpdate = ({
     newLocation,
     newDuration;
 
-  newArrivalTime = addSeconds({
+  newArrivalTime = addMilliseconds({
     initialTime: lastLocation.departureTime,
     duration: responseDuration
   });
   randomDuration = section ? timeInSections[section] : 0;
-  newDepartureTime = addSeconds({
+  newDepartureTime = addMilliseconds({
     initialTime: newArrivalTime,
     duration: randomDuration ? randomDuration : null
   });
@@ -177,7 +179,7 @@ const formatItineraryUpdate = ({
   newLocation.departureTime = newDepartureTime;
   newLocation.section = section;
   //in miliseconds
-  newDuration = duration + responseDuration * 1000 + randomDuration * 1000;
+  newDuration = duration + responseDuration + randomDuration;
   return { newLocation, newDuration };
 };
 
