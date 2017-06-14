@@ -12,7 +12,7 @@ class LocationSelectionContainer extends Component {
 
     this.state = {
       locations: this.props.locations.data,
-      itineraryId: this.props.itinerary.itineraryId,
+      itineraryId: this.props.itinerary.id,
       duration: 0,
       startTime: this.props.itinerary.startTime,
       endTime: this.props.itinerary.endTime
@@ -120,7 +120,8 @@ class LocationSelectionContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    locations: state.locations
+    locations: state.locations,
+    itinerary: state.itinerary
   };
 };
 
