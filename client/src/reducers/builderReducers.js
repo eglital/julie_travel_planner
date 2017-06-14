@@ -7,10 +7,14 @@ const initialState = {
 export function builder(state = initialState, action) {
   switch (action.type) {
     case Actions.ADD_LOCATION_TO_ITINERARY:
-      console.log(action.data);
       return {
         ...state,
         duration: action.data.duration
+      };
+    case Actions.GET_FINAL_ITINERARY:
+      return {
+        ...state,
+        finalItinerary: action.data
       };
     default:
       return state;
