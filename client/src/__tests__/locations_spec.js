@@ -64,12 +64,12 @@ describe('async actions', () => {
             }
         })
         const expectedActions = [{
-            type: FETCH_LOCATIONS_DATA_SUCCESS,
-            data: {food: [], sights: []}
-        },
-        {
             type: SET_ITINERARY_ID,
             data: "bunny"
+        },
+        {
+            type: FETCH_LOCATIONS_DATA_SUCCESS,
+            data: {food: [], sights: []}
         }]
         const store = mockStore({
             locations: {}

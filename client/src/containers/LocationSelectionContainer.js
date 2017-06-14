@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'reactstrap';
 import LocationSelection from '../components/LocationSelection';
 import ProgressBar from '../components/Progress';
-import locationsExample from './locationsExample';
 import { addLocationToItinerary } from '../actions/builderActions';
 
 class LocationSelectionContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      locations: locationsExample,
+      locations: this.props.locations.data,
       itineraryId: '59406b583eab90c9ee1c7298',
       duration: 0,
       startTime: 0,
@@ -120,7 +119,9 @@ class LocationSelectionContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    locations: state.locations
+  };
 };
 
 const mapDispatchToProps = dispatch => {
