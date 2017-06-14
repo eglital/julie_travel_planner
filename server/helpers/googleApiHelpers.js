@@ -175,6 +175,7 @@ const formatItineraryUpdate = ({
   newLocation = location;
   newLocation.arrivalTime = newArrivalTime;
   newLocation.departureTime = newDepartureTime;
+  newLocation.section = section;
   //in miliseconds
   newDuration = duration + responseDuration * 1000 + randomDuration * 1000;
   return { newLocation, newDuration };

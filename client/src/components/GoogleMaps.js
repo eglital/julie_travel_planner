@@ -32,7 +32,8 @@ export default class GoogleMaps extends Component {
           isOpen: true,
           hours: "Open until 7:00 PM",
           departureTime: "2017-07-12T15:00:00Z",
-          showInfo: false
+          showInfo: false,
+          section: "food"
         },
         {
           name: "Garrett Popcorn Shops",
@@ -44,7 +45,8 @@ export default class GoogleMaps extends Component {
           isOpen: true,
           hours: "Open until 8:00 PM",
           departureTime: "2017-07-12T16:00:00Z",
-          showInfo: false
+          showInfo: false,
+          section: "sights"
         },
         {
           name: "Cafecito",
@@ -56,7 +58,8 @@ export default class GoogleMaps extends Component {
           isOpen: true,
           hours: "Open until 9:00 PM",
           departureTime: "2017-07-12T17:00:00Z",
-          showInfo: false
+          showInfo: false,
+          section: "food"
         },
         {
           departureTime: "2017-07-12T18:00:00Z",
@@ -126,6 +129,15 @@ const GoogleMapMarkers = withGoogleMap(props => {
     </GoogleMap>
   );
 });
+const icon = marker => {
+  if (marker.section === "food") {
+    return restaurantIcon;
+  } else if (marker.section === "sights") {
+    return sightsIcon;
+  } else {
+    return null;
+  }
+};
 const markersList = ({ markers, onMarkerClick, onMarkerClose }) => {
   return markers.map(marker => {
     return (
@@ -133,7 +145,7 @@ const markersList = ({ markers, onMarkerClick, onMarkerClose }) => {
         position={{ lat: marker.lat, lng: marker.lng }}
         key={marker.departureTime}
         onClick={() => onMarkerClick(marker)}
-        icon={sightsIcon}
+        icon={icon(marker)}
       >
         {marker.showInfo &&
           <InfoWindow onCloseClick={() => onMarkerClose(marker)}>
