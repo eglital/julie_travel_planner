@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import LocationSelectionContainer
-  from "./containers/LocationSelectionContainer";
+  from './containers/LocationSelectionContainer';
 
 import InitialSubmissionFormContainer
-  from "./containers/InitialSubmissionFormContainer";
+  from './containers/InitialSubmissionFormContainer';
 
-import GoogleMaps from "./components/GoogleMaps";
+import GoogleMaps from './components/GoogleMaps';
+
+import Footer from './components/Footer';
 
 class App extends Component {
   render() {
@@ -24,6 +26,7 @@ class App extends Component {
             <Route path="*" render={() => <div>Page Not Found</div>} />
           </Switch>
         </Router>
+        <Footer />
       </div>
     );
   }

@@ -12,10 +12,10 @@ class LocationSelectionContainer extends Component {
 
     this.state = {
       locations: this.props.locations.data,
-      itineraryId: '59406b583eab90c9ee1c7298',
+      itineraryId: this.props.itinerary.itineraryId,
       duration: 0,
-      startTime: 0,
-      endTime: 100
+      startTime: this.props.itinerary.startTime,
+      endTime: this.props.itinerary.endTime
     };
   }
 
@@ -43,13 +43,13 @@ class LocationSelectionContainer extends Component {
 
   displayThreeLocations() {
     let loc1 = this.state.locations.food[
-      Math.floor(Math.random() * locationsExample.food.length + 1)
+      Math.floor(Math.random() * this.state.locations.food.length + 1)
     ];
     let loc2 = this.state.locations.places[
-      Math.floor(Math.random() * locationsExample.places.length + 1)
+      Math.floor(Math.random() * this.state.places.length + 1)
     ];
     let loc3 = this.state.locations.sights[
-      Math.floor(Math.random() * locationsExample.sights.length + 1)
+      Math.floor(Math.random() * this.state.sights.length + 1)
     ];
 
     return (

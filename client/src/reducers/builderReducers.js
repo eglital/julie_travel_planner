@@ -1,7 +1,6 @@
 import * as Actions from '../actions/builderActions';
 
 const initialState = {
-  itineraryId: 1,
   duration: 0
 };
 
