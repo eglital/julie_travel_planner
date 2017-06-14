@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import LocationSelection from '../components/LocationSelection';
 import ProgressBar from '../components/Progress';
-import { addLocationToItinerary } from '../actions/builderActions';
+import {
+  addLocationToItinerary,
+  getFinalItinerary
+} from '../actions/builderActions';
 
 class LocationSelectionContainer extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      locations: this.props.locations.data,
-      itineraryId: this.props.itinerary.id,
-      duration: 0,
-      startTime: this.props.itinerary.startTime,
-      endTime: this.props.itinerary.endTime
-    };
   }
 
   componentDidMount() {}
@@ -28,28 +23,31 @@ class LocationSelectionContainer extends Component {
       e.currentTarget.dataset.itineraryId
     );
 
-    this.setState((prevState, props) => {
-      return {
-        duration: prevState.duration + 30
-      };
-    });
+    if (
+      this.props.itinerary.endTime -
+        this.props.itinerary.startTime -
+        this.props.builder.duration <=
+      7200000
+    ) {
+      this.props.getFinalItinerary(e.currentTarget.dataset.itineraryId);
 
-    if (this.state.endTime - this.state.duration < 10) {
-      //this.props.history.push(e.currentTarget.dataset.itineraryId);
+      this.props.history.push(
+        `/itineraries/${e.currentTarget.dataset.itineraryId}`
+      );
     } else {
       this.render();
     }
   };
 
   displayThreeLocations() {
-    let loc1 = this.state.locations.food[
-      Math.floor(Math.random() * this.state.locations.food.length + 1)
+    let loc1 = this.props.locations.food[
+      Math.floor(Math.random() * this.props.locations.food.length + 1)
     ];
-    let loc2 = this.state.locations.places[
-      Math.floor(Math.random() * this.state.locations.places.length + 1)
+    let loc2 = this.props.locations.places[
+      Math.floor(Math.random() * this.props.locations.places.length + 1)
     ];
-    let loc3 = this.state.locations.sights[
-      Math.floor(Math.random() * this.state.locations.sights.length + 1)
+    let loc3 = this.props.locations.sights[
+      Math.floor(Math.random() * this.props.locations.sights.length + 1)
     ];
 
     return (
@@ -57,19 +55,19 @@ class LocationSelectionContainer extends Component {
         <LocationSelection
           location={loc1}
           section="food"
-          itineraryId={this.state.itineraryId}
+          itineraryId={this.props.itinerary.id}
           onClick={this.onClickLocation}
         />
         <LocationSelection
           location={loc2}
           section="places"
-          itineraryId={this.state.itineraryId}
+          itineraryId={this.props.itinerary.id}
           onClick={this.onClickLocation}
         />
         <LocationSelection
           location={loc3}
           section="sights"
-          itineraryId={this.state.itineraryId}
+          itineraryId={this.props.itinerary.id}
           onClick={this.onClickLocation}
         />
       </div>
@@ -82,9 +80,9 @@ class LocationSelectionContainer extends Component {
         <Row>
           <Col lg={{ size: 8, offset: 2 }}>
             <ProgressBar
-              startTime={this.state.startTime}
-              endTime={this.state.endTime}
-              duration={this.state.duration}
+              startTime={this.props.itinerary.startTime}
+              endTime={this.props.itinerary.endTime}
+              duration={this.props.builder.duration}
             />
           </Col>
         </Row>
@@ -120,8 +118,9 @@ class LocationSelectionContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    locations: state.locations,
-    itinerary: state.itinerary
+    locations: state.locations.data,
+    itinerary: state.itinerary,
+    builder: state.builder
   };
 };
 
@@ -129,10 +128,13 @@ const mapDispatchToProps = dispatch => {
   return {
     addLocationToItinerary: (location, section, itineraryId) => {
       dispatch(addLocationToItinerary(location, section, itineraryId));
+    },
+    getFinalItinerary: itineraryId => {
+      dispatch(getFinalItinerary(itineraryId));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  LocationSelectionContainer
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LocationSelectionContainer)
 );
