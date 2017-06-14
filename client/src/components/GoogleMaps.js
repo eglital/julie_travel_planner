@@ -77,28 +77,9 @@ export default class GoogleMaps extends Component {
   }
   componentDidMount() {
     const DirectionsService = new google.maps.DirectionsService();
-    let request = { travelMode: "DRIVING" };
-    request.origin = {
-      lat: this.state.markers[0].lat,
-      lng: this.state.markers[0].lng
-    };
-    request.destination = {
-      lat: this.state.markers[this.state.markers.length - 1].lat,
-      lng: this.state.markers[this.state.markers.length - 1].lng
-    };
-    request.waypoints = [];
-    for (let i = 1; i < this.state.markers.length - 1; i++) {
-      request.waypoints.push({
-        location: {
-          lat: this.state.markers[i].lat,
-          lng: this.state.markers[i].lng
-        },
-        stopover: true
-      });
-    }
+    const request = directionsRequest({ markers: this.state.markers });
     DirectionsService.route(request, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
-        console.log(result);
         this.setState({ directions: result });
       } else {
         console.error(`error fetching directions ${result}`);
@@ -213,6 +194,28 @@ const infoContent = marker => {
 
     </div>
   );
+};
+const directionsRequest = ({ markers }) => {
+  let request = { travelMode: "DRIVING" };
+  request.origin = {
+    lat: markers[0].lat,
+    lng: markers[0].lng
+  };
+  request.destination = {
+    lat: markers[markers.length - 1].lat,
+    lng: markers[markers.length - 1].lng
+  };
+  request.waypoints = [];
+  for (let i = 1; i < markers.length - 1; i++) {
+    request.waypoints.push({
+      location: {
+        lat: markers[i].lat,
+        lng: markers[i].lng
+      },
+      stopover: true
+    });
+  }
+  return request;
 };
 
 /*
