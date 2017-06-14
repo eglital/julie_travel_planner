@@ -7,7 +7,7 @@ import {
 from './types';
 import ApiResponseHelper from '../helpers/apiResponseHelper';
 import {
-    setItineraryId
+    setItineraryData
 }
 from './itineraryActions.js';
 
@@ -47,13 +47,15 @@ export function fetchLocationsData(form) {
                 //remove from data object
                 delete data.itinerary;
                 //update the locations reducer
+                console.log("dispatching location success", data);
 
-                dispatch(setItineraryId(itinerary));
+                dispatch(setItineraryData(itinerary));
                 
                 dispatch(fetchLocationsDataSuccess(data.locations))
 
             })
             .catch(err => {
+                console.log("dispatching location failure", err);
                 dispatch(fetchLocationsDataFailure(err));
             });
 

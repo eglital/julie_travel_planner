@@ -46,10 +46,10 @@ class LocationSelectionContainer extends Component {
       Math.floor(Math.random() * this.state.locations.food.length + 1)
     ];
     let loc2 = this.state.locations.places[
-      Math.floor(Math.random() * this.state.places.length + 1)
+      Math.floor(Math.random() * this.state.locations.places.length + 1)
     ];
     let loc3 = this.state.locations.sights[
-      Math.floor(Math.random() * this.state.sights.length + 1)
+      Math.floor(Math.random() * this.state.locations.sights.length + 1)
     ];
 
     return (

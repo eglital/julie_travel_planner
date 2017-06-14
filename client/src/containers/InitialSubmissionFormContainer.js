@@ -15,6 +15,9 @@ import {
     withRouter
 }
 from 'react-router-dom';
+import ItineraryHelper from '../helpers/itineraryHelper';
+
+
 
 function getNextHour() {
     let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -35,11 +38,23 @@ class InitialSubmissionFormContainer extends Component {
             startTime: getNextHour(),
             endTime: getNextHour() + (2 * 60 * 60 * 1000),
             startingLocation: null,
-            error: null
+            error: null,
+            validItinerary: false
         };
     }
     
+    componentDidMount(){
+        //check localStorage for itinerary: id
+        if (!ItineraryHelper.isExpired()){
+            this.setState({
+                validItinerary: ItineraryHelper.getItineraryObj()
+            })
+        }
+    }
+    
+    
     componentWillReceiveProps(newProps) {
+        console.log("should receive new props");
         //if locations.data is now populated, redirect them to itinerary-creation
         if (Object.keys(newProps.locations.data).length > 0) {
             this.props.history.push('/itinerary-creation');
