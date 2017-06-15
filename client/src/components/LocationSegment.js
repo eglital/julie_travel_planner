@@ -27,7 +27,7 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
              <div style={timeboxStyle}><span>{arrivalTime && moment(arrivalTime).format('LT')}</span><span>{arrivalTime && departureTime ? "-" : null}</span><span>{departureTime && moment(departureTime).format('LT')}</span></div>
              <div className="location-segment-info" style={{display: "flex", flexGrow: 1}}>
               <div style={locationImgStyle(locationData.photo)}></div>
-              <p>{locationData.name}</p>
+              <div><div>{locationData.name}</div><div>{locationData.category && `Category: ${locationData.category}`}</div></div>
              </div>
         </div>
        </a>

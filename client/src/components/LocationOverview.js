@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LocationSegment from './LocationSegment';
 import TravelSegment from './TravelSegment';
 import GoogleMaps from './GoogleMaps';
-
+import { Link } from 'react-router-dom';
 
 function makeOverview(finalItinerary) {
  return finalItinerary.map((location, index) => {
@@ -25,7 +25,7 @@ function makeOverview(finalItinerary) {
   else {
    return (
     <div key={index}>
-      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{link: location.link, name: location.name, photo: location.photo}}/>
+      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{link: location.link, name: location.name, photo: location.photo, category: location.category}}/>
       <TravelSegment duration={nextLocation.arrivalTime - location.departureTime}/>
      </div>
    );
@@ -40,7 +40,7 @@ const LocationOverview = ({
  return (
   <div className="LocationOverview" style={{marginBottom: 20/*Should be equal to the height of the footer*/}}>
    {makeOverview(finalItinerary)}
-   <button>Plan a new route</button>
+   <Link to="/"><button>Plan a new route</button></Link>
    <GoogleMaps finalItinerary={finalItinerary}/>
   </div>
  );
