@@ -3,5 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif; }
 
+.location-segment .location-segment-info {
+  border: 1px solid black;
+  border-radius: 5px; }
+
 .location-segment div {
   height: 100%; }
