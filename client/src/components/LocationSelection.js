@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
 import Dotdotdot from 'react-dotdotdot';
-
 const LocationSelection = props => {
   const { location, section, itineraryId, onClick } = props;
 
@@ -16,6 +15,7 @@ const LocationSelection = props => {
       <CardBlock style={{ padding: '10px' }}>
         <div
           style={{
+            display: 'inline-block',
             display: 'inline-block',
             backgroundImage: `url(${location.photo || 'nophoto'})`,
             backgroundPosition: '50% 50%',
