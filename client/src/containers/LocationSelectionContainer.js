@@ -6,12 +6,9 @@ import LocationSelection from '../components/LocationSelection';
 import ProgressBar from '../components/Progress';
 import { addLocationToItinerary } from '../actions/builderActions';
 import { getFinalItinerary } from '../actions/itineraryActions';
+import displayThreeLocations from '../helpers/randomLocationPicker';
 
 class LocationSelectionContainer extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   componentDidMount() {}
   shouldComponentUpdate(nextProps, nextState) {
     if (
@@ -39,41 +36,6 @@ class LocationSelectionContainer extends Component {
     this.props.getFinalItinerary(this.props.itinerary.id);
   };
 
-  displayThreeLocations() {
-    let loc1 = this.props.locations.food[
-      Math.floor(Math.random() * this.props.locations.food.length + 1)
-    ];
-    let loc2 = this.props.locations.places[
-      Math.floor(Math.random() * this.props.locations.places.length + 1)
-    ];
-    let loc3 = this.props.locations.sights[
-      Math.floor(Math.random() * this.props.locations.sights.length + 1)
-    ];
-
-    return (
-      <div>
-        <LocationSelection
-          location={loc1}
-          section="food"
-          itineraryId={this.props.itinerary.id}
-          onClick={this.onClickLocation}
-        />
-        <LocationSelection
-          location={loc2}
-          section="places"
-          itineraryId={this.props.itinerary.id}
-          onClick={this.onClickLocation}
-        />
-        <LocationSelection
-          location={loc3}
-          section="sights"
-          itineraryId={this.props.itinerary.id}
-          onClick={this.onClickLocation}
-        />
-      </div>
-    );
-  }
-
   render() {
     return (
       <Container>
@@ -91,7 +53,7 @@ class LocationSelectionContainer extends Component {
             <p className="text-center">
               Select one of the following to add it to your itinerary, and we'll figure out how to get you there.
             </p>
-            {this.displayThreeLocations()}
+            {displayThreeLocations(this.props, this.onClickLocation)}
           </Col>
         </Row>
         <Row>

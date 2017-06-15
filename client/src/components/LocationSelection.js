@@ -4,6 +4,9 @@ import Dotdotdot from 'react-dotdotdot';
 
 const LocationSelection = props => {
   const { location, section, itineraryId, onClick } = props;
+  if (!location.photo) {
+    location.photo = './128.png';
+  }
 
   return (
     <Card
@@ -17,7 +20,7 @@ const LocationSelection = props => {
         <div
           style={{
             display: 'inline-block',
-            backgroundImage: `url(${location.photo || 'nophoto'})`,
+            backgroundImage: `url(${location.photo})`,
             backgroundPosition: '50% 50%',
             backgroundRepeat: 'no-repeat',
             backgroundSize: '150px',
