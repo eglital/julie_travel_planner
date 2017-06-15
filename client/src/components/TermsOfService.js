@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 var FA = require("react-fontawesome");
 
-const PageNotFoundComponent = ({ duration }) => {
+const TermsOfService = ({ duration }) => {
   return (
     <div>
       <Container>
@@ -13,15 +13,20 @@ const PageNotFoundComponent = ({ duration }) => {
         <h3>1. Terms</h3>
 
         <p>
+          julie-travel-planner is using the Google Maps API(s) and follows the Google Privacy Policy.
           By accessing the website at
           {" "}
           <a href="https://julie-travel-planner.herokuapp.com/">
             julie-travel-planner
           </a>
-          , you are agreeing to be bound by these terms of service,  as well as Google Maps terms of service
+          , you are agreeing to be bound by these terms of service,  as well as Google Maps
           {" "}
           <a href="https://www.google.com/intl/en-US_US/help/terms_maps.html">
-            (found here)
+            terms of service
+          </a>
+          {" and "}
+          <a href="https://www.google.com/policies/privacy/">
+            privacy policy
           </a>
           {" "}
           ,all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
@@ -135,6 +140,6 @@ const PageNotFoundComponent = ({ duration }) => {
   );
 };
 
-PageNotFoundComponent.propTypes = {};
+TermsOfService.propTypes = {};
 
-export default PageNotFoundComponent;
+export default TermsOfService;

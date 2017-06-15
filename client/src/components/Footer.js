@@ -6,21 +6,20 @@ const Footer = props => {
     backgroundColor: "#DCC6E0",
     borderTop: "1px solid #E7E7E7",
     textAlign: "center",
-    padding: "5px",
-    position: "fixed",
+
+    marginTop: "50px",
+    paddingTop: "25px",
+    position: "absolute",
+    right: "0",
     left: "0",
     bottom: "0",
-    height: "30px",
     width: "100%"
   };
 
   return (
     <footer style={style} className="text-center">
-
       <p>
-        <Link to={"/terms"}>
-          <h1>Terms of Service</h1>
-        </Link>
+        <h6><Link to={"/terms"}>Terms of Service</Link></h6>
         Powered by
         {" "}
         <i className="fa fa-foursquare" aria-hidden="true" />
