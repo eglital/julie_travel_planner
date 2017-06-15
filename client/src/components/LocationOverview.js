@@ -12,14 +12,21 @@ function makeOverview(finalItinerary) {
   if (index === finalItinerary.length - 1) {
    return (
     <div key={index}>
-      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: location.name, photo: location.photo}}/>
+      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: "Ending Location", photo: "https://placeholdit.co//i/555x150"}}/>
+     </div>
+   );
+  }
+  else if (index === 0) {
+   return (
+    <div key={index}>
+      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: "Starting Location", photo: "https://placeholdit.co//i/555x150"}}/>
      </div>
    );
   }
   else {
    return (
     <div key={index}>
-      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: location.name, photo: location.photo}}/>
+      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{link: location.link, name: location.name, photo: location.photo}}/>
       <TravelSegment duration={nextLocation.arrivalTime - location.departureTime}/>
      </div>
    );

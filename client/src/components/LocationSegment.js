@@ -22,6 +22,7 @@ let locationImgStyle = function(photo){
 };
 const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
  return (
+       <a style={{textDecoration: "none"}} href={locationData.link} onClick={(e) => console.log("heyhey")}>
         <div className="location-segment" style={{display: "flex", padding: 10, margin: 10, alignItems: "center"}}>
              <div style={timeboxStyle}><span>{arrivalTime && moment(arrivalTime).format('LT')}</span><span>{arrivalTime && departureTime ? "-" : null}</span><span>{departureTime && moment(departureTime).format('LT')}</span></div>
              <div className="location-segment-info" style={{display: "flex", flexGrow: 1}}>
@@ -29,6 +30,7 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
               <p>{locationData.name}</p>
              </div>
         </div>
+       </a>
      );   
 };
 LocationSegment.propTypes = {
