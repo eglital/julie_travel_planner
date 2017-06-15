@@ -4,10 +4,8 @@ import { withRouter } from "react-router-dom";
 import { Container, Row, Col, Button } from "reactstrap";
 import LocationSelection from "../components/LocationSelection";
 import ProgressBar from "../components/Progress";
-import {
-  addLocationToItinerary,
-  getFinalItinerary
-} from "../actions/builderActions";
+import { addLocationToItinerary } from "../actions/builderActions";
+import { getFinalItinerary } from "../actions/itineraryActions";
 
 class LocationSelectionContainer extends Component {
   constructor(props) {
@@ -77,7 +75,6 @@ class LocationSelectionContainer extends Component {
   }
 
   render() {
-    console.log("Current state:", this.props);
     return (
       <Container>
         <Row>
@@ -130,7 +127,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addLocationToItinerary: (location, section, itineraryId, itinerary) => {
-      console.log("ADD");
       dispatch(
         addLocationToItinerary(
           location,
@@ -142,7 +138,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       );
     },
     getFinalItinerary: itineraryId => {
-      console.log("FINAL");
       dispatch(getFinalItinerary(itineraryId, ownProps.history));
     }
   };
