@@ -77,7 +77,7 @@ export default class GoogleMaps extends Component {
         <ShareFacebookButton />
         <div
           className="googleMap"
-          style={{ width: "500px", height: "500px", margin: "0 auto" }}
+          style={{ width: "100%", height: "500px", margin: "0 auto", padding: 20 }}
         >
           <GoogleMapMarkers
             containerElement={<div style={{ height: `100%` }} />}
