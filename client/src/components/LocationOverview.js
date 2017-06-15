@@ -8,18 +8,19 @@ import TravelSegment from './TravelSegment';
 
 function makeOverview(finalItinerary) {
  return finalItinerary.map((location, index) => {
+  let nextLocation = finalItinerary[index + 1];
   if (index === finalItinerary.length - 1) {
    return (
-    <div>
+    <div key={index}>
       <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime}/>
      </div>
    );
   }
   else {
    return (
-    <div>
+    <div key={index}>
       <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime}/>
-      <TravelSegment />
+      <TravelSegment duration={nextLocation.arrivalTime - location.departureTime}/>
      </div>
    );
 
@@ -37,7 +38,7 @@ const LocationOverview = ({
  return (
   <div>
    {makeOverview(finalItinerary)}
-   <button>Button Placeholder</button>
+   <button>Plan a new route</button>
   </div>
  );
 };
