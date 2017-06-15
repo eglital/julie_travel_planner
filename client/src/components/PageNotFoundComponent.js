@@ -1,10 +1,8 @@
 import React from "react";
 import { Jumbotron, Button, Container } from "reactstrap";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-var FA = require("react-fontawesome");
 
-const PageNotFoundComponent = ({ duration }) => {
+const PageNotFoundComponent = () => {
   return (
     <div>
       <Container>
@@ -26,7 +24,5 @@ const PageNotFoundComponent = ({ duration }) => {
     </div>
   );
 };
-
-PageNotFoundComponent.propTypes = {};
 
 export default PageNotFoundComponent;
