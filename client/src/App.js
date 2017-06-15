@@ -7,10 +7,12 @@ import LocationSelectionContainer
 import InitialSubmissionFormContainer
   from "./containers/InitialSubmissionFormContainer";
 
-
 import ItineraryOverviewContainer
   from "./containers/ItineraryOverviewContainer";
 
+import PageNotFoundComponent from "./components/PageNotFoundComponent";
+
+import TermsOfService from "./components/TermsOfService";
 
 import Footer from "./components/Footer";
 
@@ -19,20 +21,27 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Switch>
-            <Route
-              path="/itinerary-creation"
-              component={LocationSelectionContainer}
-            />
-            <Route exact path="/" component={InitialSubmissionFormContainer} />
-            <Route
-              path="/itinerary-overview/:itineraryId"
-              component={ItineraryOverviewContainer}
-            />
-            <Route path="*" render={() => <div>Page Not Found</div>} />
-          </Switch>
+          <div>
+            <Switch>
+              <Route
+                path="/itinerary-creation"
+                component={LocationSelectionContainer}
+              />
+              <Route
+                exact
+                path="/"
+                component={InitialSubmissionFormContainer}
+              />
+              <Route
+                path="/itinerary-overview/:itineraryId"
+                component={ItineraryOverviewContainer}
+              />
+              <Route exact path="/terms" component={TermsOfService} />
+              <Route component={PageNotFoundComponent} />
+            </Switch>
+            <Footer />
+          </div>
         </Router>
-        <Footer />
       </div>
     );
   }
