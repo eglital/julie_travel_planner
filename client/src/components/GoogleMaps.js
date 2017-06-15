@@ -1,6 +1,5 @@
 /* global google */
 import { default as React, Component } from "react";
-
 import {
   withGoogleMap,
   GoogleMap,
@@ -12,66 +11,19 @@ import restaurantIcon from "../assets/restaurantIcon.png";
 import sightsIcon from "../assets/sightsIcon.png";
 import placesIcon from "../assets/placesIcon.png";
 import blankIcon from "../assets/blankIcon.png";
-//markers = locations(itinerary) from props
+import ShareTwitterButton from "./ShareTwitterButton";
+import ShareFacebookButton from "./ShareFacebookButton";
+
+//props needs to have itinerary array
 export default class GoogleMaps extends Component {
   constructor(props) {
-    super();
+    super(props);
+    console.log("PROPS", props);
+    let markers = props.finalItinerary.map(marker => {
+      return { ...marker, showInfo: false };
+    });
     this.state = {
-      markers: [
-        {
-          departureTime: new Date(2017, 6, 12, 14, 0, 0).valueOf(),
-          arrivalTime: null,
-          lng: -87.636393,
-          lat: 41.878112,
-          showInfo: false
-        },
-        {
-          name: "Revival Food Hall",
-          address: "125 S Clark St",
-          lat: 41.8797704672721,
-          lng: -87.63060092926025,
-          category: "Food Court",
-          tip: "The chef-driven food hall has a kiosk where Mindy Segal's staff serve her famous hot chocolate that includes the all-important homemade marshmallows. Get it to go.",
-          isOpen: true,
-          hours: "Open until 7:00 PM",
-          departureTime: new Date(2017, 6, 12, 15, 0, 0).valueOf(),
-          showInfo: false,
-          section: "food"
-        },
-        {
-          name: "Garrett Popcorn Shops",
-          address: "27 W Jackson Blvd",
-          lat: 41.87816283895944,
-          lng: -87.62890752059629,
-          category: "Snack Place",
-          tip: "Something strange happens when you mix the CaramelCrisp® and CheeseCorn™ together evenly - Garrett's dubs this the Chicago Mix, and it's a huge seller because it's salty and sweet.",
-          isOpen: true,
-          hours: "Open until 8:00 PM",
-          departureTime: new Date(2017, 6, 12, 16, 0, 0).valueOf(),
-          showInfo: false,
-          section: "sights"
-        },
-        {
-          name: "Cafecito",
-          address: "26 E Congress Pkwy",
-          lat: 41.87574423890672,
-          lng: -87.6264445685823,
-          category: "Cuban Restaurant",
-          tip: "Wifi pass is cubano01",
-          isOpen: true,
-          hours: "Open until 9:00 PM",
-          departureTime: new Date(2017, 6, 12, 17, 0, 0).valueOf(),
-          showInfo: false,
-          section: "places"
-        },
-        {
-          departureTime: new Date(2017, 6, 12, 18, 0, 0).valueOf(),
-          arrivalTime: null,
-          lng: -87.636393,
-          lat: 41.878112,
-          showInfo: false
-        }
-      ],
+      markers,
       directions: null
     };
   }
@@ -86,6 +38,7 @@ export default class GoogleMaps extends Component {
       }
     });
   }
+
   handleMarkerClick = targetMarker => {
     this.setState({
       markers: this.state.markers.map(marker => {
@@ -119,18 +72,22 @@ export default class GoogleMaps extends Component {
   };
   render() {
     return (
-      <div
-        className="googleMap"
-        style={{ width: "500px", height: "500px", margin: "0 auto" }}
-      >
-        <GoogleMapMarkers
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-          markers={this.state.markers}
-          onMarkerClick={this.handleMarkerClick}
-          onMarkerClose={this.handleMarkerClose}
-          directions={this.state.directions}
-        />
+      <div>
+        <ShareTwitterButton />
+        <ShareFacebookButton />
+        <div
+          className="googleMap"
+          style={{ width: "500px", height: "500px", margin: "0 auto" }}
+        >
+          <GoogleMapMarkers
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            markers={this.state.markers}
+            onMarkerClick={this.handleMarkerClick}
+            onMarkerClose={this.handleMarkerClose}
+            directions={this.state.directions}
+          />
+        </div>
       </div>
     );
   }
@@ -139,19 +96,24 @@ const GoogleMapMarkers = withGoogleMap(props => {
   const { markers, onMarkerClose, onMarkerClick, directions } = props;
 
   return (
-    <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
-    >
-      {markersList({ markers, onMarkerClick, onMarkerClose })}
-      {directions &&
-        <DirectionsRenderer
-          directions={directions}
-          options={{ suppressMarkers: true }}
-        />}
-    </GoogleMap>
+    <div>
+      {markers
+        ? <GoogleMap
+            defaultZoom={10}
+            defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
+          >
+            {markersList({ markers, onMarkerClick, onMarkerClose })}
+            {directions &&
+              <DirectionsRenderer
+                directions={directions}
+                options={{ suppressMarkers: true }}
+              />}
+          </GoogleMap>
+        : null}
+    </div>
   );
 });
+
 const icon = marker => {
   switch (marker.section) {
     case "food":
@@ -164,6 +126,7 @@ const icon = marker => {
       return blankIcon;
   }
 };
+
 const markersList = ({ markers, onMarkerClick, onMarkerClose }) => {
   return markers.map(marker => {
     return (

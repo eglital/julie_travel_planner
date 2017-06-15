@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
+import Dotdotdot from 'react-dotdotdot';
 
 const LocationSelection = props => {
   const { location, section, itineraryId, onClick } = props;
@@ -16,32 +17,38 @@ const LocationSelection = props => {
         <div
           style={{
             display: 'inline-block',
-            backgroundImage: `url(${location.photo})`,
+            backgroundImage: `url(${location.photo || 'nophoto'})`,
             backgroundPosition: '50% 50%',
             backgroundRepeat: 'no-repeat',
             backgroundSize: '150px',
             width: '33%',
             height: '100px',
             float: 'left',
-            marginRight: '7%'
+            marginRight: '5%'
           }}
         />
         <div style={{ display: 'inline-block', float: 'left', width: '60%' }}>
           <CardTitle
             className="text-center"
-            style={{ fontSize: '18px', marginBottom: '5px' }}
+            style={{ fontSize: '18px', marginTop: '-2px', marginBottom: '2px' }}
           >
-            {location.name}
+            <Dotdotdot clamp={1}>
+              {location.name}
+            </Dotdotdot>
           </CardTitle>
           <CardText
             style={{
               fontSize: '14px',
-              height: '63px',
-              overflow: 'hidden',
-              textOverflow: 'ellipses'
+              height: '81px',
+              overflow: 'hidden'
             }}
           >
-            <strong>{location.category}</strong> - {location.tip}
+            <Dotdotdot clamp={4}>
+              <p>
+                <strong>{location.category}</strong> - {location.tip}
+              </p>
+            </Dotdotdot>
+
           </CardText>
         </div>
       </CardBlock>

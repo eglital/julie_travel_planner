@@ -116,6 +116,7 @@ const finishingItinerary = ({ itineraryId, res }) => {
       })
       .then(itinerary => {
         if (!itinerary) reject(err);
+        console.log("IT", itinerary);
         resolve(itinerary);
       });
   }).catch(err => {
@@ -170,10 +171,12 @@ const formatItineraryUpdate = ({
     duration: responseDuration
   });
   randomDuration = section ? timeInSections[section] : 0;
-  newDepartureTime = addMilliseconds({
-    initialTime: newArrivalTime,
-    duration: randomDuration ? randomDuration : null
-  });
+  newDepartureTime = randomDuration
+    ? addMilliseconds({
+        initialTime: newArrivalTime,
+        duration: randomDuration
+      })
+    : null;
   newLocation = location;
   newLocation.arrivalTime = newArrivalTime;
   newLocation.departureTime = newDepartureTime;

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'reactstrap';
-import LocationSelection from '../components/LocationSelection';
-import ProgressBar from '../components/Progress';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+import LocationSelection from "../components/LocationSelection";
+import ProgressBar from "../components/Progress";
 import {
   addLocationToItinerary,
   getFinalItinerary
-} from '../actions/builderActions';
+} from "../actions/builderActions";
 
 class LocationSelectionContainer extends Component {
   constructor(props) {
@@ -15,28 +15,30 @@ class LocationSelectionContainer extends Component {
   }
 
   componentDidMount() {}
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.itinerary.endTime -
+        nextProps.itinerary.startTime -
+        nextProps.builder.duration <=
+      60 * 60 * 1000
+    ) {
+      return false;
+    }
+    return true;
+  }
 
   onClickLocation = e => {
     this.props.addLocationToItinerary(
       JSON.parse(e.currentTarget.dataset.loc),
       e.currentTarget.dataset.section,
-      e.currentTarget.dataset.itineraryId
+      e.currentTarget.dataset.itineraryId,
+      this.props.itinerary,
+      this.props.builder
     );
+  };
 
-    if (
-      this.props.itinerary.endTime -
-        this.props.itinerary.startTime -
-        this.props.builder.duration <=
-      7200000
-    ) {
-      this.props.getFinalItinerary(e.currentTarget.dataset.itineraryId);
-
-      this.props.history.push(
-        `/itineraries/${e.currentTarget.dataset.itineraryId}`
-      );
-    } else {
-      this.render();
-    }
+  onClickBuildItinerary = () => {
+    this.props.getFinalItinerary(this.props.itinerary.id);
   };
 
   displayThreeLocations() {
@@ -75,6 +77,7 @@ class LocationSelectionContainer extends Component {
   }
 
   render() {
+    console.log("Current state:", this.props);
     return (
       <Container>
         <Row>
@@ -106,7 +109,7 @@ class LocationSelectionContainer extends Component {
             className="text-center"
             xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
           >
-            <Button>
+            <Button onClick={this.onClickBuildItinerary}>
               Build Itinerary Now
             </Button>
           </Col>
@@ -124,13 +127,23 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addLocationToItinerary: (location, section, itineraryId) => {
-      dispatch(addLocationToItinerary(location, section, itineraryId));
+    addLocationToItinerary: (location, section, itineraryId, itinerary) => {
+      console.log("ADD");
+      dispatch(
+        addLocationToItinerary(
+          location,
+          section,
+          itineraryId,
+          itinerary,
+          ownProps.history
+        )
+      );
     },
     getFinalItinerary: itineraryId => {
-      dispatch(getFinalItinerary(itineraryId));
+      console.log("FINAL");
+      dispatch(getFinalItinerary(itineraryId, ownProps.history));
     }
   };
 };
