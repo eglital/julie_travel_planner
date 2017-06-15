@@ -15,6 +15,17 @@ class LocationSelectionContainer extends Component {
   }
 
   componentDidMount() {}
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.itinerary.endTime -
+        nextProps.itinerary.startTime -
+        nextProps.builder.duration <=
+      60 * 60 * 1000
+    ) {
+      return false;
+    }
+    return true;
+  }
 
   onClickLocation = e => {
     this.props.addLocationToItinerary(
@@ -118,28 +129,21 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addLocationToItinerary: (
-      location,
-      section,
-      itineraryId,
-      itinerary,
-      builder
-    ) => {
+    addLocationToItinerary: (location, section, itineraryId, itinerary) => {
       console.log("ADD");
-      dispatch(addLocationToItinerary(location, section, itineraryId));
-      if (
-        itinerary.endTime - itinerary.startTime - builder.duration <=
-        7200000
-      ) {
-        dispatch(getFinalItinerary(itineraryId));
-
-        ownProps.history.push(`/itinerary-overview/${itineraryId}`);
-      }
+      dispatch(
+        addLocationToItinerary(
+          location,
+          section,
+          itineraryId,
+          itinerary,
+          ownProps.history
+        )
+      );
     },
     getFinalItinerary: itineraryId => {
       console.log("FINAL");
-      dispatch(getFinalItinerary(itineraryId));
-      ownProps.history.push(`/itinerary-overview/${itineraryId}`);
+      dispatch(getFinalItinerary(itineraryId, ownProps.history));
     }
   };
 };

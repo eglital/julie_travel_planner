@@ -5,7 +5,13 @@ export const GET_FINAL_ITINERARY = "GET_FINAL_ITINERARY";
 export const SET_DURATION = "SET_DURATION";
 export const SET_FINAL_ITINERARY = "SET_FINAL_ITINERARY";
 
-export function addLocationToItinerary(location, section, itineraryId) {
+export function addLocationToItinerary(
+  location,
+  section,
+  itineraryId,
+  itinerary,
+  history
+) {
   return dispatch => {
     axios
       .put("/api/itinerary/select", {
@@ -18,6 +24,12 @@ export function addLocationToItinerary(location, section, itineraryId) {
           throw new Error("Response not ok");
         }
         dispatch(setDuration(response.data));
+        if (
+          itinerary.endTime - itinerary.startTime - response.data.duration <=
+          60 * 60 * 1000
+        ) {
+          dispatch(getFinalItinerary(itineraryId, history));
+        }
       })
       .catch(function(error) {
         console.log("Error:", error);
@@ -32,7 +44,7 @@ export function setDuration(data) {
   };
 }
 
-export function getFinalItinerary(itineraryId) {
+export function getFinalItinerary(itineraryId, history) {
   return dispatch => {
     axios
       .get(`/api/itinerary/final/${itineraryId}`)
@@ -43,6 +55,7 @@ export function getFinalItinerary(itineraryId) {
         console.log("RESPONSE final itinerary", response);
         itineraryHelper.setItineraryObj(itineraryId);
         dispatch(setFinalItinerary(response.data));
+        history.push(`/itinerary-overview/${itineraryId}`);
       })
       .catch(function(error) {
         console.log("Error:", error);
