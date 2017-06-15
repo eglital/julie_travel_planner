@@ -6,6 +6,7 @@
 }
 .loader {
   margin: 60px auto;
+  margin-top:100px;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
