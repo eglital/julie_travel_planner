@@ -1,78 +1,38 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Container, Row, Col, Button } from "reactstrap";
-import LocationSelection from "../components/LocationSelection";
-import ProgressBar from "../components/Progress";
-import { addLocationToItinerary } from "../actions/builderActions";
-import { getFinalItinerary } from "../actions/itineraryActions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'reactstrap';
+import LocationSelection from '../components/LocationSelection';
+import ProgressBar from '../components/Progress';
+import { addLocationToItinerary } from '../actions/builderActions';
+import { getFinalItinerary } from '../actions/itineraryActions';
+import displayThreeLocations from '../helpers/randomLocationPicker';
 
 class LocationSelectionContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {}
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.itinerary.endTime -
-        nextProps.itinerary.startTime -
-        nextProps.builder.duration <=
-      60 * 60 * 1000
-    ) {
-      return false;
-    }
-    return true;
-  }
 
   onClickLocation = e => {
     this.props.addLocationToItinerary(
       JSON.parse(e.currentTarget.dataset.loc),
       e.currentTarget.dataset.section,
-      e.currentTarget.dataset.itineraryId,
-      this.props.itinerary,
-      this.props.builder
+      e.currentTarget.dataset.itineraryId
     );
+
+    if (
+      this.props.itinerary.endTime -
+        this.props.itinerary.startTime -
+        this.props.builder.duration <=
+      7200000
+    ) {
+      this.props.getFinalItinerary(e.currentTarget.dataset.itineraryId);
+
+      this.props.history.push(
+        `/itineraries/${e.currentTarget.dataset.itineraryId}`
+      );
+    } else {
+      this.render();
+    }
   };
-
-  onClickBuildItinerary = () => {
-    this.props.getFinalItinerary(this.props.itinerary.id);
-  };
-
-  displayThreeLocations() {
-    let loc1 = this.props.locations.food[
-      Math.floor(Math.random() * this.props.locations.food.length + 1)
-    ];
-    let loc2 = this.props.locations.places[
-      Math.floor(Math.random() * this.props.locations.places.length + 1)
-    ];
-    let loc3 = this.props.locations.sights[
-      Math.floor(Math.random() * this.props.locations.sights.length + 1)
-    ];
-
-    return (
-      <div>
-        <LocationSelection
-          location={loc1}
-          section="food"
-          itineraryId={this.props.itinerary.id}
-          onClick={this.onClickLocation}
-        />
-        <LocationSelection
-          location={loc2}
-          section="places"
-          itineraryId={this.props.itinerary.id}
-          onClick={this.onClickLocation}
-        />
-        <LocationSelection
-          location={loc3}
-          section="sights"
-          itineraryId={this.props.itinerary.id}
-          onClick={this.onClickLocation}
-        />
-      </div>
-    );
-  }
 
   render() {
     return (
@@ -91,7 +51,7 @@ class LocationSelectionContainer extends Component {
             <p className="text-center">
               Select one of the following to add it to your itinerary, and we'll figure out how to get you there.
             </p>
-            {this.displayThreeLocations()}
+            {displayThreeLocations(this.props, this.onClickLocation)}
           </Col>
         </Row>
         <Row>

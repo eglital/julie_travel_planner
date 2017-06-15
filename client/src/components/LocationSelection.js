@@ -1,9 +1,11 @@
 import React from 'react';
-import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
+import { Card, CardBlock, CardTitle } from 'reactstrap';
 import Dotdotdot from 'react-dotdotdot';
-
 const LocationSelection = props => {
   const { location, section, itineraryId, onClick } = props;
+  if (!location.photo) {
+    location.photo = './128.png';
+  }
 
   return (
     <Card
@@ -17,7 +19,12 @@ const LocationSelection = props => {
         <div
           style={{
             display: 'inline-block',
+<<<<<<< HEAD
+            backgroundImage: `url(${location.photo})`,
+=======
+            display: 'inline-block',
             backgroundImage: `url(${location.photo || 'nophoto'})`,
+>>>>>>> renzo-overviews
             backgroundPosition: '50% 50%',
             backgroundRepeat: 'no-repeat',
             backgroundSize: '150px',
@@ -36,7 +43,7 @@ const LocationSelection = props => {
               {location.name}
             </Dotdotdot>
           </CardTitle>
-          <CardText
+          <div
             style={{
               fontSize: '14px',
               height: '81px',
@@ -44,12 +51,9 @@ const LocationSelection = props => {
             }}
           >
             <Dotdotdot clamp={4}>
-              <p>
-                <strong>{location.category}</strong> - {location.tip}
-              </p>
+              <strong>{location.category}</strong> - {location.tip}
             </Dotdotdot>
-
-          </CardText>
+          </div>
         </div>
       </CardBlock>
     </Card>
