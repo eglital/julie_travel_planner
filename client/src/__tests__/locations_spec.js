@@ -16,7 +16,8 @@ it("updates the location data", function(){
     const finalState = {
         data: {
             food: ["yum yum"]
-        }
+        },
+        isFetching: false
     };
     deepFreeze(initialState);
     deepFreeze(action);
@@ -36,7 +37,8 @@ it("updates the error in the state on failure", function(){
     };
     const finalState = {
         data: {},
-        error: "There was an error while fetching"
+        error: "There was an error while fetching",
+        isFetching: false
     };
     deepFreeze(initialState);
     deepFreeze(action);

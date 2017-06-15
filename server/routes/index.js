@@ -16,6 +16,10 @@ const {
 } = require("../helpers/fourSquareRequestHelpers");
 
 router.post("/itinerary/start", (req, res, next) => {
+  if (!req.body.formSubmission.categories) {
+    console.log("no categories are being passed");
+    req.body.formSubmission.categories = ["food", "outdoors", "arts"];
+  }
   initialFourSquareRequest(req.body.formSubmission, next)
     .then(responseObject => {
       res.send(responseObject);

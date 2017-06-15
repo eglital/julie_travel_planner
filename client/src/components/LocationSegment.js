@@ -10,21 +10,27 @@ let timeboxStyle = {
  marginRight: 10,
  minWidth: 75
 };
-
-const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
-locationData = {
- url: "https://placeholdit.co//i/100x100",
- title: "BooBoo Palace Burgers"
+// <img style={{maxWidth:75, maxHeight:75}}src={locationData.photo || "https://placeholdit.co//i/100x100"} alt={locationData.name}/>
+let locationImgStyle = function(photo){
+ return {
+  width: 75,
+  height: 75,
+  backgroundImage: `url(${photo})`,
+  backgroundSize: 'cover',
+  flex: '0 0 auto'
+ };
 };
- 
+const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
  return (
+       <a style={{textDecoration: "none"}} href={locationData.link} onClick={(e) => console.log("heyhey")}>
         <div className="location-segment" style={{display: "flex", padding: 10, margin: 10, alignItems: "center"}}>
              <div style={timeboxStyle}><span>{arrivalTime && moment(arrivalTime).format('LT')}</span><span>{arrivalTime && departureTime ? "-" : null}</span><span>{departureTime && moment(departureTime).format('LT')}</span></div>
              <div className="location-segment-info" style={{display: "flex", flexGrow: 1}}>
-              <img style={{maxWidth:75, maxHeight:75}}src={locationData.url} alt={locationData.title}/>
-              <p style={{flexGrow:1}}>{locationData.title}</p>
+              <div style={locationImgStyle(locationData.photo)}></div>
+              <div><div>{locationData.name}</div><div>{locationData.category && `Category: ${locationData.category}`}</div></div>
              </div>
         </div>
+       </a>
      );   
 };
 LocationSegment.propTypes = {

@@ -2,10 +2,9 @@ const Itinerary = require("../models").Itinerary;
 
 function initialFourSquareRequest(InitialRequestObject, next) {
   const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
-  const categories = ["food", "outdoors", "arts"];
-  const apiStrings = categories.map(category =>
-    fourSquareStringBuilder(category, sanitizedRequest)
-  );
+  const apiStrings = InitialRequestObject.categories.map(category => {
+    return fourSquareStringBuilder(category, sanitizedRequest);
+  });
   const requestArray = apiStrings.map(requestString => fetch(requestString));
 
   return Promise.all(requestArray)
@@ -17,6 +16,10 @@ function initialFourSquareRequest(InitialRequestObject, next) {
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
+      // const locations = {};
+      // InitialRequestObject.categories.forEach((category, index) => {
+      //   locations[category] = fullListOfChoices[index];
+      // });
       const initialResponseObject = {
         locations: {
           food: fullListOfChoices[0],
