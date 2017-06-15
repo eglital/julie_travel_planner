@@ -1,10 +1,8 @@
 import React from "react";
-import { Jumbotron, Button, Container } from "reactstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-var FA = require("react-fontawesome");
+import { Container } from "reactstrap";
 
-const TermsOfService = ({ duration }) => {
+
+const TermsOfService = () => {
   return (
     <div>
       <Container>
@@ -139,7 +137,5 @@ const TermsOfService = ({ duration }) => {
     </div>
   );
 };
-
-TermsOfService.propTypes = {};
 
 export default TermsOfService;
