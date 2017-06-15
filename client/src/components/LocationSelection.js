@@ -18,15 +18,15 @@ const LocationSelection = props => {
       <CardBlock style={{ padding: "10px" }}>
         <div
           style={{
-            display: "inline-block",
-            backgroundImage: `url(${location.photo || "nophoto"})`,
-            backgroundPosition: "50% 50%",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "150px",
-            width: "33%",
-            height: "100px",
-            float: "left",
-            marginRight: "5%"
+            display: 'inline-block',
+            backgroundImage: `url(${location.photo})`,
+            backgroundPosition: '50% 50%',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '150px',
+            width: '33%',
+            height: '100px',
+            float: 'left',
+            marginRight: '5%'
           }}
         />
         <div style={{ display: "inline-block", float: "left", width: "60%" }}>
