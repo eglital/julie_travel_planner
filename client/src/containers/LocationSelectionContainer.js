@@ -20,27 +20,14 @@ class LocationSelectionContainer extends Component {
     this.props.addLocationToItinerary(
       JSON.parse(e.currentTarget.dataset.loc),
       e.currentTarget.dataset.section,
-      e.currentTarget.dataset.itineraryId
+      e.currentTarget.dataset.itineraryId,
+      this.props.itinerary,
+      this.props.builder
     );
-
-    if (
-      this.props.itinerary.endTime -
-        this.props.itinerary.startTime -
-        this.props.builder.duration <=
-      7200000
-    ) {
-      this.props.getFinalItinerary(e.currentTarget.dataset.itineraryId);
-
-      this.props.history.push(
-        `/itinerary-overview/${e.currentTarget.dataset.itineraryId}`
-      );
-    }
   };
 
   onClickBuildItinerary = () => {
     this.props.getFinalItinerary(this.props.itinerary.id);
-
-    this.props.history.push(`/itinerary-overview/${this.props.itinerary.id}`);
   };
 
   displayThreeLocations() {
@@ -79,7 +66,7 @@ class LocationSelectionContainer extends Component {
   }
 
   render() {
-    console.log('Current state:', this.props);
+    console.log("Current state:", this.props);
     return (
       <Container>
         <Row>
@@ -129,13 +116,30 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addLocationToItinerary: (location, section, itineraryId) => {
+    addLocationToItinerary: (
+      location,
+      section,
+      itineraryId,
+      itinerary,
+      builder
+    ) => {
+      console.log("ADD");
       dispatch(addLocationToItinerary(location, section, itineraryId));
+      if (
+        itinerary.endTime - itinerary.startTime - builder.duration <=
+        7200000
+      ) {
+        dispatch(getFinalItinerary(itineraryId));
+
+        ownProps.history.push(`/itinerary-overview/${itineraryId}`);
+      }
     },
     getFinalItinerary: itineraryId => {
+      console.log("FINAL");
       dispatch(getFinalItinerary(itineraryId));
+      ownProps.history.push(`/itinerary-overview/${itineraryId}`);
     }
   };
 };

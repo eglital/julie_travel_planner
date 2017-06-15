@@ -17,8 +17,12 @@ class ItineraryOverviewContainer extends Component {
   render() {
     return (
       <div>
-        <LocationOverview />
-        <GoogleMaps finalItinerary={this.props.finalItinerary} />
+        {this.props.finalItinerary && this.props.finalItinerary.length
+          ? <div>
+              <LocationOverview />
+              <GoogleMaps finalItinerary={this.props.finalItinerary} />
+            </div>
+          : null}
       </div>
     );
   }
