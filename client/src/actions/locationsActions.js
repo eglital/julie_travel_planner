@@ -32,7 +32,10 @@ export function fetchLocationsData(form) {
             body: JSON.stringify(form)
         };
 
-        return fetch("/api/itinerary/start", options)
+        return fetch(
+            "https://julie-server.herokuapp.com/api/itinerary/start",
+            options
+        )
             .then(ApiResponseHelper.responseChecker)
             .then(ApiResponseHelper.parseToJSON)
             .then(data => {

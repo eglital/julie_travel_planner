@@ -11,7 +11,7 @@ export function addLocationToItinerary(
 ) {
   return dispatch => {
     axios
-      .put("/api/itinerary/select", {
+      .put("https://julie-server.herokuapp.com/api/itinerary/select", {
         location: location,
         itineraryId: itineraryId,
         section: section

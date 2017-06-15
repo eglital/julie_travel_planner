@@ -12,7 +12,9 @@ export function setItineraryData(data) {
 export function getFinalItinerary(itineraryId, history) {
   return dispatch => {
     axios
-      .get(`/api/itinerary/final/${itineraryId}`)
+      .get(
+        `https://julie-server.herokuapp.com/api/itinerary/final/${itineraryId}`
+      )
       .then(response => {
         if (response.status !== 200) {
           throw new Error("Response not ok");
@@ -42,7 +44,9 @@ export function setFinalItinerary(data) {
 export function getSavedItinerary(itineraryId) {
   return dispatch => {
     axios
-      .get(`/api/itinerary/saved/${itineraryId}`)
+      .get(
+        `https://julie-server.herokuapp.com/api/itinerary/saved/${itineraryId}`
+      )
       .then(response => {
         if (response.status !== 200) {
           throw new Error("Response not ok");

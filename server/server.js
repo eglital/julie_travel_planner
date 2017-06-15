@@ -7,6 +7,7 @@ require("isomorphic-fetch");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+app.set("port", process.env.PORT || 8081);
 // ----------------------------------------
 // Body Parser
 // ----------------------------------------
@@ -113,7 +114,9 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-
+app.get("/", (req, res) => {
+  res.end("API is working!");
+});
 const itineraryRoutes = require("./routes/index");
 app.use("/api", itineraryRoutes);
 
@@ -134,27 +137,29 @@ app.use(errorHandler);
 // ----------------------------------------
 // Server
 // ----------------------------------------
-
-var port;
-
-if (process.env.NODE_ENV !== "production" || process.env.NODE_ENV !== "test") {
-  port = 8081;
-} else {
-  port = process.env.PORT || process.argv[2] || 8080;
-}
-// var host = "localhost";
-
-var args = [port];
-// process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
-
-args.push(() => {
-  console.log(`Listening on port:${port}`);
+app.listen(app.get("port"), () => {
+  console.log(`Find the server at http://localhost:${app.get("port")}/`);
 });
+// var port;
 
-// If we're running this file directly
-// start up the server
-if (require.main === module) {
-  app.listen.apply(app, args);
-}
+// if (process.env.NODE_ENV !== "production" || process.env.NODE_ENV !== "test") {
+//   port = 8081;
+// } else {
+//   port = process.env.PORT || process.argv[2] || 8080;
+// }
+// // var host = "localhost";
+
+// var args = [port];
+// // process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
+
+// args.push(() => {
+//   console.log(`Listening on port:${port}`);
+// });
+
+// // If we're running this file directly
+// // start up the server
+// if (require.main === module) {
+//   app.listen.apply(app, args);
+// }
 
 module.exports = app;
