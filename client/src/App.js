@@ -7,10 +7,10 @@ import LocationSelectionContainer
 import InitialSubmissionFormContainer
   from "./containers/InitialSubmissionFormContainer";
 
+
 import ItineraryOverviewContainer
   from "./containers/ItineraryOverviewContainer";
 
-import GoogleMaps from "./components/GoogleMaps";
 
 import Footer from "./components/Footer";
 
