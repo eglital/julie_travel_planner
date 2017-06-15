@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
 import PropTypes from "prop-types";
 import TimeHelper from '../helpers/timeHelper';
 
@@ -23,6 +23,8 @@ const TravelSegment = ({ duration }) => {
   );
 };
 
-TravelSegment.propTypes = {};
+TravelSegment.propTypes = {
+  duration: PropTypes.number.isRequired
+};
 
 export default TravelSegment;

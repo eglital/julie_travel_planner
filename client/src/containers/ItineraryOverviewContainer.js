@@ -4,9 +4,7 @@ import { getSavedItinerary } from "../actions/itineraryActions";
 import LocationOverview from "../components/LocationOverview";
 
 class ItineraryOverviewContainer extends Component {
-  constructor() {
-    super();
-  }
+
   componentDidMount() {
     if (!this.props.finalItinerary.length) {
       this.props.getSavedItinerary(this.props.match.params.itineraryId);
