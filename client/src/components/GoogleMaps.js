@@ -18,9 +18,10 @@ import ShareFacebookButton from "./ShareFacebookButton";
 export default class GoogleMaps extends Component {
   constructor(props) {
     super(props);
-    // let markers = props.itinerary.forEach(marker => {
-    //   return {...marker, showInfo: false}
-    // })
+    console.log(props.finalItinerary);
+    // let markers = props.finalItinerary.forEach(marker => {
+    //   return { ...marker, showInfo: false };
+    // });
     this.state = {
       // markers,
       markers: [

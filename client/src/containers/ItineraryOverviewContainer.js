@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getFinalItinerary } from "../actions/builderActions";
+import { getSavedItinerary } from "../actions/builderActions";
 import LocationOverview from "../components/LocationOverview";
 import GoogleMaps from "../components/GoogleMaps";
 
@@ -8,16 +8,35 @@ class ItineraryOverviewContainer extends Component {
   constructor() {
     super();
   }
+  componentDidMount() {
+    if (!this.props.finalItinerary.length) {
+      this.props.getSavedItinerary(this.props.match.params.itineraryId);
+    }
+  }
+
   render() {
-    return <div><LocationOverview /><GoogleMaps /></div>;
+    return (
+      <div>
+        <LocationOverview />
+        <GoogleMaps finalItinerary={this.props.finalItinerary} />
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
-  return;
+  return {
+    finalItinerary: state.builder.finalItinerary
+  };
 };
 const mapDispatchToProps = dispatch => {
-  return;
+  return {
+    getSavedItinerary: itineraryId => {
+      dispatch(getSavedItinerary(itineraryId));
+    }
+  };
 };
 
-export default connect(null, null)(ItineraryOverviewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ItineraryOverviewContainer
+);
