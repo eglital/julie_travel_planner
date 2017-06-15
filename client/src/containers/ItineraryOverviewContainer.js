@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSavedItinerary } from "../actions/builderActions";
+import { getSavedItinerary } from "../actions/itineraryActions";
 import LocationOverview from "../components/LocationOverview";
 import GoogleMaps from "../components/GoogleMaps";
 
@@ -30,7 +30,7 @@ class ItineraryOverviewContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    finalItinerary: state.builder.finalItinerary
+    finalItinerary: state.itinerary.finalItinerary
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -1,21 +1,26 @@
-import { SET_ITINERARY_DATA } from '../actions/types';
+import { SET_ITINERARY_DATA, SET_FINAL_ITINERARY } from "../actions/types";
 
 const INITIAL_STATE = {
     id: null,
     startTime: null,
-    endTime: null
+    endTime: null,
+    finalItinerary: []
 };
 
-
-
 export function itineraryReducer(state = INITIAL_STATE, action) {
-    switch(action.type) {
+    switch (action.type) {
         case SET_ITINERARY_DATA:
             return {
                 ...state,
                 id: action.data.id,
                 startTime: action.data.startTime,
                 endTime: action.data.endTime
+            };
+        case SET_FINAL_ITINERARY:
+            return {
+                ...state,
+                id: action.data.id,
+                finalItinerary: action.data.finalItinerary
             };
         default:
             return state;
