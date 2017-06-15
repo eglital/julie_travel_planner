@@ -12,17 +12,12 @@ let timeboxStyle = {
 };
 
 const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
-locationData = {
- url: "https://placeholdit.co//i/100x100",
- title: "BooBoo Palace Burgers"
-};
- 
  return (
         <div className="location-segment" style={{display: "flex", padding: 10, margin: 10, alignItems: "center"}}>
              <div style={timeboxStyle}><span>{arrivalTime && moment(arrivalTime).format('LT')}</span><span>{arrivalTime && departureTime ? "-" : null}</span><span>{departureTime && moment(departureTime).format('LT')}</span></div>
              <div className="location-segment-info" style={{display: "flex", flexGrow: 1}}>
-              <img style={{maxWidth:75, maxHeight:75}}src={locationData.url} alt={locationData.title}/>
-              <p style={{flexGrow:1}}>{locationData.title}</p>
+              <img style={{maxWidth:75, maxHeight:75}}src={locationData.photo || "https://placeholdit.co//i/100x100"} alt={locationData.name}/>
+              <p style={{flexGrow:1}}>{locationData.name}</p>
              </div>
         </div>
      );   

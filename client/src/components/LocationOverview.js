@@ -12,14 +12,14 @@ function makeOverview(finalItinerary) {
   if (index === finalItinerary.length - 1) {
    return (
     <div key={index}>
-      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime}/>
+      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: location.name, photo: location.photo}}/>
      </div>
    );
   }
   else {
    return (
     <div key={index}>
-      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime}/>
+      <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: location.name, photo: location.photo}}/>
       <TravelSegment duration={nextLocation.arrivalTime - location.departureTime}/>
      </div>
    );
