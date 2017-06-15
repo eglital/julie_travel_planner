@@ -1,10 +1,9 @@
-import React, {
- Component
-}
-from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import LocationSegment from './LocationSegment';
 import TravelSegment from './TravelSegment';
+import GoogleMaps from './GoogleMaps';
+
 
 function makeOverview(finalItinerary) {
  return finalItinerary.map((location, index) => {
@@ -35,17 +34,14 @@ function makeOverview(finalItinerary) {
  });
 }
 
-
-
-
-
 const LocationOverview = ({
  finalItinerary
 }) => {
  return (
-  <div>
+  <div className="LocationOverview" style={{marginBottom: 20/*Should be equal to the height of the footer*/}}>
    {makeOverview(finalItinerary)}
    <button>Plan a new route</button>
+   <GoogleMaps finalItinerary={finalItinerary}/>
   </div>
  );
 };
