@@ -19,6 +19,7 @@ function makeOverview(finalItinerary) {
    return (
     <div key={index}>
       <LocationSegment arrivalTime={location.arrivalTime} departureTime={location.departureTime} locationData={{name: "Starting Location", photo: "https://placeholdit.co//i/555x150"}}/>
+      <TravelSegment duration={nextLocation.arrivalTime - location.departureTime}/>
      </div>
    );
   }
