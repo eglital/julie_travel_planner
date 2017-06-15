@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
@@ -10,9 +10,9 @@ import {
   Row,
   Alert,
   UncontrolledTooltip
-} from 'reactstrap';
-import moment from 'moment';
-import Hero from './Hero';
+} from "reactstrap";
+import moment from "moment";
+import Hero from "./Hero";
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -20,7 +20,7 @@ function createTimeOptions(time, startOffset = 0) {
   return hours.map(hour => {
     return (
       <option key={hour} value={hour}>
-        {moment(hour).format('h a')}
+        {moment(hour).format("h a")}
       </option>
     );
   });
@@ -36,7 +36,7 @@ function getHoursInMilliseconds(nextHour) {
     //push the time in milliseconds
     hours.push(+nextHour);
     //mutate the moment
-    nextHour.add(1, 'h');
+    nextHour.add(1, "h");
     ++i;
   }
   return hours;
@@ -58,23 +58,23 @@ class InitialSubmissionForm extends Component {
       error,
       validItinerary
     } = this.props;
-    console.log('validItinerary', validItinerary);
+    console.log("validItinerary", validItinerary);
     return (
       <Row>
         <Col xs="12" sm={{ offset: 3, size: 6 }}>
           {error &&
             <Alert className="text-center" color="warning">
               <strong>Whoops!</strong>
-              {' '}
+              {" "}
               Something happened on the server. Try again later
             </Alert>}
           {validItinerary &&
             <Alert
               className="text-center"
-              style={{ padding: '3px', height: '55px' }}
+              style={{ padding: "3px", height: "55px" }}
               color="info"
             >
-              <p style={{ marginBottom: '0px' }}>
+              <p style={{ marginBottom: "0px" }}>
                 It looks like you've already created an itinerary...
               </p>
               <p>
@@ -92,7 +92,7 @@ class InitialSubmissionForm extends Component {
             <FormGroup>
               <Label for="startingLocation">Starting/Ending Location</Label>
               <Input
-                style={{ maxWidth: '300px', margin: 'auto' }}
+                style={{ maxWidth: "300px", margin: "auto" }}
                 type="text"
                 name="startingLocation"
                 id="startingLocation"
@@ -102,15 +102,15 @@ class InitialSubmissionForm extends Component {
             <div>
               <FormGroup
                 style={{
-                  float: 'left',
-                  width: '40%',
-                  marginLeft: '8%',
-                  marginRight: '2%'
+                  float: "left",
+                  width: "40%",
+                  marginLeft: "8%",
+                  marginRight: "2%"
                 }}
               >
                 <Label for="startingTime">Start Time</Label>
                 <Input
-                  style={{ maxWidth: '300px', margin: 'auto' }}
+                  style={{ maxWidth: "300px", margin: "auto" }}
                   type="select"
                   name="startingTime"
                   id="startingTime"
@@ -121,15 +121,15 @@ class InitialSubmissionForm extends Component {
               </FormGroup>
               <FormGroup
                 style={{
-                  float: 'left',
-                  width: '40%',
-                  marginLeft: '2%',
-                  marginRight: '8%'
+                  float: "left",
+                  width: "40%",
+                  marginLeft: "2%",
+                  marginRight: "8%"
                 }}
               >
                 <Label for="endingTime">End Time</Label>
                 <Input
-                  style={{ maxWidth: '300px', margin: 'auto' }}
+                  style={{ maxWidth: "300px", margin: "auto" }}
                   type="select"
                   name="endingTime"
                   id="endingTime"
@@ -143,7 +143,7 @@ class InitialSubmissionForm extends Component {
               </FormGroup>
             </div>
             <div>
-              <Button style={{ clear: 'both' }}>Get planning!</Button>
+              <Button style={{ clear: "both" }}>Get planning!</Button>
             </div>
           </Form>
         </Col>
