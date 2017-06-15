@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardBlock, CardTitle } from 'reactstrap';
 import Dotdotdot from 'react-dotdotdot';
+
 const LocationSelection = props => {
   const { location, section, itineraryId, onClick } = props;
   if (!location.photo) {

@@ -89,10 +89,22 @@ class InitialSubmissionForm extends Component {
 
           <Hero />
           <Form className="text-center" onSubmit={onSubmit}>
-            <FormGroup>
+            <FormGroup
+              style={{
+                maxWidth: '600px',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+              }}
+            >
               <Label for="startingLocation">Starting/Ending Location</Label>
               <Input
-                style={{ maxWidth: '300px', margin: 'auto' }}
+                style={{
+                  textAlign: 'center',
+                  width: '84%',
+                  maxWidth: '600px',
+                  marginLeft: '8%',
+                  marginRight: '8%'
+                }}
                 type="text"
                 name="startingLocation"
                 id="startingLocation"
@@ -110,7 +122,11 @@ class InitialSubmissionForm extends Component {
               >
                 <Label for="startingTime">Start Time</Label>
                 <Input
-                  style={{ maxWidth: '300px', margin: 'auto' }}
+                  style={{
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    textAlignLast: 'center'
+                  }}
                   type="select"
                   name="startingTime"
                   id="startingTime"
@@ -129,7 +145,11 @@ class InitialSubmissionForm extends Component {
               >
                 <Label for="endingTime">End Time</Label>
                 <Input
-                  style={{ maxWidth: '300px', margin: 'auto' }}
+                  style={{
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    textAlignLast: 'center'
+                  }}
                   type="select"
                   name="endingTime"
                   id="endingTime"

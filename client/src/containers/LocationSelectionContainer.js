@@ -1,12 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Container, Row, Col, Button } from "reactstrap";
-import LocationSelection from "../components/LocationSelection";
-import ProgressBar from "../components/Progress";
-import { addLocationToItinerary } from "../actions/builderActions";
-import { getFinalItinerary } from "../actions/itineraryActions";
-import displayThreeLocations from "../helpers/randomLocationPicker";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'reactstrap';
+import ProgressBar from '../components/Progress';
+import { addLocationToItinerary } from '../actions/builderActions';
+import { getFinalItinerary } from '../actions/itineraryActions';
+import displayThreeLocations from '../helpers/randomLocationPicker';
 
 class LocationSelectionContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -20,6 +19,7 @@ class LocationSelectionContainer extends Component {
     }
     return true;
   }
+
   onClickLocation = e => {
     this.props.addLocationToItinerary(
       JSON.parse(e.currentTarget.dataset.loc),

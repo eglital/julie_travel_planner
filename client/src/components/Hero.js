@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 const Hero = props => {
   return (
@@ -10,7 +10,7 @@ const Hero = props => {
             Julie
           </h1>
           <p style={{ clear: 'both' }} className="lead">
-            Wondering what to do today? Julie's got ideas. Just give her a little information about where you are and how much time you have and she'll help you pick out the best local food and activities!
+            Let Julie build you a fun itinerary for the day, complete with directions. Get started below!
           </p>
         </Container>
       </div>
