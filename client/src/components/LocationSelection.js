@@ -19,12 +19,7 @@ const LocationSelection = props => {
         <div
           style={{
             display: 'inline-block',
-<<<<<<< HEAD
             backgroundImage: `url(${location.photo})`,
-=======
-            display: 'inline-block',
-            backgroundImage: `url(${location.photo || 'nophoto'})`,
->>>>>>> renzo-overviews
             backgroundPosition: '50% 50%',
             backgroundRepeat: 'no-repeat',
             backgroundSize: '150px',
