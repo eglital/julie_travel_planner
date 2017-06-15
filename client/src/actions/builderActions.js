@@ -10,7 +10,7 @@ export function addLocationToItinerary(
   history
 ) {
   return dispatch => {
-    axios
+    return axios
       .put("/api/itinerary/select", {
         location: location,
         itineraryId: itineraryId,
