@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getSavedItinerary } from "../actions/itineraryActions";
 import LocationOverview from "../components/LocationOverview";
-import GoogleMaps from "../components/GoogleMaps";
 
 class ItineraryOverviewContainer extends Component {
   constructor() {
@@ -20,7 +19,6 @@ class ItineraryOverviewContainer extends Component {
         {this.props.finalItinerary && this.props.finalItinerary.length
           ? <div>
               <LocationOverview finalItinerary={this.props.finalItinerary}/>
-              <GoogleMaps finalItinerary={this.props.finalItinerary} />
             </div>
           : null}
       </div>
