@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBlock, CardTitle, CardText, CardImg } from 'reactstrap';
+import { Card, CardBlock, CardTitle } from 'reactstrap';
 import Dotdotdot from 'react-dotdotdot';
 
 const LocationSelection = props => {
@@ -36,7 +36,7 @@ const LocationSelection = props => {
               {location.name}
             </Dotdotdot>
           </CardTitle>
-          <CardText
+          <div
             style={{
               fontSize: '14px',
               height: '81px',
@@ -44,12 +44,9 @@ const LocationSelection = props => {
             }}
           >
             <Dotdotdot clamp={4}>
-              <p>
-                <strong>{location.category}</strong> - {location.tip}
-              </p>
+              <strong>{location.category}</strong> - {location.tip}
             </Dotdotdot>
-
-          </CardText>
+          </div>
         </div>
       </CardBlock>
     </Card>

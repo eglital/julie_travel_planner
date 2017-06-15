@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Container, Row, Col, Button } from "reactstrap";
-import LocationSelection from "../components/LocationSelection";
-import ProgressBar from "../components/Progress";
-import { addLocationToItinerary } from "../actions/builderActions";
-import { getFinalItinerary } from "../actions/itineraryActions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'reactstrap';
+import LocationSelection from '../components/LocationSelection';
+import ProgressBar from '../components/Progress';
+import { addLocationToItinerary } from '../actions/builderActions';
+import { getFinalItinerary } from '../actions/itineraryActions';
 
 class LocationSelectionContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {}
   shouldComponentUpdate(nextProps, nextState) {
