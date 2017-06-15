@@ -48,7 +48,7 @@ router.get("/itinerary/final/:itineraryId", (req, res, next) => {
 router.get("/itinerary/saved/:itineraryId", (req, res, next) => {
   Itinerary.findById(req.params.itineraryId)
     .then(itinerary => {
-      res.send(itinerary);
+      res.send({ itinerary: itinerary.data });
     })
     .catch(next);
 });

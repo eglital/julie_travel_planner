@@ -1,7 +1,8 @@
-import * as Actions from '../actions/builderActions';
+import * as Actions from "../actions/builderActions";
 
 const initialState = {
-  duration: 0
+  duration: 0,
+  finalItinerary: []
 };
 
 export function builder(state = initialState, action) {
