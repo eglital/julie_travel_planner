@@ -1,11 +1,10 @@
-import React, { Component } from "react";
-import InitialSubmissionForm from "../components/InitialSubmissionForm";
-import { fetchLocationsData, setFetching } from "../actions/locationsActions";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import ItineraryHelper from "../helpers/itineraryHelper";
-import "../stylesheets/loading.css";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import React, { Component } from 'react';
+import InitialSubmissionForm from '../components/InitialSubmissionForm';
+import { fetchLocationsData, setFetching } from '../actions/locationsActions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import ItineraryHelper from '../helpers/itineraryHelper';
+import '../stylesheets/loading.css';
 
 function getNextHour() {
   let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -23,8 +22,6 @@ class InitialSubmissionFormContainer extends Component {
       startTime: getNextHour(),
       endTime: getNextHour() + 2 * 60 * 60 * 1000,
       startingLocation: null,
-      address: "",
-      addressError: "",
       error: null,
       validItinerary: false
     };
@@ -32,7 +29,7 @@ class InitialSubmissionFormContainer extends Component {
 
   componentDidMount() {
     //check localStorage for itinerary: id
-    console.log("component did mount");
+    console.log('component did mount');
     if (ItineraryHelper.validItinerary()) {
       this.setState({
         validItinerary: ItineraryHelper.getItineraryObj()
@@ -47,7 +44,7 @@ class InitialSubmissionFormContainer extends Component {
   componentWillReceiveProps(newProps) {
     //if locations.data is now populated, redirect them to itinerary-creation
     if (Object.keys(newProps.locations.data).length > 0) {
-      this.props.history.push("/itinerary-creation");
+      this.props.history.push('/itinerary-creation');
     }
     //if error in form
     if (newProps.locations.error) {
@@ -78,10 +75,6 @@ class InitialSubmissionFormContainer extends Component {
     });
   };
 
-  onChangeAddress = address => this.setState({ address, addressError: "" });
-  onAddressError = status => {
-    this.setState({ addressError: "No results" });
-  };
   onFormSubmit = e => {
     e.preventDefault();
     this.props.setFetching();
@@ -91,24 +84,8 @@ class InitialSubmissionFormContainer extends Component {
       startTime: this.state.startTime,
       endTime: this.state.endTime
     };
-
-    if (this.state.address) {
-      //if user entered address
-      geocodeByAddress(this.state.address)
-        .then(results => getLatLng(results[0]))
-        .then(latLng => {
-          console.log("Success", latLng);
-          data.startingLocation = [latLng.lat, latLng.lng];
-        })
-        .then(() => {
-          console.log("FROM AUTOCOMPLETE", data);
-          this.props.fetchLocationsData({
-            formSubmission: data
-          });
-        })
-        .catch(error => console.error("Error", error));
-    } else if ("geolocation" in navigator) {
-      //attempt to get location with geolocation API if user didn't enter address
+    //attempt to get location with geolocation API
+    if ('geolocation' in navigator) {
       /* geolocation is available */
 
       let p = new Promise((resolve, reject) => {
@@ -123,12 +100,12 @@ class InitialSubmissionFormContainer extends Component {
           },
           navError => {
             //prompt with box for starting location and update the state?
-            console.log("Please enter a starting location");
+            console.log('Please enter a starting location');
             data.startingLocation = this.state.startingLocation; //or default values?
           }
         )
         .then(form => {
-          console.log("updated data", data);
+          console.log('updated data', data);
           //send form to action dispatcher
           this.props.fetchLocationsData({
             formSubmission: data
@@ -149,8 +126,6 @@ class InitialSubmissionFormContainer extends Component {
           onSubmit={this.onFormSubmit}
           onStartTimeChange={this.onStartTimeChange}
           onEndTimeChange={this.onEndTimeChange}
-          onAddressError={this.onAddressError}
-          onChangeAddress={this.onChangeAddress}
           {...this.state}
         />
       );
