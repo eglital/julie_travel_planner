@@ -16,6 +16,23 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import moment from "moment";
 import Hero from "./Hero";
 import googleLogo from "../assets/powered_by_google_on_white.png";
+import preferences from '../references/preferences';
+
+
+function generatePreferences(preferences, onChange) {
+  return preferences.map((pref) => {
+    return (
+      <div>
+        <label>{pref}
+          <input type="checkbox" onChange={onChange} value={pref}/>
+        </label>
+        {" "}
+      </div>
+    );
+  });
+}
+
+
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -80,7 +97,7 @@ class InitialSubmissionForm extends Component {
       addressError,
       validItinerary,
       onPrefChange
-    } = this.props;
+  } = this.props;
     console.log("validItinerary", validItinerary);
     return (
       <Container>
@@ -191,9 +208,7 @@ class InitialSubmissionForm extends Component {
                   </UncontrolledTooltip>
                 </FormGroup>
               <div>
-                <label>Sun
-                <input type="checkbox" onChange={onPrefChange} value="sun"/>
-                </label>
+                {generatePreferences(preferences, onPrefChange)}
               </div>
               </div>
               <div

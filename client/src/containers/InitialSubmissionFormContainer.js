@@ -8,7 +8,9 @@ import "../stylesheets/loading.css";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 
-const importedPreferences = ['sun', 'mon', 'tues', 'wed'];
+//references
+import preferences from '../references/preferences';
+
 function initPreferences(preferences) {
   const prefs = {};
   preferences.forEach((pref) => {
@@ -38,7 +40,7 @@ class InitialSubmissionFormContainer extends Component {
       addressError: "",
       error: null,
       validItinerary: false,
-      preferences: initPreferences(importedPreferences)
+      preferences: initPreferences(preferences)
     };
   }
 
@@ -119,7 +121,6 @@ class InitialSubmissionFormContainer extends Component {
         return this.state.preferences[pref];
       })
     };
-
     if (this.state.address) {
       //if user entered address
       geocodeByAddress(this.state.address)
@@ -168,7 +169,6 @@ class InitialSubmissionFormContainer extends Component {
     }
   };
   render() {
-    console.log("updated state", this.state);
     if (this.props.locations.isFetching) {
       return <Loader />;
     } else {
