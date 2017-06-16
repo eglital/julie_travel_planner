@@ -18,4 +18,5 @@ body {
   top: 100%;
   background-color: white;
   border: 1px solid #555555;
-  width: 100%; }
+  width: 100%;
+  z-index: 10; }

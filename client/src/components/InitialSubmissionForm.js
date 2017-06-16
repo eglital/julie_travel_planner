@@ -6,9 +6,10 @@ import {
   FormGroup,
   Label,
   Input,
+  Container,
   Col,
   Row,
-  Alert,
+  UncontrolledAlert,
   UncontrolledTooltip
 } from "reactstrap";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -81,106 +82,145 @@ class InitialSubmissionForm extends Component {
     } = this.props;
     console.log("validItinerary", validItinerary);
     return (
-      <Row>
-        <Col xs="12" sm={{ offset: 3, size: 6 }}>
-          {error &&
-            <Alert className="text-center" color="warning">
-              <strong>Whoops!</strong>
-              {" "}
-              Something happened on the server. Try again later
-            </Alert>}
-          {validItinerary &&
-            <Alert
-              className="text-center"
-              style={{ padding: "3px", height: "55px" }}
-              color="info"
-            >
-              <p style={{ marginBottom: "0px" }}>
-                It looks like you've already created an itinerary...
-              </p>
-              <p>
-                You can access it <Link
-                  to={`/itinerary-overview/${validItinerary.id}`}
-                >
-                  <strong>here</strong>
-                </Link>!
-              </p>
+      <Container>
+        <Row>
+          <Col xs="12" sm={{ offset: 3, size: 6 }}>
+            {error &&
+              <UncontrolledAlert className="text-center" color="warning">
+                <strong>Whoops!</strong>
+                {" "}
+                Something happened on the server. Try again later
+              </UncontrolledAlert>}
+            {validItinerary &&
+              <UncontrolledAlert
+                className="text-center"
+                style={{ padding: "3px", height: "55px" }}
+                color="info"
+              >
+                <p style={{ marginBottom: "0px" }}>
+                  Looks like you already have an itinerary...
+                </p>
+                <p>
+                  You can see it <Link
+                    to={`/itinerary-overview/${validItinerary.id}`}
+                  >
+                    <strong>here</strong>
+                  </Link>!
+                </p>
 
-            </Alert>}
-
-          <Hero />
-          <Form className="text-center" onSubmit={onSubmit}>
-            <FormGroup style={{ maxWidth: "300px", margin: "auto" }}>
-              <img
-                src={googleLogo}
-                alt=""
-                style={{ display: "inline-block" }}
-              />
-              <Label for="startingLocation">Starting/Ending Location</Label>
-              {addressError ? addressError : null}
-              <PlacesAutocomplete
-                inputProps={{
-                  value: address,
-                  onChange: onChangeAddress,
-                  placeholder: "Use current location"
-                }}
-                autocompleteItem={AutocompleteItem}
-                classNames={cssClasses}
-                onError={onAddressError}
-                clearItemsOnError={true}
-              />
-
-            </FormGroup>
-            <div>
+              </UncontrolledAlert>}
+            <Hero />
+            <Form className="text-center" onSubmit={onSubmit}>
               <FormGroup
                 style={{
-                  float: "left",
-                  width: "40%",
-                  marginLeft: "8%",
-                  marginRight: "2%"
+                  maxWidth: "600px",
+                  marginLeft: "auto",
+                  marginRight: "auto"
                 }}
               >
-                <Label for="startingTime">Start Time</Label>
-                <Input
-                  style={{ maxWidth: "300px", margin: "auto" }}
-                  type="select"
-                  name="startingTime"
-                  id="startingTime"
-                  onChange={onStartTimeChange}
-                >
-                  {createTimeOptions(nextHour, 0)}
-                </Input>
-              </FormGroup>
-              <FormGroup
-                style={{
-                  float: "left",
-                  width: "40%",
-                  marginLeft: "2%",
-                  marginRight: "8%"
-                }}
-              >
-                <Label for="endingTime">End Time</Label>
-                <Input
-                  style={{ maxWidth: "300px", margin: "auto" }}
-                  type="select"
-                  name="endingTime"
-                  id="endingTime"
-                  onChange={onEndTimeChange}
-                >
-                  {createTimeOptions(startTime, 2)}
-                </Input>
-                <UncontrolledTooltip placement="top" target="endingTime">
-                  Ending time must be at least 2 hours after starting time!
-                </UncontrolledTooltip>
-              </FormGroup>
-            </div>
+                <img
+                  src={googleLogo}
+                  alt=""
+                  style={{ display: "inline-block" }}
+                />
+                <Label for="startingLocation">Starting/Ending Location</Label>
+                <br />
+                {addressError ? addressError : null}
+                <PlacesAutocomplete
+                  inputProps={{
+                    value: address,
+                    onChange: onChangeAddress,
+                    placeholder: "Use current location"
+                  }}
+                  autocompleteItem={AutocompleteItem}
+                  classNames={cssClasses}
+                  onError={onAddressError}
+                  clearItemsOnError={true}
+                />
 
-            <div>
-              <Button style={{ clear: "both" }}>Get planning!</Button>
-            </div>
-          </Form>
-        </Col>
-      </Row>
+              </FormGroup>
+              <div>
+                <FormGroup
+                  style={{
+                    float: "left",
+                    width: "40%",
+                    marginLeft: "8%",
+                    marginRight: "2%"
+                  }}
+                >
+                  <Label for="startingTime">Start Time</Label>
+                  <Input
+                    style={{
+                      maxWidth: "300px",
+                      margin: "auto",
+                      textAlignLast: "center"
+                    }}
+                    type="select"
+                    name="startingTime"
+                    id="startingTime"
+                    onChange={onStartTimeChange}
+                  >
+                    {createTimeOptions(nextHour, 0)}
+                  </Input>
+                </FormGroup>
+                <FormGroup
+                  style={{
+                    float: "left",
+                    width: "40%",
+                    marginLeft: "2%",
+                    marginRight: "8%"
+                  }}
+                >
+                  <Label for="endingTime">End Time</Label>
+                  <Input
+                    style={{
+                      maxWidth: "300px",
+                      margin: "auto",
+                      textAlignLast: "center"
+                    }}
+                    type="select"
+                    name="endingTime"
+                    id="endingTime"
+                    onChange={onEndTimeChange}
+                  >
+                    {createTimeOptions(startTime, 2)}
+                  </Input>
+                  <UncontrolledTooltip placement="top" target="endingTime">
+                    Ending time must be at least 2 hours after starting time!
+                  </UncontrolledTooltip>
+                </FormGroup>
+              </div>
+              <div
+                style={{
+                  marginTop: "20px",
+                  clear: "both",
+                  marginBottom: "20px"
+                }}
+              >
+                <Button style={{ clear: "both" }}>Get planning!</Button>
+              </div>
+
+              <div>
+                <p className="text-center" style={{ color: "#C17DBF" }}>
+                  ______________________________
+                </p>
+                <img
+                  src="map.png"
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    transform: "rotate(30deg)",
+                    height: "50px",
+                    width: "50px"
+                  }}
+                />
+              </div>
+            </Form>
+          </Col>
+
+        </Row>
+        <Row />
+      </Container>
     );
   }
 }
