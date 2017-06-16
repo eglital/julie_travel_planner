@@ -24,7 +24,7 @@ function generatePreferences(preferences, onChange) {
     return (
       <div>
         <label>{pref}
-          <input type="checkbox" onChange={onChange} value={pref}/>
+          <input checked type="checkbox" onChange={onChange} value={pref}/>
         </label>
         {" "}
       </div>
