@@ -9,15 +9,3 @@ body {
 
 .location-segment div {
   height: 100%; }
-
-.hoverable:hover {
-  background-color: rgba(193, 125, 191, .10);
-}
-
-.travel:nth-of-type(odd) {
-  color:grey;
-}
-
-.travel:nth-of-type(even) {
-  color:pink;
-}

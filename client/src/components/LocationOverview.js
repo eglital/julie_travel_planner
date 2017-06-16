@@ -72,29 +72,41 @@ const LocationOverview = ({ finalItinerary }) => {
     >
       <Row style={{ marginTop: '15px', marginBottom: '15px' }}>
         <Col className="text-center">
+          <div>
+            <span>
+              Route by <h2
+                style={{
+                  width: '100%',
+                  color: '#C17DBF',
+                  marginBottom: '15px',
+                  textShadow: '-1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey'
+                }}
+              >
+                Julie
+              </h2>
+            </span>
+          </div>
           <Link to="/">
             <Button outline color="info" size="sm">Plan New Route</Button>
           </Link>
         </Col>
-        {/* <Col className="text-center">
-        <ShareTwitterButton />
-          <ShareFacebookButton />
-        </Col> */}
       </Row>
+
+      {makeOverview(finalItinerary)}
 
       <Row>
-        <Col />
-        <Col />
-      </Row>
-      {makeOverview(finalItinerary)}
-      <GoogleMaps finalItinerary={finalItinerary} />
+        <Col xs="11" style={{ paddingRight: '0px' }}>
+          <GoogleMaps finalItinerary={finalItinerary} />
+        </Col>
+        <Col xs="1" style={{ paddingLeft: '0px' }}>
+          <div style={{ height: '30px' }} />
+          <ShareFacebookButton props={this.props} />
+          <div style={{ height: '30px' }} />
 
-      <div>
-        Share my route:
-      </div>
-      <Link to="/">
-        <Button outline color="info" size="sm">Plan New Route</Button>
-      </Link>
+          <ShareTwitterButton props={this.props} />
+        </Col>
+      </Row>
+
     </div>
   );
 };
