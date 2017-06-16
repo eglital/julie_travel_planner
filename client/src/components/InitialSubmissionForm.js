@@ -121,7 +121,7 @@ class InitialSubmissionForm extends Component {
                 <img
                   src={googleLogo}
                   alt=""
-                  style={{ display: "inline-block" }}
+                  style={{ display: "block", margin: "auto" }}
                 />
                 <Label for="startingLocation">Starting/Ending Location</Label>
                 <br />
