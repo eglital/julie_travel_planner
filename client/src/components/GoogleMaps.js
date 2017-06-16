@@ -72,22 +72,23 @@ export default class GoogleMaps extends Component {
   };
   render() {
     return (
-      <div>
-        <ShareTwitterButton />
-        <ShareFacebookButton />
-        <div
-          className="googleMap"
-          style={{ width: "100%", height: "500px", margin: "0 auto", padding: 20 }}
-        >
-          <GoogleMapMarkers
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-            markers={this.state.markers}
-            onMarkerClick={this.handleMarkerClick}
-            onMarkerClose={this.handleMarkerClose}
-            directions={this.state.directions}
-          />
-        </div>
+      <div
+        className="googleMap"
+        style={{
+          width: "100%",
+          height: "500px",
+          margin: "0 auto",
+          padding: 20
+        }}
+      >
+        <GoogleMapMarkers
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+          markers={this.state.markers}
+          onMarkerClick={this.handleMarkerClick}
+          onMarkerClose={this.handleMarkerClose}
+          directions={this.state.directions}
+        />
       </div>
     );
   }
