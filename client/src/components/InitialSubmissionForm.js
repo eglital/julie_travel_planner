@@ -78,7 +78,8 @@ class InitialSubmissionForm extends Component {
       onChangeAddress,
       onAddressError,
       addressError,
-      validItinerary
+      validItinerary,
+      onPrefChange
     } = this.props;
     console.log("validItinerary", validItinerary);
     return (
@@ -189,6 +190,11 @@ class InitialSubmissionForm extends Component {
                     Ending time must be at least 2 hours after starting time!
                   </UncontrolledTooltip>
                 </FormGroup>
+              <div>
+                <label>Sun
+                <input type="checkbox" onChange={onPrefChange} value="sun"/>
+                </label>
+              </div>
               </div>
               <div
                 style={{

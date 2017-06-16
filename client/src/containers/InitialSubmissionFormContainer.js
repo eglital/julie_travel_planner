@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
-import { fetchLocationsData, setFetching } from "../actions/locationsActions";
+import { fetchLocationsData } from "../actions/locationsActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
 import "../stylesheets/loading.css";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+
+
+const importedPreferences = ['sun', 'mon', 'tues', 'wed'];
+function initPreferences(preferences) {
+  const prefs = {};
+  preferences.forEach((pref) => {
+    prefs[pref] = false;
+  });
+  return prefs;
+}
+
 
 function getNextHour() {
   let ROUNDING = 60 * 60 * 1000; /*ms*/
@@ -26,13 +37,13 @@ class InitialSubmissionFormContainer extends Component {
       address: "",
       addressError: "",
       error: null,
-      validItinerary: false
+      validItinerary: false,
+      preferences: initPreferences(importedPreferences)
     };
   }
 
   componentDidMount() {
     //check localStorage for itinerary: id
-    console.log("component did mount");
     if (ItineraryHelper.validItinerary()) {
       this.setState({
         validItinerary: ItineraryHelper.getItineraryObj()
@@ -80,16 +91,33 @@ class InitialSubmissionFormContainer extends Component {
 
   onChangeAddress = address => this.setState({ address, addressError: "" });
   onAddressError = status => {
-    this.setState({ addressError: "No results" });
+    this.setState({ address: "", addressError: "No results" });
   };
+  
+  
+  //toggle the check box value,
+  //assumes default unchecked
+  onPrefChange = e => {
+    this.setState({
+      preferences: {
+        ...this.state.preferences,
+        [e.target.value]: !this.state.preferences[e.target.value]
+      }
+    });
+  }
+  
+  
+  
   onFormSubmit = e => {
     e.preventDefault();
-    this.props.setFetching();
 
-    //construct simple json for form submission
+    //construct simple json for form submission from the state
     let data = {
       startTime: this.state.startTime,
-      endTime: this.state.endTime
+      endTime: this.state.endTime,
+      preferences: Object.keys(this.state.preferences).filter((pref) => {
+        return this.state.preferences[pref];
+      })
     };
 
     if (this.state.address) {
@@ -121,7 +149,7 @@ class InitialSubmissionFormContainer extends Component {
           coordinates => {
             data.startingLocation = coordinates;
           },
-          navError => {
+          geolocationDeny => {
             //prompt with box for starting location and update the state?
             console.log("Please enter a starting location");
             data.startingLocation = this.state.startingLocation; //or default values?
@@ -136,9 +164,11 @@ class InitialSubmissionFormContainer extends Component {
         });
     } else {
       /* geolocation IS NOT available */
+      //Set the address input field to required
     }
   };
   render() {
+    console.log("updated state", this.state);
     if (this.props.locations.isFetching) {
       return <Loader />;
     } else {
@@ -151,6 +181,7 @@ class InitialSubmissionFormContainer extends Component {
           onEndTimeChange={this.onEndTimeChange}
           onAddressError={this.onAddressError}
           onChangeAddress={this.onChangeAddress}
+          onPrefChange={this.onPrefChange}
           {...this.state}
         />
       );
@@ -168,9 +199,6 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchLocationsData: form => {
       dispatch(fetchLocationsData(form));
-    },
-    setFetching: () => {
-      dispatch(setFetching());
     }
   };
 }

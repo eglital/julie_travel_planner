@@ -30,6 +30,9 @@ export function fetchLocationsDataFailure(error) {
 
 export function fetchLocationsData(form) {
   return dispatch => {
+    //setFetching here
+    dispatch(setFetching());
+    
     const myHeaders = new Headers({
       'Content-Type': 'application/json'
     });
