@@ -75,8 +75,8 @@ export default class GoogleMaps extends Component {
       <div
         className="googleMap"
         style={{
-          width: "100%",
-          height: "500px",
+          width: "50%",
+          height: "300px",
           margin: "0 auto",
           padding: 20
         }}
