@@ -1,21 +1,21 @@
-import React from "react";
-import { ShareButtons, generateShareIcon } from "react-share";
+import React from 'react';
+import { ShareButtons, generateShareIcon } from 'react-share';
 const { FacebookShareButton } = ShareButtons;
-const FacebookIcon = generateShareIcon("facebook");
+const FacebookIcon = generateShareIcon('facebook');
 
 //title, description, picture - optional props, url - required
 const shareText = itinerary => {
-  let text = "";
+  let text = '';
   for (let i = 1; i < itinerary.length - 1; i++) {
     text += itinerary[i].name;
     if (i !== itinerary.length - 2) {
-      text += ", ";
+      text += ', ';
     }
   }
   return `Checking out ${text} today.`;
 };
 const ShareFacebookButton = props => {
-  const itinerary = props.itinerary || [{}, { name: "Good Place" }, {}];
+  const itinerary = props.itinerary || [{}, { name: 'Good Place' }, {}];
   return (
     <FacebookShareButton
       url="https://julie-travel-planner.herokuapp.com/"

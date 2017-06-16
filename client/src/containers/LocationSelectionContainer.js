@@ -35,50 +35,54 @@ class LocationSelectionContainer extends Component {
   };
 
   render() {
-    return (
-      <Container>
-        <Row>
-          <Col lg={{ size: 8, offset: 2 }}>
-            <ProgressBar
-              startTime={this.props.itinerary.startTime}
-              endTime={this.props.itinerary.endTime}
-              duration={this.props.builder.duration}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={{ size: 6, offset: 3 }}>
-            <p className="text-center">
-              Select one of the following to add it to your itinerary, and
-              {' '}
-              <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
-                Julie
-              </span>
-              {' '}
-              will connect the dots.
-            </p>
-            {displayThreeLocations(this.props, this.onClickLocation)}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p className="text-center">
-              Don't want to add anything else?
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col
-            className="text-center"
-            xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
-          >
-            <Button onClick={this.onClickBuildItinerary}>
-              Build Itinerary Now
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-    );
+    if (!this.props.itinerary.id) {
+      this.state.history.push('/');
+    } else {
+      return (
+        <Container>
+          <Row>
+            <Col lg={{ size: 8, offset: 2 }}>
+              <ProgressBar
+                startTime={this.props.itinerary.startTime}
+                endTime={this.props.itinerary.endTime}
+                duration={this.props.builder.duration}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={{ size: 6, offset: 3 }}>
+              <p className="text-center">
+                Select one of the following to add it to your itinerary, and
+                {' '}
+                <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
+                  Julie
+                </span>
+                {' '}
+                will connect the dots.
+              </p>
+              {displayThreeLocations(this.props, this.onClickLocation)}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <p className="text-center">
+                Don't want to add anything else?
+              </p>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              className="text-center"
+              xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
+            >
+              <Button onClick={this.onClickBuildItinerary}>
+                Build Itinerary Now
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      );
+    }
   }
 }
 
