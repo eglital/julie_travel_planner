@@ -60,11 +60,10 @@ const AutocompleteItem = ({ formattedSuggestion }) => (
   </div>
 );
 const cssClasses = {
-  root: "form-group",
+  root: "form-group autoRoot",
   input: "form-control",
-  autocompleteContainer: "my-autocomplete-container"
+  autocompleteContainer: "autoContainer"
 };
-
 class InitialSubmissionForm extends Component {
   render() {
     const {
