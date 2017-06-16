@@ -13,7 +13,8 @@ class ItineraryOverviewContainer extends Component {
 
   render() {
     if (this.props.finalItinerary && this.props.finalItinerary.length < 1) {
-      return <Redirect to="/PageNotFound" />;
+      return null;
+      // return <Redirect to="/PageNotFound" />;
     } else {
       return (
         <Container>
