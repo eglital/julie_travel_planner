@@ -1,4 +1,3 @@
-import * as Actions from "../actions/builderActions";
 import { SET_DURATION } from "../actions/types";
 
 const initialState = {

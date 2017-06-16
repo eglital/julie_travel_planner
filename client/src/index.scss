@@ -12,13 +12,26 @@ body {
 
 
 .location-segment{
-  
+
   .location-segment-info {
     border: 1px solid black;
     border-radius: 5px;
   }
-  
+
   div{
     height: 100%;
   }
 }
+.autoRoot {
+  position: relative
+}
+
+.autoContainer {
+    position: absolute;
+    top: 100%;
+    background-color: white;
+    border: 1px solid #555555;
+    width: 100%;
+    z-index: 10;
+}
+
