@@ -12,13 +12,17 @@ class ItineraryOverviewContainer extends Component {
   }
 
   render() {
-    return (
-      <Container>
-        {this.props.finalItinerary && this.props.finalItinerary.length
-          ? <LocationOverview finalItinerary={this.props.finalItinerary} />
-          : null}
-      </Container>
-    );
+    if (this.props.finalItinerary && this.props.finalItinerary.length < 1) {
+      return <Redirect to="/PageNotFound" />;
+    } else {
+      return (
+        <Container>
+          {this.props.finalItinerary && this.props.finalItinerary.length
+            ? <LocationOverview finalItinerary={this.props.finalItinerary} />
+            : null}
+        </Container>
+      );
+    }
   }
 }
 

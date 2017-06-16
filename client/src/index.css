@@ -10,14 +10,17 @@ body {
 .location-segment div {
   height: 100%; }
 
-.hoverable:hover {
-  background-color: rgba(193, 125, 191, .10);
-}
+.autoRoot {
+  position: relative; }
 
-.travel:nth-of-type(odd) {
-  color:grey;
-}
+.autoContainer {
+  position: absolute;
+  top: 100%;
+  background-color: white;
+  border: 1px solid #555555;
+  width: 100%;
+  z-index: 10; }
 
-.travel:nth-of-type(even) {
-  color:pink;
-}
+  .hoverable:hover {
+    background-color: rgba(193, 125, 191, .10);
+  }
