@@ -10,7 +10,13 @@ const LocationSelection = props => {
 
   return (
     <Card
-      style={{ marginBottom: '10px', maxWidth: '500px' }}
+      className="hoverable"
+      style={{
+        marginBottom: '10px',
+        maxWidth: '500px',
+        borderColor: '#C17DBF',
+        cursor: 'pointer'
+      }}
       onClick={onClick}
       data-loc={JSON.stringify(location)}
       data-section={section}

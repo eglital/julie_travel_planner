@@ -49,7 +49,13 @@ class LocationSelectionContainer extends Component {
         <Row>
           <Col lg={{ size: 6, offset: 3 }}>
             <p className="text-center">
-              Select one of the following to add it to your itinerary, and we'll figure out how to get you there.
+              Select one of the following to add it to your itinerary, and
+              {' '}
+              <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
+                Julie
+              </span>
+              {' '}
+              will connect the dots.
             </p>
             {displayThreeLocations(this.props, this.onClickLocation)}
           </Col>
