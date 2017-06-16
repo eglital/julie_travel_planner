@@ -11,7 +11,7 @@ const Hero = props => {
             width: '100%',
             color: '#C17DBF',
             marginBottom: '15px',
-            textShadow: '-1px 0 black, 0 1px grey, 1px 0 grey, 0 -1px grey'
+            textShadow: '-1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey'
           }}
         >
           Julie

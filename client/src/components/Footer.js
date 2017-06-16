@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = props => {
   let style = {
-    backgroundColor: '#C17DBF',
+    backgroundColor: 'rgba(193, 125, 191, .33)',
     borderTop: '1px solid #E7E7E7',
     textAlign: 'center',
     position: 'absolute',
