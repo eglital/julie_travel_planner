@@ -17,7 +17,7 @@ const shareText = itinerary => {
   return `Checking out ${text} today.`;
 };
 const ShareTwitterButton = props => {
-  const itinerary = props.itinerary || [{}, { name: "Good Place" }, {}];
+  const itinerary = props.finalItinerary || [{}, { name: "Good Place" }, {}];
 
   return (
     <TwitterShareButton
