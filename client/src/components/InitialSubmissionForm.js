@@ -11,8 +11,10 @@ import {
   Alert,
   UncontrolledTooltip
 } from "reactstrap";
+import PlacesAutocomplete from "react-places-autocomplete";
 import moment from "moment";
 import Hero from "./Hero";
+import googleLogo from "../assets/powered_by_google_on_white.png";
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -47,6 +49,22 @@ function offsetTime(time, startOffset) {
   return time + +hoursInMilliseconds;
 }
 
+//it could be any react functional component
+
+const AutocompleteItem = ({ formattedSuggestion }) => (
+  <div>
+    <i className="fa fa-map-marker" />{" "}
+    <strong>{formattedSuggestion.mainText}</strong>
+    {" "}
+    <small>{formattedSuggestion.secondaryText}</small>
+  </div>
+);
+const cssClasses = {
+  root: "form-group",
+  input: "form-control",
+  autocompleteContainer: "my-autocomplete-container"
+};
+
 class InitialSubmissionForm extends Component {
   render() {
     const {
@@ -56,6 +74,10 @@ class InitialSubmissionForm extends Component {
       onEndTimeChange,
       onSubmit,
       error,
+      address,
+      onChangeAddress,
+      onAddressError,
+      addressError,
       validItinerary
     } = this.props;
     console.log("validItinerary", validItinerary);
@@ -89,15 +111,26 @@ class InitialSubmissionForm extends Component {
 
           <Hero />
           <Form className="text-center" onSubmit={onSubmit}>
-            <FormGroup>
-              <Label for="startingLocation">Starting/Ending Location</Label>
-              <Input
-                style={{ maxWidth: "300px", margin: "auto" }}
-                type="text"
-                name="startingLocation"
-                id="startingLocation"
-                placeholder="Use current location"
+            <FormGroup style={{ maxWidth: "300px", margin: "auto" }}>
+              <img
+                src={googleLogo}
+                alt=""
+                style={{ display: "inline-block" }}
               />
+              <Label for="startingLocation">Starting/Ending Location</Label>
+              {addressError ? addressError : null}
+              <PlacesAutocomplete
+                inputProps={{
+                  value: address,
+                  onChange: onChangeAddress,
+                  placeholder: "Use current location"
+                }}
+                autocompleteItem={AutocompleteItem}
+                classNames={cssClasses}
+                onError={onAddressError}
+                clearItemsOnError={true}
+              />
+
             </FormGroup>
             <div>
               <FormGroup
@@ -142,6 +175,7 @@ class InitialSubmissionForm extends Component {
                 </UncontrolledTooltip>
               </FormGroup>
             </div>
+
             <div>
               <Button style={{ clear: "both" }}>Get planning!</Button>
             </div>
