@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Form,
   FormGroup,
   Label,
   Input,
+  Container,
   Col,
   Row,
-  Alert,
+  UncontrolledAlert,
   UncontrolledTooltip
-} from "reactstrap";
-import moment from "moment";
-import Hero from "./Hero";
+} from 'reactstrap';
+import moment from 'moment';
+import Hero from './Hero';
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -20,7 +21,7 @@ function createTimeOptions(time, startOffset = 0) {
   return hours.map(hour => {
     return (
       <option key={hour} value={hour}>
-        {moment(hour).format("h a")}
+        {moment(hour).format('h a')}
       </option>
     );
   });
@@ -36,7 +37,7 @@ function getHoursInMilliseconds(nextHour) {
     //push the time in milliseconds
     hours.push(+nextHour);
     //mutate the moment
-    nextHour.add(1, "h");
+    nextHour.add(1, 'h');
     ++i;
   }
   return hours;
@@ -58,96 +59,142 @@ class InitialSubmissionForm extends Component {
       error,
       validItinerary
     } = this.props;
-    console.log("validItinerary", validItinerary);
+    console.log('validItinerary', validItinerary);
     return (
-      <Row>
-        <Col xs="12" sm={{ offset: 3, size: 6 }}>
-          {error &&
-            <Alert className="text-center" color="warning">
-              <strong>Whoops!</strong>
-              {" "}
-              Something happened on the server. Try again later
-            </Alert>}
-          {validItinerary &&
-            <Alert
-              className="text-center"
-              style={{ padding: "3px", height: "55px" }}
-              color="info"
-            >
-              <p style={{ marginBottom: "0px" }}>
-                It looks like you've already created an itinerary...
-              </p>
-              <p>
-                You can access it <Link
-                  to={`/itinerary-overview/${validItinerary.id}`}
-                >
-                  <strong>here</strong>
-                </Link>!
-              </p>
+      <Container>
+        <Row>
+          <Col xs="12" sm={{ offset: 3, size: 6 }}>
+            {error &&
+              <UncontrolledAlert className="text-center" color="warning">
+                <strong>Whoops!</strong>
+                {' '}
+                Something happened on the server. Try again later
+              </UncontrolledAlert>}
+            {validItinerary &&
+              <UncontrolledAlert
+                className="text-center"
+                style={{ padding: '3px', height: '55px' }}
+                color="info"
+              >
+                <p style={{ marginBottom: '0px' }}>
+                  Looks like you already have an itinerary...
+                </p>
+                <p>
+                  You can see it <Link
+                    to={`/itinerary-overview/${validItinerary.id}`}
+                  >
+                    <strong>here</strong>
+                  </Link>!
+                </p>
 
-            </Alert>}
+              </UncontrolledAlert>}
+            <Hero />
 
-          <Hero />
-          <Form className="text-center" onSubmit={onSubmit}>
-            <FormGroup>
-              <Label for="startingLocation">Starting/Ending Location</Label>
-              <Input
-                style={{ maxWidth: "300px", margin: "auto" }}
-                type="text"
-                name="startingLocation"
-                id="startingLocation"
-                placeholder="Use current location"
-              />
-            </FormGroup>
-            <div>
+            <Form className="text-center" onSubmit={onSubmit}>
               <FormGroup
                 style={{
-                  float: "left",
-                  width: "40%",
-                  marginLeft: "8%",
-                  marginRight: "2%"
+                  maxWidth: '600px',
+                  marginLeft: 'auto',
+                  marginRight: 'auto'
                 }}
               >
-                <Label for="startingTime">Start Time</Label>
+                <Label for="startingLocation">Starting/Ending Location</Label>
                 <Input
-                  style={{ maxWidth: "300px", margin: "auto" }}
-                  type="select"
-                  name="startingTime"
-                  id="startingTime"
-                  onChange={onStartTimeChange}
-                >
-                  {createTimeOptions(nextHour, 0)}
-                </Input>
+                  style={{
+                    textAlign: 'center',
+                    width: '84%',
+                    maxWidth: '600px',
+                    marginLeft: '8%',
+                    marginRight: '8%'
+                  }}
+                  type="text"
+                  name="startingLocation"
+                  id="startingLocation"
+                  placeholder="Use current location"
+                />
               </FormGroup>
-              <FormGroup
+              <div>
+                <FormGroup
+                  style={{
+                    float: 'left',
+                    width: '40%',
+                    marginLeft: '8%',
+                    marginRight: '2%'
+                  }}
+                >
+                  <Label for="startingTime">Start Time</Label>
+                  <Input
+                    style={{
+                      maxWidth: '300px',
+                      margin: 'auto',
+                      textAlignLast: 'center'
+                    }}
+                    type="select"
+                    name="startingTime"
+                    id="startingTime"
+                    onChange={onStartTimeChange}
+                  >
+                    {createTimeOptions(nextHour, 0)}
+                  </Input>
+                </FormGroup>
+                <FormGroup
+                  style={{
+                    float: 'left',
+                    width: '40%',
+                    marginLeft: '2%',
+                    marginRight: '8%'
+                  }}
+                >
+                  <Label for="endingTime">End Time</Label>
+                  <Input
+                    style={{
+                      maxWidth: '300px',
+                      margin: 'auto',
+                      textAlignLast: 'center'
+                    }}
+                    type="select"
+                    name="endingTime"
+                    id="endingTime"
+                    onChange={onEndTimeChange}
+                  >
+                    {createTimeOptions(startTime, 2)}
+                  </Input>
+                  <UncontrolledTooltip placement="top" target="endingTime">
+                    Ending time must be at least 2 hours after starting time!
+                  </UncontrolledTooltip>
+                </FormGroup>
+              </div>
+              <div
                 style={{
-                  float: "left",
-                  width: "40%",
-                  marginLeft: "2%",
-                  marginRight: "8%"
+                  marginTop: '20px',
+                  clear: 'both',
+                  marginBottom: '20px'
                 }}
               >
-                <Label for="endingTime">End Time</Label>
-                <Input
-                  style={{ maxWidth: "300px", margin: "auto" }}
-                  type="select"
-                  name="endingTime"
-                  id="endingTime"
-                  onChange={onEndTimeChange}
-                >
-                  {createTimeOptions(startTime, 2)}
-                </Input>
-                <UncontrolledTooltip placement="top" target="endingTime">
-                  Ending time must be at least 2 hours after starting time!
-                </UncontrolledTooltip>
-              </FormGroup>
-            </div>
-            <div>
-              <Button style={{ clear: "both" }}>Get planning!</Button>
-            </div>
-          </Form>
-        </Col>
-      </Row>
+                <Button>Get planning!</Button>
+              </div>
+
+              <div>
+                <p className="text-center" style={{ color: '#C17DBF' }}>
+                  ______________________________
+                </p>
+                <img
+                  src="map.png"
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    transform: 'rotate(30deg)',
+                    height: '50px',
+                    width: '50px'
+                  }}
+                />
+              </div>
+            </Form>
+          </Col>
+
+        </Row>
+        <Row />
+      </Container>
     );
   }
 }
