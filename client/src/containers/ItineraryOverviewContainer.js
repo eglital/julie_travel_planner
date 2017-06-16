@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { getSavedItinerary } from "../actions/itineraryActions";
 import LocationOverview from "../components/LocationOverview";
 
 class ItineraryOverviewContainer extends Component {
-
   componentDidMount() {
     if (!this.props.finalItinerary.length) {
       this.props.getSavedItinerary(this.props.match.params.itineraryId);
@@ -12,15 +12,20 @@ class ItineraryOverviewContainer extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.finalItinerary && this.props.finalItinerary.length
-          ? <div>
-              <LocationOverview finalItinerary={this.props.finalItinerary}/>
-            </div>
-          : null}
-      </div>
-    );
+    console.log(this.props.finalItinerary);
+    if (this.props.finalItinerary && this.props.finalItinerary.length < 1) {
+      return <Redirect to="/PageNotFound" />;
+    } else {
+      return (
+        <div>
+          {this.props.finalItinerary.length
+            ? <div>
+                <LocationOverview finalItinerary={this.props.finalItinerary} />
+              </div>
+            : null}
+        </div>
+      );
+    }
   }
 }
 
