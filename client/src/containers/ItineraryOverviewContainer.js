@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getSavedItinerary } from "../actions/itineraryActions";
-import LocationOverview from "../components/LocationOverview";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getSavedItinerary } from '../actions/itineraryActions';
+import LocationOverview from '../components/LocationOverview';
+import { Container } from 'reactstrap';
 
 class ItineraryOverviewContainer extends Component {
-
   componentDidMount() {
     if (!this.props.finalItinerary.length) {
       this.props.getSavedItinerary(this.props.match.params.itineraryId);
@@ -13,13 +13,11 @@ class ItineraryOverviewContainer extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
         {this.props.finalItinerary && this.props.finalItinerary.length
-          ? <div>
-              <LocationOverview finalItinerary={this.props.finalItinerary}/>
-            </div>
+          ? <LocationOverview finalItinerary={this.props.finalItinerary} />
           : null}
-      </div>
+      </Container>
     );
   }
 }
