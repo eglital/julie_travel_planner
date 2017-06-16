@@ -15,7 +15,7 @@ const shareText = itinerary => {
   return `Checking out ${text} today.`;
 };
 const ShareFacebookButton = props => {
-  const itinerary = props.itinerary || [{}, { name: "Good Place" }, {}];
+  const itinerary = props.finalItinerary || [{}, { name: "Good Place" }, {}];
   return (
     <FacebookShareButton
       url="https://julie-travel-planner.herokuapp.com/"
