@@ -43,9 +43,7 @@ export function locationsReducer(state = INITIAL_STATE, action) {
           modifiedData[key] = state.data[key];
         } else {
           let sectionWithRemovedLocation = state.data[key].filter(loc => {
-            if (loc.name !== action.data.location.name) {
-              return loc;
-            }
+            return loc.name !== action.data.location.name;
           });
           modifiedData[key] = sectionWithRemovedLocation;
         }
