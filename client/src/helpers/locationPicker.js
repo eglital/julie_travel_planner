@@ -1,58 +1,78 @@
-import LocationSelection from "../components/LocationSelection";
-import React from "react";
+// import LocationSelection from "../components/LocationSelection";
+// import React from "react";
+var moment = require("moment");
 
-const displayThreeLocations = (props, onClickLocation) => {
+const displayThreeLocations = props => {
   // need these props
-  const { locations, startTime, duration, mealIncluded } = props;
-  let loc1, loc2, loc3;
+  // const { locations, startTime, duration, mealIncluded } = props;
+  let locations = {
+    food: ["food1", "food2", "food3"],
+    places: ["places1", "places2", "places3"],
+    sights: ["sights1", "sights2", "sights3"]
+  };
+  let startTime = 1497693600;
+  let duration = 11 * 60 * 60 * 1000;
+  let mealIncluded = true;
+  let loc1, loc2, loc3, loc = [];
   if (!mealIncluded) {
+    //no meals selected
     let choices = ["places", "sights"];
-    let loc = [];
     for (let i = 0; i < 3; i++) {
-      let randomChoice = choices[Math.floor(Math.random() * 2)];
-      loc.push(
-        locations[randomChoice][
-          Math.floor(Math.random() * locations[randomChoice].length)
-        ]
-      );
+      while (true) {
+        let randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+        let randomPlace =
+          locations[randomChoice][
+            Math.floor(Math.random() * locations[randomChoice].length)
+          ];
+        if (!loc.includes(randomPlace)) {
+          loc.push(randomPlace);
+          break;
+        }
+      }
     }
   } else {
+    //meals included
+    let mealTimes = [[7, 9], [12, 14], [17, 19]];
+    let currentTime = startTime + duration;
+    let currentHour = moment(currentTime).hour();
+    let timeToEat = false;
+    //checking if it's time of day for eating
+    for (let i = 0; i < 3; i++) {
+      if (currentHour >= mealTimes[i][0] && currentHour <= mealTimes[i][1]) {
+        timeToEat = true;
+      }
+    }
+    if (timeToEat) {
+      //if it is breakfast or lunch or dinner time
+      for (let i = 0; i < 3; i++) {
+        while (true) {
+          let randomPlace =
+            locations["food"][
+              Math.floor(Math.random() * locations["food"].length)
+            ];
+          if (!loc.includes(randomPlace)) {
+            loc.push(randomPlace);
+            break;
+          }
+        }
+      }
+    } else {
+      let choices = ["places", "sights"];
+      for (let i = 0; i < 3; i++) {
+        while (true) {
+          let randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+          let randomPlace =
+            locations[randomChoice][
+              Math.floor(Math.random() * locations[randomChoice].length)
+            ];
+          if (!loc.includes(randomPlace)) {
+            loc.push(randomPlace);
+            break;
+          }
+        }
+      }
+    }
   }
-  let loc1 =
-    props.locations.food[
-      Math.floor(Math.random() * props.locations.food.length)
-    ];
-  let loc2 =
-    props.locations.places[
-      Math.floor(Math.random() * props.locations.places.length)
-    ];
-  let loc3 =
-    props.locations.sights[
-      Math.floor(Math.random() * props.locations.sights.length)
-    ];
-
-  return (
-    <div>
-      <LocationSelection
-        location={loc1}
-        section="food"
-        itineraryId={props.itinerary.id}
-        onClick={onClickLocation}
-      />
-      <LocationSelection
-        location={loc2}
-        section="places"
-        itineraryId={props.itinerary.id}
-        onClick={onClickLocation}
-      />
-      <LocationSelection
-        location={loc3}
-        section="sights"
-        itineraryId={props.itinerary.id}
-        onClick={onClickLocation}
-      />
-    </div>
-  );
+  return loc;
 };
-
-export default displayThreeLocations;
+console.log(displayThreeLocations());

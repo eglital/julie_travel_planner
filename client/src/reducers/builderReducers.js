@@ -1,7 +1,8 @@
 import { SET_DURATION } from "../actions/types";
 
 const initialState = {
-  duration: 0
+  duration: 0,
+  mealsIncluded: false
 };
 
 export function builder(state = initialState, action) {

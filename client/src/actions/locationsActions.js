@@ -1,12 +1,14 @@
-import 'isomorphic-fetch';
+import "isomorphic-fetch";
 
 import {
   SET_FETCHING,
   FETCH_LOCATIONS_DATA_SUCCESS,
-  FETCH_LOCATIONS_DATA_FAILURE
-} from './types';
-import ApiResponseHelper from '../helpers/apiResponseHelper';
-import { setItineraryData } from './itineraryActions.js';
+  FETCH_LOCATIONS_DATA_FAILURE,
+  DELETE_SELECTED_LOCATION,
+  DELETE_LOCATIONS_DATA
+} from "./types";
+import ApiResponseHelper from "../helpers/apiResponseHelper";
+import { setItineraryData } from "./itineraryActions.js";
 
 export function setFetching() {
   return {
@@ -31,15 +33,15 @@ export function fetchLocationsDataFailure(error) {
 export function fetchLocationsData(form) {
   return dispatch => {
     const myHeaders = new Headers({
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     });
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: JSON.stringify(form)
     };
 
-    return fetch('/api/itinerary/start', options)
+    return fetch("/api/itinerary/start", options)
       .then(ApiResponseHelper.responseChecker)
       .then(ApiResponseHelper.parseToJSON)
       .then(data => {
@@ -47,15 +49,28 @@ export function fetchLocationsData(form) {
         //remove from data object
         delete data.itinerary;
         //update the locations reducer
-        console.log('dispatching location success', data);
+        console.log("dispatching location success", data);
 
         dispatch(setItineraryData(itinerary));
 
         dispatch(fetchLocationsDataSuccess(data.locations));
       })
       .catch(err => {
-        console.log('dispatching location failure', err);
+        console.log("dispatching location failure", err);
         dispatch(fetchLocationsDataFailure(err));
       });
+  };
+}
+
+export function deleteLocationsData() {
+  return {
+    type: DELETE_LOCATIONS_DATA
+  };
+}
+
+export function deleteSelectedLocation(data) {
+  return {
+    type: DELETE_SELECTED_LOCATION,
+    data
   };
 }
