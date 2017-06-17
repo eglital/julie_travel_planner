@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getFinalItinerary } from "./itineraryActions";
 import { SET_DURATION } from "./types";
-
+import { deleteSelectedLocation } from "./locationsActions";
 export function addLocationToItinerary(
   location,
   section,
@@ -21,6 +21,7 @@ export function addLocationToItinerary(
           throw new Error("Response not ok");
         }
         dispatch(setDuration(response.data));
+        dispatch(deleteSelectedLocation({ location, section }));
         if (
           itinerary.endTime - itinerary.startTime - response.data.duration <=
           60 * 60 * 1000

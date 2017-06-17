@@ -39,18 +39,16 @@ export function locationsReducer(state = INITIAL_STATE, action) {
     case DELETE_SELECTED_LOCATION:
       let modifiedData = {};
       for (let key in state.data) {
-        console.log("KEY", key);
         if (key !== action.data.section) {
           modifiedData[key] = state.data[key];
         } else {
-          let sectionWithRemovedLocation = state.data[key].map(loc => {
+          let sectionWithRemovedLocation = state.data[key].filter(loc => {
             if (loc.name !== action.data.location.name) {
               return loc;
             }
           });
           modifiedData[key] = sectionWithRemovedLocation;
         }
-        console.log("MOD", modifiedData);
       }
       return {
         ...state,
