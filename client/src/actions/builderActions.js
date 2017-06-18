@@ -22,7 +22,6 @@ export function addLocationToItinerary(
           throw new Error("Response not ok");
         }
         dispatch(setDuration(response.data));
-        console.log("SECTION", section);
         if (section === "food") {
           dispatch(changeLastFood(true));
         } else {

@@ -2,7 +2,7 @@ import { SET_DURATION, CHANGE_LAST_FOOD } from "../actions/types";
 
 const initialState = {
   duration: 0,
-  mealsIncluded: false,
+  mealsIncluded: true,
   lastFood: false
 };
 
