@@ -14,7 +14,7 @@ import preferences from '../references/preferences';
 function initPreferences(preferences) {
   const prefs = {};
   preferences.forEach((pref) => {
-    prefs[pref] = false;
+    prefs[pref] = true;
   });
   return prefs;
 }

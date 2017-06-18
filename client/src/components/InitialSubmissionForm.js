@@ -16,15 +16,13 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import moment from "moment";
 import Hero from "./Hero";
 import googleLogo from "../assets/powered_by_google_on_white.png";
-import preferences from '../references/preferences';
-
 
 function generatePreferences(preferences, onChange) {
-  return preferences.map((pref) => {
+  return Object.keys(preferences).map((pref) => {
     return (
       <div>
         <label>{pref}
-          <input checked type="checkbox" onChange={onChange} value={pref}/>
+          <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
         </label>
         {" "}
       </div>
@@ -96,7 +94,8 @@ class InitialSubmissionForm extends Component {
       onAddressError,
       addressError,
       validItinerary,
-      onPrefChange
+      onPrefChange,
+      preferences
   } = this.props;
     console.log("validItinerary", validItinerary);
     return (
