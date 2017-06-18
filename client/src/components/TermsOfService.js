@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
 
-
 const TermsOfService = () => {
   return (
     <div>
@@ -101,7 +100,9 @@ const TermsOfService = () => {
         <h2>Privacy Policy</h2>
 
         <p>Your privacy is important to us.</p>
-
+        <p>
+          julie-travel-planner is using the Google Maps API(s) and follows the Google Privacy Policy (https://www.google.com/policies/privacy/).
+        </p>
         <p>
           It is julie-travel-planner's policy to respect your privacy regarding any information we may collect while operating our website. Accordingly, we have developed this privacy policy in order for you to understand how we collect, use, communicate, disclose and otherwise make use of personal information. We have outlined our privacy policy below.
         </p>
