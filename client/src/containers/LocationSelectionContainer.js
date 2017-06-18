@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Container, Row, Col, Button } from "reactstrap";
 import ProgressBar from "../components/Progress";
 import { addLocationToItinerary } from "../actions/builderActions";
@@ -35,6 +36,13 @@ class LocationSelectionContainer extends Component {
   };
 
   render() {
+    console.log('----------------------------------');
+    console.log(this.props.locations.food);
+    console.log('----------------------------------');
+
+    if(!this.props.locations.food){
+        return <Redirect to="/PageNotFound" />;
+    }
     return (
       <Container>
         <Row>

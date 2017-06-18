@@ -1,4 +1,6 @@
 const Itinerary = require("../models").Itinerary;
+const { pickRandomTip } = require("./emptyTips");
+const moment = require('moment');
 
 function initialFourSquareRequest(InitialRequestObject, next) {
   const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
@@ -90,6 +92,8 @@ function buildListOfChoices(data) {
         if (item.tips !== undefined) {
           locationObject.tip = item.tips[0].text;
           locationObject.photo = item.tips[0].photourl;
+        }else {
+          locationObject.tip = pickRandomTip();
         }
         if (item.venue.photos.count) {
           let prefix = item.venue.photos.groups[0].items[0].prefix;
@@ -100,8 +104,9 @@ function buildListOfChoices(data) {
           locationObject.photo = tempPhoto[index];
         }
         if (item.venue.hours) {
+          const hours = parseHours(item.venue.hours.status);
           locationObject.isOpen = item.venue.hours.isOpen;
-          locationObject.hours = item.venue.hours.status;
+          locationObject.hours = hours;
         }
         completeDict[item.venue.name] = true;
         array.push(locationObject);
@@ -129,6 +134,24 @@ function createItinary(InitialRequestObject) {
 function notGym(category) {
   let regex = /dojo|fitness|fittness/gi;
   return !regex.test(category);
+}
+
+function parseHours(status){
+  let hours = {};
+  if(/[0-9]/gi.test(status) && /open/gi.test(status)){
+    const arr = status.split(" ");
+    hours.close = moment(arr[2]+ arr[3], 'HH:mm').toDate().getTime();
+    console.log(hours.close);
+  }
+  if(status && status.split(" ").length > 4){
+    hours.open = null;
+  }
+  else if(/[0-9]/gi.test(status) && /close/gi.test(status)){
+    const arr = status.split(" ");
+    hours.open = moment(arr[2]+ arr[3], 'HH:mm').toDate().getTime();
+  }
+
+  return hours;
 }
 
 module.exports = {
