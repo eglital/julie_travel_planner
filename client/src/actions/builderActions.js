@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getFinalItinerary } from "./itineraryActions";
-import { SET_DURATION } from "./types";
+import { SET_DURATION, CHANGE_LAST_FOOD } from "./types";
 import { deleteSelectedLocation } from "./locationsActions";
+
 export function addLocationToItinerary(
   location,
   section,
@@ -21,6 +22,12 @@ export function addLocationToItinerary(
           throw new Error("Response not ok");
         }
         dispatch(setDuration(response.data));
+        console.log("SECTION", section);
+        if (section === "food") {
+          dispatch(changeLastFood(true));
+        } else {
+          dispatch(changeLastFood(false));
+        }
         dispatch(deleteSelectedLocation({ location, section }));
         if (
           itinerary.endTime - itinerary.startTime - response.data.duration <=
@@ -38,6 +45,12 @@ export function addLocationToItinerary(
 export function setDuration(data) {
   return {
     type: SET_DURATION,
+    data
+  };
+}
+export function changeLastFood(data) {
+  return {
+    type: CHANGE_LAST_FOOD,
     data
   };
 }

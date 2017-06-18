@@ -1,5 +1,5 @@
-// import LocationSelection from "../components/LocationSelection";
-// import React from "react";
+import LocationSelection from "../components/LocationSelection";
+import React from "react";
 var moment = require("moment");
 
 const isTimeToEat = time => {
@@ -23,19 +23,12 @@ const isAlreadyIncluded = (location, locationsArray) => {
   }
   return included;
 };
-const displayThreeLocations = props => {
-  // need these props
-  // const { locations, startTime, duration, mealIncluded, lastFood } = props;
-  let locations = {
-    food: [{ name: "food1" }, { name: "food2" }, { name: "food3" }],
-    places: [{ name: "places1" }, { name: "places2" }, { name: "places3" }],
-    sights: [{ name: "sights1" }, { name: "sights2" }, { name: "sights3" }]
-  };
-  let startTime = 1497693600;
-  let duration = 11 * 60 * 60 * 1000;
-  let mealIncluded = true;
-  let lastFood = true;
+const displayThreeLocations = (props, onClickLocation) => {
+  const { locations, itinerary, builder, changeLastFood } = props;
+  let { startTime } = itinerary;
+  let { duration, mealIncluded, lastFood } = builder;
   let loc1, loc2, loc3, loc = [];
+
   if (!mealIncluded || lastFood || !isTimeToEat(startTime + duration)) {
     //no meals selected or last selection was food or it's not time of day to eat
     let choices = ["places", "sights"];
@@ -67,6 +60,30 @@ const displayThreeLocations = props => {
       }
     }
   }
-  return loc;
+  let loc1 = loc[0];
+  let loc2 = loc[1];
+  let loc3 = loc[2];
+  return (
+    <div>
+      <LocationSelection
+        location={loc1}
+        section="food"
+        itineraryId={props.itinerary.id}
+        onClick={onClickLocation}
+      />
+      <LocationSelection
+        location={loc2}
+        section="places"
+        itineraryId={props.itinerary.id}
+        onClick={onClickLocation}
+      />
+      <LocationSelection
+        location={loc3}
+        section="sights"
+        itineraryId={props.itinerary.id}
+        onClick={onClickLocation}
+      />
+    </div>
+  );
 };
-console.log(displayThreeLocations());
+export default displayThreeLocations;
