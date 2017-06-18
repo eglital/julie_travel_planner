@@ -52,7 +52,6 @@ export function fetchLocationsData(form) {
         //remove from data object
         delete data.itinerary;
         //update the locations reducer
-        console.log("dispatching location success", data);
 
         dispatch(setItineraryData(itinerary));
 
