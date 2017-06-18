@@ -40,7 +40,8 @@ class InitialSubmissionFormContainer extends Component {
       addressError: "",
       error: null,
       validItinerary: false,
-      preferences: initPreferences(preferences)
+      preferences: initPreferences(preferences),
+      includeMeals: true
     };
   }
 
@@ -108,6 +109,12 @@ class InitialSubmissionFormContainer extends Component {
     });
   }
   
+  onMealsChange = e => {
+    this.setState({
+      includeMeals: !this.state.includeMeals
+    });
+  }
+  
   
   
   onFormSubmit = e => {
@@ -119,7 +126,8 @@ class InitialSubmissionFormContainer extends Component {
       endTime: this.state.endTime,
       preferences: Object.keys(this.state.preferences).filter((pref) => {
         return this.state.preferences[pref];
-      })
+      }),
+      includeMeals: this.state.includeMeals
     };
     if (this.state.address) {
       //if user entered address
@@ -182,6 +190,7 @@ class InitialSubmissionFormContainer extends Component {
           onAddressError={this.onAddressError}
           onChangeAddress={this.onChangeAddress}
           onPrefChange={this.onPrefChange}
+          onMealsChange={this.onMealsChange}
           {...this.state}
         />
       );

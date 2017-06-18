@@ -95,9 +95,10 @@ class InitialSubmissionForm extends Component {
       addressError,
       validItinerary,
       onPrefChange,
-      preferences
+      preferences,
+      onMealsChange,
+      includeMeals
   } = this.props;
-    console.log("validItinerary", validItinerary);
     return (
       <Container>
         <Row>
@@ -206,6 +207,11 @@ class InitialSubmissionForm extends Component {
                     Ending time must be at least 2 hours after starting time!
                   </UncontrolledTooltip>
                 </FormGroup>
+              <div>
+                <label> Include Meals?
+                  <input type="checkbox" name="meals" onChange={onMealsChange} checked={includeMeals}/> 
+                </label>
+              </div>
               <div>
                 {generatePreferences(preferences, onPrefChange)}
               </div>
