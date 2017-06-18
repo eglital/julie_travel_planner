@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'reactstrap';
-import ProgressBar from '../components/Progress';
-import { addLocationToItinerary } from '../actions/builderActions';
-import { getFinalItinerary } from '../actions/itineraryActions';
-import displayThreeLocations from '../helpers/randomLocationPicker';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+import ProgressBar from "../components/Progress";
+import { addLocationToItinerary } from "../actions/builderActions";
+import { getFinalItinerary } from "../actions/itineraryActions";
+import displayThreeLocations from "../helpers/randomLocationPicker";
 
 class LocationSelectionContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -50,11 +50,11 @@ class LocationSelectionContainer extends Component {
           <Col lg={{ size: 6, offset: 3 }}>
             <p className="text-center">
               Select one of the following to add it to your itinerary, and
-              {' '}
-              <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
+              {" "}
+              <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
                 Julie
               </span>
-              {' '}
+              {" "}
               will connect the dots.
             </p>
             {displayThreeLocations(this.props, this.onClickLocation)}
