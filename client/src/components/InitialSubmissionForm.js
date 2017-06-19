@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {
+  Link
+}
+from 'react-router-dom';
 import {
   Button,
   Form,
@@ -11,24 +14,28 @@ import {
   Row,
   UncontrolledAlert,
   UncontrolledTooltip
-} from 'reactstrap';
+}
+from 'reactstrap';
+import PreferencesDropDown from '../components/PreferencesDropDown';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
 import Hero from './Hero';
 import FA from 'react-fontawesome';
+import TimeHelper from '../helpers/timeHelper';
 
-function generatePreferences(preferences, onChange) {
-  return Object.keys(preferences).map((pref) => {
-    return (
-      <div key={pref}>
-        <label>{pref}
-          <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
-        </label>
-        {" "}
-      </div>
-    );
-  });
-}
+
+// function generatePreferences(preferences, onChange) {
+//   return Object.keys(preferences).map((pref) => {
+//     return (
+//       <div key={pref}>
+//         <label>{pref}
+//           <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
+//         </label>
+//         {" "}
+//       </div>
+//     );
+//   });
+// }
 
 function generateTransportation(currentModeOfTransportation, modesOfTransportation, onChange) {
   return modesOfTransportation.map((mode) => {
@@ -38,7 +45,7 @@ function generateTransportation(currentModeOfTransportation, modesOfTransportati
           <input checked={currentModeOfTransportation === mode.value} type="radio" name="transportation" value={mode.value} onChange={onChange}/>
         </label>
       </FormGroup>
-      
+
     );
   });
 }
@@ -47,7 +54,7 @@ function generateTransportation(currentModeOfTransportation, modesOfTransportati
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
-  let hours = getHoursInMilliseconds(offsetTime(time, startOffset));
+  let hours = getHoursInMilliseconds(TimeHelper.offsetTime(time, startOffset));
   return hours.map(hour => {
     return (
       <option key={hour} value={hour}>
@@ -73,14 +80,11 @@ function getHoursInMilliseconds(nextHour) {
   return hours;
 }
 
-function offsetTime(time, startOffset) {
-  let hoursInMilliseconds = startOffset * 60 * 60 * 1000;
-  return time + +hoursInMilliseconds;
-}
-
 //it could be any react functional component
 
-const AutocompleteItem = ({ formattedSuggestion }) => (
+const AutocompleteItem = ({
+  formattedSuggestion
+}) => (
   <div>
     <i className="fa fa-map-marker" />{' '}
     <strong>{formattedSuggestion.mainText}</strong>
@@ -93,31 +97,27 @@ const cssClasses = {
   input: 'form-control',
   autocompleteContainer: 'autoContainer'
 };
-class InitialSubmissionForm extends Component {
-  render() {
-    const {
-      startTime,
-      nextHour,
-      onStartTimeChange,
-      onEndTimeChange,
-      onSubmit,
-      error,
-      address,
-      onChangeAddress,
-      onAddressError,
-      addressError,
-      validItinerary,
-      onPrefChange,
-      preferences,
-      onMealsChange,
-      includeMeals,
-      onTransporationModeChange,
-      modesOfTransportation,
-      currentModeOfTransportation
-  } = this.props;
-
-    return (
-      <Container>
+const InitialSubmissionForm = ({startTime,
+  nextHour,
+  onStartTimeChange,
+  onEndTimeChange,
+  onSubmit,
+  error,
+  address,
+  onChangeAddress,
+  onAddressError,
+  addressError,
+  validItinerary,
+  onPrefChange,
+  preferences,
+  onMealsChange,
+  includeMeals,
+  onTransporationModeChange,
+  modesOfTransportation,
+  currentModeOfTransportation}) => {
+  console.log("render initialSubmissionForm");
+  return (
+    <Container>
         <Row>
           <Col xs="12" md={{ offset: 3, size: 6 }}>
             {error &&
@@ -230,9 +230,9 @@ class InitialSubmissionForm extends Component {
                   <input type="checkbox" name="meals" onChange={onMealsChange} checked={includeMeals}/> 
                 </label>
               </div>
-              <div>
-                {generatePreferences(preferences, onPrefChange)}
-              </div>
+              <FormGroup className="preferences">
+                <PreferencesDropDown preferences={preferences} onPrefChange={onPrefChange}/>
+              </FormGroup>
               </div>
               <div
                 style={{
@@ -267,8 +267,7 @@ class InitialSubmissionForm extends Component {
         </Row>
         <Row />
       </Container>
-    );
-  }
-}
+  );
+};
 
 export default InitialSubmissionForm;
