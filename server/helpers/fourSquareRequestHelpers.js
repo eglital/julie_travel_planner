@@ -4,6 +4,7 @@ const { hashId } = require("./hashItineraryId");
 const moment = require("moment");
 
 function initialFourSquareRequest(InitialRequestObject, next) {
+  const includeFood = InitialRequestObject.preferences.includes("food");
   setUpPrefs(InitialRequestObject);
   sanitizeRequestObject(InitialRequestObject);
   const apiStrings = InitialRequestObject.categories.map(category => {
@@ -31,12 +32,15 @@ function initialFourSquareRequest(InitialRequestObject, next) {
           );
         }
       }
+      if (!includeFood) {
+        fullListOfChoices[0] = [];
+      }
 
       const initialResponseObject = {
         locations: {
-          food: fullListOfChoices[0],
-          places: fullListOfChoices[1],
-          sights: fullListOfChoices[2]
+          food: fullListOfChoices[0] || [],
+          places: fullListOfChoices[1] || [],
+          sights: fullListOfChoices[2] || []
         },
         itinerary: {
           id: hashId(itinerary.id),
