@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import LocationSelectionContainer
-  from "./containers/LocationSelectionContainer";
+  from './containers/LocationSelectionContainer';
 
 import InitialSubmissionFormContainer
-  from "./containers/InitialSubmissionFormContainer";
+  from './containers/InitialSubmissionFormContainer';
 
 import ItineraryOverviewContainer
-  from "./containers/ItineraryOverviewContainer";
+  from './containers/ItineraryOverviewContainer';
 
-import PageNotFoundComponent from "./components/PageNotFoundComponent";
+import PageNotFoundComponent from './components/PageNotFoundComponent';
 
-import TermsOfService from "./components/TermsOfService";
+import TermsOfService from './components/TermsOfService';
 
-import Footer from "./components/Footer";
+import Footer from './components/Footer';
 
 class App extends Component {
   render() {
@@ -22,23 +22,25 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Switch>
-              <Route
-                path="/itinerary-creation"
-                component={LocationSelectionContainer}
-              />
-              <Route
-                exact
-                path="/"
-                component={InitialSubmissionFormContainer}
-              />
-              <Route
-                path="/itinerary-overview/:itineraryId"
-                component={ItineraryOverviewContainer}
-              />
-              <Route exact path="/terms" component={TermsOfService} />
-              <Route component={PageNotFoundComponent} />
-            </Switch>
+            <div className="app-body">
+              <Switch>
+                <Route
+                  path="/itinerary-creation"
+                  component={LocationSelectionContainer}
+                />
+                <Route
+                  exact
+                  path="/"
+                  component={InitialSubmissionFormContainer}
+                />
+                <Route
+                  path="/itinerary-overview/:itineraryId"
+                  component={ItineraryOverviewContainer}
+                />
+                <Route exact path="/terms" component={TermsOfService} />
+                <Route component={PageNotFoundComponent} />
+              </Switch>
+            </div>
             <Footer />
           </div>
         </Router>
