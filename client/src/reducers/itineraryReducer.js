@@ -1,10 +1,11 @@
-import { SET_ITINERARY_DATA, SET_FINAL_ITINERARY } from "../actions/types";
+import { SET_ITINERARY_DATA, SET_FINAL_ITINERARY, CHANGE_TRANSPORTATION_MODE } from "../actions/types";
 
 const INITIAL_STATE = {
     id: null,
     startTime: null,
     endTime: null,
-    finalItinerary: []
+    finalItinerary: [],
+    transportationMode: "driving"
 };
 
 export function itineraryReducer(state = INITIAL_STATE, action) {
@@ -21,6 +22,11 @@ export function itineraryReducer(state = INITIAL_STATE, action) {
                 ...state,
                 id: action.data.id,
                 finalItinerary: action.data.finalItinerary
+            };
+        case CHANGE_TRANSPORTATION_MODE:
+            return {
+                ...state,
+                transportationMode: action.data
             };
         default:
             return state;

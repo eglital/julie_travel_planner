@@ -1,5 +1,5 @@
 import deepFreeze from 'deep-freeze';
-import { SET_ITINERARY_DATA } from '../actions/types';
+import { SET_ITINERARY_DATA, CHANGE_TRANSPORTATION_MODE } from '../actions/types';
 import { itineraryReducer } from '../reducers/itineraryReducer';
 
 it("updates the itinerary id", function() {
@@ -39,4 +39,33 @@ it("create action object", function() {
     expect(setItineraryData(3)).toEqual(actionObj);
     
     
+})
+
+it("updates transporation mode", function() {
+    const initialState = {
+        transportationMode: "walking"
+    }
+    const action = {
+        type: CHANGE_TRANSPORTATION_MODE,
+        data: "driving"
+    }
+    const finalState = {
+        transportationMode: "driving"
+    }
+    
+    deepFreeze(initialState);
+    deepFreeze(action);
+    expect(itineraryReducer(initialState, action)).toEqual(finalState);
+})
+
+import {changeTransportationMode} from '../actions/itineraryActions';
+
+it("creates transportation action", function() {
+    const actionObj = {
+        type: CHANGE_TRANSPORTATION_MODE,
+        data: "driving"
+    }
+    deepFreeze(actionObj);
+    
+    expect(changeTransportationMode("driving")).toEqual(actionObj);
 })
