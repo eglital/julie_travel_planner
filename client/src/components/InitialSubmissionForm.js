@@ -16,6 +16,8 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
 import Hero from './Hero';
 import FA from 'react-fontawesome';
+import TimeHelper from '../helpers/timeHelper';
+
 
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map((pref) => {
@@ -47,7 +49,7 @@ function generateTransportation(currentModeOfTransportation, modesOfTransportati
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
-  let hours = getHoursInMilliseconds(offsetTime(time, startOffset));
+  let hours = getHoursInMilliseconds(TimeHelper.offsetTime(time, startOffset));
   return hours.map(hour => {
     return (
       <option key={hour} value={hour}>
@@ -71,11 +73,6 @@ function getHoursInMilliseconds(nextHour) {
     ++i;
   }
   return hours;
-}
-
-function offsetTime(time, startOffset) {
-  let hoursInMilliseconds = startOffset * 60 * 60 * 1000;
-  return time + +hoursInMilliseconds;
 }
 
 //it could be any react functional component
