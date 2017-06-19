@@ -4,7 +4,7 @@ import LocationSegment from './LocationSegment';
 import TravelSegment from './TravelSegment';
 import GoogleMaps from './GoogleMaps';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import ShareTwitterButton from './ShareTwitterButton';
 import ShareFacebookButton from './ShareFacebookButton';
 
@@ -89,22 +89,38 @@ const LocationOverview = ({ finalItinerary }) => {
           <Link to="/">
             <Button outline color="info" size="sm">Plan New Route</Button>
           </Link>
+          <div style={{ marginTop: '10px' }}>
+            <ShareFacebookButton
+              finalItinerary={finalItinerary}
+              style={{ display: 'inline' }}
+            />
+            <ShareTwitterButton finalItinerary={finalItinerary} />
+          </div>
         </Col>
       </Row>
 
       {makeOverview(finalItinerary)}
 
+      <Row style={{ marginTop: '15px' }}>
+        <Col className="text-center">
+          <Link to="/">
+            <Button outline color="info" size="sm">Plan New Route</Button>
+          </Link>
+          <div style={{ marginTop: '10px' }}>
+            <ShareFacebookButton
+              finalItinerary={finalItinerary}
+              style={{ display: 'inline' }}
+            />
+            <ShareTwitterButton finalItinerary={finalItinerary} />
+          </div>
+        </Col>
+      </Row>
+
       <Row>
         <Col xs="12">
           <GoogleMaps finalItinerary={finalItinerary} />
         </Col>
-        {/* <Col xs="1" style={{ paddingLeft: "0px" }}>
-          <div style={{ height: "30px" }} />
-          <ShareFacebookButton finalItinerary={finalItinerary} />
-          <div style={{ height: "30px" }} />
-
-          <ShareTwitterButton finalItinerary={finalItinerary} />
-        </Col> */}
+        <Col xs="1" style={{ paddingLeft: '0px' }} />
       </Row>
     </div>
   );

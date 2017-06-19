@@ -12,7 +12,10 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
   console.log(styles);
   counter++;
   return (
-    <Row className="travel" style={{ marginTop: '10px', marginBottom: '10px' }}>
+    <Row
+      className="travel"
+      style={{ paddingLeft: '15px', marginTop: '10px', marginBottom: '10px' }}
+    >
       <Col xs="2" md={{ size: '4' }}>
         <table style={{ fontSize: '14px' }}>
           <tr>

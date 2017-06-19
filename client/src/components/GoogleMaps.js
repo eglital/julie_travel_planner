@@ -11,8 +11,6 @@ import restaurantIcon from '../assets/restaurantIcon.png';
 import sightsIcon from '../assets/sightsIcon.png';
 import placesIcon from '../assets/placesIcon.png';
 import blankIcon from '../assets/blankIcon.png';
-import ShareTwitterButton from './ShareTwitterButton';
-import ShareFacebookButton from './ShareFacebookButton';
 
 //props needs to have itinerary array
 export default class GoogleMaps extends Component {
