@@ -33,6 +33,8 @@ import { changeTransportationMode } from "../actions/itineraryActions";
 import preferences from '../references/preferences';
 import modesOfTransportation from '../references/modesOfTransportation';
 
+import TimeHelper from '../helpers/timeHelper';
+
 
 function initPreferences(preferences) {
   const prefs = {};
@@ -42,22 +44,15 @@ function initPreferences(preferences) {
   return prefs;
 }
 
-
-function getNextHour() {
-  let ROUNDING = 60 * 60 * 1000; /*ms*/
-  let start = Date.now();
-  return Math.ceil(+start / ROUNDING) * ROUNDING;
-}
-
 const Loader = () => <div className="loader">Loading...</div>;
 
 class InitialSubmissionFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nextHour: getNextHour(),
-      startTime: getNextHour(),
-      endTime: getNextHour() + 2 * 60 * 60 * 1000,
+      nextHour: TimeHelper.getNextHour(),
+      startTime: TimeHelper.getNextHour(),
+      endTime: TimeHelper.getNextHour() + 2 * 60 * 60 * 1000,
       startingLocation: null,
       address: "",
       addressError: "",

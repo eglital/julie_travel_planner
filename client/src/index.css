@@ -38,3 +38,8 @@ body {
   border: 1px solid #555555;
   width: 100%;
   z-index: 10; }
+
+.centered-axis-x {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0); }
