@@ -124,7 +124,7 @@ const InitialSubmissionForm = ({startTime,
               <UncontrolledAlert className="text-center" color="warning">
                 <strong>Whoops!</strong>
                 {' '}
-                Something happened on the server. Try again later
+                {error}
               </UncontrolledAlert>}
             {validItinerary &&
               <UncontrolledAlert
