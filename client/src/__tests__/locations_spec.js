@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 
 import { locationsReducer } from '../reducers/locationsReducer';
-import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE, SET_ITINERARY_DATA } from '../actions/types';
+import { FETCH_LOCATIONS_DATA_SUCCESS, FETCH_LOCATIONS_DATA_FAILURE, SET_ITINERARY_DATA, SET_FETCHING} from '../actions/types';
 
 it("updates the location data", function(){
     const initialState = {
@@ -66,6 +66,9 @@ describe('async actions', () => {
             }
         })
         const expectedActions = [{
+            type: SET_FETCHING
+        },
+            {
             type: SET_ITINERARY_DATA,
             data: "bunny"
         },

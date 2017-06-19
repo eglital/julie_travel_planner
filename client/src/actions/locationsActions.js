@@ -32,6 +32,9 @@ export function fetchLocationsDataFailure(error) {
 
 export function fetchLocationsData(form) {
   return dispatch => {
+    //setFetching here
+    dispatch(setFetching());
+    
     const myHeaders = new Headers({
       "Content-Type": "application/json"
     });
@@ -49,7 +52,6 @@ export function fetchLocationsData(form) {
         //remove from data object
         delete data.itinerary;
         //update the locations reducer
-        console.log("dispatching location success", data);
 
         dispatch(setItineraryData(itinerary));
 
