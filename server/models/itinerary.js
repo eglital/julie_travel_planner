@@ -16,6 +16,9 @@ const ItinerarySchema = mongoose.Schema({
     default: 0,
     required: true
   },
+  transportationMode: {
+    type: String
+  },
   data: [{}],
   createdAt: { type: Date, default: Date.now }
 });
