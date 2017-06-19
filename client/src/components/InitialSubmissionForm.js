@@ -96,7 +96,8 @@ class InitialSubmissionForm extends Component {
       onPrefChange,
       preferences,
       onMealsChange,
-      includeMeals
+      includeMeals,
+      onTransporationModeChange
   } = this.props;
 
     return (
@@ -205,11 +206,11 @@ class InitialSubmissionForm extends Component {
                 
               <div>
                 Transportation
-                <label> Driving
-                  <input type="radio" name="transportation" value="driving"/>
+                <label> Driving <FA name="car fa"/>
+                  <input type="radio" name="transportation" value="driving" onChange={onTransporationModeChange}/>
                 </label>
-                <label> Walking
-                  <input type="radio" name="transportation" value="walking" />
+                <label> Walking <FA name="user fa"/>
+                  <input type="radio" name="transportation" value="walking" onChange={onTransporationModeChange}/>
                 </label>
               </div>
                 
@@ -237,6 +238,7 @@ class InitialSubmissionForm extends Component {
                   ______________________________
                 </p>
                 <img
+                  alt="map"
                   src="map.png"
                   style={{
                     marginLeft: 'auto',

@@ -26,7 +26,7 @@ import {
   getLatLng
 }
 from "react-places-autocomplete";
-
+import { changeTransportationMode } from "../actions/itineraryActions";
 
 //references
 import preferences from '../references/preferences';
@@ -149,7 +149,9 @@ class InitialSubmissionFormContainer extends Component {
     this.props.toggleMealsInclusion();
   }
 
-
+  onTransporationModeChange = e => {
+    this.props.changeTransportationMode(e.target.value);
+  }
 
   onFormSubmit = e => {
     e.preventDefault();
@@ -161,7 +163,8 @@ class InitialSubmissionFormContainer extends Component {
       preferences: Object.keys(this.state.preferences).filter((pref) => {
         return this.state.preferences[pref];
       }),
-      includeMeals: this.state.includeMeals
+      includeMeals: this.state.includeMeals,
+      transportationMode: this.props.itinerary.transportationMode
     };
     if (this.state.address) {
       //if user entered address
@@ -229,6 +232,7 @@ class InitialSubmissionFormContainer extends Component {
           onChangeAddress={this.onChangeAddress}
           onPrefChange={this.onPrefChange}
           onMealsChange={this.onMealsChange}
+          onTransporationModeChange={this.onTransporationModeChange}
           {...this.state}
         />
       );
@@ -239,7 +243,8 @@ class InitialSubmissionFormContainer extends Component {
 function mapStateToProps(state) {
   return {
     locations: state.locations,
-    builder: state.builder
+    builder: state.builder,
+    itinerary: state.itinerary
   };
 }
 
@@ -250,6 +255,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleMealsInclusion: () => {
       dispatch(toggleMealsInclusion());
+    },
+    changeTransportationMode: (mode) => {
+      dispatch(changeTransportationMode(mode));
     }
   };
 }
