@@ -31,6 +31,8 @@ import { changeTransportationMode } from "../actions/itineraryActions";
 
 //references
 import preferences from '../references/preferences';
+import modesOfTransportation from '../references/modesOfTransportation';
+
 
 function initPreferences(preferences) {
   const prefs = {};
@@ -233,6 +235,8 @@ class InitialSubmissionFormContainer extends Component {
           onPrefChange={this.onPrefChange}
           onMealsChange={this.onMealsChange}
           onTransporationModeChange={this.onTransporationModeChange}
+          modesOfTransportation={modesOfTransportation}
+          currentModeOfTransportation={this.props.itinerary.transportationMode}
           {...this.state}
         />
       );
