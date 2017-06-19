@@ -17,7 +17,6 @@ import moment from 'moment';
 import Hero from './Hero';
 import FA from 'react-fontawesome';
 
-
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map((pref) => {
     return (
@@ -30,6 +29,21 @@ function generatePreferences(preferences, onChange) {
     );
   });
 }
+
+function generateTransportation(currentModeOfTransportation, modesOfTransportation, onChange) {
+  return modesOfTransportation.map((mode) => {
+    return (
+      <FormGroup key={mode.value}>
+        <label> {mode.value} <FA name={mode.faName}/>
+          <input checked={currentModeOfTransportation === mode.value} type="radio" name="transportation" value={mode.value} onChange={onChange}/>
+        </label>
+      </FormGroup>
+      
+    );
+  });
+}
+
+
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -97,7 +111,9 @@ class InitialSubmissionForm extends Component {
       preferences,
       onMealsChange,
       includeMeals,
-      onTransporationModeChange
+      onTransporationModeChange,
+      modesOfTransportation,
+      currentModeOfTransportation
   } = this.props;
 
     return (
@@ -206,12 +222,7 @@ class InitialSubmissionForm extends Component {
                 
               <div>
                 Transportation
-                <label> Driving <FA name="car fa"/>
-                  <input type="radio" name="transportation" value="driving" onChange={onTransporationModeChange}/>
-                </label>
-                <label> Walking <FA name="user fa"/>
-                  <input type="radio" name="transportation" value="walking" onChange={onTransporationModeChange}/>
-                </label>
+                {generateTransportation(currentModeOfTransportation, modesOfTransportation, onTransporationModeChange)}
               </div>
                 
               <div>
