@@ -68,7 +68,7 @@ function setUpPrefs(requestObject) {
 
   // walking or driving
   if (requestObject.transportationMode === "walking") {
-    requestObject.radius = 3000;
+    requestObject.radius = 1500;
   } else {
     requestObject.radius = 15000;
   }
@@ -107,7 +107,8 @@ function buildListOfChoices(data) {
       if (
         !completeDict[item.venue.name] &&
         notGym(item.venue.categories[0].name) &&
-        notGym(item.venue.name)
+        notGym(item.venue.name) &&
+        notFoodInWrongPlaces(item.venue.categories[0].name, index)
       ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
@@ -121,7 +122,7 @@ function buildListOfChoices(data) {
           locationObject.tip = item.tips[0].text;
           locationObject.photo = item.tips[0].photourl;
         } else {
-          locationObject.tip = pickRandomTip();
+          locationObject.tip = "No additional information available.";
         }
         if (item.venue.photos.count) {
           let prefix = item.venue.photos.groups[0].items[0].prefix;
@@ -140,6 +141,7 @@ function buildListOfChoices(data) {
         array.push(locationObject);
       }
     });
+    console.log(array);
     return array;
   });
 }
@@ -163,6 +165,18 @@ function createItinary(InitialRequestObject) {
 function notGym(category) {
   let regex = /dojo|fitness|fittness/gi;
   return !regex.test(category);
+}
+
+function notFoodInWrongPlaces(name, index) {
+  if (index === 0) {
+    return true;
+  } else if (
+    /bar|restaurant|kitchen|grill|buffet|sandwich|steak/gi.test(name)
+  ) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function parseHours(status) {
