@@ -4,7 +4,8 @@ import React, {
 from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
 import {
-  fetchLocationsData
+  fetchLocationsData,
+  setFetching
 }
 from "../actions/locationsActions";
 import {
@@ -155,7 +156,7 @@ class InitialSubmissionFormContainer extends Component {
 
   onFormSubmit = e => {
     e.preventDefault();
-
+    this.props.setFetching();
     //construct simple json for form submission from the state
     let data = {
       startTime: this.state.startTime,
@@ -257,6 +258,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeTransportationMode: (mode) => {
       dispatch(changeTransportationMode(mode));
+    },
+    setFetching: () => {
+      dispatch(setFetching());
     }
   };
 }
