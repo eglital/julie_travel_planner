@@ -216,7 +216,6 @@ class InitialSubmissionFormContainer extends Component {
     }
   };
   render() {
-    console.log("initialformsubmission rendered");
     if (this.props.locations.isFetching) {
       return <Loader />;
     }
