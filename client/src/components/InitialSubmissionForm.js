@@ -16,6 +16,7 @@ import {
   UncontrolledTooltip
 }
 from 'reactstrap';
+import PreferencesDropDown from '../components/PreferencesDropDown';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
 import Hero from './Hero';
@@ -23,18 +24,18 @@ import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
 
 
-function generatePreferences(preferences, onChange) {
-  return Object.keys(preferences).map((pref) => {
-    return (
-      <div key={pref}>
-        <label>{pref}
-          <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
-        </label>
-        {" "}
-      </div>
-    );
-  });
-}
+// function generatePreferences(preferences, onChange) {
+//   return Object.keys(preferences).map((pref) => {
+//     return (
+//       <div key={pref}>
+//         <label>{pref}
+//           <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
+//         </label>
+//         {" "}
+//       </div>
+//     );
+//   });
+// }
 
 function generateTransportation(currentModeOfTransportation, modesOfTransportation, onChange) {
   return modesOfTransportation.map((mode) => {
@@ -96,7 +97,7 @@ const cssClasses = {
   input: 'form-control',
   autocompleteContainer: 'autoContainer'
 };
-const InitialSubmissionForm = (startTime,
+const InitialSubmissionForm = ({startTime,
   nextHour,
   onStartTimeChange,
   onEndTimeChange,
@@ -113,7 +114,7 @@ const InitialSubmissionForm = (startTime,
   includeMeals,
   onTransporationModeChange,
   modesOfTransportation,
-  currentModeOfTransportation) => {
+  currentModeOfTransportation}) => {
   console.log("render initialSubmissionForm");
   return (
     <Container>
@@ -229,9 +230,9 @@ const InitialSubmissionForm = (startTime,
                   <input type="checkbox" name="meals" onChange={onMealsChange} checked={includeMeals}/> 
                 </label>
               </div>
-              <div>
-                {generatePreferences(preferences, onPrefChange)}
-              </div>
+              <FormGroup className="preferences">
+                <PreferencesDropDown preferences={preferences} onPrefChange={onPrefChange}/>
+              </FormGroup>
               </div>
               <div
                 style={{
