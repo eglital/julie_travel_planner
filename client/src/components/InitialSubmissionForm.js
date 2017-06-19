@@ -221,8 +221,10 @@ const InitialSubmissionForm = ({startTime,
                 </FormGroup>
                 
               <div>
-                Transportation
-                {generateTransportation(currentModeOfTransportation, modesOfTransportation, onTransporationModeChange)}
+                <p>Transportation</p>
+                <div className="transportation-modes" style={{display:"flex", justifyContent:"center"}}>
+                  {generateTransportation(currentModeOfTransportation, modesOfTransportation, onTransporationModeChange)}
+                </div>
               </div>
                 
               <div>
