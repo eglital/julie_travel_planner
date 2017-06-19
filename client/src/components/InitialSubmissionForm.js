@@ -19,7 +19,7 @@ import Hero from './Hero';
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map((pref) => {
     return (
-      <div>
+      <div key={pref}>
         <label>{pref}
           <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
         </label>
