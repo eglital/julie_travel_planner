@@ -1,11 +1,31 @@
-import React, { Component } from "react";
+import React, {
+  Component
+}
+from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
-import { fetchLocationsData } from "../actions/locationsActions";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import {
+  fetchLocationsData
+}
+from "../actions/locationsActions";
+import {
+  toggleMealsInclusion
+}
+from '../actions/builderActions';
+import {
+  connect
+}
+from "react-redux";
+import {
+  withRouter
+}
+from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
 import "../stylesheets/loading.css";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import {
+  geocodeByAddress,
+  getLatLng
+}
+from "react-places-autocomplete";
 
 
 //references
@@ -29,8 +49,9 @@ function getNextHour() {
 const Loader = () => <div className="loader">Loading...</div>;
 
 class InitialSubmissionFormContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    console.log(this.props);
     this.state = {
       nextHour: getNextHour(),
       startTime: getNextHour(),
@@ -41,7 +62,7 @@ class InitialSubmissionFormContainer extends Component {
       error: null,
       validItinerary: false,
       preferences: initPreferences(preferences),
-      includeMeals: true
+      includeMeals: this.props.builder.mealsIncluded
     };
   }
 
@@ -51,7 +72,8 @@ class InitialSubmissionFormContainer extends Component {
       this.setState({
         validItinerary: ItineraryHelper.getItineraryObj()
       });
-    } else {
+    }
+    else {
       this.setState({
         validItinerary: false
       });
@@ -69,7 +91,15 @@ class InitialSubmissionFormContainer extends Component {
         error: newProps.locations.error
       });
     }
+    if (newProps.builder.mealsIncluded !== this.state.includeMeals) {
+      this.setState({
+        includeMeals: !this.state.includeMeals
+      });
+    }
+
   }
+
+
 
   onStartTimeChange = e => {
     //if the endTime would be less than two hours after the new startTime
@@ -79,7 +109,8 @@ class InitialSubmissionFormContainer extends Component {
         startTime: +e.target.value,
         endTime: +e.target.value + 2
       });
-    } else {
+    }
+    else {
       this.setState({
         startTime: +e.target.value
       });
@@ -92,12 +123,18 @@ class InitialSubmissionFormContainer extends Component {
     });
   };
 
-  onChangeAddress = address => this.setState({ address, addressError: "" });
+  onChangeAddress = address => this.setState({
+    address,
+    addressError: ""
+  });
   onAddressError = status => {
-    this.setState({ address: "", addressError: "No results" });
+    this.setState({
+      address: "",
+      addressError: "No results"
+    });
   };
-  
-  
+
+
   //toggle the check box value,
   //assumes default unchecked
   onPrefChange = e => {
@@ -108,15 +145,13 @@ class InitialSubmissionFormContainer extends Component {
       }
     });
   }
-  
+
   onMealsChange = e => {
-    this.setState({
-      includeMeals: !this.state.includeMeals
-    });
+    this.props.toggleMealsInclusion();
   }
-  
-  
-  
+
+
+
   onFormSubmit = e => {
     e.preventDefault();
 
@@ -144,7 +179,8 @@ class InitialSubmissionFormContainer extends Component {
           });
         })
         .catch(error => console.error("Error", error));
-    } else if ("geolocation" in navigator) {
+    }
+    else if ("geolocation" in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */
 
@@ -171,15 +207,18 @@ class InitialSubmissionFormContainer extends Component {
             formSubmission: data
           });
         });
-    } else {
+    }
+    else {
       /* geolocation IS NOT available */
       //Set the address input field to required
     }
   };
   render() {
+    console.log("initialformsubmission rendered");
     if (this.props.locations.isFetching) {
       return <Loader />;
-    } else {
+    }
+    else {
       //create new rounded time to pass to submission form each time
       //consider moving to lifecycle hook to check for changes to avoid rerenders
       return (
@@ -200,7 +239,8 @@ class InitialSubmissionFormContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    locations: state.locations
+    locations: state.locations,
+    builder: state.builder
   };
 }
 
@@ -208,6 +248,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchLocationsData: form => {
       dispatch(fetchLocationsData(form));
+    },
+    toggleMealsInclusion: () => {
+      dispatch(toggleMealsInclusion());
     }
   };
 }
