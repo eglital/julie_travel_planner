@@ -16,10 +16,6 @@ function generatePreferences(preferences, onChange) {
   });
 }
 
-
-
-
-
 export default class PreferencesDropDown extends React.Component {
   constructor(props) {
     super(props);

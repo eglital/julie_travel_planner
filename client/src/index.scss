@@ -60,4 +60,15 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
 }
+
+.transportation-modes {
+  >div {
+    margin-right: 10px;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+
     
