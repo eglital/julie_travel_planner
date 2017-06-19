@@ -37,6 +37,7 @@ function makeOverview(finalItinerary) {
           />
           <TravelSegment
             duration={nextLocation.arrivalTime - location.departureTime}
+            transportation={finalItinerary.transportationMode}
           />
         </div>
       );

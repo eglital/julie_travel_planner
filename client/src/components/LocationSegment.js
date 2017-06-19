@@ -9,7 +9,6 @@ let counter = 0;
 
 const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
   let styles = determineColor(counter);
-  console.log(styles);
   counter++;
   return (
     <Row
