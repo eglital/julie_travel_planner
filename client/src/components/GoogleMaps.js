@@ -1,24 +1,23 @@
 /* global google */
-import { default as React, Component } from 'react';
+import { default as React, Component } from "react";
 import {
   withGoogleMap,
   GoogleMap,
   Marker,
   InfoWindow,
   DirectionsRenderer
-} from 'react-google-maps';
-import restaurantIcon from '../assets/restaurantIcon.png';
-import sightsIcon from '../assets/sightsIcon.png';
-import placesIcon from '../assets/placesIcon.png';
-import blankIcon from '../assets/blankIcon.png';
-import ShareTwitterButton from './ShareTwitterButton';
-import ShareFacebookButton from './ShareFacebookButton';
+} from "react-google-maps";
+import restaurantIcon from "../assets/restaurantIcon.png";
+import sightsIcon from "../assets/sightsIcon.png";
+import placesIcon from "../assets/placesIcon.png";
+import blankIcon from "../assets/blankIcon.png";
+import ShareTwitterButton from "./ShareTwitterButton";
+import ShareFacebookButton from "./ShareFacebookButton";
 
 //props needs to have itinerary array
 export default class GoogleMaps extends Component {
   constructor(props) {
     super(props);
-    console.log('PROPS', props);
     let markers = props.finalItinerary.map(marker => {
       return { ...marker, showInfo: false };
     });
@@ -75,10 +74,10 @@ export default class GoogleMaps extends Component {
       <div
         className="googleMap"
         style={{
-          maxWidth: '600px',
-          width: '100%',
-          height: '500px',
-          margin: '0 auto',
+          maxWidth: "600px",
+          width: "100%",
+          height: "500px",
+          margin: "0 auto",
           padding: 20
         }}
       >
@@ -103,6 +102,9 @@ const GoogleMapMarkers = withGoogleMap(props => {
         ? <GoogleMap
             defaultZoom={10}
             defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
+            defaultOptions={{
+              scrollwheel: false
+            }}
           >
             {markersList({ markers, onMarkerClick, onMarkerClose })}
             {directions &&
@@ -118,11 +120,11 @@ const GoogleMapMarkers = withGoogleMap(props => {
 
 const icon = marker => {
   switch (marker.section) {
-    case 'food':
+    case "food":
       return restaurantIcon;
-    case 'sights':
+    case "sights":
       return sightsIcon;
-    case 'places':
+    case "places":
       return placesIcon;
     default:
       return blankIcon;
@@ -161,7 +163,7 @@ const infoContent = marker => {
   );
 };
 const directionsRequest = ({ markers }) => {
-  let request = { travelMode: 'DRIVING' };
+  let request = { travelMode: "DRIVING" };
   request.origin = {
     lat: markers[0].lat,
     lng: markers[0].lng
