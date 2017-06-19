@@ -1,6 +1,49 @@
 import deepFreeze from "deep-freeze";
-import { SET_DURATION } from "../actions/types";
+import { SET_DURATION, TOGGLE_MEALS_INCLUSION } from "../actions/types";
 import { builder } from "../reducers/builderReducers";
+it("toggles whether or not to include meals true -> false.", function() {
+  const initialState = {
+    mealsIncluded: true
+  }
+  const action = {
+    type: TOGGLE_MEALS_INCLUSION
+  }
+  const finalState = {
+    mealsIncluded: false
+  }
+  deepFreeze(initialState);
+  deepFreeze(action);
+
+  expect(builder(initialState, action)).toEqual(finalState);
+})
+
+it("toggles whether or not to include meals. false -> true", function() {
+  const initialState = {
+    mealsIncluded: false
+  }
+  const action = {
+    type: TOGGLE_MEALS_INCLUSION
+  }
+  const finalState = {
+    mealsIncluded: true
+  }
+  deepFreeze(initialState);
+  deepFreeze(action);
+
+  expect(builder(initialState, action)).toEqual(finalState);
+})
+
+import {toggleMealsInclusion} from '../actions/builderActions';
+
+it("builds the include meals action obj", function() {
+  const actionObj = {
+    type: TOGGLE_MEALS_INCLUSION
+  };
+  expect(toggleMealsInclusion()).toEqual(actionObj);
+});
+
+
+
 
 it("updates the current duration", () => {
   const initialState = {
