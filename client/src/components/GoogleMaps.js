@@ -11,14 +11,11 @@ import restaurantIcon from '../assets/restaurantIcon.png';
 import sightsIcon from '../assets/sightsIcon.png';
 import placesIcon from '../assets/placesIcon.png';
 import blankIcon from '../assets/blankIcon.png';
-import ShareTwitterButton from './ShareTwitterButton';
-import ShareFacebookButton from './ShareFacebookButton';
 
 //props needs to have itinerary array
 export default class GoogleMaps extends Component {
   constructor(props) {
     super(props);
-    console.log('PROPS', props);
     let markers = props.finalItinerary.map(marker => {
       return { ...marker, showInfo: false };
     });
@@ -103,6 +100,9 @@ const GoogleMapMarkers = withGoogleMap(props => {
         ? <GoogleMap
             defaultZoom={10}
             defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
+            defaultOptions={{
+              scrollwheel: false
+            }}
           >
             {markersList({ markers, onMarkerClick, onMarkerClose })}
             {directions &&

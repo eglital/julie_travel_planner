@@ -20,7 +20,7 @@ const ItinerarySchema = mongoose.Schema({
     type: String
   },
   data: [{}],
-  createdAt: { type: Date, expires: "24h", default: Date.now }
+  createdAt: { type: Date, default: Date.now }
 });
 
 const Itinerary = mongoose.model("Itinerary", ItinerarySchema);

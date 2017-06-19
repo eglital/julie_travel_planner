@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { Container, Row, Col, Button } from "reactstrap";
-import ProgressBar from "../components/Progress";
-import { addLocationToItinerary } from "../actions/builderActions";
-import { getFinalItinerary } from "../actions/itineraryActions";
-import displayThreeLocations from "../helpers/randomLocationPicker";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'reactstrap';
+import ProgressBar from '../components/Progress';
+import { addLocationToItinerary } from '../actions/builderActions';
+import { getFinalItinerary } from '../actions/itineraryActions';
+import displayThreeLocations from '../helpers/randomLocationPicker';
 
 class LocationSelectionContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -36,12 +36,8 @@ class LocationSelectionContainer extends Component {
   };
 
   render() {
-    console.log('----------------------------------');
-    console.log(this.props.locations.food);
-    console.log('----------------------------------');
-
-    if(!this.props.locations.food){
-        return <Redirect to="/PageNotFound" />;
+    if (!this.props.locations.food) {
+      return <Redirect to="/PageNotFound" />;
     }
     return (
       <Container>
@@ -58,14 +54,39 @@ class LocationSelectionContainer extends Component {
           <Col lg={{ size: 6, offset: 3 }}>
             <p className="text-center">
               Select one of the following to add it to your itinerary, and
-              {" "}
-              <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
+              {' '}
+              <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
                 Julie
               </span>
-              {" "}
+              {' '}
               will connect the dots.
             </p>
             {displayThreeLocations(this.props, this.onClickLocation)}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p className="text-center">
+              Don't feel like any of these locations?
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col
+            style={{ marginBottom: '15px' }}
+            className="text-center"
+            xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
+          >
+            <Button
+              outline
+              color="info"
+              size="sm"
+              onClick={() => {
+                this.forceUpdate();
+              }}
+            >
+              Get New Options
+            </Button>
           </Col>
         </Row>
         <Row>
@@ -80,7 +101,12 @@ class LocationSelectionContainer extends Component {
             className="text-center"
             xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
           >
-            <Button onClick={this.onClickBuildItinerary}>
+            <Button
+              outline
+              color="warning"
+              size="sm"
+              onClick={this.onClickBuildItinerary}
+            >
               Build Itinerary Now
             </Button>
           </Col>
