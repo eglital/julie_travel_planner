@@ -36,6 +36,7 @@ const selectingItinerary = ({ location, itineraryId, section, res }) => {
         return googleRequest({
           origins,
           destinations,
+          mode: itinerary.transportationMode,
           departure_time
         });
       })
@@ -124,13 +125,13 @@ const finishingItinerary = ({ itineraryId, res }) => {
 };
 
 //private methods
-const googleRequest = ({ origins, destinations, departure_time }) => {
+const googleRequest = ({ origins, destinations, departure_time, mode }) => {
   return new Promise((resolve, reject) => {
     googleMapsClient
       .distanceMatrix({
         origins: [origins],
         destinations: [destinations],
-        mode: "driving",
+        mode,
         departure_time,
         units: "imperial"
       })

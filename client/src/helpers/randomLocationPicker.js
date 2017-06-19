@@ -23,69 +23,116 @@ const isAlreadyIncluded = (location, locationsArray) => {
   }
   return included;
 };
+const checkIfOpen = (location, currentTime) => {
+  if (
+    location.hours &&
+    location.hours.close &&
+    currentTime >= location.hours.close + 60 * 60 * 1000
+  ) {
+    //checking if there is info about hours, if it has a closing time (means currently open) and if current time is more than one hour before closing
+    //Then we don't want to send our user there
+    return false;
+  } else if (
+    location.hours &&
+    location.hours.open &&
+    currentTime + 30 * 60 * 1000 < location.hours.open
+  ) {
+    //checking if there is info about hours, if it has an opening time (means currently closed) and if current time is less than 30 minutes before opening
+    //Again we don't want to send our user there
+    return false;
+  } else {
+    return true;
+  }
+};
 const displayThreeLocations = (props, onClickLocation) => {
   const { locations, itinerary, builder } = props;
   let { startTime } = itinerary;
   let { duration, mealsIncluded, lastFood } = builder;
-  let loc1, loc2, loc3, loc = [], sections = [];
-
+  let loc = [], sections = [];
+  //filter the ones that are open at this time
+  let openLocations = {
+    places: locations["places"].filter(location =>
+      checkIfOpen(location, startTime + duration)
+    ),
+    sights: locations["sights"].filter(location =>
+      checkIfOpen(location, startTime + duration)
+    ),
+    food: locations["food"].filter(location =>
+      checkIfOpen(location, startTime + duration)
+    )
+  };
   if (!mealsIncluded || lastFood || !isTimeToEat(startTime + duration)) {
     //no meals selected or last selection was food or it's not time of day to eat
     let choices = ["places", "sights"];
-    for (let i = 0; i < 3; i++) {
-      while (true) {
-        let randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
-        let randomPlace =
-          locations[randomChoice][
-            Math.floor(Math.random() * locations[randomChoice].length)
-          ];
-        if (!isAlreadyIncluded(randomPlace, loc)) {
-          loc.push(randomPlace);
-          sections.push(randomChoice);
-          break;
+    if (openLocations["places"].length + openLocations["sights"].length <= 3) {
+      //check if in total we have only 3 or less options
+      loc.concat(openLocations["places"], openLocations["sights"]);
+      sections.concat(
+        Array(openLocations["places"].length).fill("places"),
+        Array(openLocations["sights"].length).fill("sights")
+      );
+    } else {
+      for (let i = 0; i < 3; i++) {
+        while (true) {
+          let randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+          let randomPlace =
+            openLocations[randomChoice][
+              Math.floor(Math.random() * openLocations[randomChoice].length)
+            ];
+          if (!isAlreadyIncluded(randomPlace, loc)) {
+            loc.push(randomPlace);
+            sections.push(randomChoice);
+            break;
+          }
         }
       }
     }
   } else {
     //time to eat
-    for (let i = 0; i < 3; i++) {
-      while (true) {
-        let randomPlace =
-          locations["food"][
-            Math.floor(Math.random() * locations["food"].length)
-          ];
-        if (!isAlreadyIncluded(randomPlace, loc)) {
-          loc.push(randomPlace);
-          sections.push("food");
-          break;
+    if (openLocations["food"].length <= 3) {
+      loc = openLocations["food"];
+      sections = Array(openLocations["food"].length).fill("food");
+    } else {
+      for (let i = 0; i < 3; i++) {
+        while (true) {
+          let randomPlace =
+            openLocations["food"][
+              Math.floor(Math.random() * openLocations["food"].length)
+            ];
+          if (!isAlreadyIncluded(randomPlace, loc)) {
+            loc.push(randomPlace);
+            sections.push("food");
+            break;
+          }
         }
       }
     }
   }
-  loc1 = loc[0];
-  loc2 = loc[1];
-  loc3 = loc[2];
   return (
     <div>
-      <LocationSelection
-        location={loc1}
-        section={sections[0]}
-        itineraryId={props.itinerary.id}
-        onClick={onClickLocation}
-      />
-      <LocationSelection
-        location={loc2}
-        section={sections[1]}
-        itineraryId={props.itinerary.id}
-        onClick={onClickLocation}
-      />
-      <LocationSelection
-        location={loc3}
-        section={sections[2]}
-        itineraryId={props.itinerary.id}
-        onClick={onClickLocation}
-      />
+      {locationSelectionList(
+        loc,
+        sections,
+        props.itinerary.id,
+        onClickLocation
+      )}
     </div>
   );
+};
+const locationSelectionList = (loc, sections, itineraryId, onClick) => {
+  if (loc.length === 0) {
+    return <div>No locations available</div>;
+  }
+  return loc.map(location => {
+    return (
+      <LocationSelection
+        location={location}
+        section={sections[0]}
+        itineraryId={itineraryId}
+        onClick={onClick}
+        key={location.name}
+      />
+    );
+  });
 };
 export default displayThreeLocations;

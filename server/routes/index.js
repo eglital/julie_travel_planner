@@ -50,8 +50,10 @@ router.get("/itinerary/final/:itineraryId", (req, res, next) => {
 });
 
 router.get("/itinerary/saved/:itineraryId", (req, res, next) => {
+  console.log("getting saved itinerary");
   Itinerary.findById(req.params.itineraryId)
     .then(itinerary => {
+      //, transportationMode: itinerary.transportationMode
       res.send({ itinerary: itinerary.data });
     })
     .catch(next);
