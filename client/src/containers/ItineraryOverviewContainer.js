@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { getSavedItinerary } from "../actions/itineraryActions";
-import LocationOverview from "../components/LocationOverview";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { getSavedItinerary } from '../actions/itineraryActions';
+import LocationOverview from '../components/LocationOverview';
 
 class ItineraryOverviewContainer extends Component {
   componentDidMount() {
@@ -20,7 +20,10 @@ class ItineraryOverviewContainer extends Component {
         <div>
           {this.props.finalItinerary.length
             ? <div>
-                <LocationOverview finalItinerary={this.props.finalItinerary} />
+                <LocationOverview
+                  finalItinerary={this.props.finalItinerary}
+                  transportation={this.props.transportationMode}
+                />
               </div>
             : null}
         </div>
@@ -31,7 +34,8 @@ class ItineraryOverviewContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    finalItinerary: state.itinerary.finalItinerary
+    finalItinerary: state.itinerary.finalItinerary,
+    transportationMode: state.itinerary.transportationMode
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -8,7 +8,7 @@ import { Row, Col, Button } from 'reactstrap';
 import ShareTwitterButton from './ShareTwitterButton';
 import ShareFacebookButton from './ShareFacebookButton';
 
-function makeOverview(finalItinerary) {
+function makeOverview(finalItinerary, transportation) {
   return finalItinerary.map((location, index) => {
     let nextLocation = finalItinerary[index + 1];
     if (index === finalItinerary.length - 1) {
@@ -37,7 +37,7 @@ function makeOverview(finalItinerary) {
           />
           <TravelSegment
             duration={nextLocation.arrivalTime - location.departureTime}
-            transportation={finalItinerary.transportationMode}
+            transportation={transportation}
           />
         </div>
       );
@@ -63,7 +63,7 @@ function makeOverview(finalItinerary) {
   });
 }
 
-const LocationOverview = ({ finalItinerary }) => {
+const LocationOverview = ({ finalItinerary, transportation }) => {
   return (
     <div
       className="LocationOverview"
@@ -100,7 +100,7 @@ const LocationOverview = ({ finalItinerary }) => {
         </Col>
       </Row>
 
-      {makeOverview(finalItinerary)}
+      {makeOverview(finalItinerary, transportation)}
 
       <Row style={{ marginTop: '15px' }}>
         <Col className="text-center">
