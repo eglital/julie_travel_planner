@@ -4,6 +4,7 @@ const { hashId } = require("./hashItineraryId");
 const moment = require("moment");
 
 function initialFourSquareRequest(InitialRequestObject, next) {
+  const includeFood = InitialRequestObject.preferences.includes("food");
   setUpPrefs(InitialRequestObject);
   sanitizeRequestObject(InitialRequestObject);
   const apiStrings = InitialRequestObject.categories.map(category => {
@@ -31,12 +32,15 @@ function initialFourSquareRequest(InitialRequestObject, next) {
           );
         }
       }
+      if (!includeFood) {
+        fullListOfChoices[0] = [];
+      }
 
       const initialResponseObject = {
         locations: {
-          food: fullListOfChoices[0],
-          places: fullListOfChoices[1],
-          sights: fullListOfChoices[2]
+          food: fullListOfChoices[0] || [],
+          places: fullListOfChoices[1] || [],
+          sights: fullListOfChoices[2] || []
         },
         itinerary: {
           id: hashId(itinerary.id),
@@ -86,7 +90,7 @@ function sanitizeRequestObject(requestObject) {
 function fourSquareStringBuilder(category, iro) {
   const clientId = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
-  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=${iro.radius}&venuePhotos=1&section=${category}&client_id=${clientId}&client_secret=${secret}`;
+  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=${iro.radius}&venuePhotos=1&limit=35&section=${category}&client_id=${clientId}&client_secret=${secret}`;
 }
 
 function buildListOfChoices(data) {
@@ -171,7 +175,9 @@ function notFoodInWrongPlaces(name, index) {
   if (index === 0) {
     return true;
   } else if (
-    /bar|restaurant|kitchen|grill|buffet|sandwich|steak/gi.test(name)
+    /bar|restaurant|kitchen|grill|buffet|sandwich|steak|walmart|pub|brewery|warehouse|big\sbox\sstore|grocrey/gi.test(
+      name
+    )
   ) {
     return false;
   } else {
