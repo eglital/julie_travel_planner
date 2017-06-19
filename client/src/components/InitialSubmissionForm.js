@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {
+  Link
+}
+from 'react-router-dom';
 import {
   Button,
   Form,
@@ -11,7 +14,8 @@ import {
   Row,
   UncontrolledAlert,
   UncontrolledTooltip
-} from 'reactstrap';
+}
+from 'reactstrap';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
 import Hero from './Hero';
@@ -40,7 +44,7 @@ function generateTransportation(currentModeOfTransportation, modesOfTransportati
           <input checked={currentModeOfTransportation === mode.value} type="radio" name="transportation" value={mode.value} onChange={onChange}/>
         </label>
       </FormGroup>
-      
+
     );
   });
 }
@@ -77,7 +81,9 @@ function getHoursInMilliseconds(nextHour) {
 
 //it could be any react functional component
 
-const AutocompleteItem = ({ formattedSuggestion }) => (
+const AutocompleteItem = ({
+  formattedSuggestion
+}) => (
   <div>
     <i className="fa fa-map-marker" />{' '}
     <strong>{formattedSuggestion.mainText}</strong>
@@ -90,31 +96,27 @@ const cssClasses = {
   input: 'form-control',
   autocompleteContainer: 'autoContainer'
 };
-class InitialSubmissionForm extends Component {
-  render() {
-    const {
-      startTime,
-      nextHour,
-      onStartTimeChange,
-      onEndTimeChange,
-      onSubmit,
-      error,
-      address,
-      onChangeAddress,
-      onAddressError,
-      addressError,
-      validItinerary,
-      onPrefChange,
-      preferences,
-      onMealsChange,
-      includeMeals,
-      onTransporationModeChange,
-      modesOfTransportation,
-      currentModeOfTransportation
-  } = this.props;
-
-    return (
-      <Container>
+const InitialSubmissionForm = (startTime,
+  nextHour,
+  onStartTimeChange,
+  onEndTimeChange,
+  onSubmit,
+  error,
+  address,
+  onChangeAddress,
+  onAddressError,
+  addressError,
+  validItinerary,
+  onPrefChange,
+  preferences,
+  onMealsChange,
+  includeMeals,
+  onTransporationModeChange,
+  modesOfTransportation,
+  currentModeOfTransportation) => {
+  console.log("render initialSubmissionForm");
+  return (
+    <Container>
         <Row>
           <Col xs="12" md={{ offset: 3, size: 6 }}>
             {error &&
@@ -264,8 +266,7 @@ class InitialSubmissionForm extends Component {
         </Row>
         <Row />
       </Container>
-    );
-  }
-}
+  );
+};
 
 export default InitialSubmissionForm;
