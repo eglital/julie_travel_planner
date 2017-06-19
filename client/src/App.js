@@ -10,6 +10,8 @@ import InitialSubmissionFormContainer
 import ItineraryOverviewContainer
   from './containers/ItineraryOverviewContainer';
 
+import SavedItinerariesContainer from './containers/SavedItinerariesContainer';
+
 import PageNotFoundComponent from './components/PageNotFoundComponent';
 
 import TermsOfService from './components/TermsOfService';
@@ -24,6 +26,7 @@ class App extends Component {
           <div>
             <div className="app-body">
               <Switch>
+                <Route path="/saved" component={SavedItinerariesContainer} />
                 <Route
                   path="/itinerary-creation"
                   component={LocationSelectionContainer}
