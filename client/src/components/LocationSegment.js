@@ -17,17 +17,21 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
     >
       <Col xs="2" md={{ size: '4' }}>
         <table style={{ fontSize: '14px' }}>
-          <tr>
-            <td>
-              <div style={styles[0]}>
-                {' '}{arrivalTime && moment(arrivalTime).format('LT')}
-              </div>
-              <br />
-              <div style={styles[1]}>
-                {' '}{departureTime && moment(departureTime).format('LT')}
-              </div>
-            </td>
-          </tr>
+          <tbody>
+
+            <tr>
+              <td>
+                <div style={styles[0]}>
+                  {' '}{arrivalTime && moment(arrivalTime).format('LT')}
+                </div>
+                <br />
+                <div style={styles[1]}>
+                  {' '}{departureTime && moment(departureTime).format('LT')}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
         </table>
       </Col>
       <Col xs="10" sm={{ size: '5' }}>

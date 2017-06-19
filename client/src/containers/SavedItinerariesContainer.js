@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Collapse,
-  ListGroup,
-  Card,
-  CardBlock
-} from 'reactstrap';
+import { Container, Row, Col, Collapse, Card, CardBlock } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 //import { getSavedItineraries } from '../actions/itineraryActions';
 
 class ItineraryOverviewContainer extends Component {
