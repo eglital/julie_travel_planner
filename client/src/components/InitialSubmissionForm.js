@@ -15,6 +15,8 @@ import {
 import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
 import Hero from './Hero';
+import FA from 'react-fontawesome';
+
 
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map((pref) => {
@@ -28,8 +30,6 @@ function generatePreferences(preferences, onChange) {
     );
   });
 }
-
-
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -202,6 +202,17 @@ class InitialSubmissionForm extends Component {
                     Ending time must be at least 2 hours after starting time!
                   </UncontrolledTooltip>
                 </FormGroup>
+                
+              <div>
+                Transportation
+                <label> Driving
+                  <input type="radio" name="transportation" value="driving"/>
+                </label>
+                <label> Walking
+                  <input type="radio" name="transportation" value="walking" />
+                </label>
+              </div>
+                
               <div>
                 <label> Include Meals?
                   <input type="checkbox" name="meals" onChange={onMealsChange} checked={includeMeals}/> 
