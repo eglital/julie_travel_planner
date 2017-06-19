@@ -51,7 +51,6 @@ const Loader = () => <div className="loader">Loading...</div>;
 class InitialSubmissionFormContainer extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.state = {
       nextHour: getNextHour(),
       startTime: getNextHour(),
