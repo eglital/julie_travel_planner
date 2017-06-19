@@ -1,7 +1,30 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+}
+
+.app-body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.app-footer {
+  flex: none; /* 2 */
+}
+
+.departure-times {
+  color: darkgrey;
+}
+
+.arrival-times {
+  color: black;
+}
+
+.hoverable:hover {
+  background-color: rgba(193, 125, 191, .2);
+}
 
 .location-segment .location-segment-info {
   border: 1px solid black;
