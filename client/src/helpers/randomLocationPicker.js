@@ -61,6 +61,7 @@ const displayThreeLocations = (props, onClickLocation) => {
       checkIfOpen(location, startTime + duration)
     )
   };
+  console.log("OPEN", openLocations);
   if (!mealsIncluded || lastFood || !isTimeToEat(startTime + duration)) {
     //no meals selected or last selection was food or it's not time of day to eat
     let choices = ["places", "sights"];

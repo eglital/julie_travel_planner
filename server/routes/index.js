@@ -51,7 +51,6 @@ router.get("/itinerary/final/:itineraryId", (req, res, next) => {
 
 router.get("/itinerary/saved/:itineraryId", (req, res, next) => {
   console.log("getting saved itinerary");
-  Itinerary.findById(req.params.itineraryId);
   let itineraryId = checkHash(req.params.itineraryId);
   Itinerary.findById(itineraryId)
     .then(itinerary => {
