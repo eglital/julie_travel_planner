@@ -4,9 +4,10 @@ const { hashId } = require("./hashItineraryId");
 const moment = require("moment");
 
 function initialFourSquareRequest(InitialRequestObject, next) {
-  const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
+  setUpPrefs(InitialRequestObject);
+  sanitizeRequestObject(InitialRequestObject);
   const apiStrings = InitialRequestObject.categories.map(category => {
-    return fourSquareStringBuilder(category, sanitizedRequest);
+    return fourSquareStringBuilder(category, InitialRequestObject);
   });
   const requestArray = apiStrings.map(requestString => fetch(requestString));
 
@@ -19,10 +20,18 @@ function initialFourSquareRequest(InitialRequestObject, next) {
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
-      // const locations = {};
-      // InitialRequestObject.categories.forEach((category, index) => {
-      //   locations[category] = fullListOfChoices[index];
-      // });
+      for (let i = 3; i < fullListOfChoices.length; i++) {
+        if (i % 2 !== 0) {
+          fullListOfChoices[1] = fullListOfChoices[1].concat(
+            fullListOfChoices[i]
+          );
+        } else {
+          fullListOfChoices[2] = fullListOfChoices[2].concat(
+            fullListOfChoices[i]
+          );
+        }
+      }
+
       const initialResponseObject = {
         locations: {
           food: fullListOfChoices[0],
@@ -48,6 +57,15 @@ function spontaneousFourSquareRequest() {
 /////////////////////////////////////////////
 //private functions
 /////////////////////////////////////////////
+
+function setUpPrefs(requestObject) {
+  requestObject.categories = requestObject.preferences;
+  if (!requestObject.categories) {
+    requestObject.categories = ["food", "outdoors", "arts"];
+  } else {
+    requestObject.categories.unshift("food");
+  }
+}
 
 function sanitizeRequestObject(requestObject) {
   requestObject.startTime = new Number(requestObject.startTime);
