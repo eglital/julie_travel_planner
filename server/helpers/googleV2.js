@@ -127,7 +127,6 @@ const finishingItinerary = ({ itineraryId, res }) => {
 //private methods
 const googleRequest = ({ origins, destinations, departure_time, mode }) => {
   return new Promise((resolve, reject) => {
-    console.log(mode);
     googleMapsClient
       .distanceMatrix({
         origins: [origins],
