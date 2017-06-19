@@ -23,6 +23,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jasmine": "^2.6.0",
     "jasmine-node": "^1.14.5",
+    "md5": "^2.2.1",
     "moment": "^2.18.1",
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2",
