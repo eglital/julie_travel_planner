@@ -32,7 +32,6 @@ ItineraryHelper.isExpired = function isExpired() {
 ItineraryHelper.validItinerary = function validItinerary() {
     
     if (localStorage.getItem('itinerary')) {
-        console.log("found item in localStorage");
         if (!ItineraryHelper.isExpired()) {
             return true;
         }
