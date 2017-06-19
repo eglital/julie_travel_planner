@@ -1,6 +1,7 @@
 const Itinerary = require("../models").Itinerary;
 const { pickRandomTip } = require("./emptyTips");
-const moment = require('moment');
+const { hashId } = require("./hashItineraryId");
+const moment = require("moment");
 
 function initialFourSquareRequest(InitialRequestObject, next) {
   const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
@@ -29,7 +30,7 @@ function initialFourSquareRequest(InitialRequestObject, next) {
           sights: fullListOfChoices[2]
         },
         itinerary: {
-          id: itinerary.id,
+          id: hashId(itinerary.id),
           startTime: itinerary.startTime,
           endTime: itinerary.endTime,
           duration: 0
@@ -84,7 +85,8 @@ function buildListOfChoices(data) {
       ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
-        locationObject.link = `http://foursquare.com/v/${item.venue.id}?ref= ${process.env.CLIENT_ID}`;
+        locationObject.link = `http://foursquare.com/v/${item.venue
+          .id}?ref= ${process.env.CLIENT_ID}`;
         locationObject.address = item.venue.location.address;
         locationObject.lat = item.venue.location.lat;
         locationObject.lng = item.venue.location.lng;
@@ -92,7 +94,7 @@ function buildListOfChoices(data) {
         if (item.tips !== undefined) {
           locationObject.tip = item.tips[0].text;
           locationObject.photo = item.tips[0].photourl;
-        }else {
+        } else {
           locationObject.tip = pickRandomTip();
         }
         if (item.venue.photos.count) {
@@ -136,19 +138,17 @@ function notGym(category) {
   return !regex.test(category);
 }
 
-function parseHours(status){
+function parseHours(status) {
   let hours = {};
-  if(/[0-9]/gi.test(status) && /open/gi.test(status)){
+  if (/\bopen\b.*?\b[0-9].*/gi.test(status)) {
     const arr = status.split(" ");
-    hours.close = moment(arr[2]+ arr[3], 'HH:mm').toDate().getTime();
-    console.log(hours.close);
+    hours.close = moment(arr[2] + arr[3], "HH:mm").toDate().getTime();
   }
-  if(status && status.split(" ").length > 4){
+  if (status && status.split(" ").length > 4) {
     hours.open = null;
-  }
-  else if(/[0-9]/gi.test(status) && /close/gi.test(status)){
+  } else if (/[0-9]/gi.test(status) && /close/gi.test(status)) {
     const arr = status.split(" ");
-    hours.open = moment(arr[2]+ arr[3], 'HH:mm').toDate().getTime();
+    hours.open = moment(arr[2] + arr[3], "HH:mm").toDate().getTime();
   }
 
   return hours;
