@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -11,11 +11,10 @@ import {
   Row,
   UncontrolledAlert,
   UncontrolledTooltip
-} from "reactstrap";
-import PlacesAutocomplete from "react-places-autocomplete";
-import moment from "moment";
-import Hero from "./Hero";
-import googleLogo from "../assets/powered_by_google_on_white.png";
+} from 'reactstrap';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import moment from 'moment';
+import Hero from './Hero';
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -23,7 +22,7 @@ function createTimeOptions(time, startOffset = 0) {
   return hours.map(hour => {
     return (
       <option key={hour} value={hour}>
-        {moment(hour).format("h a")}
+        {moment(hour).format('h a')}
       </option>
     );
   });
@@ -39,7 +38,7 @@ function getHoursInMilliseconds(nextHour) {
     //push the time in milliseconds
     hours.push(+nextHour);
     //mutate the moment
-    nextHour.add(1, "h");
+    nextHour.add(1, 'h');
     ++i;
   }
   return hours;
@@ -54,16 +53,16 @@ function offsetTime(time, startOffset) {
 
 const AutocompleteItem = ({ formattedSuggestion }) => (
   <div>
-    <i className="fa fa-map-marker" />{" "}
+    <i className="fa fa-map-marker" />{' '}
     <strong>{formattedSuggestion.mainText}</strong>
-    {" "}
+    {' '}
     <small>{formattedSuggestion.secondaryText}</small>
   </div>
 );
 const cssClasses = {
-  root: "form-group autoRoot",
-  input: "form-control",
-  autocompleteContainer: "autoContainer"
+  root: 'form-group autoRoot',
+  input: 'form-control',
+  autocompleteContainer: 'autoContainer'
 };
 class InitialSubmissionForm extends Component {
   render() {
@@ -80,28 +79,25 @@ class InitialSubmissionForm extends Component {
       addressError,
       validItinerary
     } = this.props;
-    console.log("validItinerary", validItinerary);
+    console.log('validItinerary', validItinerary);
     return (
       <Container>
         <Row>
-          <Col xs="12" sm={{ offset: 3, size: 6 }}>
+          <Col xs="12" md={{ offset: 3, size: 6 }}>
             {error &&
               <UncontrolledAlert className="text-center" color="warning">
                 <strong>Whoops!</strong>
-                {" "}
+                {' '}
                 Something happened on the server. Try again later
               </UncontrolledAlert>}
             {validItinerary &&
               <UncontrolledAlert
                 className="text-center"
-                style={{ padding: "3px", height: "55px" }}
+                style={{ padding: '3px', height: '55px' }}
                 color="info"
               >
-                <p style={{ marginBottom: "0px" }}>
-                  Looks like you already have an itinerary...
-                </p>
-                <p>
-                  You can see it <Link
+                <p style={{ marginTop: '10px', marginLeft: '55px' }}>
+                  See your last itinerary <Link
                     to={`/itinerary-overview/${validItinerary.id}`}
                   >
                     <strong>here</strong>
@@ -113,16 +109,12 @@ class InitialSubmissionForm extends Component {
             <Form className="text-center" onSubmit={onSubmit}>
               <FormGroup
                 style={{
-                  maxWidth: "600px",
-                  marginLeft: "auto",
-                  marginRight: "auto"
+                  maxWidth: '600px',
+                  marginLeft: 'auto',
+                  marginRight: 'auto'
                 }}
               >
-                <img
-                  src={googleLogo}
-                  alt=""
-                  style={{ display: "block", margin: "auto" }}
-                />
+
                 <Label for="startingLocation">Starting/Ending Location</Label>
                 <br />
                 {addressError ? addressError : null}
@@ -130,7 +122,7 @@ class InitialSubmissionForm extends Component {
                   inputProps={{
                     value: address,
                     onChange: onChangeAddress,
-                    placeholder: "Use current location"
+                    placeholder: 'Use current location'
                   }}
                   autocompleteItem={AutocompleteItem}
                   classNames={cssClasses}
@@ -142,18 +134,19 @@ class InitialSubmissionForm extends Component {
               <div>
                 <FormGroup
                   style={{
-                    float: "left",
-                    width: "40%",
-                    marginLeft: "8%",
-                    marginRight: "2%"
+                    float: 'left',
+                    width: '40%',
+                    marginLeft: '0%',
+                    marginRight: '10%',
+                    marginBottom: '25px'
                   }}
                 >
                   <Label for="startingTime">Start Time</Label>
                   <Input
                     style={{
-                      maxWidth: "300px",
-                      margin: "auto",
-                      textAlignLast: "center"
+                      maxWidth: '300px',
+                      margin: 'auto',
+                      textAlignLast: 'center'
                     }}
                     type="select"
                     name="startingTime"
@@ -165,18 +158,19 @@ class InitialSubmissionForm extends Component {
                 </FormGroup>
                 <FormGroup
                   style={{
-                    float: "left",
-                    width: "40%",
-                    marginLeft: "2%",
-                    marginRight: "8%"
+                    float: 'left',
+                    width: '40%',
+                    marginLeft: '10%',
+                    marginRight: '0%',
+                    marginBottom: '25px'
                   }}
                 >
                   <Label for="endingTime">End Time</Label>
                   <Input
                     style={{
-                      maxWidth: "300px",
-                      margin: "auto",
-                      textAlignLast: "center"
+                      maxWidth: '300px',
+                      margin: 'auto',
+                      textAlignLast: 'center'
                     }}
                     type="select"
                     name="endingTime"
@@ -192,26 +186,27 @@ class InitialSubmissionForm extends Component {
               </div>
               <div
                 style={{
-                  marginTop: "20px",
-                  clear: "both",
-                  marginBottom: "20px"
+                  marginTop: '20px',
+                  clear: 'both',
+                  marginBottom: '20px'
                 }}
               >
-                <Button style={{ clear: "both" }}>Get planning!</Button>
+                <Button style={{ clear: 'both' }}>Get planning!</Button>
               </div>
 
               <div>
-                <p className="text-center" style={{ color: "#C17DBF" }}>
+                <p className="text-center" style={{ color: '#C17DBF' }}>
                   ______________________________
                 </p>
                 <img
                   src="map.png"
                   style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    transform: "rotate(30deg)",
-                    height: "50px",
-                    width: "50px"
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginBottom: '10px',
+                    transform: 'rotate(30deg)',
+                    height: '50px',
+                    width: '50px'
                   }}
                 />
               </div>
