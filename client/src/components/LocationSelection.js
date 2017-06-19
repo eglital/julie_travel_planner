@@ -3,6 +3,7 @@ import { Card, CardBlock, CardTitle } from "reactstrap";
 import Dotdotdot from "react-dotdotdot";
 
 const LocationSelection = props => {
+  console.log("render locationSelection");
   const { location, section, itineraryId, onClick } = props;
   if (!location.photo) {
     location.photo = "./128.png";

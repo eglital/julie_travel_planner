@@ -4,6 +4,7 @@ const { hashId } = require("./hashItineraryId");
 const moment = require("moment");
 
 function initialFourSquareRequest(InitialRequestObject, next) {
+  const includeFood = InitialRequestObject.preferences.includes("food");
   setUpPrefs(InitialRequestObject);
   sanitizeRequestObject(InitialRequestObject);
   const apiStrings = InitialRequestObject.categories.map(category => {
@@ -31,12 +32,15 @@ function initialFourSquareRequest(InitialRequestObject, next) {
           );
         }
       }
+      if (!includeFood) {
+        fullListOfChoices[0] = [];
+      }
 
       const initialResponseObject = {
         locations: {
-          food: fullListOfChoices[0],
-          places: fullListOfChoices[1],
-          sights: fullListOfChoices[2]
+          food: fullListOfChoices[0] || [],
+          places: fullListOfChoices[1] || [],
+          sights: fullListOfChoices[2] || []
         },
         itinerary: {
           id: hashId(itinerary.id),
@@ -68,7 +72,7 @@ function setUpPrefs(requestObject) {
 
   // walking or driving
   if (requestObject.transportationMode === "walking") {
-    requestObject.radius = 3000;
+    requestObject.radius = 1500;
   } else {
     requestObject.radius = 15000;
   }
@@ -86,7 +90,7 @@ function sanitizeRequestObject(requestObject) {
 function fourSquareStringBuilder(category, iro) {
   const clientId = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
-  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=${iro.radius}&venuePhotos=1&section=${category}&client_id=${clientId}&client_secret=${secret}`;
+  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=${iro.radius}&venuePhotos=1&limit=35&section=${category}&client_id=${clientId}&client_secret=${secret}`;
 }
 
 function buildListOfChoices(data) {
@@ -107,7 +111,8 @@ function buildListOfChoices(data) {
       if (
         !completeDict[item.venue.name] &&
         notGym(item.venue.categories[0].name) &&
-        notGym(item.venue.name)
+        notGym(item.venue.name) &&
+        notFoodInWrongPlaces(item.venue.categories[0].name, index)
       ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
@@ -121,7 +126,7 @@ function buildListOfChoices(data) {
           locationObject.tip = item.tips[0].text;
           locationObject.photo = item.tips[0].photourl;
         } else {
-          locationObject.tip = pickRandomTip();
+          locationObject.tip = "No additional information available.";
         }
         if (item.venue.photos.count) {
           let prefix = item.venue.photos.groups[0].items[0].prefix;
@@ -140,6 +145,7 @@ function buildListOfChoices(data) {
         array.push(locationObject);
       }
     });
+    console.log(array);
     return array;
   });
 }
@@ -163,6 +169,20 @@ function createItinary(InitialRequestObject) {
 function notGym(category) {
   let regex = /dojo|fitness|fittness/gi;
   return !regex.test(category);
+}
+
+function notFoodInWrongPlaces(name, index) {
+  if (index === 0) {
+    return true;
+  } else if (
+    /bar|restaurant|kitchen|grill|buffet|sandwich|steak|walmart|pub|brewery|warehouse|big\sbox\sstore|grocrey/gi.test(
+      name
+    )
+  ) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function parseHours(status) {
