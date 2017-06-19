@@ -116,7 +116,8 @@ app.use((req, res, next) => {
 
 const itineraryRoutes = require("./routes/index");
 app.use("/api", itineraryRoutes);
-
+const emailRoutes = require("./routes/emailRoutes");
+app.use("/api", emailRoutes);
 // ----------------------------------------
 // Error handler
 // ----------------------------------------
