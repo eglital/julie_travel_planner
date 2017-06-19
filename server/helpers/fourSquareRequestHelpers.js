@@ -65,9 +65,17 @@ function setUpPrefs(requestObject) {
   } else {
     requestObject.categories.unshift("food");
   }
+
+  // walking or driving
+  if (requestObject.transportationMode === "walking") {
+    requestObject.radius = 3000;
+  } else {
+    requestObject.radius = 15000;
+  }
 }
 
 function sanitizeRequestObject(requestObject) {
+  // requestObject.transportationMode = requestObject.transportationMode.toString();
   requestObject.startTime = new Number(requestObject.startTime);
   requestObject.endTime = new Number(requestObject.endTime);
   requestObject.lat = Number(requestObject.startingLocation[0]);
@@ -78,7 +86,7 @@ function sanitizeRequestObject(requestObject) {
 function fourSquareStringBuilder(category, iro) {
   const clientId = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
-  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=15000&venuePhotos=1&section=${category}&client_id=${clientId}&client_secret=${secret}`;
+  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=${iro.radius}&venuePhotos=1&section=${category}&client_id=${clientId}&client_secret=${secret}`;
 }
 
 function buildListOfChoices(data) {
@@ -140,6 +148,7 @@ function createItinary(InitialRequestObject) {
   return new Itinerary({
     startTime: InitialRequestObject.startTime,
     endTime: InitialRequestObject.endTime,
+    transportationMode: InitialRequestObject.transportationMode,
     data: [
       {
         arrivalTime: null,
