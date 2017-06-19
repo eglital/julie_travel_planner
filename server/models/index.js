@@ -10,6 +10,7 @@ var models = {};
 
 // Load models and attach to models here
 models.Itinerary = require("./itinerary");
+models.User = require("./user");
 //... more models
 
 module.exports = models;
