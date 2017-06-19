@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getFinalItinerary } from "./itineraryActions";
-import { SET_DURATION, CHANGE_LAST_FOOD } from "./types";
+import { SET_DURATION, CHANGE_LAST_FOOD, TOGGLE_MEALS_INCLUSION} from "./types";
 import { deleteSelectedLocation } from "./locationsActions";
 
 export function addLocationToItinerary(
@@ -51,5 +51,11 @@ export function changeLastFood(data) {
   return {
     type: CHANGE_LAST_FOOD,
     data
+  };
+}
+
+export function toggleMealsInclusion(){
+  return {
+    type: TOGGLE_MEALS_INCLUSION
   };
 }

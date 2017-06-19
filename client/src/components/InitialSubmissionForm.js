@@ -16,6 +16,21 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
 import Hero from './Hero';
 
+function generatePreferences(preferences, onChange) {
+  return Object.keys(preferences).map((pref) => {
+    return (
+      <div key={pref}>
+        <label>{pref}
+          <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
+        </label>
+        {" "}
+      </div>
+    );
+  });
+}
+
+
+
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
   let hours = getHoursInMilliseconds(offsetTime(time, startOffset));
@@ -77,9 +92,13 @@ class InitialSubmissionForm extends Component {
       onChangeAddress,
       onAddressError,
       addressError,
-      validItinerary
-    } = this.props;
-    console.log('validItinerary', validItinerary);
+      validItinerary,
+      onPrefChange,
+      preferences,
+      onMealsChange,
+      includeMeals
+  } = this.props;
+
     return (
       <Container>
         <Row>
@@ -183,6 +202,14 @@ class InitialSubmissionForm extends Component {
                     Ending time must be at least 2 hours after starting time!
                   </UncontrolledTooltip>
                 </FormGroup>
+              <div>
+                <label> Include Meals?
+                  <input type="checkbox" name="meals" onChange={onMealsChange} checked={includeMeals}/> 
+                </label>
+              </div>
+              <div>
+                {generatePreferences(preferences, onPrefChange)}
+              </div>
               </div>
               <div
                 style={{
