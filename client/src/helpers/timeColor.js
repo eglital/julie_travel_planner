@@ -27,11 +27,13 @@ let oddArrivalStyle = {
 };
 
 let evenCardStyle = {
+  width: '98%',
   height: '75px',
   borderColor: '#C17DBF'
 };
 
 let oddCardStyle = {
+  width: '98%',
   height: '75px',
   borderColor: 'rgb(97, 91, 99)'
 };

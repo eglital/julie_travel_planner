@@ -38,6 +38,7 @@ const Footer = props => {
         <span style={{ color: 'white' }}>
           <img
             src={foursquareLogo}
+            alt=""
             style={{ height: '22px', marginRight: '-5px', marginLeft: '5px' }}
           />
           FOURSQUARE
