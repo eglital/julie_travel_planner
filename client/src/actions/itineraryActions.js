@@ -1,4 +1,8 @@
-import { SET_ITINERARY_DATA, SET_FINAL_ITINERARY, CHANGE_TRANSPORTATION_MODE } from "./types";
+import {
+  SET_ITINERARY_DATA,
+  SET_FINAL_ITINERARY,
+  CHANGE_TRANSPORTATION_MODE
+} from "./types";
 import itineraryHelper from "../helpers/itineraryHelper";
 import { setDuration, changeLastFood } from "./builderActions";
 import { deleteLocationsData } from "./locationsActions";
@@ -22,8 +26,7 @@ export function getFinalItinerary(itineraryId, history) {
         itineraryHelper.setItineraryObj(itineraryId);
         dispatch(
           setFinalItinerary({
-            finalItinerary: response.data.itinerary,
-            id: itineraryId
+            itinerary: response.data.itinerary
           })
         );
         history.push(`/itinerary-overview/${itineraryId}`);
@@ -54,8 +57,7 @@ export function getSavedItinerary(itineraryId) {
         }
         dispatch(
           setFinalItinerary({
-            finalItinerary: response.data.itinerary,
-            id: itineraryId
+            itinerary: response.data.itinerary
           })
         );
       })
@@ -65,9 +67,9 @@ export function getSavedItinerary(itineraryId) {
   };
 }
 
-export function changeTransportationMode(data){
+export function changeTransportationMode(data) {
   return {
     type: CHANGE_TRANSPORTATION_MODE,
     data
-  }
+  };
 }
