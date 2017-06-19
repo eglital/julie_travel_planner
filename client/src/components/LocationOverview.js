@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Button } from "reactstrap";
 import ShareTwitterButton from "./ShareTwitterButton";
 import ShareFacebookButton from "./ShareFacebookButton";
+import ShareEmailButton from "./ShareEmailButton";
 
 function makeOverview(finalItinerary) {
   return finalItinerary.map((location, index) => {
@@ -95,6 +96,7 @@ const LocationOverview = ({ finalItinerary }) => {
               style={{ display: "inline" }}
             />
             <ShareTwitterButton finalItinerary={finalItinerary} />
+            <ShareEmailButton />
           </div>
         </Col>
       </Row>
