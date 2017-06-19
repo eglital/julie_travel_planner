@@ -11,13 +11,15 @@ const list = [
   "Nature, time and patience are the three great physicians.",
   "No one can walk backwards into the future.",
   "It's not the number of breaths we take, but the number of moments that take our breath away.",
-  "Life is what happens to you while you're busy making other plans.", "Live, laugh, love.",
+  "Life is what happens to you while you're busy making other plans.",
+  "Live, laugh, love.",
   "Yesterday is history, tomorrow a mystery and today is a gift. That's why we call it the present.",
   "Live every day like it's your last.",
   "It takes more muscles to frown than it does to smile.",
   "Dream as if you'll live forever. Live as if you'll die today.",
   "You miss 100% of the shots you don't take.",
-  "YOLO.","Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+  "YOLO.",
+  "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
   "Always do your best. What you plant now, you will harvest later.",
   "Become the person who would attract the results you seek.",
   "Don't watch the clock; do what it does. Keep going.",
@@ -35,7 +37,7 @@ const list = [
   "If you’re offered a seat on a rocket ship, don’t ask what seat! Just get on."
 ];
 
-function pickRandomTip(){
+function pickRandomTip() {
   return list[Math.floor(Math.random() * list.length)];
 }
 
