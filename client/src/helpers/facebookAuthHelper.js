@@ -1,7 +1,7 @@
 let FacebookAuthHelper = {};
 
 FacebookAuthHelper.makeFBQS = () => {
-    return `facebookAuth=${localStorage.getItem('facebookAuth')}`;
+    return `facebookjwt=${localStorage.getItem('facebookAuth')}`;
 };
 
 FacebookAuthHelper.authUser = (token) => {

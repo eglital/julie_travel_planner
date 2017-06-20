@@ -12,24 +12,26 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
  * 
  * 
  * 
- * */
+ **/
 
 
 
 
 
-const JulieNavbar = () => {
-    return (
-        <div>
-        <Navbar color="faded" light toggleable>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                {fbAuthHelper.userLoggedIn() ? <LogoutButton /> : <LoginButton />}
-              </NavItem>
-            </Nav>
-        </Navbar>
-      </div>
-    );
-};
+class JulieNavbar extends React.Component {
+    render() {
+        return (
+            <div>
+                <Navbar color="faded" light toggleable>
+                    <Nav className="ml-auto" navbar>
+                      <NavItem>
+                        {fbAuthHelper.userLoggedIn() ? <LogoutButton /> : <LoginButton />}
+                      </NavItem>
+                    </Nav>
+                </Navbar>
+            </div>
+        );
+    }
+}
 
 export default JulieNavbar;
