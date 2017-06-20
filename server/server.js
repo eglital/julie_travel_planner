@@ -118,6 +118,7 @@ const User = require("./models").User;
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 app.use(passport.initialize());
+app.use(passport.session());
 passport.use(
   new FacebookStrategy(
     {
@@ -138,6 +139,20 @@ passport.use(
     }
   )
 );
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id)
+    .then(user => {
+      done(null, user);
+    })
+    .catch(err => {
+      done(err);
+    });
+});
 
 // ----------------------------------------
 // Routes

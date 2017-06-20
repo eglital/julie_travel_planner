@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createJwt } = require("../helpers/auth");
+const { hashId } = require("../helpers/hashItineraryId");
 
 module.exports = passport => {
   router.get(
@@ -10,12 +10,9 @@ module.exports = passport => {
 
   router.get(
     "/facebook/callback",
-    passport.authenticate("facebook", { failureRedirect: "/login" }),
-    function(req, res) {
-      console.log("----------------- this is being hit -----------------");
-      console.log(req);
-      // Successful authentication, redirect home.
-      res.send(createJwt("hello"));
+    passport.authenticate("facebook"),
+    (req, res) => {
+      res.send(hashId(req.user._id));
     }
   );
   return router;
