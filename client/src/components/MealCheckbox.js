@@ -1,14 +1,12 @@
 import React from "react";
-import { FormGroup, Label, Input } from "reactstrap";
 
-const MealCheckbox = () => {
+const MealCheckbox = ({onChange, checked}) => {
   return (
-    <FormGroup check>
-      <Label check>
-        <Input defaultChecked type="checkbox" />{" "}
-        include meals?{" "}
-      </Label>
-    </FormGroup>
+    <div>
+      <label> Include Meals?
+        <input type="checkbox" name="meals" onChange={onChange} checked={checked}/> 
+      </label>
+    </div>
   );
 };
 
