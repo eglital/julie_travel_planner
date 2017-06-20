@@ -11,6 +11,8 @@ import SavedItinerariesContainer from './containers/SavedItinerariesContainer';
 import PageNotFoundComponent from './components/PageNotFoundComponent';
 import About from './components/About';
 import TermsOfService from './components/TermsOfService';
+
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 class App extends Component {
@@ -19,6 +21,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
+            <Navbar />
             <div className="app-body">
               <Switch>
                 <Route path="/about" component={About} />
