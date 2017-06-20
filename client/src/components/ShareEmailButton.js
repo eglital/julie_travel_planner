@@ -1,6 +1,6 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
-import React from "react";
+import React from 'react';
 import {
   Button,
   Modal,
@@ -11,16 +11,15 @@ import {
   FormGroup,
   Label,
   Input
-} from "reactstrap";
-import FaEnvelopeO from "react-icons/lib/fa/envelope-o";
+} from 'reactstrap';
 
 class ShareEmailButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      email: "",
-      name: ""
+      email: '',
+      name: ''
     };
 
     this.toggle = this.toggle.bind(this);
@@ -30,8 +29,8 @@ class ShareEmailButton extends React.Component {
   toggle() {
     this.setState({
       modal: !this.state.modal,
-      email: "",
-      name: ""
+      email: '',
+      name: ''
     });
   }
   onChange(e) {
@@ -53,8 +52,24 @@ class ShareEmailButton extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3 onClick={this.toggle}><FaEnvelopeO /></h3>
+      <div
+        style={{
+          display: 'inline-block',
+          marginLeft: '9px',
+          textAlign: 'center'
+        }}
+      >
+        <div>
+          <img
+            alt="email"
+            src="../emailicon.png"
+            height="35px"
+            width="35px"
+            style={{ marginTop: '-23px', cursor: 'pointer' }}
+            onClick={this.toggle}
+          />
+        </div>
+
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             Share Your Itinerary By Email
@@ -89,12 +104,16 @@ class ShareEmailButton extends React.Component {
             <Button color="primary" type="submit" onClick={this.onEmailSubmit}>
               Send Email
             </Button>
-            {" "}
+            {' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
       </div>
     );
+    // <div style={{ display: 'inline-block' }}>
+    //   <span onClick={this.toggle}><FaEnvelopeO /></span>
+
+    // </div>
   }
 }
 

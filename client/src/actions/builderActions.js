@@ -1,7 +1,12 @@
-import axios from "axios";
-import { getFinalItinerary } from "./itineraryActions";
-import { SET_DURATION, CHANGE_LAST_FOOD, TOGGLE_MEALS_INCLUSION} from "./types";
-import { deleteSelectedLocation } from "./locationsActions";
+import axios from 'axios';
+import { getFinalItinerary } from './itineraryActions';
+import {
+  SET_DURATION,
+  CHANGE_LAST_FOOD,
+  TOGGLE_MEALS_INCLUSION
+} from './types';
+import { deleteSelectedLocation } from './locationsActions';
+import FacebookAuthHelper from '../helpers/facebookAuthHelper';
 
 export function addLocationToItinerary(
   location,
@@ -12,17 +17,17 @@ export function addLocationToItinerary(
 ) {
   return dispatch => {
     return axios
-      .put("/api/itinerary/select", {
+      .put('/api/itinerary/select', {
         location: location,
         itineraryId: itineraryId,
         section: section
       })
       .then(response => {
         if (response.status !== 200) {
-          throw new Error("Response not ok");
+          throw new Error('Response not ok');
         }
         dispatch(setDuration(response.data));
-        if (section === "food") {
+        if (section === 'food') {
           dispatch(changeLastFood(true));
         } else {
           dispatch(changeLastFood(false));
@@ -32,11 +37,17 @@ export function addLocationToItinerary(
           itinerary.endTime - itinerary.startTime - response.data.duration <=
           60 * 60 * 1000
         ) {
-          dispatch(getFinalItinerary(itineraryId, history));
+          dispatch(
+            getFinalItinerary(
+              itineraryId,
+              history,
+              FacebookAuthHelper.makeFBQS()
+            )
+          );
         }
       })
       .catch(function(error) {
-        console.log("Error:", error);
+        console.log('Error:', error);
       });
   };
 }
@@ -54,7 +65,7 @@ export function changeLastFood(data) {
   };
 }
 
-export function toggleMealsInclusion(){
+export function toggleMealsInclusion() {
   return {
     type: TOGGLE_MEALS_INCLUSION
   };
