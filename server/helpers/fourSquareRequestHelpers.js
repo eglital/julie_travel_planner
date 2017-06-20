@@ -35,8 +35,6 @@ function initialFourSquareRequest(InitialRequestObject, next) {
       if (!InitialRequestObject.includeMeals) {
         fullListOfChoices[0] = [];
       }
-      console.log(fullListOfChoices[0]);
-
       const initialResponseObject = {
         locations: {
           food: fullListOfChoices[0] || [],
