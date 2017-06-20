@@ -53,9 +53,18 @@ class ShareEmailButton extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3 onClick={this.toggle}>
-          <FaEnvelopeO />
+      <div
+        style={{
+          display: "inline-block",
+          marginLeft: "5px",
+          textAlign: "center"
+        }}
+      >
+        <h3 onClick={this.toggle} style={{ cursor: "pointer" }}>
+          <FaEnvelopeO
+            size={32}
+            style={{ marginTop: "-20px", marginLeft: "5px" }}
+          />
         </h3>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
