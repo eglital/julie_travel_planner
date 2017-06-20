@@ -7,7 +7,7 @@ const { hashId, checkHash } = require("../helpers/hashItineraryId");
 describe("Google API", () => {
   const baseUrl = "http://localhost:8888";
   const apiUrl = baseUrl + "/api/itinerary";
-  var originalTimeout;
+  let originalTimeout;
   let server, itinerary;
 
   beforeAll(done => {
