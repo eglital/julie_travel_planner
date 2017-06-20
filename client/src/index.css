@@ -4,8 +4,7 @@ body {
 .app-body {
   display: flex;
   min-height: 100vh;
-  flex-direction: column;
-  margin-bottom: 30px; }
+  flex-direction: column; }
 
 .app-footer {
   flex: none;

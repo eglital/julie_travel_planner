@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Link
-}
-from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -14,8 +11,7 @@ import {
   Row,
   UncontrolledAlert,
   UncontrolledTooltip
-}
-from 'reactstrap';
+} from 'reactstrap';
 import PreferencesDropDown from '../components/PreferencesDropDown';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import moment from 'moment';
@@ -24,19 +20,28 @@ import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
 import MealCheckbox from './MealCheckbox';
 
-function generateTransportation(currentModeOfTransportation, modesOfTransportation, onChange) {
-  return modesOfTransportation.map((mode) => {
+function generateTransportation(
+  currentModeOfTransportation,
+  modesOfTransportation,
+  onChange
+) {
+  return modesOfTransportation.map(mode => {
     return (
       <FormGroup key={mode.value}>
-        <label> {mode.value} <FA name={mode.faName}/>
-          <input checked={currentModeOfTransportation === mode.value} type="radio" name="transportation" value={mode.value} onChange={onChange}/>
+        <label>
+          {' '}{mode.value} <FA name={mode.faName} />
+          <input
+            checked={currentModeOfTransportation === mode.value}
+            type="radio"
+            name="transportation"
+            value={mode.value}
+            onChange={onChange}
+          />
         </label>
       </FormGroup>
     );
   });
 }
-
-
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -68,9 +73,7 @@ function getHoursInMilliseconds(nextHour) {
 
 //it could be any react functional component
 
-const AutocompleteItem = ({
-  formattedSuggestion
-}) => (
+const AutocompleteItem = ({ formattedSuggestion }) => (
   <div>
     <i className="fa fa-map-marker" />{' '}
     <strong>{formattedSuggestion.mainText}</strong>
@@ -83,7 +86,8 @@ const cssClasses = {
   input: 'form-control',
   autocompleteContainer: 'autoContainer'
 };
-const InitialSubmissionForm = ({startTime,
+const InitialSubmissionForm = ({
+  startTime,
   nextHour,
   onStartTimeChange,
   onEndTimeChange,
@@ -100,154 +104,166 @@ const InitialSubmissionForm = ({startTime,
   includeMeals,
   onTransporationModeChange,
   modesOfTransportation,
-  currentModeOfTransportation}) => {
-  console.log("render initialSubmissionForm");
+  currentModeOfTransportation
+}) => {
+  console.log('render initialSubmissionForm');
   return (
     <Container>
-        <Row>
-          <Col xs="12" md={{ offset: 3, size: 6 }}>
-            {error &&
-              <UncontrolledAlert className="text-center" color="warning">
-                <strong>Whoops!</strong>
-                {' '}
-                {error}
-              </UncontrolledAlert>}
-            {validItinerary &&
-              <UncontrolledAlert
-                className="text-center"
-                style={{ padding: '3px', height: '55px' }}
-                color="info"
-              >
-                <p style={{ marginTop: '10px', marginLeft: '55px' }}>
-                  See your last itinerary <Link
-                    to={`/itinerary-overview/${validItinerary.id}`}
-                  >
-                    <strong>here</strong>
-                  </Link>!
-                </p>
+      <Row>
+        <Col xs="12" md={{ offset: 3, size: 6 }}>
+          {error &&
+            <UncontrolledAlert className="text-center" color="warning">
+              <strong>Whoops!</strong>
+              {' '}
+              {error}
+            </UncontrolledAlert>}
+          {validItinerary &&
+            <UncontrolledAlert
+              className="text-center"
+              style={{ padding: '3px', height: '55px' }}
+              color="info"
+            >
+              <p style={{ marginTop: '10px', marginLeft: '37px' }}>
+                See your last itinerary <Link
+                  to={`/itinerary-overview/${validItinerary.id}`}
+                >
+                  <strong>here</strong>
+                </Link>!
+              </p>
 
-              </UncontrolledAlert>}
-            <Hero />
-            <Form className="text-center" onSubmit={onSubmit}>
+            </UncontrolledAlert>}
+          <Hero />
+          <Form className="text-center" onSubmit={onSubmit}>
+            <FormGroup
+              style={{
+                maxWidth: '600px',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+              }}
+            >
+
+              <Label for="startingLocation">Starting/Ending Location</Label>
+              <br />
+              {addressError ? addressError : null}
+              <PlacesAutocomplete
+                inputProps={{
+                  value: address,
+                  onChange: onChangeAddress,
+                  placeholder: 'Use current location'
+                }}
+                autocompleteItem={AutocompleteItem}
+                classNames={cssClasses}
+                onError={onAddressError}
+                clearItemsOnError={true}
+              />
+
+            </FormGroup>
+            <div>
               <FormGroup
                 style={{
-                  maxWidth: '600px',
-                  marginLeft: 'auto',
-                  marginRight: 'auto'
+                  float: 'left',
+                  width: '40%',
+                  marginLeft: '0%',
+                  marginRight: '10%',
+                  marginBottom: '25px'
                 }}
               >
-
-                <Label for="startingLocation">Starting/Ending Location</Label>
-                <br />
-                {addressError ? addressError : null}
-                <PlacesAutocomplete
-                  inputProps={{
-                    value: address,
-                    onChange: onChangeAddress,
-                    placeholder: 'Use current location'
+                <Label for="startingTime">Start Time</Label>
+                <Input
+                  style={{
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    textAlignLast: 'center'
                   }}
-                  autocompleteItem={AutocompleteItem}
-                  classNames={cssClasses}
-                  onError={onAddressError}
-                  clearItemsOnError={true}
-                />
-
+                  type="select"
+                  name="startingTime"
+                  id="startingTime"
+                  onChange={onStartTimeChange}
+                >
+                  {createTimeOptions(nextHour, 0)}
+                </Input>
               </FormGroup>
-              <div>
-                <FormGroup
+              <FormGroup
+                style={{
+                  float: 'left',
+                  width: '40%',
+                  marginLeft: '10%',
+                  marginRight: '0%',
+                  marginBottom: '25px'
+                }}
+              >
+                <Label for="endingTime">End Time</Label>
+                <Input
                   style={{
-                    float: 'left',
-                    width: '40%',
-                    marginLeft: '0%',
-                    marginRight: '10%',
-                    marginBottom: '25px'
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    textAlignLast: 'center'
                   }}
+                  type="select"
+                  name="endingTime"
+                  id="endingTime"
+                  onChange={onEndTimeChange}
                 >
-                  <Label for="startingTime">Start Time</Label>
-                  <Input
-                    style={{
-                      maxWidth: '300px',
-                      margin: 'auto',
-                      textAlignLast: 'center'
-                    }}
-                    type="select"
-                    name="startingTime"
-                    id="startingTime"
-                    onChange={onStartTimeChange}
-                  >
-                    {createTimeOptions(nextHour, 0)}
-                  </Input>
-                </FormGroup>
-                <FormGroup
-                  style={{
-                    float: 'left',
-                    width: '40%',
-                    marginLeft: '10%',
-                    marginRight: '0%',
-                    marginBottom: '25px'
-                  }}
-                >
-                  <Label for="endingTime">End Time</Label>
-                  <Input
-                    style={{
-                      maxWidth: '300px',
-                      margin: 'auto',
-                      textAlignLast: 'center'
-                    }}
-                    type="select"
-                    name="endingTime"
-                    id="endingTime"
-                    onChange={onEndTimeChange}
-                  >
-                    {createTimeOptions(startTime, 2)}
-                  </Input>
-                  <UncontrolledTooltip placement="top" target="endingTime">
-                    Ending time must be at least 2 hours after starting time!
-                  </UncontrolledTooltip>
-                </FormGroup>
-                
+                  {createTimeOptions(startTime, 2)}
+                </Input>
+                <UncontrolledTooltip placement="top" target="endingTime">
+                  Ending time must be at least 2 hours after starting time!
+                </UncontrolledTooltip>
+              </FormGroup>
+
               <div>
                 <p>Transportation</p>
-                <div className="transportation-modes" style={{display:"flex", justifyContent:"center"}}>
-                  {generateTransportation(currentModeOfTransportation, modesOfTransportation, onTransporationModeChange)}
+                <div
+                  className="transportation-modes"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  {generateTransportation(
+                    currentModeOfTransportation,
+                    modesOfTransportation,
+                    onTransporationModeChange
+                  )}
                 </div>
               </div>
-              <MealCheckbox onChange={onMealsChange} checked={includeMeals}/>
-              <PreferencesDropDown preferences={preferences} onPrefChange={onPrefChange}/>
-              </div>
-              <div
+              <MealCheckbox onChange={onMealsChange} checked={includeMeals} />
+              <PreferencesDropDown
+                preferences={preferences}
+                onPrefChange={onPrefChange}
+              />
+            </div>
+            <div
+              style={{
+                marginTop: '20px',
+                clear: 'both',
+                marginBottom: '20px'
+              }}
+            >
+              <Button style={{ clear: 'both' }}>Get planning!</Button>
+            </div>
+
+            <div>
+              <p className="text-center" style={{ color: '#C17DBF' }}>
+                ______________________________
+              </p>
+              <img
+                alt="map"
+                src="oldMap.png"
                 style={{
-                  marginTop: '20px',
-                  clear: 'both',
-                  marginBottom: '20px'
+                  marginTop: '-15px',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginBottom: '5px',
+                  transform: 'rotate(30deg)',
+                  height: '50px',
+                  width: '50px'
                 }}
-              >
-                <Button style={{ clear: 'both' }}>Get planning!</Button>
-              </div>
+              />
+            </div>
+          </Form>
+        </Col>
 
-              <div>
-                <p className="text-center" style={{ color: '#C17DBF' }}>
-                  ______________________________
-                </p>
-                <img
-                  alt="map"
-                  src="map.png"
-                  style={{
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    marginBottom: '10px',
-                    transform: 'rotate(30deg)',
-                    height: '50px',
-                    width: '50px'
-                  }}
-                />
-              </div>
-            </Form>
-          </Col>
-
-        </Row>
-        <Row />
-      </Container>
+      </Row>
+      <Row />
+    </Container>
   );
 };
 
