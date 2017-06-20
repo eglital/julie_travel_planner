@@ -9,7 +9,12 @@ const UserSchema = Schema({
   facebookId: {
     type: String
   },
-  itineraries: []
+  itineraries: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Itinerary"
+    }
+  ]
 });
 
 UserSchema.statics.findOrCreateFacebook = function(profile) {

@@ -6,5 +6,10 @@ function createJwt(profile) {
     issuer: "JULIE"
   });
 }
+function verifyJwt(jwtString) {
+  return jwt.verify(jwtString, process.env.JWT_SECRET, {
+    issuer: "JULIE"
+  });
+}
 
-module.exports = { createJwt };
+module.exports = { createJwt, verifyJwt };
