@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { getSavedItinerary } from "../actions/itineraryActions";
 import LocationOverview from "../components/LocationOverview";
+import { shareByEmail } from "../actions/emailActions";
 
 class ItineraryOverviewContainer extends Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ class ItineraryOverviewContainer extends Component {
   }
 
   render() {
-    console.log(this.props.finalItinerary);
+    console.log("Transport:", this.props.transportationMode);
     if (!this.props.finalItinerary) {
       return <Redirect to="/PageNotFound" />;
     } else {
@@ -20,7 +21,11 @@ class ItineraryOverviewContainer extends Component {
         <div>
           {this.props.finalItinerary.length
             ? <div>
-                <LocationOverview finalItinerary={this.props.finalItinerary} />
+                <LocationOverview
+                  finalItinerary={this.props.finalItinerary}
+                  transportation={this.props.transportationMode}
+                  shareByEmail={this.props.shareByEmail}
+                />
               </div>
             : null}
         </div>
@@ -31,13 +36,18 @@ class ItineraryOverviewContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    finalItinerary: state.itinerary.finalItinerary
+    finalItinerary: state.itinerary.finalItinerary,
+    transportationMode: state.itinerary.transportationMode,
+    id: state.itinerary.id
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     getSavedItinerary: itineraryId => {
       dispatch(getSavedItinerary(itineraryId));
+    },
+    shareByEmail: form => {
+      dispatch(shareByEmail(form));
     }
   };
 };
