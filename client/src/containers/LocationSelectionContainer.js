@@ -7,6 +7,7 @@ import ProgressBar from '../components/Progress';
 import { addLocationToItinerary } from '../actions/builderActions';
 import { getFinalItinerary } from '../actions/itineraryActions';
 import displayThreeLocations from '../helpers/randomLocationPicker';
+import FacebookAuthHelper from '../helpers/facebookAuthHelper';
 
 class LocationSelectionContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -32,7 +33,10 @@ class LocationSelectionContainer extends Component {
   };
 
   onClickBuildItinerary = () => {
-    this.props.getFinalItinerary(this.props.itinerary.id);
+    this.props.getFinalItinerary(
+      this.props.itinerary.id,
+      FacebookAuthHelper.makeFBQS()
+    );
   };
 
   render() {
@@ -137,8 +141,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         )
       );
     },
-    getFinalItinerary: itineraryId => {
-      dispatch(getFinalItinerary(itineraryId, ownProps.history));
+    getFinalItinerary: (itineraryId, fbqs) => {
+      dispatch(getFinalItinerary(itineraryId, ownProps.history, fbqs));
     }
   };
 };
