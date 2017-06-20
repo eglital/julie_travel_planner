@@ -1,0 +1,12 @@
+<h2>Your friend {{name}} wants to share their itinerary they created!</h2>
+<div>
+<ul>I will go to these places today:
+{{#each itinerary as |location|}}
+  {{#if location.name}}
+    <li>{{location.name}} at {{location.address}}</li>
+    {{/if}}
+{{/each}}
+</ul>
+</div>
+<p>Check it out here: <a href=`https://julie-travel-planner.herokuapp.com/itinerary-overview/{{id}}`>julie-travel-planner</a></p>
+<h4>From {{name}}</h4>

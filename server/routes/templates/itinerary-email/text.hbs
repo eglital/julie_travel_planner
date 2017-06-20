@@ -1,0 +1,13 @@
+Your friend {{name}} wants to share their itinerary they created!
+
+I will go to these places today:
+{{#each itinerary as |location|}}
+{{#each itinerary as |location|}}
+  {{#if location.name}}
+    {{location.name}} at {{location.address}}
+    {{/if}}
+{{/each}}
+{{/each}}
+
+Check it out here: https://julie-travel-planner.herokuapp.com/itinerary-overview/{{id}} julie-travel-planner
+From {{name}}
