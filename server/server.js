@@ -114,54 +114,55 @@ app.use((req, res, next) => {
 // Passport
 // ----------------------------------------
 
-const User = require("./models").User;
-const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FACEBOOK_APP_ID,
-      clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "http://localhost:8081/auth/facebook/callback",
-      profileFields: ["id", "displayName", "emails"],
-      passReqToCallback: true
-    },
-    function(req, accessToken, refreshToken, profile, done) {
-      User.findOrCreateFacebook(profile)
-        .then(user => {
-          done(null, user);
-        })
-        .catch(err => {
-          done(err);
-        });
-    }
-  )
-);
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id)
-    .then(user => {
-      done(null, user);
-    })
-    .catch(err => {
-      done(err);
-    });
-});
+// const User = require("./models").User;
+// const passport = require("passport");
+// const FacebookStrategy = require("passport-facebook").Strategy;
+// app.use(passport.initialize());
+//
+// passport.use(
+//   new FacebookStrategy(
+//     {
+//       clientID: process.env.FACEBOOK_APP_ID,
+//       clientSecret: process.env.FACEBOOK_APP_SECRET,
+//       callbackURL: "http://localhost:8081/auth/facebook/callback",
+//       profileFields: ["id", "displayName", "emails"],
+//       passReqToCallback: true
+//     },
+//     function(req, accessToken, refreshToken, profile, done) {
+//       User.findOrCreateFacebook(profile)
+//         .then(user => {
+//           done(null, user);
+//         })
+//         .catch(err => {
+//           done(err);
+//         });
+//     }
+//   )
+// );
+//
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id)
+//     .then(user => {
+//       done(null, user);
+//     })
+//     .catch(err => {
+//       done(err);
+//     });
+// });
 
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-const authRoutes = require("./routes/auth")(passport);
+const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
 const itineraryRoutes = require("./routes/index");
 app.use("/api", itineraryRoutes);
+
 const emailRoutes = require("./routes/emailRoutes");
 app.use("/api", emailRoutes);
 // ----------------------------------------
