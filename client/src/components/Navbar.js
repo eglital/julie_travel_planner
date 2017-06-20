@@ -2,36 +2,64 @@ import React from 'react';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import fbAuthHelper from '../helpers/facebookAuthHelper';
-import { Navbar, Nav, NavItem } from 'reactstrap';
-
-
-/**
- * 
- * Something like component did mount, then check if user is logged in 
- * If user is authed, then we should send a request for a user's itineries if it's not already in the state
- * 
- * 
- * 
- **/
-
-
-
+import {
+    Navbar,
+    Nav,
+    NavItem,
+    Button
+}
+from 'reactstrap';
+import {
+    Link
+}
+from 'react-router-dom';
 
 
 class JulieNavbar extends React.Component {
+    
+    constructor(){
+        super();
+        
+        this.state({
+            userLoggedIn : fbAuthHelper.userLoggedIn()
+        });
+    }
+    
+    
+    loginUser = () => {
+        this.setState({
+            userLoggedIn: true
+        });
+    }
+    
+    
     render() {
         return (
             <div>
-                <Navbar color="faded" light toggleable>
+            <Navbar color="faded" light toggleable>
+                {this.state.userLoggedIn ?
+                (
                     <Nav className="ml-auto" navbar>
-                      <NavItem>
-                        {fbAuthHelper.userLoggedIn() ? <LogoutButton /> : <LoginButton />}
-                      </NavItem>
+                        <NavItem>
+                            <Link to="/saved"><Button>Saved Itineraries</Button></Link>
+                        </NavItem>
+                        <NavItem>
+                            <LogoutButton />
+                        </NavItem>
                     </Nav>
-                </Navbar>
-            </div>
+                )
+                :
+                (
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <LoginButton loginUser={this.loginUser}/>
+                        </NavItem>
+                    </Nav>
+                )}
+            </Navbar>
+        </div>
         );
     }
-}
+};
 
 export default JulieNavbar;

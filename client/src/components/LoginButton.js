@@ -6,13 +6,13 @@ from 'reactstrap';
 import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 import request from 'superagent';
-import hello from 'hellojs'
+import hello from 'hellojs';
 hello.init({
     facebook: process.env.REACT_APP_FACEBOOK_APP_ID
-})
+});
 
 //<a href={`https://www.facebook.com/v2.9/dialog/oauth?client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}&redirect_uri=${"https://localhost:8081/sweettastybananas"}`}>Login with Facebook</a>
-const LoginButton = () => {
+const LoginButton = ({loginUser}) => {
     return (
         <Button onClick={() => hello('facebook').login()}>Login with Facebook</Button>
     );
