@@ -48,9 +48,9 @@ const About = props => {
               Egle Libby
             </h5>
             <span style={{ fontSize: '14px' }}>
-              <a href="#"> LinkedIn </a> /
-              <a href="#"> GitHub </a> /
-              <a href="#"> Personal Site </a>
+              <a href="/"> LinkedIn </a> /
+              <a href="/"> GitHub </a> /
+              <a href="/"> Personal Site </a>
             </span>
             <p>
               Egle is the destroyer of worlds and collects keychains in her spare time.
@@ -62,9 +62,9 @@ const About = props => {
               Nicholas Romeo
             </h5>
             <span style={{ fontSize: '14px' }}>
-              <a href="#"> LinkedIn </a> /
-              <a href="#"> GitHub </a> /
-              <a href="#"> Personal Site </a>
+              <a href="/"> LinkedIn </a> /
+              <a href="/"> GitHub </a> /
+              <a href="/"> Personal Site </a>
             </span>
             <p>
               Nicholas cannot get these kids to stay off of his lawn.
@@ -77,8 +77,8 @@ const About = props => {
             </h5>
             <span style={{ fontSize: '14px' }}>
               <a href="/"> LinkedIn </a> /
-              <a href="#"> GitHub </a> /
-              <a href="#"> Personal Site </a>
+              <a href="/"> GitHub </a> /
+              <a href="/"> Personal Site </a>
             </span>
             <p style={{ marginTop: '5px' }}>
               Renzo will not. Don't ask him.
@@ -91,8 +91,8 @@ const About = props => {
             </h5>
             <span style={{ fontSize: '14px' }}>
               <a href="/"> LinkedIn </a> /
-              <a href="#"> GitHub </a> /
-              <a href="#"> Personal Site </a>
+              <a href="/"> GitHub </a> /
+              <a href="/"> Personal Site </a>
             </span>
             <p>
               William is not the famous music producer will.i.am and frankly we all feel a little deceived.
