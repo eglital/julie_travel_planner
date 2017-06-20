@@ -69,7 +69,7 @@ function makeOverview(finalItinerary, transportation) {
   });
 }
 
-const LocationOverview = ({ finalItinerary, transportation }) => {
+const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
   return (
     <div
       className="LocationOverview"
@@ -102,7 +102,10 @@ const LocationOverview = ({ finalItinerary, transportation }) => {
               style={{ display: "inline" }}
             />
             <ShareTwitterButton finalItinerary={finalItinerary} />
-            <ShareEmailButton />
+            <ShareEmailButton
+              itinerary={finalItinerary}
+              shareByEmail={shareByEmail}
+            />
           </div>
         </Col>
       </Row>

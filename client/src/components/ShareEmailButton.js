@@ -18,17 +18,38 @@ class ShareEmailButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      email: "",
+      name: ""
     };
 
     this.toggle = this.toggle.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   toggle() {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      email: "",
+      name: ""
     });
   }
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  onEmailSubmit = e => {
+    e.preventDefault();
+    let form = {
+      email: this.state.email,
+      name: this.state.name,
+      itinerary: this.props.itinerary,
+      id: this.props.id
+    };
+    this.props.shareByEmail(form);
+    this.toggle();
+  };
 
   render() {
     return (
@@ -42,12 +63,32 @@ class ShareEmailButton extends React.Component {
             <Form>
               <FormGroup>
                 <Label for="email">Who do you want to send it to</Label>
-                <Input type="email" name="email" />
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Your friend's email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="name">Your Name</Label>
+                <Input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Your name"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                />
               </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>
+            <Button color="primary" type="submit" onClick={this.onEmailSubmit}>
+              Send Email
+            </Button>
             {" "}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
