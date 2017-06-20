@@ -34,6 +34,8 @@ hello.on('auth.login', function (auth) {
     authenticate(auth.network, socialToken).then(function (token) {
         //save this token to localhost
         localStorage.setItem('facebookAuth', token)
+        //"refresh the page?"
+        
     });
 });
 
