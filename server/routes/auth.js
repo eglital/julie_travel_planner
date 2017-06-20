@@ -31,9 +31,9 @@ router.post("/facebook", (req, res) => {
       return User.findOrCreateFacebook(profile);
     })
     .then(user => {
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      console.log(user);
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      // console.log(user);
+      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       res.send(createJwt(user._id));
     })
     .catch(function(err) {
@@ -56,6 +56,7 @@ function validateWithProvider(network, socialToken) {
         qs: { access_token: socialToken }
       },
       (error, response, body) => {
+        console.log("------------------------------");
         console.log(body);
         console.log("------------------------------");
         if (!error && response.statusCode == 200) {
