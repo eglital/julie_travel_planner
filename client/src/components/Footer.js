@@ -5,7 +5,6 @@ import foursquareLogo from '../assets/foursquare.ico';
 
 const Footer = props => {
   let style = {
-    marginTop: '10px',
     backgroundColor: 'rgba(193, 125, 191, .33)',
     borderTop: '1px solid #E7E7E7',
     textAlign: 'center',
