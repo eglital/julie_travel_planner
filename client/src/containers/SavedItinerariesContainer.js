@@ -1,59 +1,32 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Collapse, Card, CardBlock } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import SavedItinerary from '../components/SavedItinerary';
+// import logo from '../assets/logo.jpg';
 //import { getSavedItineraries } from '../actions/itineraryActions';
 
 class ItineraryOverviewContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
     this.state = {
       lastShown: null,
       collapse: false,
       savedItineraries: [
-        { date: 'something', locations: ['1', '2', '3'] },
-        { date: 'different', locations: ['4', '5', '6'] }
+        { date: Date.now(), locations: ['1', '2', '3'] },
+        { date: Date.now() - 3000, locations: ['10', '11'] },
+        { date: Date.now() - 5000, locations: ['14', '15', '16', '17'] }
       ]
     };
   }
 
   componentDidMount() {}
 
-  // toggle = () => {
-  //   this.setState({ collapse: !this.state.collapse });
-  // };
-
-  onClick = e => {
-    console.log(e.target);
-    if (this.state.lastShown) {
-      this.state.lastShown.classList.remove('show');
-    }
-    e.target.classList.add('show');
-    this.setState({
-      lastShown: e.target
-    });
-  };
-
   displaySavedItineraries() {
     let itineraries = this.state.savedItineraries.map(itinerary => {
-      return (
-        <div>
-          {/* <Button
-            color="primary"
-            onClick={this.toggle}
-            style={{ marginBottom: '1rem' }}
-          > */}
-          Toggle
-          {/* </Button> */}
-          <Collapse onClick={this.onClick}>
-            <Card>
-              <CardBlock>
-                Anim pariatur cliche reprehenderit,
-              </CardBlock>
-            </Card>
-          </Collapse>
-        </div>
-      );
+      return <SavedItinerary itinerary={itinerary} key={itinerary.date} />;
     });
 
     return itineraries;
@@ -63,22 +36,26 @@ class ItineraryOverviewContainer extends Component {
     // if (!this.props.savedItineraries) {
     //   return <Redirect to="/PageNotFound" />;
     // } else {
-    console.log(this.state.savedItineraries.length);
     return (
-      <Container>
+      <Container
+        style={{ marginLeft: '5%', marginRight: '5%', marginTop: '10px' }}
+      >
         <Row>
-          <Col xs="12">
-
+          <Col xs="12" md={{ size: '8', offset: '2' }}>
             {this.state.savedItineraries.length
-              ? this.displaySavedItineraries()
-              : <h3>You haven't created any itineraries yet!</h3>}
+              ? <div>
+                  <h4 className="text-center">Your previous itineraries:</h4>
+                  {this.displaySavedItineraries()}
+                </div>
+              : <h3 className="text-center">
+                  You haven't created any itineraries yet!
+                </h3>}
           </Col>
         </Row>
       </Container>
     );
   }
 }
-//}
 
 const mapStateToProps = state => {
   return {

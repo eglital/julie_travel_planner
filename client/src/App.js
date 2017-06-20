@@ -3,19 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import LocationSelectionContainer
   from './containers/LocationSelectionContainer';
-
 import InitialSubmissionFormContainer
   from './containers/InitialSubmissionFormContainer';
-
 import ItineraryOverviewContainer
   from './containers/ItineraryOverviewContainer';
-
 import SavedItinerariesContainer from './containers/SavedItinerariesContainer';
-
 import PageNotFoundComponent from './components/PageNotFoundComponent';
-
+import About from './components/About';
 import TermsOfService from './components/TermsOfService';
-
 import Footer from './components/Footer';
 
 class App extends Component {
@@ -26,6 +21,7 @@ class App extends Component {
           <div>
             <div className="app-body">
               <Switch>
+                <Route path="/about" component={About} />
                 <Route path="/saved" component={SavedItinerariesContainer} />
                 <Route
                   path="/itinerary-creation"
