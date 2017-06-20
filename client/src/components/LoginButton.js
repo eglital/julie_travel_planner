@@ -11,10 +11,13 @@ hello.init({
     facebook: process.env.REACT_APP_FACEBOOK_APP_ID
 });
 
+
+let NavbarRefresh;
 //<a href={`https://www.facebook.com/v2.9/dialog/oauth?client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}&redirect_uri=${"https://localhost:8081/sweettastybananas"}`}>Login with Facebook</a>
 const LoginButton = ({loginUser}) => {
+    NavbarRefresh = loginUser;
     return (
-        <Button onClick={() => hello('facebook').login()}>Login with Facebook</Button>
+        <Button onClick={() => hello('facebook').login().then(() => console.log("promise from login called"))}>Login with Facebook</Button>
     );
 };
 
@@ -27,6 +30,7 @@ export default LoginButton;
 let socialToken;
 
 hello.on('auth.login', function (auth) {
+    console.log("event for auth login called");
     // Save the social token
     socialToken = auth.authResponse.access_token;
 
@@ -35,6 +39,7 @@ hello.on('auth.login', function (auth) {
         //save this token to localhost
         localStorage.setItem('facebookAuth', token)
         //"refresh the page?"
+        NavbarRefresh();
         
     });
 });

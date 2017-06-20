@@ -20,9 +20,9 @@ class JulieNavbar extends React.Component {
     constructor(){
         super();
         
-        this.state({
+        this.state = {
             userLoggedIn : fbAuthHelper.userLoggedIn()
-        });
+        };
     }
     
     
