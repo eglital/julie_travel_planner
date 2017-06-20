@@ -12,7 +12,6 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import FaEnvelopeO from 'react-icons/lib/fa/envelope-o';
 
 class ShareEmailButton extends React.Component {
   constructor(props) {
@@ -62,10 +61,11 @@ class ShareEmailButton extends React.Component {
       >
         <div>
           <img
+            alt="email"
             src="../emailicon.png"
             height="35px"
             width="35px"
-            style={{ marginTop: '-23px' }}
+            style={{ marginTop: '-23px', cursor: 'pointer' }}
             onClick={this.toggle}
           />
         </div>
