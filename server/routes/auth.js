@@ -12,7 +12,7 @@ module.exports = passport => {
     "/facebook/callback",
     passport.authenticate("facebook"),
     (req, res) => {
-      res.send(hashId(req.user._id));
+      res.send({ facebookAuth: hashId(req.user._id) });
     }
   );
   return router;
