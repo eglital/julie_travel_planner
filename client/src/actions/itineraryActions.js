@@ -15,10 +15,10 @@ export function setItineraryData(data) {
   };
 }
 
-export function getFinalItinerary(itineraryId, history) {
+export function getFinalItinerary(itineraryId, history, fbqs) {
   return dispatch => {
     axios
-      .get(`/api/itinerary/final/${itineraryId}`)
+      .get(`/api/itinerary/final/${itineraryId}?${fbqs}`)
       .then(response => {
         if (response.status !== 200) {
           throw new Error('Response not ok');

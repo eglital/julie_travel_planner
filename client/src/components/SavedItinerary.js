@@ -26,8 +26,8 @@ class SavedItinerary extends React.Component {
 
   displayLocationsFromItinerary = itinerary => {
     let locations = [];
-    for (let i = 1; i < itinerary.locations.length - 1; i++) {
-      locations.push(<p>This is a location ({itinerary.locations[i]})</p>);
+    for (let i = 1; i < itinerary.length - 1; i++) {
+      locations.push(<p>This is a location ({itinerary[i]})</p>);
     }
 
     return locations;
@@ -44,15 +44,13 @@ class SavedItinerary extends React.Component {
         >
           <CardBlock style={{ padding: '10px' }}>
             <CardTitle className="text-center" onClick={this.toggle} tag="h6">
-              {moment(itinerary.date).format('MMM Do YY')}
+              {moment(itinerary[0].departureTime).format('MMM Do YY')}
               {' '}
               -
               {' '}
-              {itinerary.locations.length - 2}
+              {itinerary.length - 2}
               {' '}
-              {itinerary.locations.length === 3
-                ? 'place planned'
-                : 'places planned'}
+              {itinerary.length === 3 ? 'place planned' : 'places planned'}
             </CardTitle>
           </CardBlock>
         </Card>
@@ -60,15 +58,13 @@ class SavedItinerary extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>
             <span style={{ fontSize: '16px' }}>
-              {moment(itinerary.date).format('MMM Do YY')}
+              {moment(itinerary[0].departureTime).format('MMM Do YY')}
               {' '}
               -
               {' '}
-              {itinerary.locations.length - 2}
+              {itinerary.locations - 2}
               {' '}
-              {itinerary.locations.length === 3
-                ? 'place planned'
-                : 'places planned'}
+              {itinerary.locations === 3 ? 'place planned' : 'places planned'}
             </span>
             <span
               onClick={this.toggle}

@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import SavedItinerary from '../components/SavedItinerary';
 // import logo from '../assets/logo.jpg';
-//import { getSavedItineraries } from '../actions/itineraryActions';
+import { fetchUserItinerariesData } from '../actions/userItinerariesActions';
 
 class ItineraryOverviewContainer extends Component {
   constructor(props) {
@@ -11,21 +11,23 @@ class ItineraryOverviewContainer extends Component {
     this.state = {
       modal: false
     };
-    this.state = {
-      lastShown: null,
-      collapse: false,
-      savedItineraries: [
-        { date: Date.now(), locations: ['1', '2', '3'] },
-        { date: Date.now() - 3000, locations: ['10', '11'] },
-        { date: Date.now() - 5000, locations: ['14', '15', '16', '17'] }
-      ]
-    };
+    // this.state = {
+    //   lastShown: null,
+    //   collapse: false,
+    //   savedItineraries: [
+    //     { date: Date.now(), locations: ['1', '2', '3'] },
+    //     { date: Date.now() - 3000, locations: ['10', '11'] },
+    //     { date: Date.now() - 5000, locations: ['14', '15', '16', '17'] }
+    //   ]
+    // };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchUserItinerariesData();
+  }
 
   displaySavedItineraries() {
-    let itineraries = this.state.savedItineraries.map(itinerary => {
+    let itineraries = this.props.userItineraries.map(itinerary => {
       return <SavedItinerary itinerary={itinerary} key={itinerary.date} />;
     });
 
@@ -42,7 +44,7 @@ class ItineraryOverviewContainer extends Component {
       >
         <Row>
           <Col xs="12" md={{ size: '8', offset: '2' }}>
-            {this.state.savedItineraries.length
+            {this.props.userItineraries.length
               ? <div>
                   <h4 className="text-center">Your previous itineraries:</h4>
                   {this.displaySavedItineraries()}
@@ -59,15 +61,14 @@ class ItineraryOverviewContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    // savedItineraries: state.user.savedItineraries,
-    //id: state.user.id
+    userItineraries: state.userItineraries.data
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    // getSavedItineraries: id => {
-    //   dispatch(getSavedItineraries(id));
-    //}
+    fetchUserItinerariesData: () => {
+      dispatch(fetchUserItinerariesData());
+    }
   };
 };
 
