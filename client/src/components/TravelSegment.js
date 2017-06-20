@@ -19,6 +19,7 @@ const TravelSegment = ({
           <a
             href={`https://maps.google.com?saddr=${currentLocation.lat},${currentLocation.lng}&daddr=${nextLocation.lat},${nextLocation.lng}&travelmode=${transportation}`}
             target="_blank"
+            rel="noopener noreferrer"
           >
             <FA name="long-arrow-down fa" />
             {transportation === 'driving'
