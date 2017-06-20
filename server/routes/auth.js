@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
+var request = require("request");
 const { hashId } = require("../helpers/hashItineraryId");
 const { createJwt } = require("../helpers/auth");
+const User = require("../models").User;
 //
 // module.exports = passport => {
 //   router.get(
@@ -27,6 +29,7 @@ router.post("/facebook", (req, res) => {
   // Validate the social token with Facebook
   validateWithProvider(network, socialToken)
     .then(profile => {
+      console.log(profile);
       return User.findOrCreateFacebook(profile);
     })
     .then(user => {
@@ -45,6 +48,7 @@ var providers = {
 
 function validateWithProvider(network, socialToken) {
   return new Promise((resolve, reject) => {
+    console.log("this is with in validateWithProvider");
     // Send a GET request to Facebook with the token as query string
     request(
       {
@@ -52,7 +56,11 @@ function validateWithProvider(network, socialToken) {
         qs: { access_token: socialToken }
       },
       (error, response, body) => {
+        console.log("this is within validateWithProvider request");
+        console.log(response);
+        console.log("------------------------------");
         if (!error && response.statusCode == 200) {
+          console.log("this is hit");
           resolve(JSON.parse(body));
         } else {
           reject(err);
