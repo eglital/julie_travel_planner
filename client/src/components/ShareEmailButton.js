@@ -1,7 +1,17 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from "reactstrap";
 import FaEnvelopeO from "react-icons/lib/fa/envelope-o";
 
 class ShareEmailButton extends React.Component {
@@ -25,9 +35,16 @@ class ShareEmailButton extends React.Component {
       <div>
         <h3 onClick={this.toggle}><FaEnvelopeO /></h3>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>
+            Share Your Itinerary By Email
+          </ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <Form>
+              <FormGroup>
+                <Label for="email">Who do you want to send it to</Label>
+                <Input type="email" name="email" />
+              </FormGroup>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Do Something</Button>
