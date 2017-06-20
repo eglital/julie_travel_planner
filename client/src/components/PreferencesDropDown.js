@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup } from 'reactstrap';
 
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map((pref) => {
@@ -34,16 +34,19 @@ export default class PreferencesDropDown extends React.Component {
 
   render() {
     return (
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={() => {return}}>
-        <DropdownToggle caret onClick={() => {
-            this.toggle();
-        }}>
-          Preferences
-        </DropdownToggle>
-        <DropdownMenu className="centered-axis-x">
-            {generatePreferences(this.props.preferences, this.props.onPrefChange)}
-        </DropdownMenu>
-      </Dropdown>
+      <FormGroup className="preferences">
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={() => {return}}>
+          <DropdownToggle caret onClick={() => {
+              this.toggle();
+          }}>
+            Preferences
+          </DropdownToggle>
+          <DropdownMenu className="centered-axis-x">
+              {generatePreferences(this.props.preferences, this.props.onPrefChange)}
+          </DropdownMenu>
+        </Dropdown>
+      </FormGroup>
+
     );
   }
 }

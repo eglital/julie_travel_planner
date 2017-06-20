@@ -22,20 +22,7 @@ import moment from 'moment';
 import Hero from './Hero';
 import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
-
-
-// function generatePreferences(preferences, onChange) {
-//   return Object.keys(preferences).map((pref) => {
-//     return (
-//       <div key={pref}>
-//         <label>{pref}
-//           <input checked={preferences[pref]} type="checkbox" onChange={onChange} value={pref}/>
-//         </label>
-//         {" "}
-//       </div>
-//     );
-//   });
-// }
+import MealCheckbox from './MealCheckbox';
 
 function generateTransportation(currentModeOfTransportation, modesOfTransportation, onChange) {
   return modesOfTransportation.map((mode) => {
@@ -45,7 +32,6 @@ function generateTransportation(currentModeOfTransportation, modesOfTransportati
           <input checked={currentModeOfTransportation === mode.value} type="radio" name="transportation" value={mode.value} onChange={onChange}/>
         </label>
       </FormGroup>
-
     );
   });
 }
@@ -124,7 +110,7 @@ const InitialSubmissionForm = ({startTime,
               <UncontrolledAlert className="text-center" color="warning">
                 <strong>Whoops!</strong>
                 {' '}
-                Something happened on the server. Try again later
+                {error}
               </UncontrolledAlert>}
             {validItinerary &&
               <UncontrolledAlert
@@ -226,15 +212,8 @@ const InitialSubmissionForm = ({startTime,
                   {generateTransportation(currentModeOfTransportation, modesOfTransportation, onTransporationModeChange)}
                 </div>
               </div>
-                
-              <div>
-                <label> Include Meals?
-                  <input type="checkbox" name="meals" onChange={onMealsChange} checked={includeMeals}/> 
-                </label>
-              </div>
-              <FormGroup className="preferences">
-                <PreferencesDropDown preferences={preferences} onPrefChange={onPrefChange}/>
-              </FormGroup>
+              <MealCheckbox onChange={onMealsChange} checked={includeMeals}/>
+              <PreferencesDropDown preferences={preferences} onPrefChange={onPrefChange}/>
               </div>
               <div
                 style={{
