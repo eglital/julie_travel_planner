@@ -27,7 +27,10 @@ import {
   getLatLng
 }
 from "react-places-autocomplete";
-import { changeTransportationMode } from "../actions/itineraryActions";
+import {
+  changeTransportationMode
+}
+from "../actions/itineraryActions";
 
 //references
 import preferences from '../references/preferences';
@@ -79,8 +82,23 @@ class InitialSubmissionFormContainer extends Component {
 
   componentWillReceiveProps(newProps) {
     //if locations.data is now populated, redirect them to itinerary-creation
+    /**
+     * Pattern is to push from inside the lifecycle hooks from the 
+     * containers which are responsible for dispatching the actions
+     * 
+     * */
     if (Object.keys(newProps.locations.data).length > 0) {
-      this.props.history.push("/itinerary-creation");
+      let totalNumOfLocations = Object.keys(newProps.locations.data).reduce((acc, loc) => {
+        return acc + newProps.locations.data[loc].length;
+      }, 0);
+      if (totalNumOfLocations === 0) {
+        this.setState({
+          error: "No selections returned! Try adding more preferences."
+        });
+      }
+      else {
+        this.props.history.push("/itinerary-creation");
+      }
     }
     //if error in form
     if (newProps.locations.error) {
@@ -88,6 +106,8 @@ class InitialSubmissionFormContainer extends Component {
         error: newProps.locations.error
       });
     }
+
+
     if (newProps.builder.mealsIncluded !== this.state.includeMeals) {
       this.setState({
         includeMeals: !this.state.includeMeals
