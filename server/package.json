@@ -30,6 +30,8 @@
     "mongoose": "^4.10.5",
     "mongoose-unique-validator": "^1.0.5",
     "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
     "qs": "^6.4.0",
     "request": "^2.81.0"
   },
