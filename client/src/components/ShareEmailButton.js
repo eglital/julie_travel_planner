@@ -54,7 +54,9 @@ class ShareEmailButton extends React.Component {
   render() {
     return (
       <div>
-        <h3 onClick={this.toggle}><FaEnvelopeO /></h3>
+        <h3 onClick={this.toggle}>
+          <FaEnvelopeO />
+        </h3>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             Share Your Itinerary By Email

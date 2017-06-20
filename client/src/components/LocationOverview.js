@@ -123,6 +123,10 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
               style={{ display: "inline" }}
             />
             <ShareTwitterButton finalItinerary={finalItinerary} />
+            <ShareEmailButton
+              itinerary={finalItinerary}
+              shareByEmail={shareByEmail}
+            />
           </div>
         </Col>
       </Row>
