@@ -45,7 +45,7 @@ router.get("/itinerary/final/:itineraryId", (req, res, next) => {
   let itineraryId = checkHash(req.params.itineraryId);
   itineraryId = mongoose.Types.ObjectId(itineraryId);
   finishingItinerary({ itineraryId, res })
-    .then(itinerary => res.send({ itinerary: itinerary.data }))
+    .then(itinerary => res.send({ itinerary }))
     .catch(next);
 });
 
@@ -54,8 +54,7 @@ router.get("/itinerary/saved/:itineraryId", (req, res, next) => {
   let itineraryId = checkHash(req.params.itineraryId);
   Itinerary.findById(itineraryId)
     .then(itinerary => {
-      //, transportationMode: itinerary.transportationMode
-      res.send({ itinerary: itinerary.data });
+      res.send({ itinerary });
     })
     .catch(next);
 });
