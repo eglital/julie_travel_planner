@@ -35,35 +35,36 @@ class ItineraryOverviewContainer extends Component {
   }
 
   render() {
-    // if (!this.props.savedItineraries) {
-    //   return <Redirect to="/PageNotFound" />;
-    // } else {
-    return (
-      <Container
-        style={{ marginLeft: '5%', marginRight: '5%', marginTop: '10px' }}
-      >
-        <Row>
-          <Col xs="12" md={{ size: '8', offset: '2' }}>
-            {this.props.userItineraries.length
-              ? <div>
-                  <h4 className="text-center">Your previous itineraries:</h4>
-                  {this.displaySavedItineraries()}
-                </div>
-              : <h3 className="text-center">
-                  You haven't created any itineraries yet!
-                </h3>}
-          </Col>
-        </Row>
-      </Container>
-    );
+    if (!this.props.userItineraries) {
+      return <p>Fetching</p>;
+    } else {
+      return (
+        <Container
+          style={{ marginLeft: '5%', marginRight: '5%', marginTop: '10px' }}
+        >
+          <Row>
+            <Col xs="12" md={{ size: '8', offset: '2' }}>
+              {this.props.userItineraries.length
+                ? <div>
+                    <h4 className="text-center">Your previous itineraries:</h4>
+                    {this.displaySavedItineraries()}
+                  </div>
+                : <h3 className="text-center">
+                    You haven't created any itineraries yet!
+                  </h3>}
+            </Col>
+          </Row>
+        </Container>
+      );
+    }
   }
 }
-
 const mapStateToProps = state => {
   return {
     userItineraries: state.userItineraries.data
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     fetchUserItinerariesData: () => {
