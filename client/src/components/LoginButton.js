@@ -27,11 +27,21 @@ hello.on("auth.login", function(auth) {
   // Save the social token
   socialToken = auth.authResponse.access_token;
 
+<<<<<<< HEAD
   // Auth with our own server using the social token
   authenticate(auth.network, socialToken).then(function(token) {
     //save this token to localhost
     localStorage.setItem("facebookAuth", token);
   });
+=======
+    // Auth with our own server using the social token
+    authenticate(auth.network, socialToken).then(function (token) {
+        //save this token to localhost
+        localStorage.setItem('facebookAuth', token)
+        //"refresh the page?"
+        
+    });
+>>>>>>> master
 });
 
 function authenticate(network, socialToken) {
