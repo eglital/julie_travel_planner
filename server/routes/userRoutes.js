@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const models = require("./../models");
+const User = mongoose.model("User");
 const { verifyJwt } = require("../helpers/auth");
 
 router.get("/user/itineraries", (req, res, next) => {
