@@ -6,7 +6,8 @@ it("updates the itinerary id", function() {
     const initialState = {
         id: null,
         startTime: null,
-        endTime: null
+        endTime: null,
+        finalItinerary: []
     }
     const action = {
         type: SET_ITINERARY_DATA,
@@ -19,7 +20,8 @@ it("updates the itinerary id", function() {
     const finalState = {
         id: 3,
         startTime: 0,
-        endTime: 0
+        endTime: 0,
+        finalItinerary: []
     }
     deepFreeze(initialState);
     deepFreeze(action);
