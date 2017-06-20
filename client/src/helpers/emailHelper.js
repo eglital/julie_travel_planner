@@ -1,5 +1,5 @@
 import "isomorphic-fetch";
-import ApiResponseHelper from "../helpers/apiResponseHelper";
+import ApiResponseHelper from "./apiResponseHelper";
 
 export function shareByEmail(form) {
   return dispatch => {

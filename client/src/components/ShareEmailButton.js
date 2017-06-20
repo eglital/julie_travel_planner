@@ -1,6 +1,6 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
-import React from 'react';
+import React from "react";
 import {
   Button,
   Modal,
@@ -11,15 +11,15 @@ import {
   FormGroup,
   Label,
   Input
-} from 'reactstrap';
+} from "reactstrap";
 
 class ShareEmailButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      email: '',
-      name: ''
+      email: "",
+      name: ""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -29,8 +29,8 @@ class ShareEmailButton extends React.Component {
   toggle() {
     this.setState({
       modal: !this.state.modal,
-      email: '',
-      name: ''
+      email: "",
+      name: ""
     });
   }
   onChange(e) {
@@ -54,9 +54,9 @@ class ShareEmailButton extends React.Component {
     return (
       <div
         style={{
-          display: 'inline-block',
-          marginLeft: '9px',
-          textAlign: 'center'
+          display: "inline-block",
+          marginLeft: "9px",
+          textAlign: "center"
         }}
       >
         <div>
@@ -65,7 +65,7 @@ class ShareEmailButton extends React.Component {
             src="../emailicon.png"
             height="35px"
             width="35px"
-            style={{ marginTop: '-23px', cursor: 'pointer' }}
+            style={{ marginTop: "-23px", cursor: "pointer" }}
             onClick={this.toggle}
           />
         </div>
@@ -104,7 +104,7 @@ class ShareEmailButton extends React.Component {
             <Button color="primary" type="submit" onClick={this.onEmailSubmit}>
               Send Email
             </Button>
-            {' '}
+            {" "}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

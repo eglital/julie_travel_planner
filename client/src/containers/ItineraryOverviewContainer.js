@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { getSavedItinerary } from "../actions/itineraryActions";
 import LocationOverview from "../components/LocationOverview";
-import { shareByEmail } from "../actions/emailActions";
+import { shareByEmail } from "../helpers/emailHelper";
 
 class ItineraryOverviewContainer extends Component {
   componentDidMount() {

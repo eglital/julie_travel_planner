@@ -9,7 +9,8 @@ const Itinerary = mongoose.model("Itinerary");
 const {
   googleMapsClient,
   selectingItinerary,
-  finishingItinerary
+  finishingItinerary,
+  addItineraryToUser
 } = require("../helpers/googleApiHelpers");
 
 const {
@@ -67,9 +68,14 @@ router.put("/itinerary/select", (req, res, next) => {
 router.get("/itinerary/final/:itineraryId", (req, res, next) => {
   console.log("setting final location");
   let itineraryId = checkHash(req.params.itineraryId);
+  let facebookjwt = req.query.facebookjwt;
   itineraryId = mongoose.Types.ObjectId(itineraryId);
-  finishingItinerary({ itineraryId, res })
-    .then(itinerary => res.send({ itinerary }))
+  addItineraryToUser({ facebookjwt, itineraryId })
+    .then(() =>
+      finishingItinerary({ itineraryId, res }).then(itinerary =>
+        res.send({ itinerary })
+      )
+    )
     .catch(next);
 });
 
