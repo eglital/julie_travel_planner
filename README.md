@@ -1,53 +1,107 @@
-Plan It Terms of Service and Privacy Policy
 
-1. Terms
+# [Julie](https://julie-travel-planner.herokuapp.com/), an AI for exploring cities.  
 
-By accessing the website at http://www.planit.travel, you are agreeing to be bound by these terms of service, as well as Google Maps terms of service (https://www.google.com/intl/en-US_US/help/terms_maps.html), all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
+  [![NPM Version][npm-image]][npm-url]
 
-2. Use License
 
-Permission is granted to temporarily download one copy of the materials (information or software) on Plan It's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
-modify or copy the materials;
-use the materials for any commercial purpose, or for any public display (commercial or non-commercial);
-attempt to decompile or reverse engineer any software contained on Plan It's website;
-remove any copyright or other proprietary notations from the materials; or
-transfer the materials to another person or "mirror" the materials on any other server.
-This license shall automatically terminate if you violate any of these restrictions and may be terminated by Plan It at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.
-3. Disclaimer
+### About
 
-The materials on Plan It's website are provided on an 'as is' basis. Plan It makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
-Further, Plan It does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to this site.
-4. Limitations
+  Julie is a simple AI that takes in to account your location and preferences and
+  helps you plan your day 3 options at a time. Julie will calculate travel time and
+  estimate the amount of time you are likely to spend at various locations through
+  an algorithm that derives a length of time based the type of location. The
 
-In no event shall Plan It or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Plan It's website, even if Plan It or a Plan It authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
+## Technology
 
-5. Accuracy of materials
+  * Node
+  * React
+  * Redux
+  * MongoDB
+  * Mongoose
+  * Bootstrap
+  * Google API
+  * Foursquare API
 
-The materials appearing on Plan It's website could include technical, typographical, or photographic errors. Plan It does not warrant that any of the materials on its website are accurate, complete or current. Plan It may make changes to the materials contained on its website at any time without notice. However Plan It does not make any commitment to update the materials.
 
-6. Links
+## Quick Start
 
-Plan It has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Plan It of the site. Use of any such linked website is at the user's own risk.
+  Install dependencies:
 
-7. Modifications
+```bash
+$ npm install
+```
 
-Plan It may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
+Start the client:
 
-8. Governing Law
+```bash
+$ cd client
+$ npm start
+$ cd ..
+```
 
-These terms and conditions are governed by and construed in accordance with the laws of Maine and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
+  Start the server:
 
-Privacy Policy
+```bash
+$ nodemon server/server.js
+```
 
-Your privacy is important to us.
+## Philosophy
 
-It is Plan It's policy to respect your privacy regarding any information we may collect while operating our website. Accordingly, we have developed this privacy policy in order for you to understand how we collect, use, communicate, disclose and otherwise make use of personal information. We have outlined our privacy policy below.
+  The Express philosophy is to provide small, robust tooling for HTTP servers, making
+  it a great solution for single page applications, web sites, hybrids, or public
+  HTTP APIs.
 
-We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned.
-Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.
-We will collect and use personal information solely for fulfilling those purposes specified by us and for other ancillary purposes, unless we obtain the consent of the individual concerned or as required by law.
-Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date.
-We will protect personal information by using reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.
-We will make readily available to customers information about our policies and practices relating to the management of personal information.
-We will only retain personal information for as long as necessary for the fulfilment of those purposes.
-We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained. Plan It may change this privacy policy from time to time at Plan It's sole discretion.
+  Express does not force you to use any specific ORM or template engine. With support for over
+  14 template engines via [Consolidate.js](https://github.com/tj/consolidate.js),
+  you can quickly craft your perfect framework.
+
+## Examples
+
+  To view the examples, clone the Express repo and install the dependencies:
+
+```bash
+$ git clone git://github.com/expressjs/express.git --depth 1
+$ cd express
+$ npm install
+```
+
+  Then run whichever example you want:
+
+```bash
+$ node examples/content-negotiation
+```
+
+## Tests
+
+  To run the test suite, first install the dependencies, then run `jasmine`:
+
+```bash
+$ npm install
+$ jasmine
+```
+
+## People
+
+[Egle Libby](https://github.com/eglital)  
+[Nicholas Romeo](https://github.com/Throw22)  
+[Renzo Tomlinson](https://github.com/rttomlinson)  
+[William Whitworth](https://github.com/William-Charles)
+
+## License
+
+  [MIT](LICENSE)
+
+[npm-image]: https://img.shields.io/npm/v/express.svg
+[npm-url]: https://npmjs.org/package/express
+[downloads-image]: https://img.shields.io/npm/dm/express.svg
+[downloads-url]: https://npmjs.org/package/express
+[travis-image]: https://img.shields.io/travis/expressjs/express/master.svg?label=linux
+[travis-url]: https://travis-ci.org/expressjs/express
+[appveyor-image]: https://img.shields.io/appveyor/ci/dougwilson/express/master.svg?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/dougwilson/express
+[coveralls-image]: https://img.shields.io/coveralls/expressjs/express/master.svg
+[coveralls-url]: https://coveralls.io/r/expressjs/express?branch=master
+[gratipay-image-visionmedia]: https://img.shields.io/gratipay/visionmedia.svg
+[gratipay-url-visionmedia]: https://gratipay.com/visionmedia/
+[gratipay-image-dougwilson]: https://img.shields.io/gratipay/dougwilson.svg
+[gratipay-url-dougwilson]: https://gratipay.com/dougwilson/
