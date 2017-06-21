@@ -40,7 +40,7 @@ hello.on("auth.login", function(auth) {
   // Auth with our own server using the social token
   authenticate(auth.network, socialToken).then(function(token) {
     //save this token to localhost
-    localStorage.setItem("facebookAuth", token);
+    localStorage.setItem("facebookAuth", token.facebookjwt);
     //"refresh the page?"
   });
 });
@@ -58,7 +58,7 @@ function authenticate(network, socialToken) {
         if (err) {
           reject(err);
         } else {
-          resolve(res);
+          resolve(JSON.parse(res.text));
         }
       });
   });

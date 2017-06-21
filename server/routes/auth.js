@@ -34,7 +34,7 @@ router.post("/facebook", (req, res) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       // console.log(user);
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      res.send(createJwt(user._id));
+      res.send({ facebookjwt: createJwt({ userId: user._id }) });
     })
     .catch(function(err) {
       res.send("Failed!" + err.message);

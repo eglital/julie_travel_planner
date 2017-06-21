@@ -9,7 +9,7 @@ router.get("/user/itineraries", (req, res, next) => {
   let jwtString = req.query.facebookjwt;
 
   try {
-    let userId = verifyJwt(jwtString);
+    let userId = verifyJwt(jwtString).userId;
     User.findById(userId)
       .populate("itineraries")
       .sort({ createdAt: "desc" })
