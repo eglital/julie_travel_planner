@@ -8,12 +8,12 @@ import {
   ModalBody,
   Button
 } from 'reactstrap';
+import { Refresh } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
 import Dotdotdot from 'react-dotdotdot';
 import { deleteItinerary } from '../actions/itineraryActions';
-import fbAuthHelper from '../helpers/facebookAuthHelper';
 
 const SingleLocation = props => {
   const { location } = props;
@@ -95,11 +95,10 @@ class SavedItinerary extends React.Component {
   };
 
   toggleAndDelete = e => {
-    console.log(e.target.dataset);
     this.toggle();
     this.props.deleteItinerary(
       e.currentTarget.dataset.itineraryId,
-      fbAuthHelper.makeFBQS()
+      this.props.userItineraries
     );
   };
 
@@ -118,7 +117,7 @@ class SavedItinerary extends React.Component {
   };
 
   render() {
-    const { itinerary } = this.props;
+    const { itinerary, deleteItinerary } = this.props;
     return (
       <div>
         <Card
@@ -186,10 +185,16 @@ class SavedItinerary extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteItinerary: (itineraryId, fbqs) => {
-      dispatch(deleteItinerary(itineraryId, fbqs));
-    }
+    // deleteItinerary: itineraryId => {
+    //   dispatch(deleteItinerary(itineraryId));
+    // }
   };
 };
 
-export default connect(null, mapDispatchToProps)(SavedItinerary);
+const mapStateToProps = state => {
+  return {
+    userItineraries: state.userItineraries.data
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SavedItinerary);

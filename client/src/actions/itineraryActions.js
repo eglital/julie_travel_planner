@@ -74,20 +74,3 @@ export function changeTransportationMode(data) {
     data
   };
 }
-
-export function deleteItinerary(itineraryId, fbqs) {
-  return dispatch => {
-    axios
-      .delete(`/api/user/itineraries/:${itineraryId}?${fbqs}`)
-      .then(response => {
-        if (response.status !== 200) {
-          //failure dispatch
-          throw new Error('Response not ok');
-        }
-        //success dispatch
-      })
-      .catch(function(error) {
-        console.log('Error:', error);
-      });
-  };
-}

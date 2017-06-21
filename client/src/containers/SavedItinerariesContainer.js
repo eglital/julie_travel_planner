@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import SavedItinerary from '../components/SavedItinerary';
-// import logo from '../assets/logo.jpg';
 import { fetchUserItinerariesData } from '../actions/userItinerariesActions';
+import { deleteItinerary } from '../actions/userItinerariesActions';
 
-class ItineraryOverviewContainer extends Component {
+class SavedItinerariesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,13 @@ class ItineraryOverviewContainer extends Component {
 
   displaySavedItineraries() {
     let itineraries = this.props.userItineraries.map(itinerary => {
-      return <SavedItinerary itinerary={itinerary} key={itinerary._id} />;
+      return (
+        <SavedItinerary
+          itinerary={itinerary}
+          deleteItinerary={this.props.deleteItinerary}
+          key={itinerary._id}
+        />
+      );
     });
 
     return itineraries;
@@ -64,7 +70,6 @@ class ItineraryOverviewContainer extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('STATE', state);
   return {
     userItineraries: state.userItineraries.data
   };
@@ -74,10 +79,13 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUserItinerariesData: () => {
       dispatch(fetchUserItinerariesData());
+    },
+    deleteItinerary: (itineraryId, itineraries) => {
+      dispatch(deleteItinerary(itineraryId, itineraries));
     }
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  ItineraryOverviewContainer
+  SavedItinerariesContainer
 );
