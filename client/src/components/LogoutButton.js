@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-    Button
-}
-from 'reactstrap';
-import PropTypes from 'prop-types';
 import fbAuthHelper from '../helpers/facebookAuthHelper';
 
-
 const LogoutButton = () => {
-    return (
-        <Button onClick={() => fbAuthHelper.unauthUser()}>Logout</Button>
-    );
+  return (
+    <p
+      className="nav-hover"
+      style={{ cursor: 'pointer' }}
+      onClick={() => fbAuthHelper.unauthUser()}
+    >
+      Log Out
+    </p>
+  );
 };
 
-LogoutButton.propTypes = {};
-
 export default LogoutButton;
-
