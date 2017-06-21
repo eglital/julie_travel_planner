@@ -60,6 +60,7 @@ class ItineraryOverviewContainer extends Component {
   }
 }
 const mapStateToProps = state => {
+  console.log("STATE", state);
   return {
     userItineraries: state.userItineraries.data
   };

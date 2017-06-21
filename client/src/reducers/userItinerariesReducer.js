@@ -9,7 +9,7 @@ export function userItinerariesReducer(state = INITIAL_STATE, action) {
     case FETCH_USER_ITINERARIES_SUCCESS:
       return {
         ...state,
-        data: action.data ? action.data.itineraries : null
+        data: action.data
       };
 
     default:
