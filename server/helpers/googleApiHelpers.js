@@ -19,7 +19,7 @@ const timeInSections = {
 
 const addItineraryToUser = ({ facebookjwt, itineraryId }) => {
   return new Promise((resolve, reject) => {
-    if (facebookjwt !== "null") {
+    if (facebookjwt && facebookjwt !== "null") {
       try {
         let userId = verifyJwt(facebookjwt).userId;
         User.findByIdAndUpdate(userId, {
@@ -127,7 +127,6 @@ const finishingItinerary = ({ itineraryId, res }) => {
         //response value in seconds, make it miliseconds
         responseDuration =
           response.json.rows[0].elements[0].duration.value * 1000;
-        console.log("CITY", city);
         let { newLocation, newDuration } = formatItineraryUpdate({
           responseDuration,
           location: itinerary.data[0],
@@ -138,7 +137,7 @@ const finishingItinerary = ({ itineraryId, res }) => {
           itinerary.endTime - itinerary.startTime - newDuration >
           60 * 60 * 1000
         ) {
-          //check to see if user decided to end it early, then we don't adjust last locations times
+          //check to see if user decided to end it early, then we don't adjust last location times
           return Itinerary.findByIdAndUpdate(
             itinerary._id,
             {
@@ -183,7 +182,6 @@ const finishingItinerary = ({ itineraryId, res }) => {
 //private methods
 const googleRequest = ({ origins, destinations, departure_time, mode }) => {
   return new Promise((resolve, reject) => {
-    console.log(mode);
     googleMapsClient
       .distanceMatrix({
         origins: [origins],
@@ -200,9 +198,6 @@ const googleRequest = ({ origins, destinations, departure_time, mode }) => {
   });
 };
 
-const addMilliseconds = ({ initialTime, duration }) => {
-  return moment(initialTime).add(duration, "ms").valueOf();
-};
 const formatOriginsDestinations = ({ origin, destination }) => {
   return {
     departure_time: new Date(origin.departureTime),
@@ -223,17 +218,9 @@ const formatItineraryUpdate = ({
     newLocation,
     newDuration;
 
-  newArrivalTime = addMilliseconds({
-    initialTime: lastLocation.departureTime,
-    duration: responseDuration
-  });
+  newArrivalTime = lastLocation.departureTime + responseDuration;
   randomDuration = section ? timeInSections[section] : 0;
-  newDepartureTime = randomDuration
-    ? addMilliseconds({
-        initialTime: newArrivalTime,
-        duration: randomDuration
-      })
-    : null;
+  newDepartureTime = randomDuration ? newArrivalTime + randomDuration : null;
   newLocation = location;
   newLocation.arrivalTime = newArrivalTime;
   newLocation.departureTime = newDepartureTime;
