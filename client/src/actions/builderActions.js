@@ -1,6 +1,12 @@
 import axios from "axios";
 import { getFinalItinerary } from "./itineraryActions";
-import { SET_DURATION } from "./types";
+import {
+  SET_DURATION,
+  CHANGE_LAST_FOOD,
+  TOGGLE_MEALS_INCLUSION
+} from "./types";
+import { deleteSelectedLocation } from "./locationsActions";
+import FacebookAuthHelper from "../helpers/facebookAuthHelper";
 
 export function addLocationToItinerary(
   location,
@@ -21,11 +27,23 @@ export function addLocationToItinerary(
           throw new Error("Response not ok");
         }
         dispatch(setDuration(response.data));
+        if (section === "food") {
+          dispatch(changeLastFood(true));
+        } else {
+          dispatch(changeLastFood(false));
+        }
+        dispatch(deleteSelectedLocation({ location, section }));
         if (
           itinerary.endTime - itinerary.startTime - response.data.duration <=
           60 * 60 * 1000
         ) {
-          dispatch(getFinalItinerary(itineraryId, history));
+          dispatch(
+            getFinalItinerary(
+              itineraryId,
+              history,
+              FacebookAuthHelper.makeFBQS()
+            )
+          );
         }
       })
       .catch(function(error) {
@@ -38,5 +56,17 @@ export function setDuration(data) {
   return {
     type: SET_DURATION,
     data
+  };
+}
+export function changeLastFood(data) {
+  return {
+    type: CHANGE_LAST_FOOD,
+    data
+  };
+}
+
+export function toggleMealsInclusion() {
+  return {
+    type: TOGGLE_MEALS_INCLUSION
   };
 }

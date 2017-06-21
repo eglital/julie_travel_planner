@@ -2,11 +2,12 @@ const app = require("../server");
 const mongoose = require("mongoose");
 const Itinerary = mongoose.model("Itinerary");
 const request = require("request");
+const { hashId, checkHash } = require("../helpers/hashItineraryId");
 
 describe("Google API", () => {
   const baseUrl = "http://localhost:8888";
   const apiUrl = baseUrl + "/api/itinerary";
-  var originalTimeout;
+  let originalTimeout;
   let server, itinerary;
 
   beforeAll(done => {
@@ -27,6 +28,7 @@ describe("Google API", () => {
       startTime: new Date(2017, 6, 12, 10, 0, 0).valueOf(),
       endTime: new Date(2017, 6, 12, 22, 0, 0).valueOf(),
       duration: 100000,
+      transportationMode: "driving",
       data: [
         {
           departureTime: new Date(2017, 6, 12, 10, 0, 0).valueOf(),
@@ -73,7 +75,7 @@ describe("Google API", () => {
             isOpen: true,
             hours: "Open until 9:00 PM"
           },
-          itineraryId: itinerary._id,
+          itineraryId: hashId(itinerary._id),
           section: "food"
         }
       },
@@ -85,13 +87,16 @@ describe("Google API", () => {
   });
 
   it("returns the final itinerary", done => {
-    request.get(`${apiUrl}/final/${itinerary._id}`, (err, res, body) => {
-      let result = JSON.parse(body);
-      expect(result.itinerary.length).toBe(3);
-      expect(result.itinerary[result.itinerary.length - 1].lat).toEqual(
-        result.itinerary[0].lat
-      );
-      done();
-    });
+    request.get(
+      `${apiUrl}/final/${hashId(itinerary._id)}`,
+      (err, res, body) => {
+        let result = JSON.parse(body);
+        expect(result.itinerary.data.length).toBe(3);
+        expect(
+          result.itinerary.data[result.itinerary.data.length - 1].lat
+        ).toEqual(result.itinerary.data[0].lat);
+        done();
+      }
+    );
   });
 });

@@ -1,5 +1,11 @@
-import { SET_ITINERARY_DATA, SET_FINAL_ITINERARY } from "./types";
+import {
+  SET_ITINERARY_DATA,
+  SET_FINAL_ITINERARY,
+  CHANGE_TRANSPORTATION_MODE
+} from "./types";
 import itineraryHelper from "../helpers/itineraryHelper";
+import { setDuration, changeLastFood } from "./builderActions";
+import { deleteLocationsData } from "./locationsActions";
 import axios from "axios";
 
 export function setItineraryData(data) {
@@ -10,6 +16,7 @@ export function setItineraryData(data) {
 }
 
 export function getFinalItinerary(itineraryId, history) {
+  let qs = localStorage.getItem("facebookAuth");
   return dispatch => {
     axios
       .get(
@@ -22,11 +29,13 @@ export function getFinalItinerary(itineraryId, history) {
         itineraryHelper.setItineraryObj(itineraryId);
         dispatch(
           setFinalItinerary({
-            finalItinerary: response.data.itinerary,
-            id: itineraryId
+            itinerary: response.data.itinerary
           })
         );
         history.push(`/itinerary-overview/${itineraryId}`);
+        dispatch(setDuration({ duration: 0 }));
+        dispatch(deleteLocationsData());
+        dispatch(changeLastFood(false));
       })
       .catch(function(error) {
         console.log("Error:", error);
@@ -53,13 +62,19 @@ export function getSavedItinerary(itineraryId) {
         }
         dispatch(
           setFinalItinerary({
-            finalItinerary: response.data.itinerary,
-            id: itineraryId
+            itinerary: response.data.itinerary
           })
         );
       })
       .catch(function(error) {
         console.log("Error:", error);
       });
+  };
+}
+
+export function changeTransportationMode(data) {
+  return {
+    type: CHANGE_TRANSPORTATION_MODE,
+    data
   };
 }

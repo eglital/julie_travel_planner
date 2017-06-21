@@ -1,9 +1,13 @@
 const Itinerary = require("../models").Itinerary;
+const { hashId } = require("./hashItineraryId");
+const moment = require("moment");
 
 function initialFourSquareRequest(InitialRequestObject, next) {
-  const sanitizedRequest = sanitizeRequestObject(InitialRequestObject);
+  console.log(InitialRequestObject);
+  setUpPrefs(InitialRequestObject);
+  sanitizeRequestObject(InitialRequestObject);
   const apiStrings = InitialRequestObject.categories.map(category => {
-    return fourSquareStringBuilder(category, sanitizedRequest);
+    return fourSquareStringBuilder(category, InitialRequestObject);
   });
   const requestArray = apiStrings.map(requestString => fetch(requestString));
 
@@ -16,18 +20,28 @@ function initialFourSquareRequest(InitialRequestObject, next) {
       let fullListOfChoices = buildListOfChoices(data);
       const itinerary = createItinary(InitialRequestObject);
 
-      // const locations = {};
-      // InitialRequestObject.categories.forEach((category, index) => {
-      //   locations[category] = fullListOfChoices[index];
-      // });
+      for (let i = 3; i < fullListOfChoices.length; i++) {
+        if (i % 2 !== 0) {
+          fullListOfChoices[1] = fullListOfChoices[1].concat(
+            fullListOfChoices[i]
+          );
+        } else {
+          fullListOfChoices[2] = fullListOfChoices[2].concat(
+            fullListOfChoices[i]
+          );
+        }
+      }
+      if (!InitialRequestObject.includeMeals) {
+        fullListOfChoices[0] = [];
+      }
       const initialResponseObject = {
         locations: {
-          food: fullListOfChoices[0],
-          places: fullListOfChoices[1],
-          sights: fullListOfChoices[2]
+          food: fullListOfChoices[0] || [],
+          places: fullListOfChoices[1] || [],
+          sights: fullListOfChoices[2] || []
         },
         itinerary: {
-          id: itinerary.id,
+          id: hashId(itinerary.id),
           startTime: itinerary.startTime,
           endTime: itinerary.endTime,
           duration: 0
@@ -39,14 +53,28 @@ function initialFourSquareRequest(InitialRequestObject, next) {
     .catch(next);
 }
 
-function spontaneousFourSquareRequest() {
-  //
-}
 /////////////////////////////////////////////
 //private functions
 /////////////////////////////////////////////
 
+function setUpPrefs(requestObject) {
+  requestObject.categories = requestObject.preferences;
+  if (!requestObject.categories) {
+    requestObject.categories = ["food", "outdoors", "arts"];
+  } else {
+    requestObject.categories.unshift("food");
+  }
+
+  // walking or driving
+  if (requestObject.transportationMode === "walking") {
+    requestObject.radius = 1500;
+  } else {
+    requestObject.radius = 15000;
+  }
+}
+
 function sanitizeRequestObject(requestObject) {
+  // requestObject.transportationMode = requestObject.transportationMode.toString();
   requestObject.startTime = new Number(requestObject.startTime);
   requestObject.endTime = new Number(requestObject.endTime);
   requestObject.lat = Number(requestObject.startingLocation[0]);
@@ -57,7 +85,7 @@ function sanitizeRequestObject(requestObject) {
 function fourSquareStringBuilder(category, iro) {
   const clientId = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
-  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=15000&venuePhotos=1&section=${category}&client_id=${clientId}&client_secret=${secret}`;
+  return `https://api.foursquare.com/v2/venues/explore?v=20131016&ll=${iro.lat},${iro.lng}&radius=${iro.radius}&venuePhotos=1&limit=35&section=${category}&client_id=${clientId}&client_secret=${secret}`;
 }
 
 function buildListOfChoices(data) {
@@ -78,11 +106,13 @@ function buildListOfChoices(data) {
       if (
         !completeDict[item.venue.name] &&
         notGym(item.venue.categories[0].name) &&
-        notGym(item.venue.name)
+        notGym(item.venue.name) &&
+        notFoodInWrongPlaces(item.venue.categories[0].name, index)
       ) {
         const locationObject = {};
         locationObject.name = item.venue.name;
-        locationObject.link = `http://foursquare.com/v/${item.venue.id}?ref= ${process.env.CLIENT_ID}`;
+        locationObject.link = `http://foursquare.com/v/${item.venue
+          .id}?ref= ${process.env.CLIENT_ID}`;
         locationObject.address = item.venue.location.address;
         locationObject.lat = item.venue.location.lat;
         locationObject.lng = item.venue.location.lng;
@@ -90,6 +120,8 @@ function buildListOfChoices(data) {
         if (item.tips !== undefined) {
           locationObject.tip = item.tips[0].text;
           locationObject.photo = item.tips[0].photourl;
+        } else {
+          locationObject.tip = "No additional information available.";
         }
         if (item.venue.photos.count) {
           let prefix = item.venue.photos.groups[0].items[0].prefix;
@@ -100,8 +132,9 @@ function buildListOfChoices(data) {
           locationObject.photo = tempPhoto[index];
         }
         if (item.venue.hours) {
+          const hours = parseHours(item.venue.hours.status);
           locationObject.isOpen = item.venue.hours.isOpen;
-          locationObject.hours = item.venue.hours.status;
+          locationObject.hours = hours;
         }
         completeDict[item.venue.name] = true;
         array.push(locationObject);
@@ -115,6 +148,7 @@ function createItinary(InitialRequestObject) {
   return new Itinerary({
     startTime: InitialRequestObject.startTime,
     endTime: InitialRequestObject.endTime,
+    transportationMode: InitialRequestObject.transportationMode,
     data: [
       {
         arrivalTime: null,
@@ -129,6 +163,36 @@ function createItinary(InitialRequestObject) {
 function notGym(category) {
   let regex = /dojo|fitness|fittness/gi;
   return !regex.test(category);
+}
+
+function notFoodInWrongPlaces(name, index) {
+  if (index === 0) {
+    return true;
+  } else if (
+    /bar|restaurant|kitchen|grill|buffet|sandwich|steak|walmart|pub|brewery|warehouse|big\sbox\sstore|grocrey/gi.test(
+      name
+    )
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function parseHours(status) {
+  let hours = {};
+  if (/\bopen\b.*?\b[0-9].*/gi.test(status)) {
+    const arr = status.split(" ");
+    hours.close = moment(arr[2] + arr[3], "HH:mm").toDate().getTime();
+  }
+  if (status && status.split(" ").length > 4) {
+    hours.open = null;
+  } else if (/[0-9]/gi.test(status) && /close/gi.test(status)) {
+    const arr = status.split(" ");
+    hours.open = moment(arr[2] + arr[3], "HH:mm").toDate().getTime();
+  }
+
+  return hours;
 }
 
 module.exports = {

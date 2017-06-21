@@ -1,71 +1,69 @@
-import React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
-import { Card, CardBlock, CardTitle, Row, Col } from "reactstrap";
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { Card, CardBlock, CardTitle, Row, Col } from 'reactstrap';
+import Dotdotdot from 'react-dotdotdot';
+import determineColor from '../helpers/timeColor';
 
-// <img style={{maxWidth:75, maxHeight:75}}src={locationData.photo || "https://placeholdit.co//i/100x100"} alt={locationData.name}/>
-let locationImgStyle = function(photo) {
-  return {
-    width: 75,
-    height: 75,
-    backgroundImage: `url(${photo})`,
-    backgroundSize: "cover",
-    flex: "0 0 auto"
-  };
-};
+let counter = 0;
+
 const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
+  let styles = determineColor(counter);
+  counter++;
   return (
-    <Row className="travel" style={{ marginTop: "10px", marginBottom: "10px" }}>
-      <Col xs="3">
-        <table style={{ fontSize: "14px" }}>
-          <tr>
-            <td>
-              <div style={{ position: "absolute", top: "0px", right: "0px" }}>
-                {" "}{arrivalTime && moment(arrivalTime).format("LT")}
-              </div>
-              <br />
-              <div
-                style={{ position: "absolute", bottom: "0px", right: "0px" }}
-              >
-                {" "}{departureTime && moment(departureTime).format("LT")}
-              </div>
-            </td>
-          </tr>
+    <Row
+      className="travel"
+      style={{ paddingLeft: '15px', marginTop: '10px', marginBottom: '10px' }}
+    >
+      <Col xs="2" md={{ size: '4' }}>
+        <table style={{ fontSize: '14px' }}>
+          <tbody>
+
+            <tr>
+              <td>
+                <div style={styles[0]}>
+                  {' '}{arrivalTime && moment(arrivalTime).format('LT')}
+                </div>
+                <br />
+                <div style={styles[1]}>
+                  {' '}{departureTime && moment(departureTime).format('LT')}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
         </table>
       </Col>
-      <Col xs="9">
-        <a href={locationData.link} style={{ textDecoration: "none" }}>
-          <Card style={{ height: "75px" }}>
-            <CardBlock style={{ padding: "0px" }}>
+      <Col xs="10" sm={{ size: '5' }}>
+        <a href={locationData.link} style={{ textDecoration: 'none' }}>
+          <Card style={styles[2]}>
+            <CardBlock style={{ padding: '5px' }}>
               <div
                 style={{
-                  display: "inline-block",
+                  display: 'inline-block',
                   backgroundImage: `url(${locationData.photo})`,
-                  backgroundPosition: "50% 50%",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "75px",
-                  width: "33%",
-                  height: "75px",
-                  float: "left",
-                  marginRight: "5%"
+                  backgroundPosition: '50% 50%',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '100%',
+                  width: '33%',
+                  height: '65px',
+                  float: 'left',
+                  marginRight: '5%'
                 }}
               />
-
-              <CardTitle
-                className="text-center"
+              <div
                 style={{
-                  position: "absolute",
-                  height: "75px",
-                  width: "70%",
-                  left: "30%",
-                  top: "10%",
-                  fontSize: "18px",
-                  marginTop: "15px",
-                  marginBottom: "2px"
+                  display: 'inline-block',
+                  width: '60%',
+                  height: '75px'
                 }}
               >
-                {locationData.name}
-              </CardTitle>
+                <CardTitle className="text-center" style={{ fontSize: '20px' }}>
+                  <Dotdotdot clamp={3}>
+                    {locationData.name}
+                  </Dotdotdot>
+                </CardTitle>
+              </div>
 
             </CardBlock>
           </Card>
@@ -74,6 +72,7 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
     </Row>
   );
 };
+
 LocationSegment.propTypes = {
   arrivalTime: PropTypes.number,
   departureTime: PropTypes.number,

@@ -11,14 +11,11 @@ import restaurantIcon from "../assets/restaurantIcon.png";
 import sightsIcon from "../assets/sightsIcon.png";
 import placesIcon from "../assets/placesIcon.png";
 import blankIcon from "../assets/blankIcon.png";
-import ShareTwitterButton from "./ShareTwitterButton";
-import ShareFacebookButton from "./ShareFacebookButton";
 
 //props needs to have itinerary array
 export default class GoogleMaps extends Component {
   constructor(props) {
     super(props);
-    console.log("PROPS", props);
     let markers = props.finalItinerary.map(marker => {
       return { ...marker, showInfo: false };
     });
@@ -29,7 +26,10 @@ export default class GoogleMaps extends Component {
   }
   componentDidMount() {
     const DirectionsService = new google.maps.DirectionsService();
-    const request = directionsRequest({ markers: this.state.markers });
+    const request = directionsRequest({
+      markers: this.state.markers,
+      transportation: this.props.transportation
+    });
     DirectionsService.route(request, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({ directions: result });
@@ -75,10 +75,10 @@ export default class GoogleMaps extends Component {
       <div
         className="googleMap"
         style={{
-          width: "50%",
-          height: "300px",
-          margin: "0 auto",
-          padding: 20
+          maxWidth: "600px",
+          width: "100%",
+          height: "500px",
+          margin: "0 auto"
         }}
       >
         <GoogleMapMarkers
@@ -102,6 +102,9 @@ const GoogleMapMarkers = withGoogleMap(props => {
         ? <GoogleMap
             defaultZoom={10}
             defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
+            defaultOptions={{
+              scrollwheel: false
+            }}
           >
             {markersList({ markers, onMarkerClick, onMarkerClose })}
             {directions &&
@@ -159,8 +162,9 @@ const infoContent = marker => {
     </div>
   );
 };
-const directionsRequest = ({ markers }) => {
-  let request = { travelMode: "DRIVING" };
+const directionsRequest = ({ markers, transportation }) => {
+  let request = {};
+  request.travelMode = transportation.toUpperCase();
   request.origin = {
     lat: markers[0].lat,
     lng: markers[0].lng

@@ -5,12 +5,32 @@
 //@import '~bootstrap/scss/bootstrap.scss';
 
 body {
-  margin: 0;
-  padding: 0;
+  // margin: 0;
+  // padding: 0;
   font-family: sans-serif;
 }
 
+.app-body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
+.app-footer {
+  flex: none; /* 2 */
+}
+
+.departure-times {
+  color: darkgrey;
+}
+
+.arrival-times {
+  color: black;
+}
+
+.hoverable:hover {
+  background-color: rgba(193, 125, 191, .2);
+}
 .location-segment{
 
   .location-segment-info {
@@ -35,3 +55,25 @@ body {
     z-index: 10;
 }
 
+.centered-axis-x {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.transportation-modes {
+  >div {
+    margin-right: 10px;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+.nav-hover {
+  color:rgb(146,146,146);
+  
+}
+.nav-hover:hover {
+  color: #C17DBF
+}

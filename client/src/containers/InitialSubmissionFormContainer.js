@@ -1,38 +1,77 @@
 import React, { Component } from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
-import { fetchLocationsData, setFetching } from "../actions/locationsActions";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import {
+  fetchLocationsData,
+  setFetching,
+  fetchLocationsDataFailure
+}
+from "../actions/locationsActions";
+import {
+  toggleMealsInclusion
+}
+from '../actions/builderActions';
+import {
+  connect
+}
+from "react-redux";
+import {
+  withRouter
+}
+from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
 import "../stylesheets/loading.css";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { changeTransportationMode } from "../actions/itineraryActions";
 
-function getNextHour() {
-  let ROUNDING = 60 * 60 * 1000; /*ms*/
-  let start = Date.now();
-  return Math.ceil(+start / ROUNDING) * ROUNDING;
+//references
+import preferences from "../references/preferences";
+import modesOfTransportation from "../references/modesOfTransportation";
+
+import TimeHelper from "../helpers/timeHelper";
+
+function initPreferences(preferences) {
+  const prefs = {};
+  preferences.forEach(pref => {
+    prefs[pref] = true;
+  });
+  return prefs;
 }
 
-const Loader = () => <div className="loader">Loading...</div>;
+const Loader = () => <div className="loader" />;
 
 class InitialSubmissionFormContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
+    //Determine if location is required
+    let geolocationPermission = true;
+    navigator.permissions.query({'name': 'geolocation'})
+    .then( permission => {
+      if (permission.state === 'denied'){
+        geolocationPermission = false;
+      }
+    });
+
+
     this.state = {
-      nextHour: getNextHour(),
-      startTime: getNextHour(),
-      endTime: getNextHour() + 2 * 60 * 60 * 1000,
+      nextHour: TimeHelper.getNextHour(),
+      startTime: TimeHelper.getNextHour(),
+      endTime: TimeHelper.getNextHour() + 2 * 60 * 60 * 1000,
       startingLocation: null,
       address: "",
       addressError: "",
       error: null,
-      validItinerary: false
+      validItinerary: false,
+      preferences: initPreferences(preferences),
+      includeMeals: this.props.builder.mealsIncluded,
+      requireAddress: !geolocationPermission
     };
   }
 
   componentDidMount() {
+    window.scrollTo(-10, -10);
+
     //check localStorage for itinerary: id
-    console.log("component did mount");
     if (ItineraryHelper.validItinerary()) {
       this.setState({
         validItinerary: ItineraryHelper.getItineraryObj()
@@ -46,13 +85,35 @@ class InitialSubmissionFormContainer extends Component {
 
   componentWillReceiveProps(newProps) {
     //if locations.data is now populated, redirect them to itinerary-creation
+    /**
+     * Pattern is to push from inside the lifecycle hooks from the
+     * containers which are responsible for dispatching the actions
+     *
+     * */
     if (Object.keys(newProps.locations.data).length > 0) {
-      this.props.history.push("/itinerary-creation");
+      let totalNumOfLocations = Object.keys(
+        newProps.locations.data
+      ).reduce((acc, loc) => {
+        return acc + newProps.locations.data[loc].length;
+      }, 0);
+      if (totalNumOfLocations === 0) {
+        this.setState({
+          error: "No selections returned! Try adding more preferences."
+        });
+      } else {
+        this.props.history.push("/itinerary-creation");
+      }
     }
     //if error in form
     if (newProps.locations.error) {
       this.setState({
         error: newProps.locations.error
+      });
+    }
+
+    if (newProps.builder.mealsIncluded !== this.state.includeMeals) {
+      this.setState({
+        includeMeals: !this.state.includeMeals
       });
     }
   }
@@ -78,20 +139,50 @@ class InitialSubmissionFormContainer extends Component {
     });
   };
 
-  onChangeAddress = address => this.setState({ address, addressError: "" });
+  onChangeAddress = address =>
+    this.setState({
+      address,
+      addressError: ""
+    });
   onAddressError = status => {
-    this.setState({ addressError: "No results" });
+    this.setState({
+      address: "",
+      addressError: "No results"
+    });
   };
+
+  //toggle the check box value,
+  //assumes default unchecked
+  onPrefChange = e => {
+    this.setState({
+      preferences: {
+        ...this.state.preferences,
+        [e.target.value]: !this.state.preferences[e.target.value]
+      }
+    });
+  };
+
+  onMealsChange = e => {
+    this.props.toggleMealsInclusion();
+  };
+
+  onTransporationModeChange = e => {
+    this.props.changeTransportationMode(e.target.value);
+  };
+
   onFormSubmit = e => {
     e.preventDefault();
     this.props.setFetching();
-
-    //construct simple json for form submission
+    //construct simple json for form submission from the state
     let data = {
       startTime: this.state.startTime,
-      endTime: this.state.endTime
+      endTime: this.state.endTime,
+      preferences: Object.keys(this.state.preferences).filter(pref => {
+        return this.state.preferences[pref];
+      }),
+      includeMeals: this.state.includeMeals,
+      transportationMode: this.props.itinerary.transportationMode
     };
-
     if (this.state.address) {
       //if user entered address
       geocodeByAddress(this.state.address)
@@ -121,10 +212,16 @@ class InitialSubmissionFormContainer extends Component {
           coordinates => {
             data.startingLocation = coordinates;
           },
-          navError => {
+          geolocationDeny => {
             //prompt with box for starting location and update the state?
             console.log("Please enter a starting location");
-            data.startingLocation = this.state.startingLocation; //or default values?
+            this.setState({
+              requireAddress: true,
+              error: "Please let us know where you'd like to start."
+            });
+            this.props.fetchLocationsDataFailure("Please let us know where you'd like to start.");
+            throw new Error("Need location");
+
           }
         )
         .then(form => {
@@ -133,14 +230,25 @@ class InitialSubmissionFormContainer extends Component {
           this.props.fetchLocationsData({
             formSubmission: data
           });
+        })
+        .catch(err => {
+          console.log("Error", err);
         });
     } else {
       /* geolocation IS NOT available */
+      //Set the address input field to required
     }
   };
   render() {
     if (this.props.locations.isFetching) {
-      return <Loader />;
+      return (
+        <div className="loadingContainer">
+          <p style={{ textAlign: "center", marginTop: "100px" }}>
+            Finding Cool Stuff In Your Area
+          </p>
+          <Loader />;
+        </div>
+      );
     } else {
       //create new rounded time to pass to submission form each time
       //consider moving to lifecycle hook to check for changes to avoid rerenders
@@ -151,6 +259,12 @@ class InitialSubmissionFormContainer extends Component {
           onEndTimeChange={this.onEndTimeChange}
           onAddressError={this.onAddressError}
           onChangeAddress={this.onChangeAddress}
+          onPrefChange={this.onPrefChange}
+          onMealsChange={this.onMealsChange}
+          onTransporationModeChange={this.onTransporationModeChange}
+          modesOfTransportation={modesOfTransportation}
+          currentModeOfTransportation={this.props.itinerary.transportationMode}
+          requireAddress={this.state.requireAddress}
           {...this.state}
         />
       );
@@ -160,7 +274,9 @@ class InitialSubmissionFormContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    locations: state.locations
+    locations: state.locations,
+    builder: state.builder,
+    itinerary: state.itinerary
   };
 }
 
@@ -169,8 +285,17 @@ function mapDispatchToProps(dispatch) {
     fetchLocationsData: form => {
       dispatch(fetchLocationsData(form));
     },
+    toggleMealsInclusion: () => {
+      dispatch(toggleMealsInclusion());
+    },
+    changeTransportationMode: mode => {
+      dispatch(changeTransportationMode(mode));
+    },
     setFetching: () => {
       dispatch(setFetching());
+    },
+    fetchLocationsDataFailure: (err) => {
+      dispatch(fetchLocationsDataFailure(err));
     }
   };
 }

@@ -30,60 +30,6 @@ app.use(function(req, res, next) {
 });
 app.use(cors());
 
-// ----------------------------------------
-// Cookies
-// ----------------------------------------
-// const cookieSession = require('cookie-session');
-
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['asdf1234567890qwer']
-// }));
-
-// app.use((req, res, next) => {
-//   res.locals.session = req.session;
-//   res.locals.currentUser = req.session.currentUser;
-//   next();
-// });
-
-// ----------------------------------------
-// Method Override
-// ----------------------------------------
-// app.use((req, res, next) => {
-//   var method;
-//   if (req.query._method) {
-//     method = req.query._method;
-//     delete req.query._method;
-//     for (let key in req.query) {
-//       req.body[key] = decodeURIComponent(req.query[key]);
-//     }
-//   } else if (typeof req.body === "object" && req.body._method) {
-//     method = req.body._method;
-//     delete req.body._method;
-//   }
-
-//   if (method) {
-//     method = method.toUpperCase();
-//     req.method = method;
-//   }
-
-//   next();
-// });
-
-// ----------------------------------------
-// Referrer
-// ----------------------------------------
-// app.use((req, res, next) => {
-//   req.session.backUrl = req.header("Referer") || "/";
-//   next();
-// });
-
-// ----------------------------------------
-// Public
-// ----------------------------------------
-// app.use(express.static(`${__dirname}/public`));
-
-// ----------------------------------------
 // Logging
 // ----------------------------------------
 var morgan = require("morgan");
@@ -117,9 +63,16 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.end("API is working!");
 });
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
+
 const itineraryRoutes = require("./routes/index");
 app.use("/api", itineraryRoutes);
 
+const emailRoutes = require("./routes/emailRoutes");
+app.use("/api", emailRoutes);
+const userRoutes = require("./routes/userRoutes");
+app.use("/api", userRoutes);
 // ----------------------------------------
 // Error handler
 // ----------------------------------------
