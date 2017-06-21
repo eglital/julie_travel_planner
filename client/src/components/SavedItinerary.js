@@ -118,8 +118,9 @@ class SavedItinerary extends React.Component {
     return (
       <div>
         <Card
+          className="hoverable"
           onClick={this.toggle}
-          style={{ height: '40px', marginBottom: '10px' }}
+          style={{ height: '40px', marginBottom: '10px', cursor: 'pointer' }}
         >
           <CardBlock style={{ padding: '10px' }}>
             <CardTitle className="text-center" onClick={this.toggle} tag="h6">
@@ -147,7 +148,7 @@ class SavedItinerary extends React.Component {
             </span>
             <span
               onClick={this.toggle}
-              style={{ position: 'absolute', right: '25px' }}
+              style={{ position: 'absolute', right: '25px', cursor: 'pointer' }}
             >
               x
             </span>
@@ -164,12 +165,19 @@ class SavedItinerary extends React.Component {
                 size="sm"
                 data-itinerary-id={itinerary._id}
                 onClick={this.toggleAndDelete}
+                style={{ cursor: 'pointer' }}
               >
                 Delete Itinerary
               </Button>
             </div>
             <div className="text-center">
-              <Button outline color="info" size="sm" onClick={this.toggle}>
+              <Button
+                outline
+                color="info"
+                size="sm"
+                onClick={this.toggle}
+                style={{ cursor: 'pointer' }}
+              >
                 Close Window
               </Button>
             </div>
