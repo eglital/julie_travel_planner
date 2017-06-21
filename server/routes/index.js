@@ -42,6 +42,7 @@ const {
 // });
 
 router.post("/itinerary/start", (req, res, next) => {
+  console.log("starting itinerary");
   initialFourSquareRequest(req.body.formSubmission, next)
     .then(responseObject => {
       res.send(responseObject);
@@ -50,7 +51,6 @@ router.post("/itinerary/start", (req, res, next) => {
 });
 
 router.put("/itinerary/select", (req, res, next) => {
-  // need to get this from FE
   console.log("checking distance");
   let { location, itineraryId, section } = req.body;
   itineraryId = checkHash(itineraryId);

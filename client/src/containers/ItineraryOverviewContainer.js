@@ -14,7 +14,6 @@ class ItineraryOverviewContainer extends Component {
   }
 
   render() {
-    console.log("Transport:", this.props.transportationMode);
     if (!this.props.finalItinerary) {
       return <Redirect to="/PageNotFound" />;
     } else {

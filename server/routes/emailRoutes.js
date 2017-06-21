@@ -8,8 +8,7 @@ var templateDir = path.join(__dirname, "templates", "itinerary-email");
 var template = new EmailTemplate(templateDir);
 
 router.post("/service/email", (req, res, next) => {
-  const text = "Success";
-  console.log(req.body);
+  console.log("sending email");
   const { itinerary, name, id, email } = req.body;
   template.render({ itinerary, name, id }).then(results => {
     const options = {
