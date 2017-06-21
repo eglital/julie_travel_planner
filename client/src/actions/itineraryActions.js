@@ -2,11 +2,12 @@ import {
   SET_ITINERARY_DATA,
   SET_FINAL_ITINERARY,
   CHANGE_TRANSPORTATION_MODE
-} from './types';
-import itineraryHelper from '../helpers/itineraryHelper';
-import { setDuration, changeLastFood } from './builderActions';
-import { deleteLocationsData } from './locationsActions';
-import axios from 'axios';
+} from "./types";
+import itineraryHelper from "../helpers/itineraryHelper";
+import { setDuration, changeLastFood } from "./builderActions";
+import { deleteLocationsData } from "./locationsActions";
+import axios from "axios";
+import FacebookAuthHelper from "../helpers/facebookAuthHelper";
 
 export function setItineraryData(data) {
   return {
@@ -15,13 +16,14 @@ export function setItineraryData(data) {
   };
 }
 
-export function getFinalItinerary(itineraryId, history, fbqs) {
+export function getFinalItinerary(itineraryId, history) {
+  let qs = localStorage.getItem("facebookAuth");
   return dispatch => {
     axios
-      .get(`/api/itinerary/final/${itineraryId}?${fbqs}`)
+      .get(`/api/itinerary/final/${itineraryId}?facebookjwt=${qs}`)
       .then(response => {
         if (response.status !== 200) {
-          throw new Error('Response not ok');
+          throw new Error("Response not ok");
         }
         itineraryHelper.setItineraryObj(itineraryId);
         dispatch(
@@ -35,7 +37,7 @@ export function getFinalItinerary(itineraryId, history, fbqs) {
         dispatch(changeLastFood(false));
       })
       .catch(function(error) {
-        console.log('Error:', error);
+        console.log("Error:", error);
       });
   };
 }
@@ -53,7 +55,7 @@ export function getSavedItinerary(itineraryId) {
       .get(`/api/itinerary/saved/${itineraryId}`)
       .then(response => {
         if (response.status !== 200) {
-          throw new Error('Response not ok');
+          throw new Error("Response not ok");
         }
         dispatch(
           setFinalItinerary({
@@ -62,7 +64,7 @@ export function getSavedItinerary(itineraryId) {
         );
       })
       .catch(function(error) {
-        console.log('Error:', error);
+        console.log("Error:", error);
       });
   };
 }

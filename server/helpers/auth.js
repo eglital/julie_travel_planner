@@ -12,10 +12,5 @@ function verifyJwt(jwtString) {
     issuer: "JULIE"
   });
 }
-function verifyJwt(jwtString) {
-  return jwt.verify(jwtString, process.env.JWT_SECRET, {
-    issuer: "JULIE"
-  });
-}
 
 module.exports = { createJwt, verifyJwt };

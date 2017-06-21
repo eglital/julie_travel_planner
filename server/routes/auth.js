@@ -34,7 +34,7 @@ router.post("/facebook", (req, res) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       // console.log(user);
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      res.send(createJwt(user._id));
+      res.send({ facebookjwt: createJwt({ userId: user._id }) });
     })
     .catch(function(err) {
       res.send("Failed!" + err.message);
@@ -43,7 +43,7 @@ router.post("/facebook", (req, res) => {
 
 var providers = {
   facebook: {
-    url: "https://graph.facebook.com/me"
+    url: "https://graph.facebook.com/me?fields=id,name,email"
   }
 };
 

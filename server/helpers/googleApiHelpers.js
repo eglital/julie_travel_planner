@@ -21,14 +21,14 @@ const addItineraryToUser = ({ facebookjwt, itineraryId }) => {
   return new Promise((resolve, reject) => {
     if (facebookjwt) {
       try {
-        let userId = verifyJwt(facebookjwt);
+        let userId = verifyJwt(facebookjwt).userId;
         User.findByIdAndUpdate(userId, {
           $push: { itineraries: itineraryId }
         }).then(() => {
           resolve();
         });
       } catch (err) {
-        next(err);
+        reject(err);
       }
     } else {
       resolve();
