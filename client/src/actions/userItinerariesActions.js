@@ -28,8 +28,9 @@ export function fetchUserItinerariesData() {
         * userItineraries: []
          }
          * 
-         **/ 
-        dispatch(userItinerariesSuccess(data.userItineraries));
+         **/
+
+        dispatch(userItinerariesSuccess(data.itineraries));
       })
       .catch(err => {
         console.log("dispatching location failure", err);
