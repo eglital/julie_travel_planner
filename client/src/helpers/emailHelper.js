@@ -1,6 +1,11 @@
 import "isomorphic-fetch";
 import ApiResponseHelper from "./apiResponseHelper";
 
+export function emailFeedback(message) {
+  alert(message);
+}
+
+
 export function shareByEmail(form) {
   return dispatch => {
     const myHeaders = new Headers({
