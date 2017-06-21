@@ -125,15 +125,35 @@ const finishingItinerary = ({ itineraryId, res }) => {
           lastLocation: itinerary.data[itinerary.data.length - 1],
           duration: itinerary.duration
         });
-
-        return Itinerary.findByIdAndUpdate(
-          itinerary._id,
-          {
-            $push: { data: newLocation },
-            duration: newDuration
-          },
-          { new: true }
-        );
+        if (newDuration + itinerary.startTime > itinerary.endTime) {
+          //checking to see if user is going to be late. if so adjust time to spend in the last location
+          let difference =
+            itinerary.endTime - newDuration - itinerary.startTime;
+          newLocation.arrivalTime += difference;
+          let lastLocation = itinerary.data[itinerary.data.length - 1];
+          lastLocation.departureTime += difference;
+          return Itinerary.findByIdAndUpdate(itinerary._id, {
+            $pull: { data: { name: lastLocation.name } }
+          }).then(() => {
+            return Itinerary.findByIdAndUpdate(
+              itinerary._id,
+              {
+                $pushAll: { data: [lastLocation, newLocation] },
+                duration: newDuration
+              },
+              { new: true }
+            );
+          });
+        } else {
+          return Itinerary.findByIdAndUpdate(
+            itinerary._id,
+            {
+              $push: { data: newLocation },
+              duration: newDuration
+            },
+            { new: true }
+          );
+        }
       })
       .then(itinerary => {
         if (!itinerary) reject(err);
