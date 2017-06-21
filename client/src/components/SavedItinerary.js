@@ -124,13 +124,14 @@ class SavedItinerary extends React.Component {
         >
           <CardBlock style={{ padding: '10px' }}>
             <CardTitle className="text-center" onClick={this.toggle} tag="h6">
+              {itinerary.city} -
               {moment(itinerary.data[0].departureTime).format('MMM Do YY')}
-              {' '}
+              {/* {' '}
               -
               {' '}
               {itinerary.data.length - 2}
               {' '}
-              {itinerary.data.length === 3 ? 'place' : 'places'}
+              {itinerary.data.length === 3 ? 'place' : 'places'} */}
             </CardTitle>
           </CardBlock>
         </Card>
@@ -138,13 +139,14 @@ class SavedItinerary extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>
             <span style={{ fontSize: '16px' }}>
+              {itinerary.city} -
               {moment(itinerary.data[0].departureTime).format('MMM Do YY')}
-              {' '}
+              {/* {' '}
               -
               {' '}
               {itinerary.data.length - 2}
               {' '}
-              {itinerary.data.length === 3 ? 'place' : 'places'}
+              {itinerary.data.length === 3 ? 'place' : 'places'} */}
             </span>
             <span
               onClick={this.toggle}
