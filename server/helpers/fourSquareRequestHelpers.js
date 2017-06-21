@@ -1,5 +1,4 @@
 const Itinerary = require("../models").Itinerary;
-const { pickRandomTip } = require("./emptyTips");
 const { hashId } = require("./hashItineraryId");
 const moment = require("moment");
 
@@ -54,9 +53,6 @@ function initialFourSquareRequest(InitialRequestObject, next) {
     .catch(next);
 }
 
-function spontaneousFourSquareRequest() {
-  //
-}
 /////////////////////////////////////////////
 //private functions
 /////////////////////////////////////////////
