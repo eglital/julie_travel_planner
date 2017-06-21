@@ -9,7 +9,8 @@ hello.init({
 });
 //<a href={`https://www.facebook.com/v2.9/dialog/oauth?client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}&redirect_uri=${"https://localhost:8081/sweettastybananas"}`}>Login with Facebook</a>
 let NavbarRefresh;
-const LoginButton = () => {
+const LoginButton = ({loginUser}) => {
+    NavbarRefresh = loginUser;
   return (
     <Button onClick={() =>hello('facebook').login({ scope: "email" })}>
       Login with Facebook
