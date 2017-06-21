@@ -108,39 +108,44 @@ const finishingItinerary = ({ itineraryId, res }) => {
           origin: itinerary.data[itinerary.data.length - 1],
           destination: itinerary.data[0]
         });
-        googleMapsClient
-          .reverseGeocode({
-            latlng: [itinerary.data[0].lat, itinerary.data[0].lng],
-            result_type: ["locality"]
-          })
-          .asPromise()
-          .then(response => {
-            console.log("CIT", response.json.results[0].addressComponents[0]);
-            return googleRequest({
-              origins,
-              destinations,
-              departure_time,
-              mode: itinerary.transportationMode
-            });
-          });
+        return googleRequest({
+          origins,
+          destinations,
+          departure_time,
+          mode: itinerary.transportationMode
+        });
       })
       .then(response => {
         //response value in seconds, make it miliseconds
         responseDuration =
           response.json.rows[0].elements[0].duration.value * 1000;
-        const { newLocation, newDuration } = formatItineraryUpdate({
+        let { newLocation, newDuration } = formatItineraryUpdate({
           responseDuration,
           location: itinerary.data[0],
           lastLocation: itinerary.data[itinerary.data.length - 1],
           duration: itinerary.duration
         });
-        if (newDuration + itinerary.startTime > itinerary.endTime) {
-          //checking to see if user is going to be late. if so adjust time to spend in the last location
+        if (
+          itinerary.endTime - itinerary.startTime - newDuration >
+          60 * 60 * 1000
+        ) {
+          //check to see if user decided to end it early, then we don't adjust last locations times
+          return Itinerary.findByIdAndUpdate(
+            itinerary._id,
+            {
+              $push: { data: newLocation },
+              duration: newDuration
+            },
+            { new: true }
+          );
+        } else {
+          //if user is going to be late or has extra time to spare  adjust time to spend in the last location
           let difference =
             itinerary.endTime - newDuration - itinerary.startTime;
-          newLocation.arrivalTime += difference;
           let lastLocation = itinerary.data[itinerary.data.length - 1];
+          newLocation.arrivalTime += difference;
           lastLocation.departureTime += difference;
+          newDuration += difference;
           return Itinerary.findByIdAndUpdate(itinerary._id, {
             $pull: { data: { name: lastLocation.name } }
           }).then(() => {
@@ -153,15 +158,6 @@ const finishingItinerary = ({ itineraryId, res }) => {
               { new: true }
             );
           });
-        } else {
-          return Itinerary.findByIdAndUpdate(
-            itinerary._id,
-            {
-              $push: { data: newLocation },
-              duration: newDuration
-            },
-            { new: true }
-          );
         }
       })
       .then(itinerary => {
