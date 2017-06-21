@@ -48,8 +48,8 @@ body {
     margin-right: 0px; }
 
 .nav-hover {
-  font-size:20px;
-  color: #929292; }
+  color: #929292;
+  font-size: 20px; }
 
 .nav-hover:hover {
   color: #C17DBF; }
