@@ -54,9 +54,6 @@ function initialFourSquareRequest(InitialRequestObject, next) {
     .catch(next);
 }
 
-function spontaneousFourSquareRequest() {
-  //
-}
 /////////////////////////////////////////////
 //private functions
 /////////////////////////////////////////////

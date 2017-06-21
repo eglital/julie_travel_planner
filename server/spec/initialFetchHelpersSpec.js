@@ -71,7 +71,6 @@ describe("This is a section of testes for the initial four square request", () =
           }
         },
         (err, res, body) => {
-          console.log(body);
           expect(body.itinerary.duration).toEqual(0);
           done();
         }
