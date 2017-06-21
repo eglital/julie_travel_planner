@@ -20,7 +20,7 @@ const SingleLocation = props => {
   return (
     <a
       href={location.link}
-      style={{ textDecoration: 'none' }}
+      style={{ textDecoration: 'none', cursor: 'pointer' }}
       target="_blank"
       rel="noopener noreferrer"
     >
