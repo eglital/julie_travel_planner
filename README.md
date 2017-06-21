@@ -32,13 +32,19 @@
 $ npm install
 ```
 
+Start the Mongo database: this needs to be in its own tab
+
+```bash
+$ mg
+```
+
 Start the server:
 
 ```bash
-$ nodemon server/server.js
+$ nodemon server/server.js: this needs to be in its own tab
 ```
 
-Start the client:
+Start the client: this needs to be in its own tab
 
 ```bash
 $ cd client

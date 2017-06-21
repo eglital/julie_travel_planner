@@ -6,7 +6,8 @@ const LocationSelection = props => {
   console.log("render locationSelection");
   const { location, section, itineraryId, onClick } = props;
   if (!location.photo) {
-    location.photo = "./128.png";
+    location.photo =
+      "http://images.clipartpanda.com/smiley-face-clip-art-niXoRMbiB.png";
   }
 
   return (
