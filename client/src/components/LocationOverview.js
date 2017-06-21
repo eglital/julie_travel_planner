@@ -1,13 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import LocationSegment from "./LocationSegment";
-import TravelSegment from "./TravelSegment";
-import GoogleMaps from "./GoogleMaps";
-import { Link } from "react-router-dom";
-import { Row, Col, Button } from "reactstrap";
-import ShareTwitterButton from "./ShareTwitterButton";
-import ShareFacebookButton from "./ShareFacebookButton";
-import ShareEmailButton from "./ShareEmailButton";
+import React from 'react';
+import PropTypes from 'prop-types';
+import LocationSegment from './LocationSegment';
+import TravelSegment from './TravelSegment';
+import GoogleMaps from './GoogleMaps';
+import { Link } from 'react-router-dom';
+import { Row, Col, Button } from 'reactstrap';
+import ShareTwitterButton from './ShareTwitterButton';
+import ShareFacebookButton from './ShareFacebookButton';
+import ShareEmailButton from './ShareEmailButton';
 
 function makeOverview(finalItinerary, transportation) {
   return finalItinerary.map((location, index) => {
@@ -19,8 +19,8 @@ function makeOverview(finalItinerary, transportation) {
             arrivalTime={location.arrivalTime}
             departureTime={location.departureTime}
             locationData={{
-              name: "Ending Location",
-              photo: "/map.png"
+              name: 'Ending Location',
+              photo: '/map.png'
             }}
           />
         </div>
@@ -32,8 +32,8 @@ function makeOverview(finalItinerary, transportation) {
             arrivalTime={location.arrivalTime}
             departureTime={location.departureTime}
             locationData={{
-              name: "Starting Location",
-              photo: "/map.png"
+              name: 'Starting Location',
+              photo: '/map.png'
             }}
           />
           <TravelSegment
@@ -77,29 +77,24 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
         marginBottom: 20 /*Should be equal to the height of the footer*/
       }}
     >
-      <Row style={{ marginTop: "15px", marginBottom: "15px" }}>
+      <Row style={{ marginTop: '15px', marginBottom: '15px' }}>
         <Col className="text-center">
+          <p style={{ marginBottom: '0px' }}>Route by</p>
           <div>
-            <span>
-              Route by <h2
-                style={{
-                  width: "100%",
-                  color: "#C17DBF",
-                  marginBottom: "15px",
-                  textShadow: "-1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey"
-                }}
-              >
-                Julie
-              </h2>
-            </span>
+            <img
+              src="../logo.png"
+              height="40px"
+              alt="Julie Travel Planner"
+              style={{ marginBottom: '15px' }}
+            />
           </div>
           <Link to="/">
             <Button outline color="info" size="sm">Plan New Route</Button>
           </Link>
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: '10px' }}>
             <ShareFacebookButton
               finalItinerary={finalItinerary}
-              style={{ display: "inline" }}
+              style={{ display: 'inline' }}
             />
             <ShareTwitterButton finalItinerary={finalItinerary} />
             <ShareEmailButton
@@ -112,15 +107,15 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
 
       {makeOverview(finalItinerary, transportation)}
 
-      <Row style={{ marginTop: "15px" }}>
+      <Row style={{ marginTop: '15px' }}>
         <Col className="text-center">
           <Link to="/">
             <Button outline color="info" size="sm">Plan New Route</Button>
           </Link>
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: '10px' }}>
             <ShareFacebookButton
               finalItinerary={finalItinerary}
-              style={{ display: "inline" }}
+              style={{ display: 'inline' }}
             />
             <ShareTwitterButton finalItinerary={finalItinerary} />
             <ShareEmailButton
@@ -138,7 +133,7 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
             transportation={transportation}
           />
         </Col>
-        <Col xs="1" style={{ paddingLeft: "0px" }} />
+        <Col xs="1" style={{ paddingLeft: '0px' }} />
       </Row>
     </div>
   );

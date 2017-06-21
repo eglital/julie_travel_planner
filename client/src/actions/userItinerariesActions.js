@@ -46,6 +46,11 @@ export function fetchUserItinerariesData() {
 
 export function deleteItinerary(itineraryId, itineraries) {
   let qs = localStorage.getItem('facebookAuth');
+
+  if (itineraries[itineraries.length - 1]._id === itineraryId) {
+    localStorage.removeItem('itinerary');
+  }
+
   let updatedItineraries = itineraries.filter(itinerary => {
     return itinerary._id !== itineraryId;
   });
