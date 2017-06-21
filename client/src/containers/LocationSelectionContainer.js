@@ -40,7 +40,7 @@ class LocationSelectionContainer extends Component {
       return <Redirect to="/PageNotFound" />;
     }
     return (
-      <Container>
+      <Container style={{ marginBottom: "50px" }}>
         <Row>
           <Col lg={{ size: 8, offset: 2 }}>
             <ProgressBar
