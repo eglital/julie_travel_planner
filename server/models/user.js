@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
-  email: [],
+  email: {
+    type: String
+  },
   name: {
     type: String
   },
@@ -25,9 +27,9 @@ UserSchema.statics.findOrCreateFacebook = function(profile) {
       return user;
     } else {
       return new User({
-        name: profile.displayName,
+        name: profile.name,
         facebookId: profile.id,
-        email: profile.emails
+        email: profile.email
       }).save();
     }
   });

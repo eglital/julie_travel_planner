@@ -43,7 +43,7 @@ router.post("/facebook", (req, res) => {
 
 var providers = {
   facebook: {
-    url: "https://graph.facebook.com/me"
+    url: "https://graph.facebook.com/me?fields=id,name,email"
   }
 };
 
