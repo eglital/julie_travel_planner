@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { getSavedItinerary } from "../actions/itineraryActions";
-import LocationOverview from "../components/LocationOverview";
-import { shareByEmail } from "../helpers/emailHelper";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { getSavedItinerary } from '../actions/itineraryActions';
+import LocationOverview from '../components/LocationOverview';
+import { shareByEmail } from '../helpers/emailHelper';
 
 class ItineraryOverviewContainer extends Component {
   componentDidMount() {
@@ -14,7 +14,6 @@ class ItineraryOverviewContainer extends Component {
   }
 
   render() {
-    console.log("Transport:", this.props.transportationMode);
     if (!this.props.finalItinerary) {
       return <Redirect to="/PageNotFound" />;
     } else {

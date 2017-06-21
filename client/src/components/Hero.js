@@ -9,7 +9,11 @@ const Hero = props => {
     >
       <Container fluid>
         <p style={{ marginBottom: '0px' }} className="lead text-center">
-          Let Julie build your itinerary for the day, complete with directions. Get started below!
+          Let
+          {' '}
+          <span style={{ color: '#C17DBF' }}>Julie</span>
+          {' '}
+          build your itinerary for the day, complete with directions. Get started below!
         </p>
 
         <p

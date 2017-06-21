@@ -50,6 +50,13 @@ class JulieNavbar extends React.Component {
                     </Link>
                   </NavItem>
                   <NavItem style={{ paddingLeft: '15px' }}>
+                    <Link to="/about" style={{ textDecoration: 'none' }}>
+                      <p className="nav-hover">
+                        About
+                      </p>
+                    </Link>
+                  </NavItem>
+                  <NavItem style={{ paddingLeft: '15px' }}>
                     <LogoutButton />
                   </NavItem>
                 </Nav>
@@ -58,6 +65,14 @@ class JulieNavbar extends React.Component {
                   navbar
                   style={{ textAlign: 'right', marginTop: '15px' }}
                 >
+                  <NavItem style={{ paddingLeft: '15px' }}>
+                    <Link to="/about" style={{ textDecoration: 'none' }}>
+                      <p className="nav-hover">
+                        About
+                      </p>
+                    </Link>
+                  </NavItem>
+
                   <NavItem>
                     <LoginButton loginUser={this.loginUser} />
                   </NavItem>
