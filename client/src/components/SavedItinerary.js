@@ -8,9 +8,72 @@ import {
   ModalBody,
   Button
 } from 'reactstrap';
-import moment from 'moment';
+import { connect } from 'react-redux';
 
-const SingleLocation = props => {};
+import moment from 'moment';
+import Dotdotdot from 'react-dotdotdot';
+import { deleteItinerary } from '../actions/itineraryActions';
+import fbAuthHelper from '../helpers/facebookAuthHelper';
+
+const SingleLocation = props => {
+  const { location } = props;
+  return (
+    <a href={location.link} style={{ textDecoration: 'none' }}>
+      <Card
+        className="hoverable"
+        style={{
+          marginBottom: '10px',
+          maxWidth: '500px',
+          borderColor: '#C17DBF',
+          cursor: 'pointer'
+        }}
+      >
+        <CardBlock style={{ padding: '10px' }}>
+          <div
+            style={{
+              display: 'inline-block',
+              backgroundImage: `url(${location.photo})`,
+              backgroundPosition: '50% 50%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '150px',
+              width: '33%',
+              height: '100px',
+              float: 'left',
+              marginRight: '5%'
+            }}
+          />
+          <div style={{ display: 'inline-block', float: 'left', width: '60%' }}>
+            <CardTitle
+              className="text-center"
+              style={{
+                color: 'black',
+                fontSize: '18px',
+                marginTop: '-2px',
+                marginBottom: '2px'
+              }}
+            >
+              <Dotdotdot clamp={1}>
+                {location.name}
+              </Dotdotdot>
+            </CardTitle>
+            <div
+              style={{
+                color: 'black',
+                fontSize: '14px',
+                height: '81px',
+                overflow: 'hidden'
+              }}
+            >
+              <Dotdotdot clamp={4}>
+                <strong>{location.category}</strong> - {location.tip}
+              </Dotdotdot>
+            </div>
+          </div>
+        </CardBlock>
+      </Card>
+    </a>
+  );
+};
 
 class SavedItinerary extends React.Component {
   constructor(props) {
@@ -26,14 +89,23 @@ class SavedItinerary extends React.Component {
     });
   };
 
+  toggleAndDelete = e => {
+    console.log(e.target.dataset);
+    this.toggle();
+    this.props.deleteItinerary(
+      e.currentTarget.dataset.itineraryId,
+      fbAuthHelper.makeFBQS()
+    );
+  };
+
   displayLocationsFromItinerary = itinerary => {
-    console.log('IT', itinerary);
     let locations = [];
     for (let i = 1; i < itinerary.length - 1; i++) {
       locations.push(
-        <p key={itinerary[i].name}>
-          This is a location ({itinerary[i].name})
-        </p>
+        <SingleLocation
+          location={itinerary[i]}
+          key={itinerary[i].departureTime}
+        />
       );
     }
 
@@ -42,7 +114,6 @@ class SavedItinerary extends React.Component {
 
   render() {
     const { itinerary } = this.props;
-
     return (
       <div>
         <Card
@@ -85,12 +156,22 @@ class SavedItinerary extends React.Component {
               Locations you visited during this trip:
             </div>
             {this.displayLocationsFromItinerary(itinerary.data)}
+            <div className="text-center" style={{ marginBottom: '10px' }}>
+              <Button
+                outline
+                color="warning"
+                size="sm"
+                data-itinerary-id={itinerary._id}
+                onClick={this.toggleAndDelete}
+              >
+                Delete Itinerary
+              </Button>
+            </div>
             <div className="text-center">
               <Button outline color="info" size="sm" onClick={this.toggle}>
                 Close Window
               </Button>
             </div>
-
           </ModalBody>
         </Modal>
       </div>
@@ -98,4 +179,12 @@ class SavedItinerary extends React.Component {
   }
 }
 
-export default SavedItinerary;
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteItinerary: (itineraryId, fbqs) => {
+      dispatch(deleteItinerary(itineraryId, fbqs));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SavedItinerary);

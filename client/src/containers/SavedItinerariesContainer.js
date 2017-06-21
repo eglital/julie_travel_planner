@@ -11,15 +11,6 @@ class ItineraryOverviewContainer extends Component {
     this.state = {
       modal: false
     };
-    // this.state = {
-    //   lastShown: null,
-    //   collapse: false,
-    //   savedItineraries: [
-    //     { date: Date.now(), locations: ['1', '2', '3'] },
-    //     { date: Date.now() - 3000, locations: ['10', '11'] },
-    //     { date: Date.now() - 5000, locations: ['14', '15', '16', '17'] }
-    //   ]
-    // };
   }
 
   componentDidMount() {
@@ -60,7 +51,7 @@ class ItineraryOverviewContainer extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("STATE", state);
+  console.log('STATE', state);
   return {
     userItineraries: state.userItineraries.data
   };
