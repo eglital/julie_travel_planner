@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from 'reactstrap';
-import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 import request from 'superagent';
 import hello from 'hellojs';
@@ -21,8 +19,6 @@ const LoginButton = ({ loginUser }) => {
     </p>
   );
 };
-
-LoginButton.propTypes = {};
 
 export default LoginButton;
 
