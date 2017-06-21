@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { hashId } = require("../helpers/hashItineraryId");
+var request = require("request");
 const { createJwt } = require("../helpers/auth");
+const User = require("../models").User;
 //
 // module.exports = passport => {
 //   router.get(
@@ -30,7 +31,10 @@ router.post("/facebook", (req, res) => {
       return User.findOrCreateFacebook(profile);
     })
     .then(user => {
-      res.send(createJwt(user));
+      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      // console.log(user);
+      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      res.send({ facebookjwt: createJwt({ userId: user._id }) });
     })
     .catch(function(err) {
       res.send("Failed!" + err.message);
@@ -39,7 +43,7 @@ router.post("/facebook", (req, res) => {
 
 var providers = {
   facebook: {
-    url: "https://graph.facebook.com/me"
+    url: "https://graph.facebook.com/me?fields=id,name,email"
   }
 };
 
@@ -52,10 +56,14 @@ function validateWithProvider(network, socialToken) {
         qs: { access_token: socialToken }
       },
       (error, response, body) => {
+        console.log("------------------------------");
+        console.log(body);
+        console.log("------------------------------");
         if (!error && response.statusCode == 200) {
+          console.log("this is hit");
           resolve(JSON.parse(body));
         } else {
-          reject(err);
+          reject(error);
         }
       }
     );

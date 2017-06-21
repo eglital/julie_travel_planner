@@ -12,7 +12,6 @@ import {
   Label,
   Input
 } from "reactstrap";
-import FaEnvelopeO from "react-icons/lib/fa/envelope-o";
 
 class ShareEmailButton extends React.Component {
   constructor(props) {
@@ -53,8 +52,24 @@ class ShareEmailButton extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3 onClick={this.toggle}><FaEnvelopeO /></h3>
+      <div
+        style={{
+          display: "inline-block",
+          marginLeft: "9px",
+          textAlign: "center"
+        }}
+      >
+        <div>
+          <img
+            alt="email"
+            src="../emailicon.png"
+            height="35px"
+            width="35px"
+            style={{ marginTop: "-23px", cursor: "pointer" }}
+            onClick={this.toggle}
+          />
+        </div>
+
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             Share Your Itinerary By Email
@@ -95,6 +110,10 @@ class ShareEmailButton extends React.Component {
         </Modal>
       </div>
     );
+    // <div style={{ display: 'inline-block' }}>
+    //   <span onClick={this.toggle}><FaEnvelopeO /></span>
+
+    // </div>
   }
 }
 

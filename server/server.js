@@ -165,6 +165,8 @@ app.use("/api", itineraryRoutes);
 
 const emailRoutes = require("./routes/emailRoutes");
 app.use("/api", emailRoutes);
+const userRoutes = require("./routes/userRoutes");
+app.use("/api", userRoutes);
 // ----------------------------------------
 // Error handler
 // ----------------------------------------

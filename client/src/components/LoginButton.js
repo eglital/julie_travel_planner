@@ -1,31 +1,35 @@
-import React from 'react';
-import {
-    Button
-}
-from 'reactstrap';
-import PropTypes from 'prop-types';
-import 'isomorphic-fetch';
-import request from 'superagent';
-import hello from 'hellojs';
+import React from "react";
+import { Button } from "reactstrap";
+import PropTypes from "prop-types";
+import "isomorphic-fetch";
+import request from "superagent";
+import hello from "hellojs";
 hello.init({
-    facebook: process.env.REACT_APP_FACEBOOK_APP_ID
+  facebook: process.env.REACT_APP_FACEBOOK_APP_ID
 });
-
-
-let NavbarRefresh;
+var fb = hello("facebook");
 //<a href={`https://www.facebook.com/v2.9/dialog/oauth?client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}&redirect_uri=${"https://localhost:8081/sweettastybananas"}`}>Login with Facebook</a>
-const LoginButton = ({loginUser}) => {
-    NavbarRefresh = loginUser;
-    return (
-        <Button onClick={() => hello('facebook').login().then(() => console.log("promise from login called"))}>Login with Facebook</Button>
-    );
+const LoginButton = () => {
+  return (
+    <Button
+      onClick={() =>
+        fb
+          .login({ scope: "email" })
+          .then(function() {
+            return fb.api("me");
+          })
+          .then(function(res) {
+            console.log(res);
+          }, console.error.bind(console))}
+    >
+      Login with Facebook
+    </Button>
+  );
 };
 
 LoginButton.propTypes = {};
 
 export default LoginButton;
-
-
 
 let socialToken;
 
@@ -45,20 +49,20 @@ hello.on('auth.login', function (auth) {
 });
 
 function authenticate(network, socialToken) {
-    return new Promise(function (resolve, reject) {
-        request
-            .post('/auth/facebook')
-            .send({
-                network: network,
-                socialToken: socialToken
-            })
-            .set('Accept', 'application/json')
-            .end(function(err, res){
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            });
-    });
+  return new Promise(function(resolve, reject) {
+    request
+      .post("/auth/facebook")
+      .send({
+        network: network,
+        socialToken: socialToken
+      })
+      .set("Accept", "application/json")
+      .end(function(err, res) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(JSON.parse(res.text));
+        }
+      });
+  });
 }

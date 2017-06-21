@@ -7,6 +7,7 @@ import itineraryHelper from "../helpers/itineraryHelper";
 import { setDuration, changeLastFood } from "./builderActions";
 import { deleteLocationsData } from "./locationsActions";
 import axios from "axios";
+import FacebookAuthHelper from "../helpers/facebookAuthHelper";
 
 export function setItineraryData(data) {
   return {
@@ -16,9 +17,10 @@ export function setItineraryData(data) {
 }
 
 export function getFinalItinerary(itineraryId, history) {
+  let qs = localStorage.getItem("facebookAuth");
   return dispatch => {
     axios
-      .get(`/api/itinerary/final/${itineraryId}`)
+      .get(`/api/itinerary/final/${itineraryId}?facebookjwt=${qs}`)
       .then(response => {
         if (response.status !== 200) {
           throw new Error("Response not ok");

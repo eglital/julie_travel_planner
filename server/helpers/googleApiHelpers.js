@@ -2,6 +2,8 @@ const moment = require("moment");
 const mongoose = require("mongoose");
 const models = require("./../models");
 const Itinerary = mongoose.model("Itinerary");
+const User = mongoose.model("User");
+const { verifyJwt } = require("../helpers/auth");
 
 const googleMapsClient = require("@google/maps").createClient({
   key: process.env.GOOGLE_API_KEY,
@@ -15,6 +17,24 @@ const timeInSections = {
   sights: (Math.floor(Math.random() * 2) + 2) * 3600000
 };
 
+const addItineraryToUser = ({ facebookjwt, itineraryId }) => {
+  return new Promise((resolve, reject) => {
+    if (facebookjwt) {
+      try {
+        let userId = verifyJwt(facebookjwt).userId;
+        User.findByIdAndUpdate(userId, {
+          $push: { itineraries: itineraryId }
+        }).then(() => {
+          resolve();
+        });
+      } catch (err) {
+        reject(err);
+      }
+    } else {
+      resolve();
+    }
+  });
+};
 const selectingItinerary = ({ location, itineraryId, section, res }) => {
   let origins, departure_time, itinerary, responseDuration, destinations;
 
@@ -187,4 +207,9 @@ const formatItineraryUpdate = ({
   return { newLocation, newDuration };
 };
 
-module.exports = { googleMapsClient, selectingItinerary, finishingItinerary };
+module.exports = {
+  googleMapsClient,
+  selectingItinerary,
+  finishingItinerary,
+  addItineraryToUser
+};
