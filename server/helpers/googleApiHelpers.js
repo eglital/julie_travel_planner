@@ -93,7 +93,7 @@ const selectingItinerary = ({ location, itineraryId, section, res }) => {
 };
 
 const finishingItinerary = ({ itineraryId, res }) => {
-  let destinations, origins, departure_time, itinerary, responseDuration;
+  let destinations, origins, departure_time, itinerary, responseDuration, city;
   return new Promise((resolve, reject) => {
     Itinerary.findById(itineraryId)
       .then(itin => {
@@ -108,13 +108,21 @@ const finishingItinerary = ({ itineraryId, res }) => {
           origin: itinerary.data[itinerary.data.length - 1],
           destination: itinerary.data[0]
         });
-
-        return googleRequest({
-          origins,
-          destinations,
-          departure_time,
-          mode: itinerary.transportationMode
-        });
+        googleMapsClient
+          .reverseGeocode({
+            latlng: [itinerary.data[0].lat, itinerary.data[0].lng],
+            result_type: ["locality"]
+          })
+          .asPromise()
+          .then(response => {
+            console.log("CIT", response.json.results[0].addressComponents[0]);
+            return googleRequest({
+              origins,
+              destinations,
+              departure_time,
+              mode: itinerary.transportationMode
+            });
+          });
       })
       .then(response => {
         //response value in seconds, make it miliseconds
