@@ -4,9 +4,9 @@ import Dotdotdot from 'react-dotdotdot';
 
 const SavedLocation = props => {
   const { location } = props;
-  if (!location.photo) {
-    location.photo = './128.png';
-  }
+  // if (!location.photo) {
+  //   location.photo = './128.png';
+  // }
 
   return (
     <Card

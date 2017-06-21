@@ -1,4 +1,8 @@
-import { FETCH_USER_ITINERARIES_SUCCESS } from "../actions/types";
+import {
+  FETCH_USER_ITINERARIES_SUCCESS,
+  DELETE_ITINERARY_FAILURE,
+  DELETE_ITINERARY_SUCCESS
+} from '../actions/types';
 
 const INITIAL_STATE = {
   data: null
@@ -12,6 +16,17 @@ export function userItinerariesReducer(state = INITIAL_STATE, action) {
         data: action.data
       };
 
+    case DELETE_ITINERARY_FAILURE:
+      return {
+        ...state,
+        error: action.data
+      };
+
+    case DELETE_ITINERARY_SUCCESS:
+      return {
+        ...state,
+        data: action.data
+      };
     default:
       return state;
   }
