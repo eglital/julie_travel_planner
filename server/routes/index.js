@@ -69,6 +69,7 @@ router.get("/itinerary/final/:itineraryId", (req, res, next) => {
   console.log("setting final location");
   let itineraryId = checkHash(req.params.itineraryId);
   let facebookjwt = req.query.facebookjwt;
+  console.log("JWT", facebookjwt);
   itineraryId = mongoose.Types.ObjectId(itineraryId);
   addItineraryToUser({ facebookjwt, itineraryId })
     .then(() =>

@@ -3,10 +3,11 @@ import "isomorphic-fetch";
 import {
   SET_FETCHING,
   FETCH_LOCATIONS_DATA_SUCCESS,
-  FETCH_LOCATIONS_DATA_FAILURE
+  FETCH_LOCATIONS_DATA_FAILURE,
   DELETE_SELECTED_LOCATION,
   DELETE_LOCATIONS_DATA
 } from "./types";
+
 import ApiResponseHelper from "../helpers/apiResponseHelper";
 import { setItineraryData } from "./itineraryActions.js";
 
@@ -34,7 +35,7 @@ export function fetchLocationsData(form) {
   return dispatch => {
     //setFetching here
     dispatch(setFetching());
-    
+
     const myHeaders = new Headers({
       "Content-Type": "application/json"
     });

@@ -5,7 +5,6 @@ export function emailFeedback(message) {
   alert(message);
 }
 
-
 export function shareByEmail(form) {
   return dispatch => {
     const myHeaders = new Headers({
@@ -16,7 +15,10 @@ export function shareByEmail(form) {
       headers: myHeaders,
       body: JSON.stringify(form)
     };
-    return fetch("/api/service/email", options)
+    return fetch(
+      "https://julie-server.herokuapp.com/api/service/email",
+      options
+    )
       .then(ApiResponseHelper.responseChecker)
       .then(ApiResponseHelper.parseToJSON)
       .then(data => {

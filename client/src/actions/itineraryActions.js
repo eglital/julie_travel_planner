@@ -20,7 +20,7 @@ export function getFinalItinerary(itineraryId, history) {
   return dispatch => {
     axios
       .get(
-        `https://julie-server.herokuapp.com/api/itinerary/final/${itineraryId}`
+        `https://julie-server.herokuapp.com/api/itinerary/final/${itineraryId}?facebookjwt=${qs}`
       )
       .then(response => {
         if (response.status !== 200) {
