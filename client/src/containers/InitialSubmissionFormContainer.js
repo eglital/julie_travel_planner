@@ -5,7 +5,8 @@ from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
 import {
   fetchLocationsData,
-  setFetching
+  setFetching,
+  fetchLocationsDataFailure
 }
 from "../actions/locationsActions";
 import {
@@ -74,7 +75,7 @@ class InitialSubmissionFormContainer extends Component {
       validItinerary: false,
       preferences: initPreferences(preferences),
       includeMeals: this.props.builder.mealsIncluded,
-      requireAddress: geolocationPermission
+      requireAddress: !geolocationPermission
     };
   }
 
@@ -233,6 +234,8 @@ class InitialSubmissionFormContainer extends Component {
               requireAddress: true,
               error: "Please let us know where you'd like to start."
             });
+            this.props.fetchLocationsDataFailure("Please let us know where you'd like to start.");
+            throw new Error("Need location");
 
           }
         )
@@ -242,6 +245,9 @@ class InitialSubmissionFormContainer extends Component {
           this.props.fetchLocationsData({
             formSubmission: data
           });
+        })
+        .catch(err => {
+          console.log("Error", err);
         });
     }
     else {
@@ -297,6 +303,9 @@ function mapDispatchToProps(dispatch) {
     },
     setFetching: () => {
       dispatch(setFetching());
+    },
+    fetchLocationsDataFailure: (err) => {
+      dispatch(fetchLocationsDataFailure(err));
     }
   };
 }
