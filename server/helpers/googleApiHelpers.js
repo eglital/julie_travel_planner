@@ -19,7 +19,7 @@ const timeInSections = {
 
 const addItineraryToUser = ({ facebookjwt, itineraryId }) => {
   return new Promise((resolve, reject) => {
-    if (facebookjwt) {
+    if (facebookjwt !== "null") {
       try {
         let userId = verifyJwt(facebookjwt).userId;
         User.findByIdAndUpdate(userId, {
