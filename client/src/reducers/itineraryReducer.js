@@ -29,7 +29,8 @@ export function itineraryReducer(state = INITIAL_STATE, action) {
                 finalItinerary: action.data.itinerary.data,
                 startTime: action.data.itinerary.startTime,
                 endTime: action.data.itinerary.endTime,
-                transportationMode: action.data.itinerary.transportationMode
+                transportationMode: action.data.itinerary.transportationMode,
+                city: action.data.itinerary.city
             };
         case CHANGE_TRANSPORTATION_MODE:
             return {

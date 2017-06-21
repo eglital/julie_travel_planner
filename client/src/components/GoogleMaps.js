@@ -26,7 +26,10 @@ export default class GoogleMaps extends Component {
   }
   componentDidMount() {
     const DirectionsService = new google.maps.DirectionsService();
-    const request = directionsRequest({ markers: this.state.markers });
+    const request = directionsRequest({
+      markers: this.state.markers,
+      transportation: this.props.transportation
+    });
     DirectionsService.route(request, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({ directions: result });
@@ -159,8 +162,9 @@ const infoContent = marker => {
     </div>
   );
 };
-const directionsRequest = ({ markers }) => {
-  let request = { travelMode: "DRIVING" };
+const directionsRequest = ({ markers, transportation }) => {
+  let request = {};
+  request.travelMode = transportation.toUpperCase();
   request.origin = {
     lat: markers[0].lat,
     lng: markers[0].lng

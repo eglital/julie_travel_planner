@@ -13,7 +13,7 @@ router.get("/user/itineraries", (req, res, next) => {
     let userId = verifyJwt(jwtString).userId;
     User.findById(userId)
       .populate("itineraries")
-      .sort({ createdAt: "desc" })
+      .sort({ createdAt: "asc" })
       .then(itineraries => res.send({ itineraries: itineraries.itineraries }))
       .catch(next);
   } catch (err) {
