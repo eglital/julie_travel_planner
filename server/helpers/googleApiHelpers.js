@@ -112,7 +112,8 @@ const finishingItinerary = ({ itineraryId, res }) => {
         return googleRequest({
           origins,
           destinations,
-          departure_time
+          departure_time,
+          mode: itinerary.transportationMode
         });
       })
       .then(response => {
