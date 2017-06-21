@@ -23,8 +23,13 @@ export function fetchUserItinerariesData() {
       .then(data => {
         console.log("data", data);
         //update the locations reducer
-
-        dispatch(userItinerariesSuccess(data));
+        /**
+         * data: {
+        * userItineraries: []
+         }
+         * 
+         **/ 
+        dispatch(userItinerariesSuccess(data.userItineraries));
       })
       .catch(err => {
         console.log("dispatching location failure", err);
