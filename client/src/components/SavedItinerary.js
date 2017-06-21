@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardBlock,
@@ -7,8 +7,75 @@ import {
   ModalHeader,
   ModalBody,
   Button
-} from "reactstrap";
-import moment from "moment";
+} from 'reactstrap';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import Dotdotdot from 'react-dotdotdot';
+
+const SingleLocation = props => {
+  const { location } = props;
+  return (
+    <a
+      href={location.link}
+      style={{ textDecoration: 'none', cursor: 'pointer' }}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Card
+        className="hoverable"
+        style={{
+          marginBottom: '10px',
+          maxWidth: '500px',
+          borderColor: '#C17DBF',
+          cursor: 'pointer'
+        }}
+      >
+        <CardBlock style={{ padding: '10px' }}>
+          <div
+            style={{
+              display: 'inline-block',
+              backgroundImage: `url(${location.photo})`,
+              backgroundPosition: '50% 50%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '150px',
+              width: '33%',
+              height: '100px',
+              float: 'left',
+              marginRight: '5%'
+            }}
+          />
+          <div style={{ display: 'inline-block', float: 'left', width: '60%' }}>
+            <CardTitle
+              className="text-center"
+              style={{
+                color: 'black',
+                fontSize: '18px',
+                marginTop: '-2px',
+                marginBottom: '2px'
+              }}
+            >
+              <Dotdotdot clamp={1}>
+                {location.name}
+              </Dotdotdot>
+            </CardTitle>
+            <div
+              style={{
+                color: 'black',
+                fontSize: '14px',
+                height: '81px',
+                overflow: 'hidden'
+              }}
+            >
+              <Dotdotdot clamp={4}>
+                <strong>{location.category}</strong> - {location.tip}
+              </Dotdotdot>
+            </div>
+          </div>
+        </CardBlock>
+      </Card>
+    </a>
+  );
+};
 
 class SavedItinerary extends React.Component {
   constructor(props) {
@@ -24,14 +91,22 @@ class SavedItinerary extends React.Component {
     });
   };
 
+  toggleAndDelete = e => {
+    this.toggle();
+    this.props.deleteItinerary(
+      e.currentTarget.dataset.itineraryId,
+      this.props.userItineraries
+    );
+  };
+
   displayLocationsFromItinerary = itinerary => {
-    console.log("IT", itinerary);
     let locations = [];
     for (let i = 1; i < itinerary.length - 1; i++) {
       locations.push(
-        <p key={itinerary[i].name}>
-          This is a location ({itinerary[i].name})
-        </p>
+        <SingleLocation
+          location={itinerary[i]}
+          key={itinerary[i].departureTime}
+        />
       );
     }
 
@@ -40,55 +115,64 @@ class SavedItinerary extends React.Component {
 
   render() {
     const { itinerary } = this.props;
-
     return (
       <div>
         <Card
           onClick={this.toggle}
-          style={{ height: "40px", marginBottom: "10px" }}
+          style={{ height: '40px', marginBottom: '10px' }}
         >
-          <CardBlock style={{ padding: "10px" }}>
+          <CardBlock style={{ padding: '10px' }}>
             <CardTitle className="text-center" onClick={this.toggle} tag="h6">
-              {moment(itinerary.data[0].departureTime).format("MMM Do YY")}
-              {" "}
+              {moment(itinerary.data[0].departureTime).format('MMM Do YY')}
+              {' '}
               -
-              {" "}
+              {' '}
               {itinerary.data.length - 2}
-              {" "}
-              {itinerary.data.length === 3 ? "place planned" : "places planned"}
+              {' '}
+              {itinerary.data.length === 3 ? 'place' : 'places'}
             </CardTitle>
           </CardBlock>
         </Card>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>
-            <span style={{ fontSize: "16px" }}>
-              {moment(itinerary.data[0].departureTime).format("MMM Do YY")}
-              {" "}
+            <span style={{ fontSize: '16px' }}>
+              {moment(itinerary.data[0].departureTime).format('MMM Do YY')}
+              {' '}
               -
-              {" "}
+              {' '}
               {itinerary.data.length - 2}
-              {" "}
-              {itinerary.data.length === 3 ? "place planned" : "places planned"}
+              {' '}
+              {itinerary.data.length === 3 ? 'place' : 'places'}
             </span>
             <span
               onClick={this.toggle}
-              style={{ position: "absolute", right: "25px" }}
+              style={{ position: 'absolute', right: '25px' }}
             >
               x
             </span>
           </ModalHeader>
           <ModalBody>
-            <div>
-              Locations you visited during this trip:
+            <div className="text-center" style={{ marginBottom: '15px' }}>
+              Places you visited during this trip:
             </div>
             {this.displayLocationsFromItinerary(itinerary.data)}
+            <div className="text-center" style={{ marginBottom: '10px' }}>
+              <Button
+                outline
+                color="warning"
+                size="sm"
+                data-itinerary-id={itinerary._id}
+                onClick={this.toggleAndDelete}
+              >
+                Delete Itinerary
+              </Button>
+            </div>
             <div className="text-center">
               <Button outline color="info" size="sm" onClick={this.toggle}>
                 Close Window
               </Button>
             </div>
-
           </ModalBody>
         </Modal>
       </div>
@@ -96,4 +180,10 @@ class SavedItinerary extends React.Component {
   }
 }
 
-export default SavedItinerary;
+const mapStateToProps = state => {
+  return {
+    userItineraries: state.userItineraries.data
+  };
+};
+
+export default connect(mapStateToProps, null)(SavedItinerary);

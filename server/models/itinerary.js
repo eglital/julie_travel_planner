@@ -19,6 +19,7 @@ const ItinerarySchema = mongoose.Schema({
   transportationMode: {
     type: String
   },
+  city: { type: String, default: "" },
   data: [{}],
   createdAt: { type: Date, default: Date.now }
 });

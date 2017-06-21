@@ -7,6 +7,7 @@ import { shareByEmail } from "../helpers/emailHelper";
 
 class ItineraryOverviewContainer extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (!this.props.finalItinerary.length) {
       this.props.getSavedItinerary(this.props.match.params.itineraryId);
     }

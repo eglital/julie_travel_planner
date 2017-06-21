@@ -89,12 +89,4 @@ router.get("/itinerary/saved/:itineraryId", (req, res, next) => {
     .catch(next);
 });
 
-router.get("/spontaneous", (req, res, next) => {
-  spontaneousFourSquareRequest()
-    .then(responseObject => {
-      res.send(responseObject);
-    })
-    .catch(next);
-});
-
 module.exports = router;
