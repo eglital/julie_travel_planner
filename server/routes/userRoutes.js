@@ -13,7 +13,7 @@ router.get("/user/itineraries", (req, res, next) => {
     User.findById(userId)
       .populate("itineraries")
       .sort({ createdAt: "desc" })
-      .then(itineraries => res.send({ itineraries }));
+      .then(itineraries => res.send({ itineraries: itineraries.itineraries }));
   } catch (err) {
     next(err);
   }

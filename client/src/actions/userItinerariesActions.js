@@ -1,7 +1,7 @@
-import 'isomorphic-fetch';
+import "isomorphic-fetch";
 
-import { FETCH_USER_ITINERARIES_SUCCESS } from './types';
-import ApiResponseHelper from '../helpers/apiResponseHelper';
+import { FETCH_USER_ITINERARIES_SUCCESS } from "./types";
+import ApiResponseHelper from "../helpers/apiResponseHelper";
 
 export function userItinerariesSuccess(data) {
   return {
@@ -12,22 +12,22 @@ export function userItinerariesSuccess(data) {
 
 export function fetchUserItinerariesData() {
   return dispatch => {
-    let qs = '';
+    let qs = "";
     //for testing
-    if (process.env.NODE_ENV !== 'test') {
-      qs = '?' + 'facebookjwt=' + localStorage.getItem('facebookAuth');
+    if (process.env.NODE_ENV !== "test") {
+      qs = "?" + "facebookjwt=" + localStorage.getItem("facebookAuth");
     }
     return fetch(`/api/user/itineraries${qs}`)
       .then(ApiResponseHelper.responseChecker)
       .then(ApiResponseHelper.parseToJSON)
       .then(data => {
-        console.log('data', data);
+        console.log("data", data);
         //update the locations reducer
 
-        dispatch(userItinerariesSuccess(data.userItineraries));
+        dispatch(userItinerariesSuccess(data));
       })
       .catch(err => {
-        console.log('dispatching location failure', err);
+        console.log("dispatching location failure", err);
         // dispatch(userItinerariesFailure(err));
       });
   };
