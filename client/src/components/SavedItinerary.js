@@ -18,7 +18,12 @@ import fbAuthHelper from '../helpers/facebookAuthHelper';
 const SingleLocation = props => {
   const { location } = props;
   return (
-    <a href={location.link} style={{ textDecoration: 'none' }}>
+    <a
+      href={location.link}
+      style={{ textDecoration: 'none' }}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Card
         className="hoverable"
         style={{
@@ -128,7 +133,7 @@ class SavedItinerary extends React.Component {
               {' '}
               {itinerary.data.length - 2}
               {' '}
-              {itinerary.data.length === 3 ? 'place planned' : 'places planned'}
+              {itinerary.data.length === 3 ? 'place' : 'places'}
             </CardTitle>
           </CardBlock>
         </Card>
@@ -142,7 +147,7 @@ class SavedItinerary extends React.Component {
               {' '}
               {itinerary.data.length - 2}
               {' '}
-              {itinerary.data.length === 3 ? 'place planned' : 'places planned'}
+              {itinerary.data.length === 3 ? 'place' : 'places'}
             </span>
             <span
               onClick={this.toggle}
@@ -152,8 +157,8 @@ class SavedItinerary extends React.Component {
             </span>
           </ModalHeader>
           <ModalBody>
-            <div>
-              Locations you visited during this trip:
+            <div className="text-center" style={{ marginBottom: '15px' }}>
+              Places you visited during this trip:
             </div>
             {this.displayLocationsFromItinerary(itinerary.data)}
             <div className="text-center" style={{ marginBottom: '10px' }}>

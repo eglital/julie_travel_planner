@@ -27,17 +27,30 @@ class ItineraryOverviewContainer extends Component {
 
   render() {
     if (!this.props.userItineraries) {
-      return <p>Fetching</p>;
+      return <p className="text-center">Loading...</p>;
     } else {
       return (
         <Container
-          style={{ marginLeft: '5%', marginRight: '5%', marginTop: '10px' }}
+          style={{
+            marginLeft: '5%',
+            marginRight: '5%',
+            marginTop: '10px'
+          }}
         >
           <Row>
             <Col xs="12" md={{ size: '8', offset: '2' }}>
               {this.props.userItineraries.length
                 ? <div>
-                    <h4 className="text-center">Your previous itineraries:</h4>
+                    <h3
+                      className="text-center"
+                      style={{
+                        color: '#C17DBF',
+                        marginBottom: '15px',
+                        textDecoration: 'underline darkgrey'
+                      }}
+                    >
+                      Your Itineraries
+                    </h3>
                     {this.displaySavedItineraries()}
                   </div>
                 : <h3 className="text-center">
