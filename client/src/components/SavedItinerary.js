@@ -8,12 +8,9 @@ import {
   ModalBody,
   Button
 } from 'reactstrap';
-import { Refresh } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import moment from 'moment';
 import Dotdotdot from 'react-dotdotdot';
-import { deleteItinerary } from '../actions/itineraryActions';
 
 const SingleLocation = props => {
   const { location } = props;
@@ -117,7 +114,7 @@ class SavedItinerary extends React.Component {
   };
 
   render() {
-    const { itinerary, deleteItinerary } = this.props;
+    const { itinerary } = this.props;
     return (
       <div>
         <Card
@@ -183,18 +180,10 @@ class SavedItinerary extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // deleteItinerary: itineraryId => {
-    //   dispatch(deleteItinerary(itineraryId));
-    // }
-  };
-};
-
 const mapStateToProps = state => {
   return {
     userItineraries: state.userItineraries.data
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SavedItinerary);
+export default connect(mapStateToProps, null)(SavedItinerary);

@@ -20,7 +20,7 @@ export function fetchUserItinerariesData() {
     let qs = '';
     //for testing
     if (process.env.NODE_ENV !== 'test') {
-      qs = '?' + 'facebookjwt=' + localStorage.getItem('facebookAuth');
+      qs = '?facebookjwt=' + localStorage.getItem('facebookAuth');
     }
     return fetch(`/api/user/itineraries${qs}`)
       .then(ApiResponseHelper.responseChecker)
