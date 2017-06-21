@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardBlock,
@@ -7,8 +7,10 @@ import {
   ModalHeader,
   ModalBody,
   Button
-} from "reactstrap";
-import moment from "moment";
+} from 'reactstrap';
+import moment from 'moment';
+
+const SingleLocation = props => {};
 
 class SavedItinerary extends React.Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class SavedItinerary extends React.Component {
   };
 
   displayLocationsFromItinerary = itinerary => {
-    console.log("IT", itinerary);
+    console.log('IT', itinerary);
     let locations = [];
     for (let i = 1; i < itinerary.length - 1; i++) {
       locations.push(
@@ -45,35 +47,35 @@ class SavedItinerary extends React.Component {
       <div>
         <Card
           onClick={this.toggle}
-          style={{ height: "40px", marginBottom: "10px" }}
+          style={{ height: '40px', marginBottom: '10px' }}
         >
-          <CardBlock style={{ padding: "10px" }}>
+          <CardBlock style={{ padding: '10px' }}>
             <CardTitle className="text-center" onClick={this.toggle} tag="h6">
-              {moment(itinerary.data[0].departureTime).format("MMM Do YY")}
-              {" "}
+              {moment(itinerary.data[0].departureTime).format('MMM Do YY')}
+              {' '}
               -
-              {" "}
+              {' '}
               {itinerary.data.length - 2}
-              {" "}
-              {itinerary.data.length === 3 ? "place planned" : "places planned"}
+              {' '}
+              {itinerary.data.length === 3 ? 'place planned' : 'places planned'}
             </CardTitle>
           </CardBlock>
         </Card>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>
-            <span style={{ fontSize: "16px" }}>
-              {moment(itinerary.data[0].departureTime).format("MMM Do YY")}
-              {" "}
+            <span style={{ fontSize: '16px' }}>
+              {moment(itinerary.data[0].departureTime).format('MMM Do YY')}
+              {' '}
               -
-              {" "}
+              {' '}
               {itinerary.data.length - 2}
-              {" "}
-              {itinerary.data.length === 3 ? "place planned" : "places planned"}
+              {' '}
+              {itinerary.data.length === 3 ? 'place planned' : 'places planned'}
             </span>
             <span
               onClick={this.toggle}
-              style={{ position: "absolute", right: "25px" }}
+              style={{ position: 'absolute', right: '25px' }}
             >
               x
             </span>

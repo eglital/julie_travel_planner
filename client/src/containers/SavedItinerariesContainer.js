@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Container, Row, Col } from "reactstrap";
-import { connect } from "react-redux";
-import SavedItinerary from "../components/SavedItinerary";
+import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
+import SavedItinerary from '../components/SavedItinerary';
 // import logo from '../assets/logo.jpg';
-import { fetchUserItinerariesData } from "../actions/userItinerariesActions";
+import { fetchUserItinerariesData } from '../actions/userItinerariesActions';
 
 class ItineraryOverviewContainer extends Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class ItineraryOverviewContainer extends Component {
 
   displaySavedItineraries() {
     let itineraries = this.props.userItineraries.map(itinerary => {
-      console.log(itinerary);
       return <SavedItinerary itinerary={itinerary} key={itinerary._id} />;
     });
 
@@ -41,10 +40,10 @@ class ItineraryOverviewContainer extends Component {
     } else {
       return (
         <Container
-          style={{ marginLeft: "5%", marginRight: "5%", marginTop: "10px" }}
+          style={{ marginLeft: '5%', marginRight: '5%', marginTop: '10px' }}
         >
           <Row>
-            <Col xs="12" md={{ size: "8", offset: "2" }}>
+            <Col xs="12" md={{ size: '8', offset: '2' }}>
               {this.props.userItineraries.length
                 ? <div>
                     <h4 className="text-center">Your previous itineraries:</h4>
