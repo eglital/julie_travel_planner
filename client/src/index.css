@@ -46,3 +46,10 @@ body {
   margin-right: 10px; }
   .transportation-modes > div:last-child {
     margin-right: 0px; }
+
+.nav-hover {
+  font-size:20px;
+  color: #929292; }
+
+.nav-hover:hover {
+  color: #C17DBF; }
