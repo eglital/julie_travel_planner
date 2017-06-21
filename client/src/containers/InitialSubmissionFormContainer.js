@@ -52,6 +52,17 @@ const Loader = () => <div className="loader">Loading...</div>;
 class InitialSubmissionFormContainer extends Component {
   constructor(props) {
     super(props);
+    
+    //Determine if location is required
+    let geolocationPermission = true;
+    navigator.permissions.query({'name': 'geolocation'})
+    .then( permission => {
+      if (permission.state === 'denied'){
+        geolocationPermission = false;
+      }
+    });
+
+
     this.state = {
       nextHour: TimeHelper.getNextHour(),
       startTime: TimeHelper.getNextHour(),
@@ -62,7 +73,8 @@ class InitialSubmissionFormContainer extends Component {
       error: null,
       validItinerary: false,
       preferences: initPreferences(preferences),
-      includeMeals: this.props.builder.mealsIncluded
+      includeMeals: this.props.builder.mealsIncluded,
+      requireAddress: geolocationPermission
     };
   }
 
@@ -217,7 +229,11 @@ class InitialSubmissionFormContainer extends Component {
           geolocationDeny => {
             //prompt with box for starting location and update the state?
             console.log("Please enter a starting location");
-            data.startingLocation = this.state.startingLocation; //or default values?
+            this.setState({
+              requireAddress: true,
+              error: "Please let us know where you'd like to start."
+            });
+
           }
         )
         .then(form => {
@@ -252,6 +268,7 @@ class InitialSubmissionFormContainer extends Component {
           onTransporationModeChange={this.onTransporationModeChange}
           modesOfTransportation={modesOfTransportation}
           currentModeOfTransportation={this.props.itinerary.transportationMode}
+          requireAddress={this.state.requireAddress}
           {...this.state}
         />
       );
