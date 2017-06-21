@@ -21,11 +21,11 @@ export function shareByEmail(form) {
       .then(ApiResponseHelper.parseToJSON)
       .then(data => {
         console.log("email", data);
-        emailFeedback(data);
+        emailFeedback("Email sent successfully!");
       })
       .catch(err => {
         console.log("sending email failure", err);
-        emailFeedback(err);
+        emailFeedback("Email did not send. Try again");
       });
   };
 }
