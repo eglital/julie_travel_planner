@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'reactstrap';
-import ProgressBar from '../components/Progress';
-import { addLocationToItinerary } from '../actions/builderActions';
-import { getFinalItinerary } from '../actions/itineraryActions';
-import displayThreeLocations from '../helpers/randomLocationPicker';
-import FacebookAuthHelper from '../helpers/facebookAuthHelper';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+import ProgressBar from "../components/Progress";
+import { addLocationToItinerary } from "../actions/builderActions";
+import { getFinalItinerary } from "../actions/itineraryActions";
+import displayThreeLocations from "../helpers/randomLocationPicker";
 
 class LocationSelectionContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -33,10 +32,7 @@ class LocationSelectionContainer extends Component {
   };
 
   onClickBuildItinerary = () => {
-    this.props.getFinalItinerary(
-      this.props.itinerary.id,
-      FacebookAuthHelper.makeFBQS()
-    );
+    this.props.getFinalItinerary(this.props.itinerary.id);
   };
 
   render() {
@@ -58,11 +54,11 @@ class LocationSelectionContainer extends Component {
           <Col lg={{ size: 6, offset: 3 }}>
             <p className="text-center">
               Select one of the following to add it to your itinerary, and
-              {' '}
-              <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
+              {" "}
+              <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
                 Julie
               </span>
-              {' '}
+              {" "}
               will connect the dots.
             </p>
             {displayThreeLocations(this.props, this.onClickLocation)}
@@ -77,7 +73,7 @@ class LocationSelectionContainer extends Component {
         </Row>
         <Row>
           <Col
-            style={{ marginBottom: '15px' }}
+            style={{ marginBottom: "15px" }}
             className="text-center"
             xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
           >
@@ -142,7 +138,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       );
     },
     getFinalItinerary: (itineraryId, fbqs) => {
-      dispatch(getFinalItinerary(itineraryId, ownProps.history, fbqs));
+      dispatch(getFinalItinerary(itineraryId, ownProps.history));
     }
   };
 };
