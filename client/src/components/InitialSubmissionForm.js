@@ -19,6 +19,7 @@ import Hero from './Hero';
 import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
 import walking from '../assets/walking.png';
+import map from '../assets/map.png';
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -144,6 +145,62 @@ const InitialSubmissionForm = ({
             </FormGroup>
 
             <div>
+              <FormGroup
+                style={{
+                  float: 'left',
+                  width: '40%',
+                  marginLeft: '0%',
+                  marginRight: '10%',
+                  marginBottom: '25px'
+                }}
+              >
+                <Label for="startingTime">Start Time</Label>
+                <Input
+                  style={{
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    textAlignLast: 'center',
+                    cursor: 'pointer'
+                  }}
+                  type="select"
+                  name="startingTime"
+                  id="startingTime"
+                  onChange={onStartTimeChange}
+                >
+                  {createTimeOptions(nextHour, 0)}
+                </Input>
+              </FormGroup>
+              <FormGroup
+                style={{
+                  float: 'left',
+                  width: '40%',
+                  marginLeft: '10%',
+                  marginRight: '0%',
+                  marginBottom: '25px'
+                }}
+              >
+                <Label for="endingTime">End Time</Label>
+                <Input
+                  style={{
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    textAlignLast: 'center',
+                    cursor: 'pointer'
+                  }}
+                  type="select"
+                  name="endingTime"
+                  id="endingTime"
+                  onChange={onEndTimeChange}
+                >
+                  {createTimeOptions(startTime, 2)}
+                </Input>
+                <UncontrolledTooltip placement="top" target="endingTime">
+                  Must be at least 2 hours after starting time!
+                </UncontrolledTooltip>
+              </FormGroup>
+            </div>
+
+            <div>
               <FormGroup key="driving" style={{ display: 'inline-block' }}>
                 <label>
                   <FA name="car" style={{ marginRight: '5px' }} />
@@ -175,66 +232,13 @@ const InitialSubmissionForm = ({
                 </label>
               </FormGroup>
             </div>
-
-            <div>
-              <FormGroup
-                style={{
-                  float: 'left',
-                  width: '40%',
-                  marginLeft: '0%',
-                  marginRight: '10%',
-                  marginBottom: '25px'
-                }}
-              >
-                <Label for="startingTime">Start Time</Label>
-                <Input
-                  style={{
-                    maxWidth: '300px',
-                    margin: 'auto',
-                    textAlignLast: 'center'
-                  }}
-                  type="select"
-                  name="startingTime"
-                  id="startingTime"
-                  onChange={onStartTimeChange}
-                >
-                  {createTimeOptions(nextHour, 0)}
-                </Input>
-              </FormGroup>
-              <FormGroup
-                style={{
-                  float: 'left',
-                  width: '40%',
-                  marginLeft: '10%',
-                  marginRight: '0%',
-                  marginBottom: '25px'
-                }}
-              >
-                <Label for="endingTime">End Time</Label>
-                <Input
-                  style={{
-                    maxWidth: '300px',
-                    margin: 'auto',
-                    textAlignLast: 'center'
-                  }}
-                  type="select"
-                  name="endingTime"
-                  id="endingTime"
-                  onChange={onEndTimeChange}
-                >
-                  {createTimeOptions(startTime, 2)}
-                </Input>
-                <UncontrolledTooltip placement="top" target="endingTime">
-                  Must be at least 2 hours after starting time!
-                </UncontrolledTooltip>
-              </FormGroup>
-              <div>
-                <PreferencesDropDown
-                  preferences={preferences}
-                  onPrefChange={onPrefChange}
-                />
-              </div>
+            <div style={{ maxWidth: '140px', margin: 'auto' }}>
+              <PreferencesDropDown
+                preferences={preferences}
+                onPrefChange={onPrefChange}
+              />
             </div>
+
             <div
               style={{
                 marginTop: '20px',
@@ -242,13 +246,8 @@ const InitialSubmissionForm = ({
                 marginBottom: '20px'
               }}
             >
-              <Button
-                className="hoverable"
-                style={{ clear: 'both', border: '2px solid #C17DBF' }}
-              >
-                <span style={{ fontWeight: '500', color: 'rgb(100,100,100)' }}>
-                  Get planning!
-                </span>
+              <Button className="reverse-hoverable">
+                Get planning!
               </Button>
             </div>
 
@@ -256,7 +255,18 @@ const InitialSubmissionForm = ({
               <p className="text-center" style={{ color: '#C17DBF' }}>
                 ______________________________
               </p>
+              <img
+                src={map}
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  transform: 'rotate(30deg)',
+                  height: '64px',
+                  width: '100px'
+                }}
+              />
             </div>
+
           </Form>
         </Col>
 
