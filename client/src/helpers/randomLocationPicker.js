@@ -75,7 +75,14 @@ const displayThreeLocations = (props, onClickLocation) => {
     } else {
       for (let i = 0; i < 3; i++) {
         while (true) {
-          let randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+          let randomChoice;
+          if (openLocations["places"].length === 0) {
+            randomChoice = "sights";
+          } else if (openLocations["sights"].length === 0) {
+            randomChoice = "places";
+          } else {
+            randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+          }
           let randomPlace =
             openLocations[randomChoice][
               Math.floor(Math.random() * openLocations[randomChoice].length)
