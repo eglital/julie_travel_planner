@@ -6,7 +6,42 @@ import { Container, Row, Col, Button } from "reactstrap";
 import ProgressBar from "../components/Progress";
 import { addLocationToItinerary } from "../actions/builderActions";
 import { getFinalItinerary } from "../actions/itineraryActions";
-import displayThreeLocations from "../helpers/randomLocationPicker";
+import {
+  displayThreeLocations,
+  mealTime
+} from "../helpers/randomLocationPicker";
+
+const introText = (time, mealsIncluded, lastFood) => {
+  let meal = mealTime(time, mealsIncluded, lastFood);
+  if (meal) {
+    return (
+      <p className="text-center">
+        Select one of the following for your
+        {" "}
+        <span style={{ fontWeight: "bold" }}>{meal}</span>
+        , and
+        {" "}
+        <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
+          Julie
+        </span>
+        {" "}
+        will connect the dots.
+      </p>
+    );
+  } else {
+    return (
+      <p className="text-center">
+        Select one of the following to add it to your itinerary, and
+        {" "}
+        <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
+          Julie
+        </span>
+        {" "}
+        will connect the dots.
+      </p>
+    );
+  }
+};
 
 class LocationSelectionContainer extends Component {
   componentDidMount() {
@@ -55,15 +90,11 @@ class LocationSelectionContainer extends Component {
         </Row>
         <Row>
           <Col lg={{ size: 6, offset: 3 }}>
-            <p className="text-center">
-              Select one of the following to add it to your itinerary, and
-              {" "}
-              <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
-                Julie
-              </span>
-              {" "}
-              will connect the dots.
-            </p>
+            {introText(
+              this.props.itinerary.startTime + this.props.builder.duration,
+              this.props.builder.mealsIncluded,
+              this.props.builder.lastFood
+            )}
             {displayThreeLocations(this.props, this.onClickLocation)}
           </Col>
         </Row>

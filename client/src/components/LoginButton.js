@@ -12,7 +12,7 @@ const LoginButton = ({ loginUser }) => {
   return (
     <p
       className="nav-hover"
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', paddingLeft: '15px' }}
       onClick={() => hello('facebook').login({ scope: 'email' })}
     >
       Log In

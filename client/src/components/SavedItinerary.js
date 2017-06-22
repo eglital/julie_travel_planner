@@ -8,7 +8,10 @@ import {
   ModalBody,
   Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import Dotdotdot from 'react-dotdotdot';
 
@@ -113,8 +116,14 @@ class SavedItinerary extends React.Component {
     return locations;
   };
 
+  // seeFullItinerary = itineraryId => {
+  //   history.push(`/itinerary-overview/${itineraryId}`);
+  // };
+
   render() {
     const { itinerary } = this.props;
+    console.log('id:', itinerary._id);
+
     return (
       <div>
         <Card
@@ -148,6 +157,13 @@ class SavedItinerary extends React.Component {
               Places you visited during this trip:
             </div>
             {this.displayLocationsFromItinerary(itinerary.data)}
+
+            <div className="text-center" style={{ marginBottom: '10px' }}>
+              <Link to={`/itinerary-overview/${itinerary._id}`}>
+                See Full Itinerary Here!
+              </Link>
+            </div>
+
             <div className="text-center" style={{ marginBottom: '10px' }}>
               <Button
                 outline
@@ -160,6 +176,7 @@ class SavedItinerary extends React.Component {
                 Delete Itinerary
               </Button>
             </div>
+
             <div className="text-center">
               <Button
                 outline
@@ -171,6 +188,7 @@ class SavedItinerary extends React.Component {
                 Close Window
               </Button>
             </div>
+
           </ModalBody>
         </Modal>
       </div>
@@ -184,4 +202,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(SavedItinerary);
+export default withRouter(connect(mapStateToProps, null)(SavedItinerary));

@@ -1,13 +1,13 @@
 import React from "react";
 import { Card, CardBlock, CardTitle } from "reactstrap";
 import Dotdotdot from "react-dotdotdot";
+import oldMap from "../assets/oldMap.png";
 
 const LocationSelection = props => {
   console.log("render locationSelection");
   const { location, section, itineraryId, onClick } = props;
   if (!location.photo) {
-    location.photo =
-      "http://images.clipartpanda.com/smiley-face-clip-art-niXoRMbiB.png";
+    location.photo = oldMap;
   }
 
   return (
