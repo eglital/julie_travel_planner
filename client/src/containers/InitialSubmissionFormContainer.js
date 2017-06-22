@@ -27,6 +27,8 @@ function initPreferences(preferences) {
   return prefs;
 }
 
+const TWO_HOURS_IN_MILLISECONDS = 2 * 60 * 60 * 1000;
+
 const Loader = () => <div className="loader" />;
 
 class InitialSubmissionFormContainer extends Component {
@@ -50,7 +52,7 @@ class InitialSubmissionFormContainer extends Component {
     this.state = {
       nextHour: TimeHelper.getNextHour(),
       startTime: TimeHelper.getNextHour(),
-      endTime: TimeHelper.getNextHour() + 2 * 60 * 60 * 1000,
+      endTime: TimeHelper.getNextHour() + TWO_HOURS_IN_MILLISECONDS,
       startingLocation: null,
       address: "",
       addressError: "",
@@ -115,10 +117,10 @@ class InitialSubmissionFormContainer extends Component {
   onStartTimeChange = e => {
     //if the endTime would be less than two hours after the new startTime
     //advance it to at least two hours
-    if (this.state.endTime - +e.target.value < 2) {
+    if (this.state.endTime - +e.target.value < TWO_HOURS_IN_MILLISECONDS) {
       this.setState({
         startTime: +e.target.value,
-        endTime: +e.target.value + 2
+        endTime: +e.target.value + TWO_HOURS_IN_MILLISECONDS
       });
     } else {
       this.setState({
