@@ -58,7 +58,6 @@ export function fetchLocationsData(form) {
         dispatch(fetchLocationsDataSuccess(data.locations));
       })
       .catch(err => {
-        console.log("dispatching location failure", err);
         dispatch(fetchLocationsDataFailure(err));
       });
   };

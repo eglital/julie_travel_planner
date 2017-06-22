@@ -20,7 +20,7 @@ import FA from "react-fontawesome";
 import TimeHelper from "../helpers/timeHelper";
 import MealCheckbox from "./MealCheckbox";
 import oldMap from "../assets/oldMap.png";
-
+import walking from "../assets/walking.png";
 function generateTransportation(
   currentModeOfTransportation,
   modesOfTransportation,
@@ -108,7 +108,6 @@ const InitialSubmissionForm = ({
   currentModeOfTransportation,
   requireAddress
 }) => {
-  console.log("render initialSubmissionForm");
   return (
     <Container style={{ marginBottom: "15px", marginTop: "10px" }}>
       <Row>
@@ -135,6 +134,7 @@ const InitialSubmissionForm = ({
             </UncontrolledAlert>}
           <Hero />
           <Form className="text-center" onSubmit={onSubmit}>
+
             <FormGroup
               style={{
                 maxWidth: "600px",
@@ -153,13 +153,53 @@ const InitialSubmissionForm = ({
                   placeholder: "Use current location",
                   required: requireAddress
                 }}
+                styles={{
+                  input: {
+                    textAlign: "center",
+                    border: "1px solid lightgrey",
+                    borderRadius: "5px"
+                  }
+                }}
                 autocompleteItem={AutocompleteItem}
-                classNames={cssClasses}
                 onError={onAddressError}
                 clearItemsOnError={true}
               />
 
             </FormGroup>
+
+            <div>
+              <FormGroup key="driving" style={{ display: "inline-block" }}>
+                <label>
+                  <FA name="car" style={{ marginRight: "5px" }} />
+                  <input
+                    checked={currentModeOfTransportation === "driving"}
+                    type="radio"
+                    name="transportation"
+                    value="driving"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+              <span> -or- </span>
+              <FormGroup key="walking" style={{ display: "inline-block" }}>
+                <label>
+                  <img
+                    src={walking}
+                    alt="walking"
+                    height="15px"
+                    style={{ marginRight: "5px" }}
+                  />
+                  <input
+                    checked={currentModeOfTransportation === "walking"}
+                    type="radio"
+                    name="transportation"
+                    value="walking"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+            </div>
+
             <div>
               <FormGroup
                 style={{
@@ -209,28 +249,15 @@ const InitialSubmissionForm = ({
                   {createTimeOptions(startTime, 2)}
                 </Input>
                 <UncontrolledTooltip placement="top" target="endingTime">
-                  Ending time must be at least 2 hours after starting time!
+                  Must be at least 2 hours after starting time!
                 </UncontrolledTooltip>
               </FormGroup>
-
               <div>
-                <p>Transportation</p>
-                <div
-                  className="transportation-modes"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  {generateTransportation(
-                    currentModeOfTransportation,
-                    modesOfTransportation,
-                    onTransporationModeChange
-                  )}
-                </div>
+                <PreferencesDropDown
+                  preferences={preferences}
+                  onPrefChange={onPrefChange}
+                />
               </div>
-              <MealCheckbox onChange={onMealsChange} checked={includeMeals} />
-              <PreferencesDropDown
-                preferences={preferences}
-                onPrefChange={onPrefChange}
-              />
             </div>
             <div
               style={{
@@ -239,7 +266,14 @@ const InitialSubmissionForm = ({
                 marginBottom: "20px"
               }}
             >
-              <Button style={{ clear: "both" }}>Get planning!</Button>
+              <Button
+                className="hoverable"
+                style={{ clear: "both", border: "2px solid #C17DBF" }}
+              >
+                <span style={{ fontWeight: "500", color: "rgb(100,100,100)" }}>
+                  Get planning!
+                </span>
+              </Button>
             </div>
 
             <div>

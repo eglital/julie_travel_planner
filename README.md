@@ -53,11 +53,13 @@ $ npm start
 
 ## Test client
 
-  this needs to be filled in.
+Testing on the client-side is done using the Jest framework. [https://facebook.github.io/jest/]
+All tests are found in the __tests__ directory.
 
 ```bash
+$ cd client
 $ npm install
-$ jasmine
+$ npm test
 ```
 
 ## Test server

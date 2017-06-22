@@ -5,11 +5,15 @@ const Hero = props => {
   return (
     <div
       className="hero text-center"
-      style={{ marginTop: '20px', marginBottom: '0px' }}
+      style={{ marginTop: '10px', marginBottom: '0px' }}
     >
       <Container fluid>
         <p style={{ marginBottom: '0px' }} className="lead text-center">
-          Let Julie build your itinerary for the day, complete with directions. Get started below!
+          Let
+          {' '}
+          <span style={{ color: '#C17DBF' }}>Julie</span>
+          {' '}
+          build your itinerary for the day, complete with directions. Get started below!
         </p>
 
         <p
