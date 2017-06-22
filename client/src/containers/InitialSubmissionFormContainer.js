@@ -65,7 +65,7 @@ class InitialSubmissionFormContainer extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(-10, -10);
+    window.scrollTo(0, 0);
 
     //check localStorage for itinerary: id
     if (ItineraryHelper.validItinerary()) {
