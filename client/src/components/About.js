@@ -9,6 +9,7 @@ const About = props => {
         <Col xs="12" md={{ size: 8, offset: '2' }}>
           <div style={{ marginTop: '15px' }}>
             <h3
+              className="text-center"
               style={{
                 color: '#C17DBF',
                 marginBottom: '15px',
@@ -34,6 +35,7 @@ const About = props => {
         <Col xs="12" md={{ size: 8, offset: '2' }}>
           <div>
             <h3
+              className="text-center"
               style={{
                 color: '#C17DBF',
                 marginBottom: '15px',
