@@ -19,6 +19,7 @@ import Hero from './Hero';
 import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
 import walking from '../assets/walking.png';
+import map from '../assets/map.png';
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -255,13 +256,13 @@ const InitialSubmissionForm = ({
                 ______________________________
               </p>
               <img
-                src="map.png"
+                src={map}
                 style={{
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   transform: 'rotate(30deg)',
-                  height: '50px',
-                  width: '50px'
+                  height: '64px',
+                  width: '100px'
                 }}
               />
             </div>
