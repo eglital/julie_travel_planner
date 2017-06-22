@@ -20,13 +20,18 @@ const ProgressBar = props => {
     return (
       <div>
         <div style={{ marginTop: '5px', marginBottom: '15px' }}>
-          <div style={{ marginTop: '5px' }}>
+          <div className="progress-bar-wrapper" style={{ marginTop: '5px' }}>
             <Progress multi>
               <Progress bar color="info" value={timeLeft}>
                 <span style={{ float: 'left', marginLeft: '5px' }}>
                   {readableStartTime}
                 </span>
-                <span style={{ float: 'right', marginRight: '5px' }}>
+                <span
+                  style={{
+                    float: 'right',
+                    marginRight: '5px'
+                  }}
+                >
                   {readableEndTime}
                 </span>
               </Progress>
@@ -38,14 +43,24 @@ const ProgressBar = props => {
   } else {
     return (
       <div style={{ marginTop: '5px', marginBottom: '15px' }}>
-        <div style={{ marginTop: '5px' }}>
+        <div className="progress-bar-wrapper" style={{ marginTop: '5px' }}>
           <Progress multi>
-            <Progress bar color="success" value={timeUsed}>
+            <Progress
+              bar
+              color="success"
+              value={timeUsed}
+              style={{ backgroundColor: 'orange !important' }}
+            >
               <span style={{ float: 'left', marginLeft: '5px' }}>
                 {readableStartTime}
               </span>
             </Progress>
-            <Progress bar color="info" value={timeLeft}>
+            <Progress
+              bar
+              color="info"
+              value={timeLeft}
+              style={{ backgroundColor: 'red !important' }}
+            >
               <span style={{ float: 'right', marginRight: '5px' }}>
                 {readableEndTime}
               </span>

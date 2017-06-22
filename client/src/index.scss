@@ -1,8 +1,5 @@
-// Custom variables
-@import './stylesheets/variables';
-
-// Scss version of Bootstrap
-//@import '~bootstrap/scss/bootstrap.scss';
+$julie-purple: #C17DBF;
+$julie-grey: #929292;
 
 body {
   // margin: 0;
@@ -20,12 +17,24 @@ body {
   flex: none; /* 2 */
 }
 
+.julie-purple {
+  color: $julie-purple;
+}
+
+.julie-grey {
+  color: $julie-grey;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
 .departure-times {
-  color: darkgrey;
+  color: $julie-grey;
 }
 
 .arrival-times {
-  color: black;
+  color: $julie-grey;
 }
 
 .hoverable:hover {
@@ -35,22 +44,22 @@ body {
 .reverse-hoverable {
   cursor: pointer;
   clear: both;
-  border: 2px solid #C17DBF;
-  background-color: #C17DBF;
-  color: white;
+  border: 1px solid $julie-purple;
+  background-color: white;
+  color: $julie-purple;
 }
 
 .reverse-hoverable:hover {
-  background-color: white;
-  color:#C17DBF;
-
+  background-color: $julie-purple;
+  color:white;
+  border: 1px solid $julie-purple;
 }
 
 .reverse-hoverable-text {
   color:white;
 }
 .reverse-hoverable-text:hover {
-  color: #C17DBF;
+  color: $julie-purple;
 }
 .location-segment{
 
@@ -92,9 +101,17 @@ body {
 }
 
 .nav-hover {
-  color:rgb(146,146,146);
+  color:$julie-grey;
 
 }
 .nav-hover:hover {
-  color: #C17DBF
+  color: $julie-purple
+}
+
+.progress-bar-wrapper .progress-bar:first-of-type {
+    background:lightblue !important
+}
+
+.progress-bar-wrapper .progress-bar:last-of-type {
+  background: $julie-grey !important
 }

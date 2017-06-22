@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { Container, Row, Col, Button } from "reactstrap";
-import ProgressBar from "../components/Progress";
-import { addLocationToItinerary } from "../actions/builderActions";
-import { getFinalItinerary } from "../actions/itineraryActions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'reactstrap';
+import ProgressBar from '../components/Progress';
+import { addLocationToItinerary } from '../actions/builderActions';
+import { getFinalItinerary } from '../actions/itineraryActions';
 import {
   displayThreeLocations,
   mealTime
-} from "../helpers/randomLocationPicker";
+} from '../helpers/randomLocationPicker';
 
 const introText = (time, mealsIncluded, lastFood) => {
   let meal = mealTime(time, mealsIncluded, lastFood);
@@ -17,14 +17,14 @@ const introText = (time, mealsIncluded, lastFood) => {
     return (
       <p className="text-center">
         Select one of the following for your
-        {" "}
-        <span style={{ fontWeight: "bold" }}>{meal}</span>
+        {' '}
+        <span style={{ fontWeight: 'bold' }}>{meal}</span>
         , and
-        {" "}
-        <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
+        {' '}
+        <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
           Julie
         </span>
-        {" "}
+        {' '}
         will connect the dots.
       </p>
     );
@@ -32,11 +32,11 @@ const introText = (time, mealsIncluded, lastFood) => {
     return (
       <p className="text-center">
         Select one of the following to add it to your itinerary, and
-        {" "}
-        <span style={{ color: "#C17DBF", fontWeight: "bold" }}>
+        {' '}
+        <span style={{ color: '#C17DBF', fontWeight: 'bold' }}>
           Julie
         </span>
-        {" "}
+        {' '}
         will connect the dots.
       </p>
     );
@@ -78,9 +78,9 @@ class LocationSelectionContainer extends Component {
       return <Redirect to="/PageNotFound" />;
     }
     return (
-      <Container style={{ marginBottom: "50px" }}>
+      <Container style={{ marginBottom: '50px' }} className="text-center">
         <Row>
-          <Col lg={{ size: 8, offset: 2 }}>
+          <Col lg={{ size: 8, offset: 2 }} xs="12">
             <ProgressBar
               startTime={this.props.itinerary.startTime}
               endTime={this.props.itinerary.endTime}
@@ -89,7 +89,7 @@ class LocationSelectionContainer extends Component {
           </Col>
         </Row>
         <Row>
-          <Col lg={{ size: 6, offset: 3 }}>
+          <Col lg={{ size: 6, offset: 3 }} xs="12">
             {introText(
               this.props.itinerary.startTime + this.props.builder.duration,
               this.props.builder.mealsIncluded,
@@ -100,47 +100,33 @@ class LocationSelectionContainer extends Component {
         </Row>
         <Row>
           <Col>
-            <p className="text-center">
-              Don't feel like any of these locations?
+            <p>
+              Don't like these options? Want to end your day early?
             </p>
           </Col>
         </Row>
         <Row>
           <Col
-            style={{ marginBottom: "15px" }}
-            className="text-center"
+            style={{ marginBottom: '15px' }}
             xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
           >
             <Button
               outline
               color="info"
               size="sm"
+              className="clickable"
               onClick={() => {
                 this.forceUpdate();
               }}
             >
-              Get New Options
+              Get 3 New Options
             </Button>
           </Col>
         </Row>
+
         <Row>
-          <Col>
-            <p className="text-center">
-              Don't want to add anything else?
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col
-            className="text-center"
-            xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
-          >
-            <Button
-              outline
-              color="warning"
-              size="sm"
-              onClick={this.onClickBuildItinerary}
-            >
+          <Col xs={{ size: 6, push: 2, pull: 2, offset: 1 }}>
+            <Button size="sm" className="reverse-hoverable">
               Build Itinerary Now
             </Button>
           </Col>

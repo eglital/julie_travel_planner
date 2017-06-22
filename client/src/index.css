@@ -10,11 +10,20 @@ body {
   flex: none;
   /* 2 */ }
 
+.julie-purple {
+  color: #C17DBF; }
+
+.julie-grey {
+  color: #929292; }
+
+.clickable {
+  cursor: pointer; }
+
 .departure-times {
-  color: darkgrey; }
+  color: #929292; }
 
 .arrival-times {
-  color: black; }
+  color: #929292; }
 
 .hoverable:hover {
   background-color: rgba(193, 125, 191, 0.2); }
@@ -22,13 +31,14 @@ body {
 .reverse-hoverable {
   cursor: pointer;
   clear: both;
-  border: 2px solid #C17DBF;
-  background-color: #C17DBF;
-  color: white; }
-
-.reverse-hoverable:hover {
+  border: 1px solid #C17DBF;
   background-color: white;
   color: #C17DBF; }
+
+.reverse-hoverable:hover {
+  background-color: #C17DBF;
+  color: white;
+  border: 1px solid #C17DBF; }
 
 .reverse-hoverable-text {
   color: white; }
@@ -69,3 +79,9 @@ body {
 
 .nav-hover:hover {
   color: #C17DBF; }
+
+.progress-bar-wrapper .progress-bar:first-of-type {
+  background: lightblue !important; }
+
+.progress-bar-wrapper .progress-bar:last-of-type {
+  background: #929292 !important; }
