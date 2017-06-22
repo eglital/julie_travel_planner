@@ -4,9 +4,14 @@ import InitialSubmissionForm from "../components/InitialSubmissionForm";
 import {
   fetchLocationsData,
   setFetching,
-  fetchLocationsDataFailure
+  fetchLocationsDataFailure,
+  deleteLocationsData
 } from "../actions/locationsActions";
-import { toggleMealsInclusion } from "../actions/builderActions";
+import {
+  toggleMealsInclusion,
+  setDuration,
+  changeLastFood
+} from "../actions/builderActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
@@ -77,6 +82,11 @@ class InitialSubmissionFormContainer extends Component {
       this.setState({
         validItinerary: false
       });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.locations.data["food"]) {
+      this.props.clearStore();
     }
   }
 
@@ -304,6 +314,11 @@ function mapDispatchToProps(dispatch) {
     },
     fetchLocationsDataFailure: err => {
       dispatch(fetchLocationsDataFailure(err));
+    },
+    clearStore: () => {
+      dispatch(setDuration({ duration: 0 }));
+      dispatch(changeLastFood(false));
+      dispatch(deleteLocationsData());
     }
   };
 }

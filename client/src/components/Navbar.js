@@ -33,7 +33,7 @@ class JulieNavbar extends React.Component {
       <div>
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
-          <Link to="/" onClick={this.forceUpdate}>
+          <Link to="/">
             <img src={logo} alt="Julie Travel Planner" height="40px" />
           </Link>
           <Collapse isOpen={this.state.isOpen} navbar>
