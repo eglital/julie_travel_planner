@@ -19,6 +19,7 @@ import Hero from "./Hero";
 import FA from "react-fontawesome";
 import TimeHelper from "../helpers/timeHelper";
 import MealCheckbox from "./MealCheckbox";
+import oldMap from "../assets/oldMap.png";
 
 function generateTransportation(
   currentModeOfTransportation,
@@ -73,13 +74,14 @@ function getHoursInMilliseconds(nextHour) {
 
 //it could be any react functional component
 
-const AutocompleteItem = ({ formattedSuggestion }) =>
+const AutocompleteItem = ({ formattedSuggestion }) => (
   <div>
     <i className="fa fa-map-marker" />{" "}
     <strong>{formattedSuggestion.mainText}</strong>
     {" "}
     <small>{formattedSuggestion.secondaryText}</small>
-  </div>;
+  </div>
+);
 const cssClasses = {
   root: "form-group autoRoot",
   input: "form-control",
@@ -148,7 +150,7 @@ const InitialSubmissionForm = ({
                 inputProps={{
                   value: address,
                   onChange: onChangeAddress,
-                  placeholder: 'Use current location',
+                  placeholder: "Use current location",
                   required: requireAddress
                 }}
                 autocompleteItem={AutocompleteItem}
@@ -246,7 +248,7 @@ const InitialSubmissionForm = ({
               </p>
               <img
                 alt="map"
-                src="oldMap.png"
+                src={oldMap}
                 style={{
                   marginTop: "-15px",
                   marginLeft: "auto",
