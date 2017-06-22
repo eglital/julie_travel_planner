@@ -16,6 +16,43 @@ body {
 .julie-grey {
   color: #929292; }
 
+.alert {
+  padding: 3px;
+  height: 55px;
+  text-align: center; }
+
+.alert-text {
+  margin-top: 10px;
+  margin-left: 30px; }
+
+.start-time {
+  float: left;
+  width: 40%;
+  margin-right: 10%; }
+
+.end-time {
+  float: left;
+  width: 40%;
+  margin-left: 10%;
+  margin-bottom: 25px; }
+
+.time-input {
+  text-align-last: center; }
+
+.plan-itinerary {
+  clear: both;
+  margin-top: 10px;
+  margin-bottom: 20px; }
+
+.map-icon {
+  margin-top: -5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  transform: rotate(30deg);
+  height: 64px;
+  width: 100px; }
+
 .clickable {
   cursor: pointer; }
 
