@@ -11,18 +11,17 @@ const enhanceWithClickOutside = require('react-click-outside');
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map(pref => {
     return (
-      <DropdownItem key={pref}>
-        <div>
-          <label>
-            {pref}
-            <input
-              checked={preferences[pref]}
-              type="checkbox"
-              onChange={onChange}
-              value={pref}
-            />
-          </label>
-          {' '}
+      <DropdownItem key={pref} style={{ height: '25px' }}>
+        <div data-button="true">
+          {pref}
+          <input
+            data-button="true"
+            checked={preferences[pref]}
+            type="checkbox"
+            onChange={onChange}
+            value={pref}
+            style={{ marginTop: '5px', float: 'right' }}
+          />
         </div>
       </DropdownItem>
     );
@@ -45,29 +44,26 @@ class PreferencesDropDown extends React.Component {
     });
   }
 
-  handleClickOutside() {
-    console.log('Clicked outside');
-    this.setState({ dropdownOpen: false });
+  handleClickOutside(e) {
+    if (!e.target.dataset.button) {
+      this.setState({ dropdownOpen: false });
+    }
   }
 
   render() {
     return (
       <FormGroup className="preferences">
         <Dropdown
+          tether="true"
           isOpen={this.state.dropdownOpen}
           toggle={() => {
             return;
           }}
         >
-          <DropdownToggle
-            caret
-            onClick={() => {
-              this.toggle();
-            }}
-          >
+          <DropdownToggle caret onClick={this.toggle}>
             Preferences
           </DropdownToggle>
-          <DropdownMenu className="centered-axis-x">
+          <DropdownMenu>
             {generatePreferences(
               this.props.preferences,
               this.props.onPrefChange

@@ -18,31 +18,7 @@ import moment from 'moment';
 import Hero from './Hero';
 import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
-import MealCheckbox from './MealCheckbox';
 import walking from '../assets/walking.png';
-
-function generateTransportation(
-  currentModeOfTransportation,
-  modesOfTransportation,
-  onChange
-) {
-  return modesOfTransportation.map(mode => {
-    return (
-      <FormGroup key={mode.value}>
-        <label>
-          {' '}{mode.value} <FA name={mode.faName} />
-          <input
-            checked={currentModeOfTransportation === mode.value}
-            type="radio"
-            name="transportation"
-            value={mode.value}
-            onChange={onChange}
-          />
-        </label>
-      </FormGroup>
-    );
-  });
-}
 
 function createTimeOptions(time, startOffset = 0) {
   //change to milli
@@ -237,6 +213,7 @@ const InitialSubmissionForm = ({
                     <label>
                       <img
                         src={walking}
+                        alt="walking"
                         height="15px"
                         style={{ marginRight: '5px' }}
                       />
@@ -252,7 +229,6 @@ const InitialSubmissionForm = ({
 
                 </div>
               </div>
-              {/* <MealCheckbox onChange={onMealsChange} checked={includeMeals} /> */}
               <div>
                 <PreferencesDropDown
                   preferences={preferences}
@@ -267,7 +243,12 @@ const InitialSubmissionForm = ({
                 marginBottom: '20px'
               }}
             >
-              <Button style={{ clear: 'both' }}>Get planning!</Button>
+              <Button
+                className="hoverable"
+                style={{ clear: 'both', border: '1px solid pink' }}
+              >
+                Get planning!
+              </Button>
             </div>
 
             <div>
