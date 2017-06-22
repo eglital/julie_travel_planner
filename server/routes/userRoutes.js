@@ -7,8 +7,8 @@ const Itinerary = mongoose.model("Itinerary");
 const { verifyJwt } = require("../helpers/auth");
 
 router.get("/user/itineraries", (req, res, next) => {
+  console.log("getting itineraries for the user");
   let jwtString = req.query.facebookjwt;
-
   try {
     let userId = verifyJwt(jwtString).userId;
     User.findById(userId)
@@ -22,6 +22,7 @@ router.get("/user/itineraries", (req, res, next) => {
 });
 
 router.delete("/user/itineraries/:itineraryId", (req, res, next) => {
+  console.log("deleting itinerary");
   let jwtString = req.query.facebookjwt;
   let itineraryId = req.params.itineraryId;
   try {

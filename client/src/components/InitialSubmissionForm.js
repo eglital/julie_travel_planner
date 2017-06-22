@@ -104,7 +104,8 @@ const InitialSubmissionForm = ({
   includeMeals,
   onTransporationModeChange,
   modesOfTransportation,
-  currentModeOfTransportation
+  currentModeOfTransportation,
+  requireAddress
 }) => {
   console.log('render initialSubmissionForm');
   return (
@@ -148,7 +149,8 @@ const InitialSubmissionForm = ({
                 inputProps={{
                   value: address,
                   onChange: onChangeAddress,
-                  placeholder: 'Use current location'
+                  placeholder: 'Use current location',
+                  required: requireAddress
                 }}
                 autocompleteItem={AutocompleteItem}
                 classNames={cssClasses}

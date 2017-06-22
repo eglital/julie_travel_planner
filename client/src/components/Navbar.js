@@ -4,6 +4,7 @@ import LogoutButton from './LogoutButton';
 import fbAuthHelper from '../helpers/facebookAuthHelper';
 import { Navbar, Nav, NavItem, Collapse, NavbarToggler } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 class JulieNavbar extends React.Component {
   constructor() {
@@ -33,7 +34,7 @@ class JulieNavbar extends React.Component {
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
           <Link to="/">
-            <img src="./logo.png" alt="Julie Travel Planner" height="40px" />
+            <img src={logo} alt="Julie Travel Planner" height="40px" />
           </Link>
           <Collapse isOpen={this.state.isOpen} navbar>
             {this.state.userLoggedIn

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import InitialSubmissionForm from '../components/InitialSubmissionForm';
-import { fetchLocationsData, setFetching } from '../actions/locationsActions';
+import {
+  fetchLocationsData,
+  setFetching,
+  fetchLocationsDataFailure
+} from '../actions/locationsActions';
 // import { toggleMealsInclusion } from "../actions/builderActions";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -28,6 +32,21 @@ const Loader = () => <div className="loader" />;
 class InitialSubmissionFormContainer extends Component {
   constructor(props) {
     super(props);
+
+    //Determine if location is required
+    let geolocationPermission = true;
+    if (navigator.permissions) {
+      navigator.permissions
+        .query({
+          name: 'geolocation'
+        })
+        .then(permission => {
+          if (permission.state === 'denied') {
+            geolocationPermission = false;
+          }
+        });
+    }
+
     this.state = {
       nextHour: TimeHelper.getNextHour(),
       startTime: TimeHelper.getNextHour(),
@@ -38,7 +57,8 @@ class InitialSubmissionFormContainer extends Component {
       error: null,
       validItinerary: false,
       preferences: initPreferences(preferences),
-      includeMeals: this.props.builder.mealsIncluded
+      includeMeals: this.props.builder.mealsIncluded,
+      requireAddress: !geolocationPermission
     };
   }
 
@@ -189,7 +209,14 @@ class InitialSubmissionFormContainer extends Component {
           geolocationDeny => {
             //prompt with box for starting location and update the state?
             console.log('Please enter a starting location');
-            data.startingLocation = this.state.startingLocation; //or default values?
+            this.setState({
+              requireAddress: true,
+              error: "Please let us know where you'd like to start."
+            });
+            this.props.fetchLocationsDataFailure(
+              "Please let us know where you'd like to start."
+            );
+            throw new Error('Need location');
           }
         )
         .then(form => {
@@ -198,6 +225,9 @@ class InitialSubmissionFormContainer extends Component {
           this.props.fetchLocationsData({
             formSubmission: data
           });
+        })
+        .catch(err => {
+          console.log('Error', err);
         });
     } else {
       /* geolocation IS NOT available */
@@ -229,6 +259,7 @@ class InitialSubmissionFormContainer extends Component {
           onTransporationModeChange={this.onTransporationModeChange}
           modesOfTransportation={modesOfTransportation}
           currentModeOfTransportation={this.props.itinerary.transportationMode}
+          requireAddress={this.state.requireAddress}
           {...this.state}
         />
       );
@@ -257,6 +288,9 @@ function mapDispatchToProps(dispatch) {
     },
     setFetching: () => {
       dispatch(setFetching());
+    },
+    fetchLocationsDataFailure: err => {
+      dispatch(fetchLocationsDataFailure(err));
     }
   };
 }
