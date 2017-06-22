@@ -168,39 +168,7 @@ const InitialSubmissionForm = ({
             </FormGroup>
 
             <div>
-              <FormGroup key="driving" style={{ display: "inline-block" }}>
-                <label>
-                  <FA name="car" style={{ marginRight: "5px" }} />
-                  <input
-                    checked={currentModeOfTransportation === "driving"}
-                    type="radio"
-                    name="transportation"
-                    value="driving"
-                    onChange={onTransporationModeChange}
-                  />
-                </label>
-              </FormGroup>
-              <span> -or- </span>
-              <FormGroup key="walking" style={{ display: "inline-block" }}>
-                <label>
-                  <img
-                    src={walking}
-                    alt="walking"
-                    height="15px"
-                    style={{ marginRight: "5px" }}
-                  />
-                  <input
-                    checked={currentModeOfTransportation === "walking"}
-                    type="radio"
-                    name="transportation"
-                    value="walking"
-                    onChange={onTransporationModeChange}
-                  />
-                </label>
-              </FormGroup>
-            </div>
 
-            <div>
               <FormGroup
                 style={{
                   float: "left",
@@ -252,13 +220,47 @@ const InitialSubmissionForm = ({
                   Must be at least 2 hours after starting time!
                 </UncontrolledTooltip>
               </FormGroup>
-              <div>
-                <PreferencesDropDown
-                  preferences={preferences}
-                  onPrefChange={onPrefChange}
-                />
-              </div>
             </div>
+
+            <div>
+              <FormGroup key="driving" style={{ display: "inline-block" }}>
+                <label>
+                  <FA name="car" style={{ marginRight: "5px" }} />
+                  <input
+                    checked={currentModeOfTransportation === "driving"}
+                    type="radio"
+                    name="transportation"
+                    value="driving"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+              <span> -or- </span>
+              <FormGroup key="walking" style={{ display: "inline-block" }}>
+                <label>
+                  <img
+                    src={walking}
+                    alt="walking"
+                    height="15px"
+                    style={{ marginRight: "5px" }}
+                  />
+                  <input
+                    checked={currentModeOfTransportation === "walking"}
+                    type="radio"
+                    name="transportation"
+                    value="walking"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+            </div>
+            <div style={{ maxWidth: "140px", margin: "auto" }}>
+              <PreferencesDropDown
+                preferences={preferences}
+                onPrefChange={onPrefChange}
+              />
+            </div>
+
             <div
               style={{
                 marginTop: "20px",
@@ -270,7 +272,13 @@ const InitialSubmissionForm = ({
                 className="hoverable"
                 style={{ clear: "both", border: "2px solid #C17DBF" }}
               >
-                <span style={{ fontWeight: "500", color: "rgb(100,100,100)" }}>
+                <span
+                  style={{
+                    fontWeight: "500",
+                    color: "rgb(100,100,100)",
+                    cursor: "pointer"
+                  }}
+                >
                   Get planning!
                 </span>
               </Button>
@@ -294,6 +302,7 @@ const InitialSubmissionForm = ({
                 }}
               />
             </div>
+
           </Form>
         </Col>
 
