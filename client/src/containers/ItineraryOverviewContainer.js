@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { getSavedItinerary } from '../actions/itineraryActions';
-import LocationOverview from '../components/LocationOverview';
-import { shareByEmail } from '../helpers/emailHelper';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { getSavedItinerary } from "../actions/itineraryActions";
+import LocationOverview from "../components/LocationOverview";
+import { shareByEmail } from "../helpers/emailHelper";
 
 class ItineraryOverviewContainer extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (!this.props.finalItinerary.length) {
       this.props.getSavedItinerary(this.props.match.params.itineraryId);
     }
@@ -16,7 +17,6 @@ class ItineraryOverviewContainer extends Component {
     if (!this.props.finalItinerary) {
       return <Redirect to="/PageNotFound" />;
     } else {
-      window.scrollTo(-100, -100);
       return (
         <div>
           {this.props.finalItinerary.length
