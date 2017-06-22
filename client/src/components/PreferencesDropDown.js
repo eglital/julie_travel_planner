@@ -20,7 +20,7 @@ function generatePreferences(preferences, onChange) {
             type="checkbox"
             onChange={onChange}
             value={pref}
-            style={{ marginTop: '5px', float: 'right' }}
+            style={{ marginTop: '5px', float: 'right', cursor: 'pointer' }}
           />
         </div>
       </DropdownItem>
@@ -32,13 +32,13 @@ class PreferencesDropDown extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
+    this.togglePref = this.togglePref.bind(this);
     this.state = {
       dropdownOpen: false
     };
   }
 
-  toggle() {
+  togglePref() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
@@ -52,18 +52,23 @@ class PreferencesDropDown extends React.Component {
 
   render() {
     return (
-      <FormGroup className="preferences">
+      <FormGroup className="preferences" style={{ cursor: 'pointer' }}>
         <Dropdown
           tether="true"
           isOpen={this.state.dropdownOpen}
           toggle={() => {
             return;
           }}
+          style={{ cursor: 'pointer' }}
         >
-          <DropdownToggle caret onClick={this.toggle}>
+          <DropdownToggle
+            caret
+            onClick={this.togglePref}
+            style={{ cursor: 'pointer' }}
+          >
             Preferences
           </DropdownToggle>
-          <DropdownMenu>
+          <DropdownMenu style={{ cursor: 'pointer' }}>
             {generatePreferences(
               this.props.preferences,
               this.props.onPrefChange
