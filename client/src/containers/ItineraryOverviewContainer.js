@@ -24,6 +24,7 @@ class ItineraryOverviewContainer extends Component {
                 <LocationOverview
                   finalItinerary={this.props.finalItinerary}
                   transportation={this.props.transportationMode}
+                  id={this.props.match.params.itineraryId}
                   shareByEmail={this.props.shareByEmail}
                 />
               </div>
@@ -37,8 +38,7 @@ class ItineraryOverviewContainer extends Component {
 const mapStateToProps = state => {
   return {
     finalItinerary: state.itinerary.finalItinerary,
-    transportationMode: state.itinerary.transportationMode,
-    id: state.itinerary.id
+    transportationMode: state.itinerary.transportationMode
   };
 };
 const mapDispatchToProps = dispatch => {
