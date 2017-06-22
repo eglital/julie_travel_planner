@@ -18,7 +18,6 @@ import moment from "moment";
 import Hero from "./Hero";
 import FA from "react-fontawesome";
 import TimeHelper from "../helpers/timeHelper";
-import MealCheckbox from "./MealCheckbox";
 import oldMap from "../assets/oldMap.png";
 import walking from "../assets/walking.png";
 function generateTransportation(

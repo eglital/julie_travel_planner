@@ -122,7 +122,6 @@ class SavedItinerary extends React.Component {
 
   render() {
     const { itinerary } = this.props;
-    console.log("id:", itinerary._id);
 
     return (
       <div>
