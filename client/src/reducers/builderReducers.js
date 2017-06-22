@@ -1,7 +1,12 @@
-import { SET_DURATION, CHANGE_LAST_FOOD } from '../actions/types';
+import {
+  SET_DURATION,
+  CHANGE_LAST_FOOD,
+  TOGGLE_MEALS_INCLUSION
+} from '../actions/types';
 const initialState = {
   duration: 0,
-  lastFood: false
+  lastFood: false,
+  mealsIncluded: true
 };
 
 export function builder(state = initialState, action) {
@@ -16,11 +21,11 @@ export function builder(state = initialState, action) {
         ...state,
         lastFood: action.data
       };
-    // case TOGGLE_MEALS_INCLUSION:
-    //   return {
-    //     ...state,
-    //     mealsIncluded: !state.mealsIncluded
-    //   };
+    case TOGGLE_MEALS_INCLUSION:
+      return {
+        ...state,
+        mealsIncluded: !state.mealsIncluded
+      };
     default:
       return state;
   }

@@ -5,7 +5,7 @@ import {
   setFetching,
   fetchLocationsDataFailure
 } from '../actions/locationsActions';
-// import { toggleMealsInclusion } from "../actions/builderActions";
+import { toggleMealsInclusion } from '../actions/builderActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ItineraryHelper from '../helpers/itineraryHelper';
@@ -148,6 +148,12 @@ class InitialSubmissionFormContainer extends Component {
   //toggle the check box value,
   //assumes default unchecked
   onPrefChange = e => {
+    console.log('E.target.value', e.target.value);
+
+    if (e.target.value === 'meals') {
+      this.props.toggleMealsInclusion();
+    }
+
     this.setState({
       preferences: {
         ...this.state.preferences,
@@ -280,9 +286,9 @@ function mapDispatchToProps(dispatch) {
     fetchLocationsData: form => {
       dispatch(fetchLocationsData(form));
     },
-    // toggleMealsInclusion: () => {
-    //   dispatch(toggleMealsInclusion());
-    // },
+    toggleMealsInclusion: () => {
+      dispatch(toggleMealsInclusion());
+    },
     changeTransportationMode: mode => {
       dispatch(changeTransportationMode(mode));
     },
