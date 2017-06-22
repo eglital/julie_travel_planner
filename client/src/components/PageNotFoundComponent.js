@@ -3,8 +3,6 @@ import { Jumbotron, Button, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const PageNotFoundComponent = () => {
-  window.scrollTo(0, 0);
-
   return (
     <div>
       <Container style={{ marginTop: "50px" }}>

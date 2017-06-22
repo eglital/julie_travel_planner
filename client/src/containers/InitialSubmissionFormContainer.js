@@ -4,20 +4,10 @@ import {
   fetchLocationsData,
   setFetching,
   fetchLocationsDataFailure
-}
-from "../actions/locationsActions";
-import {
-  toggleMealsInclusion
-}
-from '../actions/builderActions';
-import {
-  connect
-}
-from "react-redux";
-import {
-  withRouter
-}
-from "react-router-dom";
+} from "../actions/locationsActions";
+import { toggleMealsInclusion } from "../actions/builderActions";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
 import "../stylesheets/loading.css";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
@@ -42,16 +32,14 @@ const Loader = () => <div className="loader" />;
 class InitialSubmissionFormContainer extends Component {
   constructor(props) {
     super(props);
-    
+
     //Determine if location is required
     let geolocationPermission = true;
-    navigator.permissions.query({'name': 'geolocation'})
-    .then( permission => {
-      if (permission.state === 'denied'){
+    navigator.permissions.query({ name: "geolocation" }).then(permission => {
+      if (permission.state === "denied") {
         geolocationPermission = false;
       }
     });
-
 
     this.state = {
       nextHour: TimeHelper.getNextHour(),
@@ -69,8 +57,6 @@ class InitialSubmissionFormContainer extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(-10, -10);
-
     //check localStorage for itinerary: id
     if (ItineraryHelper.validItinerary()) {
       this.setState({
@@ -219,9 +205,10 @@ class InitialSubmissionFormContainer extends Component {
               requireAddress: true,
               error: "Please let us know where you'd like to start."
             });
-            this.props.fetchLocationsDataFailure("Please let us know where you'd like to start.");
+            this.props.fetchLocationsDataFailure(
+              "Please let us know where you'd like to start."
+            );
             throw new Error("Need location");
-
           }
         )
         .then(form => {
@@ -294,7 +281,7 @@ function mapDispatchToProps(dispatch) {
     setFetching: () => {
       dispatch(setFetching());
     },
-    fetchLocationsDataFailure: (err) => {
+    fetchLocationsDataFailure: err => {
       dispatch(fetchLocationsDataFailure(err));
     }
   };

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { connect } from 'react-redux';
-import SavedItinerary from '../components/SavedItinerary';
-import { fetchUserItinerariesData } from '../actions/userItinerariesActions';
-import { deleteItinerary } from '../actions/userItinerariesActions';
+import React, { Component } from "react";
+import { Container, Row, Col } from "reactstrap";
+import { connect } from "react-redux";
+import SavedItinerary from "../components/SavedItinerary";
+import { fetchUserItinerariesData } from "../actions/userItinerariesActions";
+import { deleteItinerary } from "../actions/userItinerariesActions";
 
 class SavedItinerariesContainer extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class SavedItinerariesContainer extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     this.props.fetchUserItinerariesData();
   }
 
@@ -39,21 +38,21 @@ class SavedItinerariesContainer extends Component {
       return (
         <Container
           style={{
-            marginLeft: '5%',
-            marginRight: '5%',
-            marginTop: '10px'
+            marginLeft: "5%",
+            marginRight: "5%",
+            marginTop: "10px"
           }}
         >
           <Row>
-            <Col xs="12" md={{ size: '8', offset: '2' }}>
+            <Col xs="12" md={{ size: "8", offset: "2" }}>
               {this.props.userItineraries.length
                 ? <div>
                     <h3
                       className="text-center"
                       style={{
-                        color: '#C17DBF',
-                        marginBottom: '15px',
-                        textDecoration: 'underline darkgrey'
+                        color: "#C17DBF",
+                        marginBottom: "15px",
+                        textDecoration: "underline darkgrey"
                       }}
                     >
                       Your Itineraries
