@@ -157,27 +157,14 @@ class SavedItinerary extends React.Component {
               Places you visited during this trip:
             </div>
             {this.displayLocationsFromItinerary(itinerary.data)}
+
             <div className="text-center" style={{ marginBottom: '10px' }}>
-              <Button
-                outline
-                color="secondary"
-                size="sm"
-                // onClick={() => {
-                //   this.props.history.push(
-                //     `/itinerary-overview/${itinerary._id}`
-                //   );
-                // }}
-                style={{ cursor: 'pointer' }}
-              >
-                <Link to={`/itinerary-overview/${itinerary._id}`}>
-                  See Full Itinerary
-                </Link>!
-
-              </Button>
-
+              <Link to={`/itinerary-overview/${itinerary._id}`}>
+                See Full Itinerary Here!
+              </Link>
             </div>
-            <div className="text-center" style={{ marginBottom: '10px' }}>
 
+            <div className="text-center" style={{ marginBottom: '10px' }}>
               <Button
                 outline
                 color="warning"
@@ -189,6 +176,7 @@ class SavedItinerary extends React.Component {
                 Delete Itinerary
               </Button>
             </div>
+
             <div className="text-center">
               <Button
                 outline
@@ -200,6 +188,7 @@ class SavedItinerary extends React.Component {
                 Close Window
               </Button>
             </div>
+
           </ModalBody>
         </Modal>
       </div>

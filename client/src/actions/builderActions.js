@@ -2,8 +2,8 @@ import axios from 'axios';
 import { getFinalItinerary } from './itineraryActions';
 import {
   SET_DURATION,
-  CHANGE_LAST_FOOD,
-  TOGGLE_MEALS_INCLUSION
+  CHANGE_LAST_FOOD
+  // TOGGLE_MEALS_INCLUSION
 } from './types';
 import { deleteSelectedLocation } from './locationsActions';
 import FacebookAuthHelper from '../helpers/facebookAuthHelper';
@@ -65,8 +65,8 @@ export function changeLastFood(data) {
   };
 }
 
-export function toggleMealsInclusion() {
-  return {
-    type: TOGGLE_MEALS_INCLUSION
-  };
-}
+// export function toggleMealsInclusion() {
+//   return {
+//     type: TOGGLE_MEALS_INCLUSION
+//   };
+// }
