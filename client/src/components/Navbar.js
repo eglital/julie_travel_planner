@@ -65,24 +65,6 @@ class JulieNavbar extends React.Component {
                 </Nav>}
           </Collapse>
         </Navbar>
-        {/* {this.state.userLoggedIn
-              ? <Nav className="ml-auto" navbar>
-
-                  <NavItem>
-                    <Link to="/saved"><Button>Saved Itineraries</Button></Link>
-                  </NavItem>
-                  <NavItem>
-                    <LogoutButton />
-                  </NavItem>
-
-                </Nav>
-              : <Nav className="ml-auto" navbar>
-                  <NavItem>
-                    <LoginButton loginUser={this.loginUser} />
-                  </NavItem>
-                </Nav>} */}
-        {/* </Collapse> */}
-
       </div>
     );
   }

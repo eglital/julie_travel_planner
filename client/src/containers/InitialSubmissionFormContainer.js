@@ -1,17 +1,37 @@
-import React, { Component } from "react";
+import React, {
+  Component
+}
+from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
 import {
   fetchLocationsData,
   setFetching,
   fetchLocationsDataFailure
-} from "../actions/locationsActions";
-import { toggleMealsInclusion } from "../actions/builderActions";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+}
+from "../actions/locationsActions";
+import {
+  toggleMealsInclusion
+}
+from "../actions/builderActions";
+import {
+  connect
+}
+from "react-redux";
+import {
+  withRouter
+}
+from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
 import "../stylesheets/loading.css";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { changeTransportationMode } from "../actions/itineraryActions";
+import {
+  geocodeByAddress,
+  getLatLng
+}
+from "react-places-autocomplete";
+import {
+  changeTransportationMode
+}
+from "../actions/itineraryActions";
 
 //references
 import preferences from "../references/preferences";
@@ -72,7 +92,8 @@ class InitialSubmissionFormContainer extends Component {
       this.setState({
         validItinerary: ItineraryHelper.getItineraryObj()
       });
-    } else {
+    }
+    else {
       this.setState({
         validItinerary: false
       });
@@ -96,7 +117,8 @@ class InitialSubmissionFormContainer extends Component {
         this.setState({
           error: "No selections returned! Try adding more preferences."
         });
-      } else {
+      }
+      else {
         this.props.history.push("/itinerary-creation");
       }
     }
@@ -122,7 +144,8 @@ class InitialSubmissionFormContainer extends Component {
         startTime: +e.target.value,
         endTime: +e.target.value + TWO_HOURS_IN_MILLISECONDS
       });
-    } else {
+    }
+    else {
       this.setState({
         startTime: +e.target.value
       });
@@ -184,17 +207,16 @@ class InitialSubmissionFormContainer extends Component {
       geocodeByAddress(this.state.address)
         .then(results => getLatLng(results[0]))
         .then(latLng => {
-          console.log("Success", latLng);
           data.startingLocation = [latLng.lat, latLng.lng];
         })
         .then(() => {
-          console.log("FROM AUTOCOMPLETE", data);
           this.props.fetchLocationsData({
             formSubmission: data
           });
         })
         .catch(error => console.error("Error", error));
-    } else if ("geolocation" in navigator) {
+    }
+    else if ("geolocation" in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */
 
@@ -210,7 +232,6 @@ class InitialSubmissionFormContainer extends Component {
           },
           geolocationDeny => {
             //prompt with box for starting location and update the state?
-            console.log("Please enter a starting location");
             this.setState({
               requireAddress: true,
               error: "Please let us know where you'd like to start."
@@ -222,7 +243,6 @@ class InitialSubmissionFormContainer extends Component {
           }
         )
         .then(form => {
-          console.log("updated data", data);
           //send form to action dispatcher
           this.props.fetchLocationsData({
             formSubmission: data
@@ -231,9 +251,18 @@ class InitialSubmissionFormContainer extends Component {
         .catch(err => {
           console.log("Error", err);
         });
-    } else {
+    }
+    else {
       /* geolocation IS NOT available */
       //Set the address input field to required
+      //prompt with box for starting location and update the state?
+      this.setState({
+        requireAddress: true,
+        error: "Please let us know where you'd like to start."
+      });
+      this.props.fetchLocationsDataFailure(
+        "Please let us know where you'd like to start."
+      );
     }
   };
   render() {
@@ -246,7 +275,8 @@ class InitialSubmissionFormContainer extends Component {
           <Loader />;
         </div>
       );
-    } else {
+    }
+    else {
       //create new rounded time to pass to submission form each time
       //consider moving to lifecycle hook to check for changes to avoid rerenders
       return (
