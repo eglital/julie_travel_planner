@@ -110,6 +110,7 @@ const InitialSubmissionForm = ({
             </UncontrolledAlert>}
           <Hero />
           <Form className="text-center" onSubmit={onSubmit}>
+
             <FormGroup
               style={{
                 maxWidth: '600px',
@@ -128,13 +129,53 @@ const InitialSubmissionForm = ({
                   placeholder: 'Use current location',
                   required: requireAddress
                 }}
+                styles={{
+                  input: {
+                    textAlign: 'center',
+                    border: '1px solid lightgrey',
+                    borderRadius: '5px'
+                  }
+                }}
                 autocompleteItem={AutocompleteItem}
-                classNames={cssClasses}
                 onError={onAddressError}
                 clearItemsOnError={true}
               />
 
             </FormGroup>
+
+            <div>
+              <FormGroup key="driving" style={{ display: 'inline-block' }}>
+                <label>
+                  <FA name="car" style={{ marginRight: '5px' }} />
+                  <input
+                    checked={currentModeOfTransportation === 'driving'}
+                    type="radio"
+                    name="transportation"
+                    value="driving"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+              <span> -or- </span>
+              <FormGroup key="walking" style={{ display: 'inline-block' }}>
+                <label>
+                  <img
+                    src={walking}
+                    alt="walking"
+                    height="15px"
+                    style={{ marginRight: '5px' }}
+                  />
+                  <input
+                    checked={currentModeOfTransportation === 'walking'}
+                    type="radio"
+                    name="transportation"
+                    value="walking"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+            </div>
+
             <div>
               <FormGroup
                 style={{
@@ -187,48 +228,6 @@ const InitialSubmissionForm = ({
                   Must be at least 2 hours after starting time!
                 </UncontrolledTooltip>
               </FormGroup>
-
-              <div>
-                {/* <div className="transportation-modes"> */}
-                <div>
-                  {/* {generateTransportation(
-                    currentModeOfTransportation,
-                    modesOfTransportation,
-                    onTransporationModeChange
-                  )} */}
-                  <FormGroup key="driving" style={{ display: 'inline-block' }}>
-                    <label>
-                      <FA name="car" style={{ marginRight: '5px' }} />
-                      <input
-                        checked={currentModeOfTransportation === 'driving'}
-                        type="radio"
-                        name="transportation"
-                        value="driving"
-                        onChange={onTransporationModeChange}
-                      />
-                    </label>
-                  </FormGroup>
-                  <span> -or- </span>
-                  <FormGroup key="walking" style={{ display: 'inline-block' }}>
-                    <label>
-                      <img
-                        src={walking}
-                        alt="walking"
-                        height="15px"
-                        style={{ marginRight: '5px' }}
-                      />
-                      <input
-                        checked={currentModeOfTransportation === 'walking'}
-                        type="radio"
-                        name="transportation"
-                        value="walking"
-                        onChange={onTransporationModeChange}
-                      />
-                    </label>
-                  </FormGroup>
-
-                </div>
-              </div>
               <div>
                 <PreferencesDropDown
                   preferences={preferences}
@@ -245,9 +244,11 @@ const InitialSubmissionForm = ({
             >
               <Button
                 className="hoverable"
-                style={{ clear: 'both', border: '1px solid pink' }}
+                style={{ clear: 'both', border: '2px solid #C17DBF' }}
               >
-                Get planning!
+                <span style={{ fontWeight: '500', color: 'rgb(100,100,100)' }}>
+                  Get planning!
+                </span>
               </Button>
             </div>
 
@@ -255,19 +256,6 @@ const InitialSubmissionForm = ({
               <p className="text-center" style={{ color: '#C17DBF' }}>
                 ______________________________
               </p>
-              {/* <img
-                alt="map"
-                src="oldMap.png"
-                style={{
-                  marginTop: '-15px',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  marginBottom: '5px',
-                  transform: 'rotate(30deg)',
-                  height: '50px',
-                  width: '50px'
-                }}
-              /> */}
             </div>
           </Form>
         </Col>

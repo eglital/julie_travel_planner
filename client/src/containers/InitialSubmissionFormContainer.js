@@ -249,7 +249,7 @@ class InitialSubmissionFormContainer extends Component {
           <p style={{ textAlign: 'center', marginTop: '100px' }}>
             Finding Cool Stuff In Your Area
           </p>
-          <Loader />;
+          <Loader />
         </div>
       );
     } else {
