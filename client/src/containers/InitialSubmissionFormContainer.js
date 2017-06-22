@@ -35,11 +35,17 @@ class InitialSubmissionFormContainer extends Component {
 
     //Determine if location is required
     let geolocationPermission = true;
-    navigator.permissions.query({ name: "geolocation" }).then(permission => {
-      if (permission.state === "denied") {
-        geolocationPermission = false;
-      }
-    });
+    if (navigator.permissions) {
+      navigator.permissions
+        .query({
+          name: "geolocation"
+        })
+        .then(permission => {
+          if (permission.state === "denied") {
+            geolocationPermission = false;
+          }
+        });
+    }
 
     this.state = {
       nextHour: TimeHelper.getNextHour(),
