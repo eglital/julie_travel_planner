@@ -19,6 +19,7 @@ import Hero from './Hero';
 import FA from 'react-fontawesome';
 import TimeHelper from '../helpers/timeHelper';
 import MealCheckbox from './MealCheckbox';
+import walking from '../assets/walking.png';
 
 function generateTransportation(
   currentModeOfTransportation,
@@ -107,7 +108,6 @@ const InitialSubmissionForm = ({
   currentModeOfTransportation,
   requireAddress
 }) => {
-  console.log('render initialSubmissionForm');
   return (
     <Container style={{ marginBottom: '15px', marginTop: '10px' }}>
       <Row>
@@ -213,15 +213,43 @@ const InitialSubmissionForm = ({
               </FormGroup>
 
               <div>
-                <div
-                  className="transportation-modes"
-                  style={{ display: 'flex', justifyContent: 'center' }}
-                >
-                  {generateTransportation(
+                {/* <div className="transportation-modes"> */}
+                <div>
+                  {/* {generateTransportation(
                     currentModeOfTransportation,
                     modesOfTransportation,
                     onTransporationModeChange
-                  )}
+                  )} */}
+                  <FormGroup key="driving" style={{ display: 'inline-block' }}>
+                    <label>
+                      <FA name="car" style={{ marginRight: '5px' }} />
+                      <input
+                        checked={currentModeOfTransportation === 'driving'}
+                        type="radio"
+                        name="transportation"
+                        value="driving"
+                        onChange={onTransporationModeChange}
+                      />
+                    </label>
+                  </FormGroup>
+                  <span> -or- </span>
+                  <FormGroup key="walking" style={{ display: 'inline-block' }}>
+                    <label>
+                      <img
+                        src={walking}
+                        height="15px"
+                        style={{ marginRight: '5px' }}
+                      />
+                      <input
+                        checked={currentModeOfTransportation === 'walking'}
+                        type="radio"
+                        name="transportation"
+                        value="walking"
+                        onChange={onTransporationModeChange}
+                      />
+                    </label>
+                  </FormGroup>
+
                 </div>
               </div>
               {/* <MealCheckbox onChange={onMealsChange} checked={includeMeals} /> */}
@@ -246,7 +274,7 @@ const InitialSubmissionForm = ({
               <p className="text-center" style={{ color: '#C17DBF' }}>
                 ______________________________
               </p>
-              <img
+              {/* <img
                 alt="map"
                 src="oldMap.png"
                 style={{
@@ -258,7 +286,7 @@ const InitialSubmissionForm = ({
                   height: '50px',
                   width: '50px'
                 }}
-              />
+              /> */}
             </div>
           </Form>
         </Col>
