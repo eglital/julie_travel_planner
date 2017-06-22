@@ -9,6 +9,9 @@ import { getFinalItinerary } from "../actions/itineraryActions";
 import displayThreeLocations from "../helpers/randomLocationPicker";
 
 class LocationSelectionContainer extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   shouldComponentUpdate(nextProps, nextState) {
     if (
       nextProps.itinerary.endTime -
