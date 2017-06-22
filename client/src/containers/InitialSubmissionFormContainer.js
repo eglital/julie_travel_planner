@@ -1,4 +1,7 @@
-import React, { Component } from "react";
+import React, {
+  Component
+}
+from "react";
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
 import {
   fetchLocationsData,
@@ -20,8 +23,15 @@ import {
 from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
 import "../stylesheets/loading.css";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { changeTransportationMode } from "../actions/itineraryActions";
+import {
+  geocodeByAddress,
+  getLatLng
+}
+from "react-places-autocomplete";
+import {
+  changeTransportationMode
+}
+from "../actions/itineraryActions";
 
 //references
 import preferences from "../references/preferences";
@@ -42,15 +52,20 @@ const Loader = () => <div className="loader" />;
 class InitialSubmissionFormContainer extends Component {
   constructor(props) {
     super(props);
-    
+
     //Determine if location is required
     let geolocationPermission = true;
-    navigator.permissions.query({'name': 'geolocation'})
-    .then( permission => {
-      if (permission.state === 'denied'){
-        geolocationPermission = false;
-      }
-    });
+    if (navigator) {
+      navigator.permissions.query({
+          'name': 'geolocation'
+        })
+        .then(permission => {
+          if (permission.state === 'denied') {
+            geolocationPermission = false;
+          }
+        });
+    }
+
 
 
     this.state = {
@@ -76,7 +91,8 @@ class InitialSubmissionFormContainer extends Component {
       this.setState({
         validItinerary: ItineraryHelper.getItineraryObj()
       });
-    } else {
+    }
+    else {
       this.setState({
         validItinerary: false
       });
@@ -100,7 +116,8 @@ class InitialSubmissionFormContainer extends Component {
         this.setState({
           error: "No selections returned! Try adding more preferences."
         });
-      } else {
+      }
+      else {
         this.props.history.push("/itinerary-creation");
       }
     }
@@ -126,7 +143,8 @@ class InitialSubmissionFormContainer extends Component {
         startTime: +e.target.value,
         endTime: +e.target.value + 2
       });
-    } else {
+    }
+    else {
       this.setState({
         startTime: +e.target.value
       });
@@ -198,7 +216,8 @@ class InitialSubmissionFormContainer extends Component {
           });
         })
         .catch(error => console.error("Error", error));
-    } else if ("geolocation" in navigator) {
+    }
+    else if ("geolocation" in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */
 
@@ -234,7 +253,8 @@ class InitialSubmissionFormContainer extends Component {
         .catch(err => {
           console.log("Error", err);
         });
-    } else {
+    }
+    else {
       /* geolocation IS NOT available */
       //Set the address input field to required
     }
@@ -249,7 +269,8 @@ class InitialSubmissionFormContainer extends Component {
           <Loader />;
         </div>
       );
-    } else {
+    }
+    else {
       //create new rounded time to pass to submission form each time
       //consider moving to lifecycle hook to check for changes to avoid rerenders
       return (
