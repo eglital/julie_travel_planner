@@ -19,7 +19,8 @@ import Hero from "./Hero";
 import FA from "react-fontawesome";
 import TimeHelper from "../helpers/timeHelper";
 import MealCheckbox from "./MealCheckbox";
-
+import oldMap from "../assets/oldMap.png";
+import walking from "../assets/walking.png";
 function generateTransportation(
   currentModeOfTransportation,
   modesOfTransportation,
@@ -73,13 +74,14 @@ function getHoursInMilliseconds(nextHour) {
 
 //it could be any react functional component
 
-const AutocompleteItem = ({ formattedSuggestion }) =>
+const AutocompleteItem = ({ formattedSuggestion }) => (
   <div>
     <i className="fa fa-map-marker" />{" "}
     <strong>{formattedSuggestion.mainText}</strong>
     {" "}
     <small>{formattedSuggestion.secondaryText}</small>
-  </div>;
+  </div>
+);
 const cssClasses = {
   root: "form-group autoRoot",
   input: "form-control",
@@ -106,7 +108,6 @@ const InitialSubmissionForm = ({
   currentModeOfTransportation,
   requireAddress
 }) => {
-  console.log("render initialSubmissionForm");
   return (
     <Container style={{ marginBottom: "15px", marginTop: "10px" }}>
       <Row>
@@ -133,6 +134,7 @@ const InitialSubmissionForm = ({
             </UncontrolledAlert>}
           <Hero />
           <Form className="text-center" onSubmit={onSubmit}>
+
             <FormGroup
               style={{
                 maxWidth: "600px",
@@ -148,17 +150,25 @@ const InitialSubmissionForm = ({
                 inputProps={{
                   value: address,
                   onChange: onChangeAddress,
-                  placeholder: 'Use current location',
+                  placeholder: "Use current location",
                   required: requireAddress
                 }}
+                styles={{
+                  input: {
+                    textAlign: "center",
+                    border: "1px solid lightgrey",
+                    borderRadius: "5px"
+                  }
+                }}
                 autocompleteItem={AutocompleteItem}
-                classNames={cssClasses}
                 onError={onAddressError}
                 clearItemsOnError={true}
               />
 
             </FormGroup>
+
             <div>
+
               <FormGroup
                 style={{
                   float: "left",
@@ -207,29 +217,50 @@ const InitialSubmissionForm = ({
                   {createTimeOptions(startTime, 2)}
                 </Input>
                 <UncontrolledTooltip placement="top" target="endingTime">
-                  Ending time must be at least 2 hours after starting time!
+                  Must be at least 2 hours after starting time!
                 </UncontrolledTooltip>
               </FormGroup>
+            </div>
 
-              <div>
-                <p>Transportation</p>
-                <div
-                  className="transportation-modes"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  {generateTransportation(
-                    currentModeOfTransportation,
-                    modesOfTransportation,
-                    onTransporationModeChange
-                  )}
-                </div>
-              </div>
-              <MealCheckbox onChange={onMealsChange} checked={includeMeals} />
+            <div>
+              <FormGroup key="driving" style={{ display: "inline-block" }}>
+                <label>
+                  <FA name="car" style={{ marginRight: "5px" }} />
+                  <input
+                    checked={currentModeOfTransportation === "driving"}
+                    type="radio"
+                    name="transportation"
+                    value="driving"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+              <span> -or- </span>
+              <FormGroup key="walking" style={{ display: "inline-block" }}>
+                <label>
+                  <img
+                    src={walking}
+                    alt="walking"
+                    height="15px"
+                    style={{ marginRight: "5px" }}
+                  />
+                  <input
+                    checked={currentModeOfTransportation === "walking"}
+                    type="radio"
+                    name="transportation"
+                    value="walking"
+                    onChange={onTransporationModeChange}
+                  />
+                </label>
+              </FormGroup>
+            </div>
+            <div style={{ maxWidth: "140px", margin: "auto" }}>
               <PreferencesDropDown
                 preferences={preferences}
                 onPrefChange={onPrefChange}
               />
             </div>
+
             <div
               style={{
                 marginTop: "20px",
@@ -237,7 +268,20 @@ const InitialSubmissionForm = ({
                 marginBottom: "20px"
               }}
             >
-              <Button style={{ clear: "both" }}>Get planning!</Button>
+              <Button
+                className="hoverable"
+                style={{ clear: "both", border: "2px solid #C17DBF" }}
+              >
+                <span
+                  style={{
+                    fontWeight: "500",
+                    color: "rgb(100,100,100)",
+                    cursor: "pointer"
+                  }}
+                >
+                  Get planning!
+                </span>
+              </Button>
             </div>
 
             <div>
@@ -246,7 +290,7 @@ const InitialSubmissionForm = ({
               </p>
               <img
                 alt="map"
-                src="oldMap.png"
+                src={oldMap}
                 style={{
                   marginTop: "-15px",
                   marginLeft: "auto",
@@ -258,6 +302,7 @@ const InitialSubmissionForm = ({
                 }}
               />
             </div>
+
           </Form>
         </Col>
 

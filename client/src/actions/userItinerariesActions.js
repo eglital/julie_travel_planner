@@ -26,7 +26,6 @@ export function fetchUserItinerariesData() {
       .then(ApiResponseHelper.responseChecker)
       .then(ApiResponseHelper.parseToJSON)
       .then(data => {
-        console.log("data", data);
         //update the locations reducer
         /**
          * data: {
@@ -38,7 +37,6 @@ export function fetchUserItinerariesData() {
         dispatch(userItinerariesSuccess(data.itineraries));
       })
       .catch(err => {
-        console.log("dispatching location failure", err);
         // dispatch(userItinerariesFailure(err));
       });
   };

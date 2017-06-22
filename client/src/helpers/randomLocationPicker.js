@@ -2,6 +2,21 @@ import LocationSelection from "../components/LocationSelection";
 import React from "react";
 var moment = require("moment");
 
+const mealTime = (time, mealsIncluded, lastFood) => {
+  let currentHour = moment(time).hour();
+  if (mealsIncluded && !lastFood && isTimeToEat(time)) {
+    if (currentHour >= 7 && currentHour <= 10) {
+      return "breakfast";
+    } else if (currentHour >= 12 && currentHour <= 15) {
+      return "lunch";
+    } else if (currentHour >= 17 && currentHour <= 20) {
+      return "dinner";
+    } else {
+      return null;
+    }
+  }
+};
+
 const isTimeToEat = time => {
   let currentHour = moment(time).hour();
   let timeToEat = false;
@@ -10,6 +25,7 @@ const isTimeToEat = time => {
   for (let i = 0; i < 3; i++) {
     if (currentHour >= mealTimes[i][0] && currentHour <= mealTimes[i][1]) {
       timeToEat = true;
+      break;
     }
   }
   return timeToEat;
@@ -75,7 +91,14 @@ const displayThreeLocations = (props, onClickLocation) => {
     } else {
       for (let i = 0; i < 3; i++) {
         while (true) {
-          let randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+          let randomChoice;
+          if (openLocations["places"].length === 0) {
+            randomChoice = "sights";
+          } else if (openLocations["sights"].length === 0) {
+            randomChoice = "places";
+          } else {
+            randomChoice = choices[Math.floor(Math.random() * 2)]; //between places and sights
+          }
           let randomPlace =
             openLocations[randomChoice][
               Math.floor(Math.random() * openLocations[randomChoice].length)
@@ -136,4 +159,4 @@ const locationSelectionList = (loc, sections, itineraryId, onClick) => {
     );
   });
 };
-export default displayThreeLocations;
+export { displayThreeLocations, mealTime };

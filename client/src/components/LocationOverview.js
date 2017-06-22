@@ -9,6 +9,7 @@ import ShareTwitterButton from "./ShareTwitterButton";
 import ShareFacebookButton from "./ShareFacebookButton";
 import ShareEmailButton from "./ShareEmailButton";
 import logo from "../assets/logo.png";
+import map from "../assets/map.png";
 
 function makeOverview(finalItinerary, transportation) {
   return finalItinerary.map((location, index) => {
@@ -21,7 +22,7 @@ function makeOverview(finalItinerary, transportation) {
             departureTime={location.departureTime}
             locationData={{
               name: "Ending Location",
-              photo: "/map.png"
+              photo: map
             }}
           />
         </div>
@@ -34,7 +35,7 @@ function makeOverview(finalItinerary, transportation) {
             departureTime={location.departureTime}
             locationData={{
               name: "Starting Location",
-              photo: "/map.png"
+              photo: map
             }}
           />
           <TravelSegment
@@ -70,7 +71,12 @@ function makeOverview(finalItinerary, transportation) {
   });
 }
 
-const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
+const LocationOverview = ({
+  finalItinerary,
+  transportation,
+  shareByEmail,
+  id
+}) => {
   return (
     <div
       className="LocationOverview"
@@ -101,6 +107,7 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
             <ShareEmailButton
               itinerary={finalItinerary}
               shareByEmail={shareByEmail}
+              id={id}
             />
           </div>
         </Col>
@@ -122,6 +129,7 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
             <ShareEmailButton
               itinerary={finalItinerary}
               shareByEmail={shareByEmail}
+              id={id}
             />
           </div>
         </Col>

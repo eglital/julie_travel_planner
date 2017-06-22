@@ -7,7 +7,7 @@
   estimate the amount of time you are likely to spend at various locations through
   an algorithm that derives a length of time based the type of location the user has selected.
   The User interface is smooth and responsive providing a great user experience regardless
-  of the device or browser she is being accessed from. Users are able to use the app to
+  of the device or browser she is being accessed from. Users are able to use the app
   without logging in and are able to login with Facebook to save the itinerary for viewing
   in the future.
 
@@ -53,11 +53,13 @@ $ npm start
 
 ## Test client
 
-  this needs to be filled in.
+Testing on the client-side is done using the Jest framework. [https://facebook.github.io/jest/]
+All tests are found in the __tests__ directory.
 
 ```bash
+$ cd client
 $ npm install
-$ jasmine
+$ npm test
 ```
 
 ## Test server

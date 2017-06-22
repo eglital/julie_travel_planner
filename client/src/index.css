@@ -19,6 +19,23 @@ body {
 .hoverable:hover {
   background-color: rgba(193, 125, 191, 0.2); }
 
+.reverse-hoverable {
+  cursor: pointer;
+  clear: both;
+  border: 2px solid #C17DBF;
+  background-color: #C17DBF;
+  color: white; }
+
+.reverse-hoverable:hover {
+  background-color: white;
+  color: #C17DBF; }
+
+.reverse-hoverable-text {
+  color: white; }
+
+.reverse-hoverable-text:hover {
+  color: #C17DBF; }
+
 .location-segment .location-segment-info {
   border: 1px solid black;
   border-radius: 5px; }

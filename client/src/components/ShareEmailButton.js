@@ -12,6 +12,7 @@ import {
   Label,
   Input
 } from "reactstrap";
+import emailIcon from "../assets/emailIcon.png";
 
 class ShareEmailButton extends React.Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class ShareEmailButton extends React.Component {
         <div>
           <img
             alt="email"
-            src="../emailicon.png"
+            src={emailIcon}
             height="35px"
             width="35px"
             style={{ marginTop: "-23px", cursor: "pointer" }}
