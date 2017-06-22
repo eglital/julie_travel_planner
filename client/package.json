@@ -10,6 +10,7 @@
     "dateformat": "^2.0.0",
     "font-awesome": "^4.7.0",
     "hellojs": "^1.15.1",
+    "koa-route": "^3.2.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "moment-round": "^1.0.1",
