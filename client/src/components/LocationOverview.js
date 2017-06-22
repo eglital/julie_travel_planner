@@ -71,7 +71,12 @@ function makeOverview(finalItinerary, transportation) {
   });
 }
 
-const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
+const LocationOverview = ({
+  finalItinerary,
+  transportation,
+  shareByEmail,
+  id
+}) => {
   return (
     <div
       className="LocationOverview"
@@ -102,6 +107,7 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
             <ShareEmailButton
               itinerary={finalItinerary}
               shareByEmail={shareByEmail}
+              id={id}
             />
           </div>
         </Col>
@@ -123,6 +129,7 @@ const LocationOverview = ({ finalItinerary, transportation, shareByEmail }) => {
             <ShareEmailButton
               itinerary={finalItinerary}
               shareByEmail={shareByEmail}
+              id={id}
             />
           </div>
         </Col>
