@@ -5,7 +5,7 @@ const Hero = props => {
   return (
     <div
       className="hero text-center"
-      style={{ marginTop: '20px', marginBottom: '0px' }}
+      style={{ marginTop: '10px', marginBottom: '0px' }}
     >
       <Container fluid>
         <p style={{ marginBottom: '0px' }} className="lead text-center">
