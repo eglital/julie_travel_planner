@@ -153,7 +153,10 @@ class SavedItinerary extends React.Component {
               <p style={{ marginBottom: "5px" }}>
                 Places you visited during this trip:
               </p>
-              <Link to={`/itinerary-overview/${itinerary.hashedId}`}>
+              <Link
+                to={`/itinerary-overview/${itinerary.hashedId}`}
+                onClick={this.forceUpdate}
+              >
                 (click for full itinerary)
               </Link>
             </div>
