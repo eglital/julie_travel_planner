@@ -65,9 +65,7 @@ export function deleteItinerary(itineraryId, itineraries) {
         }
         dispatch(deleteItinerarySuccess(updatedItineraries));
       })
-      .catch(function(error) {
-        console.log("Error:", error);
-      });
+      .catch(function(error) {});
   };
 }
 

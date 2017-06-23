@@ -11,19 +11,21 @@ const enhanceWithClickOutside = require('react-click-outside');
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map(pref => {
     return (
-      <DropdownItem key={pref} style={{ height: '25px' }}>
-        <div data-button="true">
-          {pref}
-          <input
-            data-button="true"
-            checked={preferences[pref]}
-            type="checkbox"
-            onChange={onChange}
-            value={pref}
-            style={{ marginTop: '5px', float: 'right', cursor: 'pointer' }}
-          />
-        </div>
-      </DropdownItem>
+      <div style={{ margin: '0 auto' }} key={pref}>
+        <DropdownItem key={pref} style={{ height: '25px' }}>
+          <div data-button="true">
+            {pref}
+            <input
+              data-button="true"
+              checked={preferences[pref]}
+              type="checkbox"
+              onChange={onChange}
+              value={pref}
+              style={{ marginTop: '5px', float: 'right', cursor: 'pointer' }}
+            />
+          </div>
+        </DropdownItem>
+      </div>
     );
   });
 }

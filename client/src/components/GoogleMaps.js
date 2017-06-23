@@ -34,7 +34,6 @@ export default class GoogleMaps extends Component {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({ directions: result });
       } else {
-        console.error(`error fetching directions ${result}`);
       }
     });
   }
@@ -75,10 +74,8 @@ export default class GoogleMaps extends Component {
       <div
         className="googleMap"
         style={{
-          maxWidth: "600px",
           width: "100%",
-          height: "500px",
-          margin: "0 auto"
+          height: "500px"
         }}
       >
         <GoogleMapMarkers

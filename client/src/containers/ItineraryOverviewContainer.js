@@ -19,14 +19,12 @@ class ItineraryOverviewContainer extends Component {
       return (
         <div>
           {this.props.finalItinerary.length
-            ? <div>
-                <LocationOverview
-                  finalItinerary={this.props.finalItinerary}
-                  transportation={this.props.transportationMode}
-                  id={this.props.match.params.itineraryId}
-                  shareByEmail={this.props.shareByEmail}
-                />
-              </div>
+            ? <LocationOverview
+                finalItinerary={this.props.finalItinerary}
+                transportation={this.props.transportationMode}
+                id={this.props.match.params.itineraryId}
+                shareByEmail={this.props.shareByEmail}
+              />
             : null}
         </div>
       );

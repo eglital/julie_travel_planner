@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-
 import InitialSubmissionForm from "../components/InitialSubmissionForm";
-
 import {
   fetchLocationsData,
   setFetching,
-  fetchLocationsDataFailure
+  fetchLocationsDataFailure,
+  deleteLocationsData
 } from "../actions/locationsActions";
-import { toggleMealsInclusion } from "../actions/builderActions";
+import {
+  toggleMealsInclusion,
+  setDuration,
+  changeLastFood
+} from "../actions/builderActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ItineraryHelper from "../helpers/itineraryHelper";
@@ -78,6 +81,11 @@ class InitialSubmissionFormContainer extends Component {
       this.setState({
         validItinerary: false
       });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.locations.data["food"]) {
+      this.props.clearStore();
     }
   }
 
@@ -152,8 +160,6 @@ class InitialSubmissionFormContainer extends Component {
   //toggle the check box value,
   //assumes default unchecked
   onPrefChange = e => {
-    console.log("E.target.value", e.target.value);
-
     if (e.target.value === "meals") {
       this.props.toggleMealsInclusion();
     }
@@ -176,6 +182,7 @@ class InitialSubmissionFormContainer extends Component {
 
   onFormSubmit = e => {
     e.preventDefault();
+    window.scrollTo(0, 0);
     this.props.setFetching();
     //construct simple json for form submission from the state
     let data = {
@@ -199,7 +206,7 @@ class InitialSubmissionFormContainer extends Component {
             formSubmission: data
           });
         })
-        .catch(error => console.error("Error", error));
+        .catch();
     } else if ("geolocation" in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */
@@ -223,7 +230,6 @@ class InitialSubmissionFormContainer extends Component {
             this.props.fetchLocationsDataFailure(
               "Please let us know where you'd like to start."
             );
-
             throw new Error("Need location");
           }
         )
@@ -233,9 +239,7 @@ class InitialSubmissionFormContainer extends Component {
             formSubmission: data
           });
         })
-        .catch(err => {
-          console.log("Error", err);
-        });
+        .catch(err => {});
     } else {
       /* geolocation IS NOT available */
       //Set the address input field to required
@@ -252,8 +256,8 @@ class InitialSubmissionFormContainer extends Component {
   render() {
     if (this.props.locations.isFetching) {
       return (
-        <div className="loadingContainer">
-          <p style={{ textAlign: "center", marginTop: "100px" }}>
+        <div className="loadingContainer text-center julie-grey">
+          <p style={{ marginTop: "100px" }}>
             Finding Cool Stuff In Your Area
           </p>
           <Loader />
@@ -306,6 +310,11 @@ function mapDispatchToProps(dispatch) {
     },
     fetchLocationsDataFailure: err => {
       dispatch(fetchLocationsDataFailure(err));
+    },
+    clearStore: () => {
+      dispatch(setDuration({ duration: 0 }));
+      dispatch(changeLastFood(false));
+      dispatch(deleteLocationsData());
     }
   };
 }

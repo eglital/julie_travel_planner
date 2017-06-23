@@ -8,7 +8,7 @@ import InitialSubmissionFormContainer
 import ItineraryOverviewContainer
   from "./containers/ItineraryOverviewContainer";
 import SavedItinerariesContainer from "./containers/SavedItinerariesContainer";
-import PageNotFoundComponent from "./components/PageNotFoundComponent";
+import PageNotFound from "./components/PageNotFound";
 import About from "./components/About";
 import TermsOfService from "./components/TermsOfService";
 
@@ -41,7 +41,7 @@ class App extends Component {
                   component={ItineraryOverviewContainer}
                 />
                 <Route exact path="/terms" component={TermsOfService} />
-                <Route component={PageNotFoundComponent} />
+                <Route component={PageNotFound} />
               </Switch>
             </div>
             <Footer />

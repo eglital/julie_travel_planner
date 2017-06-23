@@ -10,11 +10,141 @@ body {
   flex: none;
   /* 2 */ }
 
-.departure-times {
-  color: darkgrey; }
+.julie-purple {
+  color: #C17DBF; }
 
-.arrival-times {
-  color: black; }
+.julie-grey {
+  color: #929292; }
+
+.bold {
+  font-weight: bold; }
+
+.clickable {
+  cursor: pointer; }
+
+.link {
+  color: '#5bc0de';
+  cursor: 'pointer'; }
+
+.alert {
+  padding: 3px;
+  height: 55px;
+  text-align: center; }
+
+.alert-text {
+  margin-top: 10px;
+  margin-left: 30px; }
+
+.start-time {
+  float: left;
+  width: 40%;
+  margin-right: 10%; }
+
+.end-time {
+  float: left;
+  width: 40%;
+  margin-left: 10%;
+  margin-bottom: 25px; }
+
+.time-input {
+  text-align-last: center; }
+
+.plan-itinerary {
+  clear: both;
+  margin-top: 10px;
+  margin-bottom: 20px; }
+
+.map-icon {
+  margin-top: -5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  transform: rotate(30deg);
+  height: 64px;
+  width: 100px; }
+
+.location-card {
+  margin-bottom: 10px;
+  border-color: #C17DBF;
+  cursor: pointer; }
+
+.location-image {
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 150px;
+  width: 35%;
+  height: 100px;
+  float: left;
+  margin-right: 5%; }
+
+.location-info {
+  display: inline-block;
+  float: left;
+  width: 60%; }
+
+.location-info-title {
+  font-size: 18px;
+  margin-top: -2px;
+  margin-bottom: 2px; }
+
+.location-info-description {
+  font-size: 14px;
+  height: 80px;
+  overflow: hidden; }
+
+.progress-container {
+  margin-top: 15px;
+  margin-bottom: 15px; }
+
+.progress-bar-wrapper .progress-bar:first-of-type {
+  background: lightblue !important; }
+
+.progress-bar-wrapper .progress-bar:last-of-type {
+  background: #929292 !important; }
+
+.progress-start-time {
+  float: left;
+  margin-left: 5px; }
+
+.progress-end-time {
+  float: right;
+  margin-right: 5px; }
+
+.map-container {
+  width: 90%;
+  margin: 20px auto 0px auto; }
+
+.col-wrapper {
+  padding-left: 0px !important; }
+
+.location-segment-title-container {
+  position: relative;
+  display: inline-block;
+  width: 60%;
+  height: 75px; }
+
+.location-segment-title {
+  color: black;
+  font-size: 18px; }
+
+.location-segment:hover {
+  text-decoration: underline; }
+
+.location-row {
+  padding-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+.location-segment-image {
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 33%;
+  height: 65px;
+  float: left;
+  margin-right: 5; }
 
 .hoverable:hover {
   background-color: rgba(193, 125, 191, 0.2); }
@@ -22,26 +152,20 @@ body {
 .reverse-hoverable {
   cursor: pointer;
   clear: both;
-  border: 2px solid #C17DBF;
-  background-color: #C17DBF;
-  color: white; }
-
-.reverse-hoverable:hover {
+  border: 1px solid #C17DBF;
   background-color: white;
   color: #C17DBF; }
+
+.reverse-hoverable:hover {
+  background-color: #C17DBF;
+  color: white;
+  border: 1px solid #C17DBF; }
 
 .reverse-hoverable-text {
   color: white; }
 
 .reverse-hoverable-text:hover {
   color: #C17DBF; }
-
-.location-segment .location-segment-info {
-  border: 1px solid black;
-  border-radius: 5px; }
-
-.location-segment div {
-  height: 100%; }
 
 .autoRoot {
   position: relative; }

@@ -37,9 +37,7 @@ export function getFinalItinerary(itineraryId, history) {
         dispatch(deleteLocationsData());
         dispatch(changeLastFood(false));
       })
-      .catch(function(error) {
-        console.log("Error:", error);
-      });
+      .catch(function(error) {});
   };
 }
 
@@ -66,9 +64,7 @@ export function getSavedItinerary(itineraryId) {
           })
         );
       })
-      .catch(function(error) {
-        console.log("Error:", error);
-      });
+      .catch(function(error) {});
   };
 }
 

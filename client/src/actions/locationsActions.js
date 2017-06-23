@@ -9,7 +9,8 @@ import {
 } from "./types";
 
 import ApiResponseHelper from "../helpers/apiResponseHelper";
-import { setItineraryData } from "./itineraryActions.js";
+import { setItineraryData } from "./itineraryActions";
+import { setDuration } from "./builderActions";
 
 export function setFetching() {
   return {

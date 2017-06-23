@@ -18,29 +18,6 @@ const {
   spontaneousFourSquareRequest
 } = require("../helpers/fourSquareRequestHelpers");
 
-// app.post("/api/auth", function(req, res) {
-//   var network = req.body.network;
-//   var socialToken = req.body.socialToken;
-//   validateWithProvider(network, socialToken)
-//     .then(function(profile) {
-//       // Return a server signed JWT
-//       res.send(createJwt(profile));
-//     })
-//     .catch(function(err) {
-//       res.send("Failed!" + err.message);
-//     });
-// });
-//
-// app.get("/secure", function(req, res) {
-//   var jwtString = req.query.jwt;
-//   try {
-//     var profile = verifyJwt(jwtString);
-//     res.send(profile.id);
-//   } catch (err) {
-//     res.send(err.message);
-//   }
-// });
-
 router.post("/itinerary/start", (req, res, next) => {
   console.log("starting itinerary");
   initialFourSquareRequest(req.body.formSubmission, next)

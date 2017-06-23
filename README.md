@@ -2,14 +2,7 @@
 
 ### About
 
-  Julie is a simple AI web app that takes in to account your location and preferences and
-  helps you plan your day 3 options at a time. Julie will calculate travel time and
-  estimate the amount of time you are likely to spend at various locations through
-  an algorithm that derives a length of time based the type of location the user has selected.
-  The User interface is smooth and responsive providing a great user experience regardless
-  of the device or browser she is being accessed from. Users are able to use the app
-  without logging in and are able to login with Facebook to save the itinerary for viewing
-  in the future.
+Julie is a simple AI web application that takes into account your location, preferences and transportation, and helps you plan your day by giving 3 options at a time. Julie will calculate travel time and estimate the amount of time you are likely to spend at various locations through an algorithm that derives a length of time based on the type of location the user has selected. If the User wants to grab meals during the day, Julie will take care of that too. Users are able to use the app without logging in but they are also able to login in with Facebook to save the itinerary for viewing in the future.
 
 
 ## Technology
