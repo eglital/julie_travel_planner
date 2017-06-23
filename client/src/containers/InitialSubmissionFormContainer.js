@@ -197,7 +197,7 @@ class InitialSubmissionFormContainer extends Component {
             formSubmission: data
           });
         })
-        .catch(error);
+        .catch();
     } else if ('geolocation' in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */

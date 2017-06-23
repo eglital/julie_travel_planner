@@ -5,7 +5,8 @@ import ShareTwitterButton from './ShareTwitterButton';
 import ShareFacebookButton from './ShareFacebookButton';
 import ShareEmailButton from './ShareEmailButton';
 
-const SharingAndNewRoute = (finalItinerary, shareByEmail, id) => {
+const SharingAndNewRoute = props => {
+  console.log('Final itin:', props.finalItinerary);
   return (
     <div>
       <Link to="/">
@@ -13,14 +14,14 @@ const SharingAndNewRoute = (finalItinerary, shareByEmail, id) => {
       </Link>
       <div style={{ marginTop: '10px' }}>
         <ShareFacebookButton
-          finalItinerary={finalItinerary}
+          finalItinerary={props.finalItinerary}
           style={{ display: 'inline' }}
         />
-        <ShareTwitterButton finalItinerary={finalItinerary} />
+        <ShareTwitterButton finalItinerary={props.finalItinerary} />
         <ShareEmailButton
-          itinerary={finalItinerary}
-          shareByEmail={shareByEmail}
-          id={id}
+          itinerary={props.finalItinerary}
+          shareByEmail={props.shareByEmail}
+          id={props.id}
         />
       </div>
     </div>
