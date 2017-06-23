@@ -34,7 +34,6 @@ export default class GoogleMaps extends Component {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({ directions: result });
       } else {
-        console.error(`error fetching directions ${result}`);
       }
     });
   }

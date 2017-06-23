@@ -46,9 +46,7 @@ export function addLocationToItinerary(
           );
         }
       })
-      .catch(function(error) {
-        console.log('Error:', error);
-      });
+      .catch(function(error) {});
   };
 }
 

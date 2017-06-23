@@ -151,8 +151,6 @@ class InitialSubmissionFormContainer extends Component {
   //toggle the check box value,
   //assumes default unchecked
   onPrefChange = e => {
-    console.log('E.target.value', e.target.value);
-
     if (e.target.value === 'meals') {
       this.props.toggleMealsInclusion();
     }
@@ -199,7 +197,7 @@ class InitialSubmissionFormContainer extends Component {
             formSubmission: data
           });
         })
-        .catch(error => console.error('Error', error));
+        .catch(error);
     } else if ('geolocation' in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */
@@ -232,9 +230,7 @@ class InitialSubmissionFormContainer extends Component {
             formSubmission: data
           });
         })
-        .catch(err => {
-          console.log('Error', err);
-        });
+        .catch(err => {});
     } else {
       /* geolocation IS NOT available */
       //Set the address input field to required

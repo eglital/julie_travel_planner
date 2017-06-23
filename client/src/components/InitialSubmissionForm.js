@@ -197,7 +197,7 @@ const InitialSubmissionForm = ({
               <img
                 src={walking}
                 alt="walking"
-                height="15px"
+                height="18px"
                 style={{ marginRight: '5px' }}
               />
               <input

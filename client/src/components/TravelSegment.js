@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import TimeHelper from '../helpers/timeHelper';
+import walking from '../assets/walking.png';
 
 var FA = require('react-fontawesome');
 
@@ -27,9 +28,15 @@ const TravelSegment = ({
                 name="car fa"
                 style={{ marginRight: '15px', marginLeft: '15px' }}
               />
-            : <FA
-                name="user fa"
-                style={{ marginRight: '15px', marginLeft: '15px' }}
+            : <img
+                src={walking}
+                alt="walking"
+                height="19px"
+                style={{
+                  marginRight: '15px',
+                  marginLeft: '15px',
+                  marginTop: '-4px'
+                }}
               />}
           {TimeHelper.millisecondsToSeconds(duration)}
           {' '}

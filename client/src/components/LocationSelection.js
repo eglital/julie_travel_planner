@@ -4,7 +4,6 @@ import Dotdotdot from 'react-dotdotdot';
 import map from '../assets/map.png';
 
 const LocationSelection = props => {
-  console.log('render locationSelection');
   const { location, section, itineraryId, onClick } = props;
   if (!location.photo) {
     location.photo = map;

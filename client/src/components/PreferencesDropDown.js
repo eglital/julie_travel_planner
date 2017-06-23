@@ -11,7 +11,7 @@ const enhanceWithClickOutside = require('react-click-outside');
 function generatePreferences(preferences, onChange) {
   return Object.keys(preferences).map(pref => {
     return (
-      <div style={{ margin: '0 auto' }}>
+      <div style={{ margin: '0 auto' }} key={pref}>
         <DropdownItem key={pref} style={{ height: '25px' }}>
           <div data-button="true">
             {pref}
