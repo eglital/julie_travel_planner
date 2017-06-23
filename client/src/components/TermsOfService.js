@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "reactstrap";
 
 const TermsOfService = () => {
+  window.scrollTo(0, 0);
   return (
     <div>
       <Container>
