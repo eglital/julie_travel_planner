@@ -5,6 +5,9 @@ const models = require("./../models");
 const User = mongoose.model("User");
 const Itinerary = mongoose.model("Itinerary");
 const { verifyJwt } = require("../helpers/auth");
+const md5 = require("md5");
+const secret = process.env.itinerarySecret || "t#he ca>t's paj=amas";
+const { hashId } = require("../helpers/hashItineraryId");
 
 router.get("/user/itineraries", (req, res, next) => {
   console.log("getting itineraries for the user");
@@ -13,8 +16,20 @@ router.get("/user/itineraries", (req, res, next) => {
     let userId = verifyJwt(jwtString).userId;
     User.findById(userId)
       .populate("itineraries")
-      .sort({ createdAt: "asc" })
-      .then(itineraries => res.send({ itineraries: itineraries.itineraries }))
+      .sort({ createdAt: "desc" })
+      .then(itineraries => {
+        adjustedItineraries = itineraries.itineraries.map(itin => {
+          newItin = {};
+          newItin._id = itin._id;
+
+          newItin.data = itin.data;
+          newItin.city = itin.city;
+          newItin.hashedId = hashId(itin._id);
+          return newItin;
+        });
+
+        res.send({ itineraries: adjustedItineraries });
+      })
       .catch(next);
   } catch (err) {
     next(err);

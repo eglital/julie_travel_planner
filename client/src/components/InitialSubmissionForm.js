@@ -1,6 +1,6 @@
 //// React
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 //// Reactstrap
 import {
@@ -14,23 +14,23 @@ import {
   Row,
   UncontrolledAlert,
   UncontrolledTooltip
-} from 'reactstrap';
+} from "reactstrap";
 
 //// Components
-import PreferencesDropDown from '../components/PreferencesDropDown';
-import Hero from '../components/Hero';
+import PreferencesDropDown from "../components/PreferencesDropDown";
+import Hero from "../components/Hero";
 
 //// Dependencies
-import PlacesAutocomplete from 'react-places-autocomplete';
-import moment from 'moment';
-import FA from 'react-fontawesome';
+import PlacesAutocomplete from "react-places-autocomplete";
+import moment from "moment";
+import FA from "react-fontawesome";
 
 //// Helpers
-import TimeHelper from '../helpers/timeHelper';
+import TimeHelper from "../helpers/timeHelper";
 
 //// Assets
-import map from '../assets/map.png';
-import walking from '../assets/walking.png';
+import map from "../assets/map.png";
+import walking from "../assets/walking.png";
 
 //// Functions
 function createTimeOptions(time, startOffset = 0) {
@@ -39,7 +39,7 @@ function createTimeOptions(time, startOffset = 0) {
   return hours.map(hour => {
     return (
       <option key={hour} value={hour}>
-        {moment(hour).format('h a')}
+        {moment(hour).format("h a")}
       </option>
     );
   });
@@ -55,7 +55,7 @@ function getHoursInMilliseconds(nextHour) {
     //push the time in milliseconds
     hours.push(+nextHour);
     //mutate the moment
-    nextHour.add(1, 'h');
+    nextHour.add(1, "h");
     ++i;
   }
   return hours;
@@ -63,9 +63,9 @@ function getHoursInMilliseconds(nextHour) {
 
 const AutocompleteItem = ({ formattedSuggestion }) => (
   <div>
-    <i className="fa fa-map-marker" />{' '}
+    <i className="fa fa-map-marker" />{" "}
     <strong>{formattedSuggestion.mainText}</strong>
-    {' '}
+    {" "}
     <small>{formattedSuggestion.secondaryText}</small>
   </div>
 );
@@ -93,7 +93,7 @@ const InitialSubmissionForm = ({
   requireAddress
 }) => {
   return (
-    <Container style={{ marginBottom: '15px', marginTop: '10px' }}>
+    <Container style={{ marginBottom: "15px", marginTop: "10px" }}>
       <Row>
         <Col xs="12" md={{ offset: 3, size: 6 }}>
 
@@ -107,7 +107,7 @@ const InitialSubmissionForm = ({
           {validItinerary &&
             <UncontrolledAlert className="alert" color="info">
               <p className="alert-text">
-                See your last itinerary{' '}
+                See your last itinerary{" "}
                 <Link to={`/itinerary-overview/${validItinerary.id}`}>
                   <strong>here</strong>
                 </Link>!
@@ -127,17 +127,17 @@ const InitialSubmissionForm = ({
                 inputProps={{
                   value: address,
                   onChange: onChangeAddress,
-                  placeholder: 'Use current location',
+                  placeholder: "Use current location",
                   required: requireAddress
                 }}
                 styles={{
                   root: {
-                    zIndex: '2'
+                    zIndex: "2"
                   },
                   input: {
-                    textAlign: 'center',
-                    border: '1px solid lightgrey',
-                    borderRadius: '5px'
+                    textAlign: "center",
+                    border: "1px solid lightgrey",
+                    borderRadius: "5px"
                   }
                 }}
                 autocompleteItem={AutocompleteItem}
@@ -176,15 +176,15 @@ const InitialSubmissionForm = ({
             </FormGroup>
 
             {/*** Transportation Method ***/}
-            <FormGroup key="driving" style={{ display: 'inline-block' }}>
-              <FA name="car" style={{ marginRight: '5px' }} />
+            <FormGroup key="driving" style={{ display: "inline-block" }}>
+              <FA name="car" style={{ marginRight: "5px" }} />
               <input
-                checked={currentModeOfTransportation === 'driving'}
+                checked={currentModeOfTransportation === "driving"}
                 type="radio"
                 name="transportation"
                 value="driving"
                 onChange={onTransporationModeChange}
-                style={{ marginRight: '5px' }}
+                style={{ marginRight: "5px" }}
               />
             </FormGroup>
 
@@ -192,16 +192,16 @@ const InitialSubmissionForm = ({
 
             <FormGroup
               key="walking"
-              style={{ display: 'inline-block', marginLeft: '2px' }}
+              style={{ display: "inline-block", marginLeft: "2px" }}
             >
               <img
                 src={walking}
                 alt="walking"
                 height="18px"
-                style={{ marginRight: '5px' }}
+                style={{ marginRight: "5px" }}
               />
               <input
-                checked={currentModeOfTransportation === 'walking'}
+                checked={currentModeOfTransportation === "walking"}
                 type="radio"
                 name="transportation"
                 value="walking"

@@ -1,24 +1,29 @@
-import React, { Component } from 'react';
-import InitialSubmissionForm from '../components/InitialSubmissionForm';
+import React, { Component } from "react";
+import InitialSubmissionForm from "../components/InitialSubmissionForm";
 
 import {
   fetchLocationsData,
   setFetching,
-  fetchLocationsDataFailure
-} from '../actions/locationsActions';
-import { toggleMealsInclusion } from '../actions/builderActions';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import ItineraryHelper from '../helpers/itineraryHelper';
-import '../stylesheets/loading.css';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { changeTransportationMode } from '../actions/itineraryActions';
+  fetchLocationsDataFailure,
+  deleteLocationsData
+} from "../actions/locationsActions";
+import {
+  toggleMealsInclusion,
+  setDuration,
+  changeLastFood
+} from "../actions/builderActions";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import ItineraryHelper from "../helpers/itineraryHelper";
+import "../stylesheets/loading.css";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { changeTransportationMode } from "../actions/itineraryActions";
 
 //references
-import preferences from '../references/preferences';
-import modesOfTransportation from '../references/modesOfTransportation';
+import preferences from "../references/preferences";
+import modesOfTransportation from "../references/modesOfTransportation";
 
-import TimeHelper from '../helpers/timeHelper';
+import TimeHelper from "../helpers/timeHelper";
 
 function initPreferences(preferences) {
   const prefs = {};
@@ -41,10 +46,10 @@ class InitialSubmissionFormContainer extends Component {
     if (navigator.permissions) {
       navigator.permissions
         .query({
-          name: 'geolocation'
+          name: "geolocation"
         })
         .then(permission => {
-          if (permission.state === 'denied') {
+          if (permission.state === "denied") {
             geolocationPermission = false;
           }
         });
@@ -55,8 +60,8 @@ class InitialSubmissionFormContainer extends Component {
       startTime: TimeHelper.getNextHour(),
       endTime: TimeHelper.getNextHour() + TWO_HOURS_IN_MILLISECONDS,
       startingLocation: null,
-      address: '',
-      addressError: '',
+      address: "",
+      addressError: "",
       error: null,
       validItinerary: false,
       preferences: initPreferences(preferences),
@@ -79,6 +84,11 @@ class InitialSubmissionFormContainer extends Component {
       });
     }
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.locations.data["food"]) {
+      this.props.clearStore();
+    }
+  }
 
   componentWillReceiveProps(newProps) {
     //if locations.data is now populated, redirect them to itinerary-creation
@@ -95,10 +105,10 @@ class InitialSubmissionFormContainer extends Component {
       }, 0);
       if (totalNumOfLocations === 0) {
         this.setState({
-          error: 'No selections returned! Try adding more preferences.'
+          error: "No selections returned! Try adding more preferences."
         });
       } else {
-        this.props.history.push('/itinerary-creation');
+        this.props.history.push("/itinerary-creation");
       }
     }
     //if error in form
@@ -139,19 +149,19 @@ class InitialSubmissionFormContainer extends Component {
   onChangeAddress = address =>
     this.setState({
       address,
-      addressError: ''
+      addressError: ""
     });
   onAddressError = status => {
     this.setState({
-      address: '',
-      addressError: 'No results'
+      address: "",
+      addressError: "No results"
     });
   };
 
   //toggle the check box value,
   //assumes default unchecked
   onPrefChange = e => {
-    if (e.target.value === 'meals') {
+    if (e.target.value === "meals") {
       this.props.toggleMealsInclusion();
     }
 
@@ -198,7 +208,7 @@ class InitialSubmissionFormContainer extends Component {
           });
         })
         .catch();
-    } else if ('geolocation' in navigator) {
+    } else if ("geolocation" in navigator) {
       //attempt to get location with geolocation API if user didn't enter address
       /* geolocation is available */
 
@@ -221,7 +231,7 @@ class InitialSubmissionFormContainer extends Component {
             this.props.fetchLocationsDataFailure(
               "Please let us know where you'd like to start."
             );
-            throw new Error('Need location');
+            throw new Error("Need location");
           }
         )
         .then(form => {
@@ -248,7 +258,8 @@ class InitialSubmissionFormContainer extends Component {
     if (this.props.locations.isFetching) {
       return (
         <div className="loadingContainer text-center julie-grey">
-          <p style={{ marginTop: '100px' }}>
+          <p style={{ marginTop: "100px" }}>
+
             Finding Cool Stuff In Your Area
           </p>
           <Loader />
@@ -301,6 +312,11 @@ function mapDispatchToProps(dispatch) {
     },
     fetchLocationsDataFailure: err => {
       dispatch(fetchLocationsDataFailure(err));
+    },
+    clearStore: () => {
+      dispatch(setDuration({ duration: 0 }));
+      dispatch(changeLastFood(false));
+      dispatch(deleteLocationsData());
     }
   };
 }

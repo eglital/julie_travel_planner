@@ -8,7 +8,8 @@ import {
   DELETE_LOCATIONS_DATA
 } from "./types";
 import ApiResponseHelper from "../helpers/apiResponseHelper";
-import { setItineraryData } from "./itineraryActions.js";
+import { setItineraryData } from "./itineraryActions";
+import { setDuration } from "./builderActions";
 
 export function setFetching() {
   return {
@@ -32,9 +33,9 @@ export function fetchLocationsDataFailure(error) {
 
 export function fetchLocationsData(form) {
   return dispatch => {
+    dispatch(setDuration({ duration: 0 }));
     //setFetching here
     dispatch(setFetching());
-    
     const myHeaders = new Headers({
       "Content-Type": "application/json"
     });
