@@ -13,30 +13,37 @@ const TravelSegment = ({
 }) => {
   return (
     <Row>
-      <Col xs="2" md={{ size: '4' }} />
+      <Col xs="2" md={{ size: '4' }}>
+        <div style={{ textAlignLast: 'right', marginRight: '-5px' }}>
+          <p>-</p>
+        </div>
+      </Col>
       <Col xs="10" sm={{ size: '5' }}>
         <div className="text-center">
+
+          <FA name="long-arrow-down fa" />
+          {transportation === 'driving'
+            ? <FA
+                name="car fa"
+                style={{ marginRight: '15px', marginLeft: '15px' }}
+              />
+            : <FA
+                name="user fa"
+                style={{ marginRight: '15px', marginLeft: '15px' }}
+              />}
+          {TimeHelper.millisecondsToSeconds(duration)}
+          {' '}
+          min
+          {' '}
           <a
             href={`https://maps.google.com?saddr=${currentLocation.lat},${currentLocation.lng}&daddr=${nextLocation.lat},${nextLocation.lng}&travelmode=${transportation}`}
             target="_blank"
             rel="noopener noreferrer"
+            style={{ color: '#5bc0de' }}
           >
-            <FA name="long-arrow-down fa" />
-            {transportation === 'driving'
-              ? <FA
-                  name="car fa"
-                  style={{ marginRight: '15px', marginLeft: '15px' }}
-                />
-              : <FA
-                  name="user fa"
-                  style={{ marginRight: '15px', marginLeft: '15px' }}
-                />}
-            {TimeHelper.millisecondsToSeconds(duration)}
-            {' '}
-            min (click for directions)
+            (directions)
           </a>
         </div>
-
       </Col>
     </Row>
   );

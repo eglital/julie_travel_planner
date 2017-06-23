@@ -16,6 +16,12 @@ body {
 .julie-grey {
   color: #929292; }
 
+.bold {
+  font-weight: bold; }
+
+.clickable {
+  cursor: pointer; }
+
 .alert {
   padding: 3px;
   height: 55px;
@@ -53,14 +59,94 @@ body {
   height: 64px;
   width: 100px; }
 
-.clickable {
+.location-card {
+  margin-bottom: 10px;
+  border-color: #C17DBF;
   cursor: pointer; }
 
-.departure-times {
-  color: #929292; }
+.location-image {
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 150px;
+  width: 35%;
+  height: 100px;
+  float: left;
+  margin-right: 5%; }
 
-.arrival-times {
-  color: #929292; }
+.location-info {
+  display: inline-block;
+  float: left;
+  width: 60%; }
+
+.location-info-title {
+  font-size: 18px;
+  margin-top: -2px;
+  margin-bottom: 2px; }
+
+.location-info-description {
+  font-size: 14px;
+  height: 80px;
+  overflow: hidden; }
+
+.progress-container {
+  margin-top: 15px;
+  margin-bottom: 15px; }
+
+.progress-bar-wrapper .progress-bar:first-of-type {
+  background: lightblue !important;
+  margin-top: 5px; }
+
+.progress-bar-wrapper .progress-bar:last-of-type {
+  background: #929292 !important;
+  margin-top: 5px; }
+
+.progress-start-time {
+  float: left;
+  margin-left: 5px; }
+
+.progress-end-time {
+  float: right;
+  margin-right: 5px; }
+
+.map-container {
+  width: 90%;
+  margin: 20px auto 0px auto; }
+
+.col-wrapper {
+  padding-left: 0px !important; }
+
+.location-segment-title-container {
+  position: relative;
+  display: inline-block;
+  width: 60%;
+  height: 75px; }
+
+.location-segment-title {
+  color: black;
+  font-size: 18px; }
+
+.location-segment-title-link {
+  color: #4591a8;
+  font-size: 18px; }
+
+.location-segment:hover {
+  text-decoration: underline; }
+
+.location-row {
+  padding-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+.location-segment-image {
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 33%;
+  height: 65px;
+  float: left;
+  margin-right: 5; }
 
 .hoverable:hover {
   background-color: rgba(193, 125, 191, 0.2); }
@@ -82,13 +168,6 @@ body {
 
 .reverse-hoverable-text:hover {
   color: #C17DBF; }
-
-.location-segment .location-segment-info {
-  border: 1px solid black;
-  border-radius: 5px; }
-
-.location-segment div {
-  height: 100%; }
 
 .autoRoot {
   position: relative; }
@@ -116,9 +195,3 @@ body {
 
 .nav-hover:hover {
   color: #C17DBF; }
-
-.progress-bar-wrapper .progress-bar:first-of-type {
-  background: lightblue !important; }
-
-.progress-bar-wrapper .progress-bar:last-of-type {
-  background: #929292 !important; }

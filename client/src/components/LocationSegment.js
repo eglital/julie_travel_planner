@@ -8,19 +8,17 @@ import determineColor from '../helpers/timeColor';
 let counter = 0;
 
 const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
+  console.log('location:', locationData);
   let styles = determineColor(counter);
   counter++;
   return (
-    <Row
-      className="travel"
-      style={{ paddingLeft: '15px', marginTop: '10px', marginBottom: '10px' }}
-    >
+    <Row className="location-row">
       <Col xs="2" md={{ size: '4' }}>
-        <table style={{ fontSize: '14px' }}>
+        <table style={{ fontSize: '13px' }}>
           <tbody>
-
             <tr>
               <td>
+                <div style={styles[3]} />
                 <div style={styles[0]}>
                   {' '}{arrivalTime && moment(arrivalTime).format('LT')}
                 </div>
@@ -33,32 +31,60 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
           </tbody>
 
         </table>
+
       </Col>
-      <Col xs="10" sm={{ size: '5' }}>
-        <a href={locationData.link} style={{ textDecoration: 'none' }}>
+
+      <Col xs="10" md={{ size: '5' }}>
+        {!locationData.category
+          ? <Card style={styles[2]}>
+              <CardBlock style={{ padding: '5px' }}>
+                <div
+                  style={{
+                    backgroundImage: `url(${locationData.photo})`
+                  }}
+                  className="location-segment-image"
+                />
+                <div className="location-segment-title-container">
+                  <CardTitle className="location-segment-title">
+                    <Dotdotdot clamp={3}>
+                      {locationData.name}
+                    </Dotdotdot>
+                  </CardTitle>
+                </div>
+
+              </CardBlock>
+            </Card>
+          : <a href={locationData.link}>
+              <Card style={styles[2]}>
+                <CardBlock style={{ padding: '5px' }}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${locationData.photo})`
+                    }}
+                    className="location-segment-image"
+                  />
+                  <div className="location-segment-title-container">
+                    <CardTitle className="location-segment-title-link clickable">
+                      <Dotdotdot clamp={3}>
+                        {locationData.name}
+                      </Dotdotdot>
+                    </CardTitle>
+                  </div>
+
+                </CardBlock>
+              </Card>
+            </a>}
+        {/* <a href={locationData.link}>
           <Card style={styles[2]}>
             <CardBlock style={{ padding: '5px' }}>
               <div
                 style={{
-                  display: 'inline-block',
-                  backgroundImage: `url(${locationData.photo})`,
-                  backgroundPosition: '50% 50%',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '100%',
-                  width: '33%',
-                  height: '65px',
-                  float: 'left',
-                  marginRight: '5%'
+                  backgroundImage: `url(${locationData.photo})`
                 }}
+                className="location-segment-image"
               />
-              <div
-                style={{
-                  display: 'inline-block',
-                  width: '60%',
-                  height: '75px'
-                }}
-              >
-                <CardTitle className="text-center" style={{ fontSize: '20px' }}>
+              <div className="location-segment-title-container">
+                <CardTitle className="location-segment-title clickable">
                   <Dotdotdot clamp={3}>
                     {locationData.name}
                   </Dotdotdot>
@@ -67,8 +93,9 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
 
             </CardBlock>
           </Card>
-        </a>
+        </a> */}
       </Col>
+
     </Row>
   );
 };

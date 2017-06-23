@@ -175,6 +175,7 @@ class InitialSubmissionFormContainer extends Component {
 
   onFormSubmit = e => {
     e.preventDefault();
+    window.scrollTo(0, 0);
     this.props.setFetching();
     //construct simple json for form submission from the state
     let data = {

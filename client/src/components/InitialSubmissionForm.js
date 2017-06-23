@@ -150,7 +150,7 @@ const InitialSubmissionForm = ({
             <FormGroup className="start-time">
               <Label for="startingTime">Start Time</Label>
               <Input
-                className="time-input"
+                className="time-input clickable"
                 type="select"
                 name="startingTime"
                 id="startingTime"
@@ -162,7 +162,7 @@ const InitialSubmissionForm = ({
             <FormGroup className="end-time">
               <Label for="endingTime">End Time</Label>
               <Input
-                className="time-input"
+                className="time-input clickable"
                 type="select"
                 name="endingTime"
                 id="endingTime"

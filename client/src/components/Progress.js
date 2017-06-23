@@ -18,50 +18,33 @@ const ProgressBar = props => {
 
   if (timeUsed === 0) {
     return (
-      <div>
-        <div style={{ marginTop: '5px', marginBottom: '15px' }}>
-          <div className="progress-bar-wrapper" style={{ marginTop: '5px' }}>
-            <Progress multi>
-              <Progress bar color="info" value={timeLeft}>
-                <span style={{ float: 'left', marginLeft: '5px' }}>
-                  {readableStartTime}
-                </span>
-                <span
-                  style={{
-                    float: 'right',
-                    marginRight: '5px'
-                  }}
-                >
-                  {readableEndTime}
-                </span>
-              </Progress>
+      <div className="progress-container">
+        <div className="progress-bar-wrapper">
+          <Progress multi>
+            <Progress bar value={timeLeft}>
+              <span className="progress-start-time">
+                {readableStartTime}
+              </span>
+              <span className="progress-end-time">
+                {readableEndTime}
+              </span>
             </Progress>
-          </div>
+          </Progress>
         </div>
       </div>
     );
   } else {
     return (
-      <div style={{ marginTop: '5px', marginBottom: '15px' }}>
-        <div className="progress-bar-wrapper" style={{ marginTop: '5px' }}>
+      <div className="progress-container">
+        <div className="progress-bar-wrapper">
           <Progress multi>
-            <Progress
-              bar
-              color="success"
-              value={timeUsed}
-              style={{ backgroundColor: 'orange !important' }}
-            >
-              <span style={{ float: 'left', marginLeft: '5px' }}>
+            <Progress bar color="success" value={timeUsed}>
+              <span className="progress-start-time">
                 {readableStartTime}
               </span>
             </Progress>
-            <Progress
-              bar
-              color="info"
-              value={timeLeft}
-              style={{ backgroundColor: 'red !important' }}
-            >
-              <span style={{ float: 'right', marginRight: '5px' }}>
+            <Progress bar color="info" value={timeLeft}>
+              <span className="progress-end-time">
                 {readableEndTime}
               </span>
             </Progress>

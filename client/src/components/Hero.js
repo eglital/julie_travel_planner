@@ -7,22 +7,22 @@ const Hero = props => {
       className="hero text-center"
       style={{ marginTop: '10px', marginBottom: '0px' }}
     >
-      <Container fluid>
-        <p style={{ marginBottom: '0px' }} className="lead text-center">
+      <Container fluid className="text-center">
+        <p style={{ marginBottom: '0px' }} className="lead">
           Let
           {' '}
-          <span style={{ color: '#C17DBF' }}>Julie</span>
+          <span className="julie-purple bold">Julie</span>
           {' '}
           build your itinerary for the day, complete with directions. Get started below!
         </p>
 
         <p
-          className="text-center"
-          style={{ color: '#C17DBF', marginTop: '0px', marginBottom: '20px' }}
+          className="julie-purple"
+          style={{ marginTop: '0px', marginBottom: '20px' }}
         >
           ______________________________
         </p>
-        <div className="text-center" style={{ clear: 'both' }} />
+        <div style={{ clear: 'both' }} />
       </Container>
     </div>
   );

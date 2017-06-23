@@ -99,17 +99,14 @@ class LocationSelectionContainer extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col lg={{ size: 6, offset: 3 }} xs="12">
             <p>
               Don't like these options? Want to end your day early?
             </p>
           </Col>
         </Row>
         <Row>
-          <Col
-            style={{ marginBottom: '15px' }}
-            xs={{ size: 6, push: 2, pull: 2, offset: 1 }}
-          >
+          <Col style={{ marginBottom: '15px' }}>
             <Button
               outline
               color="info"
@@ -125,7 +122,7 @@ class LocationSelectionContainer extends Component {
         </Row>
 
         <Row>
-          <Col xs={{ size: 6, push: 2, pull: 2, offset: 1 }}>
+          <Col>
             <Button size="sm" className="reverse-hoverable">
               Build Itinerary Now
             </Button>
