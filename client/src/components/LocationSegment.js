@@ -8,7 +8,6 @@ import determineColor from '../helpers/timeColor';
 let counter = 0;
 
 const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
-  console.log('location:', locationData);
   let styles = determineColor(counter);
   counter++;
   return (
@@ -55,7 +54,7 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
               </CardBlock>
             </Card>
           : <a href={locationData.link}>
-              <Card style={styles[2]}>
+              <Card style={styles[2]} className="hoverable">
                 <CardBlock style={{ padding: '5px' }}>
                   <div
                     style={{
@@ -64,7 +63,7 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
                     className="location-segment-image"
                   />
                   <div className="location-segment-title-container">
-                    <CardTitle className="location-segment-title-link clickable">
+                    <CardTitle className="location-segment-title clickable">
                       <Dotdotdot clamp={3}>
                         {locationData.name}
                       </Dotdotdot>
@@ -74,26 +73,6 @@ const LocationSegment = ({ arrivalTime, departureTime, locationData }) => {
                 </CardBlock>
               </Card>
             </a>}
-        {/* <a href={locationData.link}>
-          <Card style={styles[2]}>
-            <CardBlock style={{ padding: '5px' }}>
-              <div
-                style={{
-                  backgroundImage: `url(${locationData.photo})`
-                }}
-                className="location-segment-image"
-              />
-              <div className="location-segment-title-container">
-                <CardTitle className="location-segment-title clickable">
-                  <Dotdotdot clamp={3}>
-                    {locationData.name}
-                  </Dotdotdot>
-                </CardTitle>
-              </div>
-
-            </CardBlock>
-          </Card>
-        </a> */}
       </Col>
 
     </Row>

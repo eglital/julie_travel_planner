@@ -12,14 +12,14 @@ const TravelSegment = ({
   nextLocation
 }) => {
   return (
-    <Row>
+    <Row style={{ height: '24px' }}>
       <Col xs="2" md={{ size: '4' }}>
         <div style={{ textAlignLast: 'right', marginRight: '-5px' }}>
           <p>-</p>
         </div>
       </Col>
-      <Col xs="10" sm={{ size: '5' }}>
-        <div className="text-center">
+      <Col xs="10" sm={{ size: '5' }} className="text-center">
+        <div>
 
           <FA name="long-arrow-down fa" />
           {transportation === 'driving'

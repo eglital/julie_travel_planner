@@ -35,6 +35,10 @@ body {
   cursor: pointer;
 }
 
+.link {
+  color: '#5bc0de';
+  cursor: 'pointer';
+}
 
 // Form submission page
 .alert {
@@ -125,12 +129,10 @@ body {
 
 .progress-bar-wrapper .progress-bar:first-of-type {
     background:lightblue !important;
-    margin-top:5px;
 }
 
 .progress-bar-wrapper .progress-bar:last-of-type {
   background: $julie-grey !important;
-  margin-top:5px;
 }
 
 .progress-start-time {
@@ -163,11 +165,6 @@ body {
 
 .location-segment-title {
   color: black;
-  font-size: 18px;
-}
-
-.location-segment-title-link {
-  color: #4591a8;
   font-size: 18px;
 }
 

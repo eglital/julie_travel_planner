@@ -123,7 +123,11 @@ class LocationSelectionContainer extends Component {
 
         <Row>
           <Col>
-            <Button size="sm" className="reverse-hoverable">
+            <Button
+              size="sm"
+              className="reverse-hoverable"
+              onClick={this.onClickBuildItinerary}
+            >
               Build Itinerary Now
             </Button>
           </Col>

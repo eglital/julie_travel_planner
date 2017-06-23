@@ -22,6 +22,10 @@ body {
 .clickable {
   cursor: pointer; }
 
+.link {
+  color: '#5bc0de';
+  cursor: 'pointer'; }
+
 .alert {
   padding: 3px;
   height: 55px;
@@ -94,12 +98,10 @@ body {
   margin-bottom: 15px; }
 
 .progress-bar-wrapper .progress-bar:first-of-type {
-  background: lightblue !important;
-  margin-top: 5px; }
+  background: lightblue !important; }
 
 .progress-bar-wrapper .progress-bar:last-of-type {
-  background: #929292 !important;
-  margin-top: 5px; }
+  background: #929292 !important; }
 
 .progress-start-time {
   float: left;
@@ -124,10 +126,6 @@ body {
 
 .location-segment-title {
   color: black;
-  font-size: 18px; }
-
-.location-segment-title-link {
-  color: #4591a8;
   font-size: 18px; }
 
 .location-segment:hover {
