@@ -158,16 +158,6 @@ class SavedItinerary extends React.Component {
               </Link>
             </div>
             {this.displayLocationsFromItinerary(itinerary.data)}
-            <div className="text-center" style={{ marginBottom: "15px" }}>
-              <p style={{ marginBottom: "5px" }}>
-                Places you visited during this trip:
-              </p>
-              <Link to={`/itinerary-overview/${itinerary._id}`}>
-                (click for full itinerary)
-              </Link>
-            </div>
-
-            {this.displayLocationsFromItinerary(itinerary.data)}
 
             <div className="text-center" style={{ marginBottom: "10px" }}>
               <Button

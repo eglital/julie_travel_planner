@@ -130,7 +130,6 @@ const InitialSubmissionForm = ({
                   placeholder: "Use current location",
                   required: requireAddress
                 }}
-                classNames={cssClasses}
                 styles={{
                   root: {
                     zIndex: "2"
