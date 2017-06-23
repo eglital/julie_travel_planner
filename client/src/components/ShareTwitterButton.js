@@ -1,21 +1,9 @@
 import React from 'react';
 import { ShareButtons, generateShareIcon } from 'react-share';
+import shareText from '../helpers/shareText';
 const { TwitterShareButton } = ShareButtons;
 const TwitterIcon = generateShareIcon('twitter');
 
-// title: Title of the shared page (string)
-// via: (string)
-// hashtags: (array)
-const shareText = itinerary => {
-  let text = '';
-  for (let i = 1; i < itinerary.length - 1; i++) {
-    text += itinerary[i].name;
-    if (i !== itinerary.length - 2) {
-      text += ', ';
-    }
-  }
-  return `Checking out ${text} today.`;
-};
 const ShareTwitterButton = props => {
   const itinerary = props.finalItinerary || [{}, { name: 'Good Place' }, {}];
 

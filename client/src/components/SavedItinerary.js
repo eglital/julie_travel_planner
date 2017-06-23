@@ -116,13 +116,8 @@ class SavedItinerary extends React.Component {
     return locations;
   };
 
-  // seeFullItinerary = itineraryId => {
-  //   history.push(`/itinerary-overview/${itineraryId}`);
-  // };
-
   render() {
     const { itinerary } = this.props;
-    console.log('id:', itinerary._id);
 
     return (
       <div>
@@ -154,15 +149,15 @@ class SavedItinerary extends React.Component {
           </ModalHeader>
           <ModalBody>
             <div className="text-center" style={{ marginBottom: '15px' }}>
-              Places you visited during this trip:
-            </div>
-            {this.displayLocationsFromItinerary(itinerary.data)}
-
-            <div className="text-center" style={{ marginBottom: '10px' }}>
+              <p style={{ marginBottom: '5px' }}>
+                Places you visited during this trip:
+              </p>
               <Link to={`/itinerary-overview/${itinerary._id}`}>
-                See Full Itinerary Here!
+                (click for full itinerary)
               </Link>
             </div>
+
+            {this.displayLocationsFromItinerary(itinerary.data)}
 
             <div className="text-center" style={{ marginBottom: '10px' }}>
               <Button
