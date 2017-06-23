@@ -25,7 +25,6 @@ export default LoginButton;
 let socialToken;
 
 hello.on('auth.login', function(auth) {
-  console.log('event for auth login called');
   // Save the social token
   socialToken = auth.authResponse.access_token;
 

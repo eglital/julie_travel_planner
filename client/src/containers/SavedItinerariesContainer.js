@@ -45,11 +45,14 @@ class SavedItinerariesContainer extends Component {
           }}
         >
           <Row>
-            <Col xs="12" md={{ size: '8', offset: '2' }}>
+            <Col
+              xs="12"
+              md={{ size: '8', offset: '2' }}
+              className="text-center"
+            >
               {this.props.userItineraries.length
                 ? <div>
                     <h3
-                      className="text-center"
                       style={{
                         color: '#C17DBF',
                         marginBottom: '15px',
@@ -60,8 +63,14 @@ class SavedItinerariesContainer extends Component {
                     </h3>
                     {this.displaySavedItineraries()}
                   </div>
-                : <h3 className="text-center">
-                    You haven't created any itineraries yet!
+                : <h3
+                    style={{
+                      color: '#C17DBF',
+                      marginBottom: '15px',
+                      textDecoration: 'underline darkgrey'
+                    }}
+                  >
+                    You have no saved itineraries
                   </h3>}
             </Col>
           </Row>

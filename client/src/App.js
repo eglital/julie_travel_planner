@@ -1,16 +1,19 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import LocationSelectionContainer from "./containers/LocationSelectionContainer";
-import InitialSubmissionFormContainer from "./containers/InitialSubmissionFormContainer";
-import ItineraryOverviewContainer from "./containers/ItineraryOverviewContainer";
-import SavedItinerariesContainer from "./containers/SavedItinerariesContainer";
-import PageNotFoundComponent from "./components/PageNotFoundComponent";
-import About from "./components/About";
-import TermsOfService from "./components/TermsOfService";
+import LocationSelectionContainer
+  from './containers/LocationSelectionContainer';
+import InitialSubmissionFormContainer
+  from './containers/InitialSubmissionFormContainer';
+import ItineraryOverviewContainer
+  from './containers/ItineraryOverviewContainer';
+import SavedItinerariesContainer from './containers/SavedItinerariesContainer';
+import PageNotFound from './components/PageNotFound';
+import About from './components/About';
+import TermsOfService from './components/TermsOfService';
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 class App extends Component {
   render() {
@@ -38,7 +41,7 @@ class App extends Component {
                   component={ItineraryOverviewContainer}
                 />
                 <Route exact path="/terms" component={TermsOfService} />
-                <Route component={PageNotFoundComponent} />
+                <Route component={PageNotFound} />
               </Switch>
             </div>
             <Footer />

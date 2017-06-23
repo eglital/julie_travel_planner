@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const PageNotFoundComponent = () => {
+const PageNotFound = () => {
   window.scrollTo(0, 0);
 
   return (
@@ -35,4 +35,4 @@ const PageNotFoundComponent = () => {
   );
 };
 
-export default PageNotFoundComponent;
+export default PageNotFound;

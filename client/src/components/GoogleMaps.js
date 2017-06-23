@@ -1,16 +1,16 @@
 /* global google */
-import { default as React, Component } from "react";
+import { default as React, Component } from 'react';
 import {
   withGoogleMap,
   GoogleMap,
   Marker,
   InfoWindow,
   DirectionsRenderer
-} from "react-google-maps";
-import restaurantIcon from "../assets/restaurantIcon.png";
-import sightsIcon from "../assets/sightsIcon.png";
-import placesIcon from "../assets/placesIcon.png";
-import blankIcon from "../assets/blankIcon.png";
+} from 'react-google-maps';
+import restaurantIcon from '../assets/restaurantIcon.png';
+import sightsIcon from '../assets/sightsIcon.png';
+import placesIcon from '../assets/placesIcon.png';
+import blankIcon from '../assets/blankIcon.png';
 
 //props needs to have itinerary array
 export default class GoogleMaps extends Component {
@@ -34,7 +34,6 @@ export default class GoogleMaps extends Component {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({ directions: result });
       } else {
-        console.error(`error fetching directions ${result}`);
       }
     });
   }
@@ -75,10 +74,8 @@ export default class GoogleMaps extends Component {
       <div
         className="googleMap"
         style={{
-          maxWidth: "600px",
-          width: "100%",
-          height: "500px",
-          margin: "0 auto"
+          width: '100%',
+          height: '500px'
         }}
       >
         <GoogleMapMarkers
@@ -120,11 +117,11 @@ const GoogleMapMarkers = withGoogleMap(props => {
 
 const icon = marker => {
   switch (marker.section) {
-    case "food":
+    case 'food':
       return restaurantIcon;
-    case "sights":
+    case 'sights':
       return sightsIcon;
-    case "places":
+    case 'places':
       return placesIcon;
     default:
       return blankIcon;

@@ -14,7 +14,9 @@ const Footer = props => {
   return (
     <footer style={style} className="text-center app-footer">
       <p style={{ marginBottom: '0px' }}>
-        <Link to={'/terms'}>Terms of Service</Link>
+        <Link to={'/terms'}>
+          Terms of Service
+        </Link>
       </p>
       <p style={{ marginBottom: '0px' }}>
         <span>

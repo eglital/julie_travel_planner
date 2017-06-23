@@ -9,7 +9,7 @@ let oddDepartureStyle = {
   position: 'absolute',
   bottom: '0px',
   right: '0px',
-  color: 'rgb(97, 91, 99)'
+  color: '#929292'
 };
 
 let evenArrivalStyle = {
@@ -23,7 +23,7 @@ let oddArrivalStyle = {
   position: 'absolute',
   top: '0px',
   right: '0px',
-  color: 'rgb(97, 91, 99)'
+  color: '#929292'
 };
 
 let evenCardStyle = {
@@ -35,7 +35,7 @@ let evenCardStyle = {
 let oddCardStyle = {
   width: '98%',
   height: '75px',
-  borderColor: 'rgb(97, 91, 99)'
+  borderColor: '#929292'
 };
 
 const determineColor = counter => {
