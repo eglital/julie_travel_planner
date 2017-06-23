@@ -152,6 +152,7 @@ const InitialSubmissionForm = ({
                   placeholder: "Use current location",
                   required: requireAddress
                 }}
+                classNames={cssClasses}
                 styles={{
                   input: {
                     textAlign: "center",
